@@ -58,6 +58,20 @@ set mouse=a
 " Do not add indentation when pasting from outside
 set paste
 
+" Directory browsing
+"   Enter - open  
+"   -     - go up directory
+"   :Vexplorer - file explorer in vertical split
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_winsize=25      " size of 25%
+" let g:netrw_list_hide=netrw_gitignore#Hide()
+" let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+command E  Vexplore
+command Rr Vexplore
+
 
 "-----------------------------------------------------------------------------
 " Key bindings
@@ -171,7 +185,7 @@ Plugin 'szw/vim-maximizer'
 Plugin 'junegunn/fzf' " <C-p>
 " Plugin 'junegunn/fzf.vim' # more advanced fzf, with many more commands
 Plugin 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
-Plugin 'francoiscabrol/ranger.vim'
+" Plugin 'francoiscabrol/ranger.vim'
 
 " syntax highlight
 Plugin 'posva/vim-vue'
@@ -193,6 +207,6 @@ filetype plugin indent on    " required
 " NOTE:
 " Cannot map <C-/>. See https://vimhelp.appspot.com/vim_faq.txt.html#faq-20.5
 "-----------------------------------------------------------------------------
-map <C-]> :Commentary<CR>
+map <C-]> :Commentary<CR>j
 map <C-p> :FZF<CR>
 map <C-w>z :MaximizerToggle<CR>

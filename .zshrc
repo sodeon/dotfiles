@@ -54,8 +54,6 @@ plugins=(
   # file system
   pj
   jump
-  # fasd
-  #dircycle
 
   # typing assist
   zsh-syntax-highlighting
@@ -66,7 +64,6 @@ plugins=(
 
   # command helpers
   sudo
-  #laravel5 # doesn't work in tmux
   #git # not really using these aliases. I use vscode or SourceTree
   #pip
   #supervisor
@@ -109,15 +106,11 @@ alias calc='='
 #--------------------------------------------------------------------------------------------------------------
 alias cm='start /max chrome'
 alias stats='zsh_stats'
-alias j='jump'
+# alias j='jump'
 alias lcd='jump' # for bash convention
 
-# gvimb()       {gvim.exe $* &              } 
-# gvimdiffb()   {gvim.exe -d $* &           } 
 newAndTouch() {touch $*; code $*          } 
 duDepth()     {du --max-depth=$1 | sort -g}
-#alias g='gvimb'
-#alias d='gvimdiffb'
 alias d='vimdiff'
 alias n='newAndTouch'
 alias dud='duDepth'
@@ -155,6 +148,11 @@ zv() { # does not support multiple files open yet
 rz() {
     fasd -fl $1 | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:2}"
 }
+# Fix error: 'permission denied ../../'
+_fasd_preexec_fixed() {
+  [[ -n $functions[fasd] ]] && unset -f fasd
+}
+add-zsh-hook preexec _fasd_preexec_fixed
 
 
 #--------------------------------------------------------------------------------------------------------------
