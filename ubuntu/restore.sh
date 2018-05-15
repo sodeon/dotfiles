@@ -8,6 +8,5 @@ cp .vimrc ~/
 cp .zshrc ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 
-cp ./scripts/toggle-night-light.sh ~
-cp ./scripts/init.sh ~/Documents/scripts
-cp ./scripts/init.txt ~/Documents/scripts
+cp -rf ./bin ~/
+cp ./Documents/reinstall.txt ~/Documents

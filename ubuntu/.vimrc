@@ -56,7 +56,7 @@ set ttymouse=xterm2
 set mouse=a
 
 " Do not add indentation when pasting from outside
-set paste
+set nopaste
 
 " Directory browsing
 "   Enter - open  

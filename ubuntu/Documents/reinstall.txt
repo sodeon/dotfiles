@@ -23,6 +23,7 @@ sudo apt install git aptitude python-pip
 sudo apt install ranger zsh htop fasd cmus
 sudo apt install libreoffice
 sudo apt install dos2unix highlight units exiftool mediainfo sshfs curl wget ssh tree
+sudp apt install pydf mtr nnn # pydf->df, mtr->traceroute, nnn->file size analyzer
 
 # gnome desktop customizations
 sudo add-apt-repository ppa:communitheme/ppa
@@ -106,3 +107,12 @@ sudo cd /etc/X11; sudo mkdir xorg.conf.d; sudo vim xorg.conf
         # per https://devtalk.nvidia.com/default/topic/572292/-solved-does-gddccontrol-work-for-anyone-here-nvidia-i2c-monitor-display-ddc/#4309293
     EndSection
 
+#  Tensorflow
+sudo apt-get install python3-pip python3-dev python-virtualenv
+mkdir ~/tensorflow
+virtualenv --system-site-packages -p python3 ~/tensorflow
+source ~/tensorflow/bin/activate # enter tensorflow environment
+easy_install -U pip
+# pip3 install --upgrade tensorflow 
+pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.8.0-cp36-cp36m-linux_x86_64.whl
+deactivate # leave tensorflow environment

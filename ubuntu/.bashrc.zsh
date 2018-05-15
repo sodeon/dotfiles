@@ -41,6 +41,7 @@ alias artisan='php artisan'
 alias ht='htop'
 alias jo='jobs -l' # show PID
 alias bgr='reredirect -m'
+alias du='nnn -S'
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/ggg//" $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
