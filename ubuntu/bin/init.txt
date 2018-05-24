@@ -7,8 +7,8 @@
 #    1. snap is complete sandbox. Thus, using snap Chromium will disable gnome-shell-extension capabilities
 #    2. theme won't be applied
 #-------------------------------------------------------------------------------------------
-# vim 8.0
-sudo apt install vim
+# vim 8.0 (use vim-gnome to have clipboard support)
+sudo apt install vim-gnome
 
 # console
 sudo apt install guake

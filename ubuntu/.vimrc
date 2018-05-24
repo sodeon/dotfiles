@@ -72,6 +72,13 @@ let g:netrw_winsize=25      " size of 25%
 command E  Vexplore
 command Rr Vexplore
 
+set splitbelow
+set splitright
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
 
 "-----------------------------------------------------------------------------
 " Key bindings
@@ -91,8 +98,11 @@ noremap <c-w><c-o> <c-w><c-r>
 
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
-" vnoremap <C-c> "+y
+vnoremap <C-c> "+y
 " vnoremap <C-d> "+d
+
+" Enable folding with the spacebar
+nnoremap <space> za
 
 
 "-----------------------------------------------------------------------------
@@ -138,6 +148,10 @@ let &t_te.="\e[6 q"
 " hi CursorLineNr ctermfg=LightGrey
 " hi clear CursorLine
 
+" Invisible Vertical split
+hi VertSplit ctermfg=Black ctermbg=Black
+" set fillchars+=vert:\ 
+
 
 "-----------------------------------------------------------------------------
 " Chinese character display
@@ -166,39 +180,34 @@ setglobal fileencoding=utf-8
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=$HOME/.vim/bundle/Vundle.vim/
-call vundle#begin('$HOME/.vim/bundle/')
+call plug#begin('~/.vim/plug')
 
-Plugin 'VundleVim/Vundle.vim' "Required. Do not remove
-Plugin 'vim-scripts/Align'
-Plugin 'vim-scripts/VisIncr'
-Plugin 'tpope/vim-commentary'
-Plugin 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>
-Plugin 'szw/vim-maximizer'
-" Plugin 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'wincent/command-t' # never used
-" Plugin 'mtth/scratch.vim'
-" Plugin 'majutsushi/tagbar'
+Plug 'vim-scripts/Align'
+Plug 'vim-scripts/VisIncr'
+Plug 'tpope/vim-commentary'
+Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>
+Plug 'szw/vim-maximizer'
+" Plug 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'mtth/scratch.vim'
+" Plug 'majutsushi/tagbar'
 
 " Searching (file, content, but not symbol)
-Plugin 'junegunn/fzf' " <C-p>
-" Plugin 'junegunn/fzf.vim' # more advanced fzf, with many more commands
-Plugin 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
-" Plugin 'francoiscabrol/ranger.vim'
+Plug 'junegunn/fzf' " <C-p>
+" Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
+Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
 " syntax highlight
-Plugin 'posva/vim-vue'
-Plugin 'digitaltoad/vim-pug'
+Plug 'posva/vim-vue',       {'for': 'vue'}
+Plug 'digitaltoad/vim-pug', {'for': 'vue'}
 
 " Not using, but other like these
-" Plugin 'tpope/vim-fugitive' " Git
-" Plugin 'Shougo/vimproc.vim' " interactive command line
-" Plugin 'vim-syntastic/syntastic' " error highlight in code
-" Plugin 'kien/ctrlp.vim' " yes, ctrl-p
+" Plug 'tpope/vim-fugitive' " Git
+" Plug 'Shougo/vimproc.vim' " interactive command line
+" Plug 'vim-syntastic/syntastic' " error highlight in code
+" Plug 'kien/ctrlp.vim' " yes, ctrl-p
 
-call vundle#end()
-filetype plugin indent on    " required
+call plug#end()
 
 
 "-----------------------------------------------------------------------------
