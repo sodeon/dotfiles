@@ -79,6 +79,9 @@ set splitright
 set foldmethod=indent
 set foldlevel=99
 
+" By default, selection in vim will add one white space after the word
+set selection=inclusive
+
 
 "-----------------------------------------------------------------------------
 " Key bindings
@@ -168,17 +171,12 @@ setglobal fileencoding=utf-8
 
 
 "-----------------------------------------------------------------------------
-" Vundle plugin manager
-" Installation: git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 
-"
-" Commands:
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" vim-plug plugin manager
+" Installation: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" :PlugInstall - installs plugins
 "-----------------------------------------------------------------------------
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible " be iMproved, required
+filetype off     " required
 
 call plug#begin('~/.vim/plug')
 

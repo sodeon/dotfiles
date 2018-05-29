@@ -119,3 +119,8 @@ deactivate # leave tensorflow environment
 
 # remove ubuntu data collection service
 sudo apt purge ubuntu-report popularity-contest
+
+# Android USB debugging and navigation bar install
+sudo apt install android-tools-adb android-tools-fastboot
+adb devices
+adb shell pm grant com.xda.nobar android.permission.WRITE_SECURE_SETTINGS
