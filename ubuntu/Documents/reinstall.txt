@@ -9,10 +9,12 @@
 #-------------------------------------------------------------------------------------------
 # vim 8.0
 sudo apt install vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # console
 sudo apt install guake
 sudo apt install gawk tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 rm -rf ~/.oh-my-zsh
 
@@ -24,6 +26,10 @@ sudo apt install ranger zsh htop fasd cmus
 sudo apt install libreoffice
 sudo apt install dos2unix highlight units exiftool mediainfo sshfs curl wget ssh tree
 sudp apt install pydf mtr nnn # pydf->df, mtr->traceroute, nnn->file size analyzer
+
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 # gnome desktop customizations
 sudo add-apt-repository ppa:communitheme/ppa

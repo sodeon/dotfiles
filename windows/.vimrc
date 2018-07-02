@@ -56,7 +56,7 @@ set ttymouse=xterm2
 set mouse=a
 
 " Do not add indentation when pasting from outside
-set paste
+set nopaste
 
 " Directory browsing
 "   Enter - open  
@@ -71,6 +71,16 @@ let g:netrw_winsize=25      " size of 25%
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 command E  Vexplore
 command Rr Vexplore
+
+set splitbelow
+set splitright
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" By default, selection in vim will add one white space after the word
+set selection=inclusive
 
 
 "-----------------------------------------------------------------------------
@@ -91,14 +101,17 @@ noremap <c-w><c-o> <c-w><c-r>
 
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
-" vnoremap <C-c> "+y
+vnoremap <C-c> "+y
 " vnoremap <C-d> "+d
+
+" Enable folding with the spacebar
+nnoremap <space> za
 
 
 "-----------------------------------------------------------------------------
 " Looks
 "-----------------------------------------------------------------------------
-set guifont=Consolas:h12
+"set guifont=Consolas:h12
 colorscheme torte
 syntax enable
 
@@ -138,6 +151,10 @@ let &t_te.="\e[6 q"
 " hi CursorLineNr ctermfg=LightGrey
 " hi clear CursorLine
 
+" Invisible Vertical split
+hi VertSplit ctermfg=Black ctermbg=Black
+" set fillchars+=vert:\ 
+
 
 "-----------------------------------------------------------------------------
 " Chinese character display
@@ -154,51 +171,41 @@ setglobal fileencoding=utf-8
 
 
 "-----------------------------------------------------------------------------
-" Vundle plugin manager
-" Installation: git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 
-"
-" Commands:
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" vim-plug plugin manager
+" Installation: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" :PlugInstall - installs plugins
 "-----------------------------------------------------------------------------
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible " be iMproved, required
+filetype off     " required
 
-set rtp+=$HOME/.vim/bundle/Vundle.vim/
-call vundle#begin('$HOME/.vim/bundle/')
+call plug#begin('~/.vim/plug')
 
-Plugin 'VundleVim/Vundle.vim' "Required. Do not remove
-Plugin 'vim-scripts/Align'
-Plugin 'vim-scripts/VisIncr'
-Plugin 'tpope/vim-commentary'
-Plugin 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>
-Plugin 'szw/vim-maximizer'
-" Plugin 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'wincent/command-t' # never used
-" Plugin 'mtth/scratch.vim'
-" Plugin 'majutsushi/tagbar'
+Plug 'vim-scripts/Align'
+Plug 'vim-scripts/VisIncr'
+Plug 'tpope/vim-commentary'
+Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>
+Plug 'szw/vim-maximizer'
+" Plug 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'mtth/scratch.vim'
+" Plug 'majutsushi/tagbar'
 
 " Searching (file, content, but not symbol)
-Plugin 'junegunn/fzf' " <C-p>
-" Plugin 'junegunn/fzf.vim' # more advanced fzf, with many more commands
-Plugin 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
-" Plugin 'francoiscabrol/ranger.vim'
+Plug 'junegunn/fzf' " <C-p>
+" Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
+Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
 " syntax highlight
-Plugin 'posva/vim-vue'
-Plugin 'digitaltoad/vim-pug'
+Plug 'posva/vim-vue',       {'for': 'vue'}
+Plug 'digitaltoad/vim-pug', {'for': 'vue'}
 
 " Not using, but other like these
-" Plugin 'tpope/vim-fugitive' " Git
-" Plugin 'Shougo/vimproc.vim' " interactive command line
-" Plugin 'vim-syntastic/syntastic' " error highlight in code
-" Plugin 'kien/ctrlp.vim' " yes, ctrl-p
+" Plug 'tpope/vim-fugitive' " Git
+" Plug 'Shougo/vimproc.vim' " interactive command line
+" Plug 'vim-syntastic/syntastic' " error highlight in code
+" Plug 'kien/ctrlp.vim' " yes, ctrl-p
 
-call vundle#end()
-filetype plugin indent on    " required
+call plug#end()
 
 
 "-----------------------------------------------------------------------------

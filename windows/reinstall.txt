@@ -1,0 +1,37 @@
+sudo apt update
+apt list --upgradable
+sudo apt upgrade
+
+sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix highlight units exiftool mediainfo curl wget ssh tree pydf mtr nnn ranger
+sudo apt install cmatrix cowsay lolcat toilet sl figlet fortune
+sudo apt install cmake make 
+sudo apt install libsixel-bin
+
+sudo apt autoremove
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
+mkdir ~/.oh-my-zsh/plugins/calc
+mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
+chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
+chmod -w ~/.oh-my-zsh/plugins/calc
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+sudo dpkg -i /mnt/d/Programs/wsl/ripgrep_0.8.1_amd64.deb
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+sudo ln -s /mnt/c c
+sudo ln -s /mnt/d d
+
+corum02194
+
+ssh-keygen
+ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+
+cp -rf ~/dotfiles/windows/.config/ranger /.config/ranger

@@ -172,7 +172,7 @@ setglobal fileencoding=utf-8
 
 "-----------------------------------------------------------------------------
 " vim-plug plugin manager
-" Installation: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Installation: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " :PlugInstall - installs plugins
 "-----------------------------------------------------------------------------
 set nocompatible " be iMproved, required

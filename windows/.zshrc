@@ -42,7 +42,7 @@ unsetopt beep
 
 # replace Ubuntu's ls color. This must put here so that oh-my-zsh will source the correct ls colors
 #eval `dircolors ~/.DIR_COLORS`
-LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
+LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS # win
 # bold, yellow
 export GREP_COLOR='1;33'
 
@@ -81,9 +81,9 @@ source $ZSH/oh-my-zsh.sh
 PROJECT_PATHS=(/d/Work/code)
 
 # syntax highlight
-ZSH_HIGHLIGHT_STYLES[path]=none
+#ZSH_HIGHLIGHT_STYLES[path]=none
 #ZSH_HIGHLIGHT_STYLES[path]=fg=008
-ZSH_HIGHLIGHT_STYLES[globbing]=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[globbing]=fg=cyan
 
 # Vim navigation keys in menu completion
 zstyle ':completion:*' menu select
@@ -97,8 +97,8 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 alias ccat='/bin/cat'
 alias cat='pygmentize -g'
 
-# calc
 alias calc='='
+alias j='jump'
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ alias n='newAndTouch'
 alias dud='duDepth'
 
 # wsl helper
-source ~/.fzf/bin/util.zsh
+#source ~/.fzf/bin/util.zsh
 
 # fzf (Fuzzy finder, auto-generated)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
