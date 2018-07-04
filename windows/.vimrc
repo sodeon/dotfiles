@@ -111,6 +111,9 @@ nnoremap <space> za
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
+" 
+noremap Y y$
+
 
 "-----------------------------------------------------------------------------
 " Looks
