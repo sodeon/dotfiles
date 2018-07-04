@@ -9,5 +9,5 @@ cp .vimrc ~/
 cp .zshrc ~/
 #cp -rf .config/mc ~/.config
 #cp -rf .config/ranger ~/.config
-cp -rf .config ~/.config
+cp -rf .config ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
