@@ -12,4 +12,4 @@ cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 cp ~/.config/mc/mc.keymap .config/mc
 cp -rf ~/.config/ranger .config
 cp -rf ~/bin .
-cp ~/Documents/reinstall.txt Documents
+# cp ~/Documents/reinstall.txt Documents
