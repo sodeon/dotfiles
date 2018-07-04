@@ -107,6 +107,13 @@ vnoremap <C-c> "+y
 " Enable folding with the spacebar
 nnoremap <space> za
 
+" Insert line w/o entering insert mode
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
+" 
+noremap Y y$
+
 
 "-----------------------------------------------------------------------------
 " Looks
