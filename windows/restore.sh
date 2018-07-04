@@ -7,6 +7,7 @@ cp .bashrc.zsh ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
 cp .zshrc ~/
-cp .config/mc/mc.keymap ~/.config/mc
-cp -rf .config/ranger ~/.config
+#cp -rf .config/mc ~/.config
+#cp -rf .config/ranger ~/.config
+cp -rf .config ~/.config
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes

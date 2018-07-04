@@ -57,6 +57,9 @@ alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/mnt//" $HOM
 #alias nw='npm run watch > npm.log 2>npm.log'
 #alias nl='v /d/Work/code/repo/npm.log'
 
+# Windows only
+alias memory='WMIC.exe OS get FreePhysicalMemory,FreeVirtualMemory,NumberOfProcesses'
+
 
 #-----------------------------------------------------
 # Settings

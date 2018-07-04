@@ -12,7 +12,7 @@ sudo apt autoremove
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
 mkdir ~/.oh-my-zsh/plugins/calc
-mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
+sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
 chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
 chmod -w ~/.oh-my-zsh/plugins/calc
 
@@ -26,8 +26,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
-sudo ln -s /mnt/c c
-sudo ln -s /mnt/d d
+sudo ln -s /mnt/c /c
+sudo ln -s /mnt/d /d
 
 corum02194
 
