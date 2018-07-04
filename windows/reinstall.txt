@@ -1,7 +1,19 @@
+#------------------------------------------------------------------------------
+# Aliases
+#------------------------------------------------------------------------------
+sudo ln -s /mnt/c /c
+sudo ln -s /mnt/d /d
+
+
+#------------------------------------------------------------------------------
+# Software installation
+#------------------------------------------------------------------------------
+# System update
 sudo apt update
 apt list --upgradable
 sudo apt upgrade
 
+# Ubuntu built-in
 sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix highlight units exiftool mediainfo curl wget ssh tree pydf mtr nnn ranger
 sudo apt install cmatrix cowsay lolcat toilet sl figlet fortune
 sudo apt install cmake make 
@@ -27,13 +39,15 @@ sudo dpkg -i /mnt/d/Programs/wsl/ripgrep_0.8.1_amd64.deb
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# open vim and :PlugInstall
+# copy ~/.vim to /c/Users/Andy
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
-sudo ln -s /mnt/c /c
-sudo ln -s /mnt/d /d
-
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
 ssh-keygen
 ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
