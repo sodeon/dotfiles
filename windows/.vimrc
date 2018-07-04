@@ -178,7 +178,7 @@ setglobal fileencoding=utf-8
 set nocompatible " be iMproved, required
 filetype off     " required
 
-call plug#begin('~/.vim/plug')
+silent! call plug#begin('~/.vim/plug') " suppress error for machines not installing git
 
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/VisIncr'
