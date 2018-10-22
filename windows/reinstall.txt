@@ -16,7 +16,8 @@ sudo apt upgrade
 
 # Ubuntu built-in
 sudo apt install vim-gtk # vim with clipboard
-sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix highlight units exiftool mediainfo curl wget ssh tree pydf mtr nnn ranger
+sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix curl wget ncdu tree
+sudo apt install highlight units exiftool mediainfo pydf mtr ssh 
 sudo apt install cmatrix cowsay lolcat toilet sl figlet fortune
 sudo apt install cmake make 
 sudo apt install libsixel-bin
