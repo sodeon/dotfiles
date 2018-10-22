@@ -1,0 +1,13 @@
+Shortcuts:
+<CTRL+p> list files+folders in current directory
+<CTRL+r> search history of shell commands
+<ALT+c> fuzzy change directory
+**<Tab> fuzzy tab completion
+
+Syntax:
+'wild	exact-match
+^music	prefix-exact-match
+.mp3$	suffix-exact-match (DO NOT MIX WITH ')
+!fire	exclude-exact-match
+!^music	exclude-prefix-exact-match
+!.mp3$	exclude-suffix-exact-match

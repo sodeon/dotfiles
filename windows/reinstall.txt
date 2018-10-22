@@ -3,6 +3,7 @@
 #------------------------------------------------------------------------------
 sudo ln -s /mnt/c /c
 sudo ln -s /mnt/d /d
+sudo ln -s /mnt/e /e
 
 
 #------------------------------------------------------------------------------
@@ -14,6 +15,7 @@ apt list --upgradable
 sudo apt upgrade
 
 # Ubuntu built-in
+sudo apt install vim-gtk # vim with clipboard
 sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix highlight units exiftool mediainfo curl wget ssh tree pydf mtr nnn ranger
 sudo apt install cmatrix cowsay lolcat toilet sl figlet fortune
 sudo apt install cmake make 
@@ -34,7 +36,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # ripgrep
-sudo dpkg -i /mnt/d/Programs/wsl/ripgrep_0.8.1_amd64.deb
+# curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+sudo dpkg -i ../../../Programs/ripgrep_0.10.0_amd64.deb
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
