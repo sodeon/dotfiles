@@ -6,6 +6,7 @@ cp .bashrc.zsh ~/
 # cp .inputrc ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
+cp .vimrc /c/Users/Andy
 cp .gvimrc /c/Users/Andy
 cp .zshrc ~/
 #cp -rf .config/mc ~/.config
