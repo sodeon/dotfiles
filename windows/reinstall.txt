@@ -18,7 +18,7 @@ sudo apt upgrade
 sudo apt install vim-gtk # vim with clipboard
 sudo apt install tmux git python-pip ranger mc zsh htop fasd dos2unix curl wget ncdu tree
 sudo apt install highlight units exiftool mediainfo pydf mtr ssh 
-sudo apt install cmatrix cowsay lolcat toilet sl figlet fortune
+sudo apt install cmatrix cowsay fortune toilet figlet lolcat
 sudo apt install cmake make 
 sudo apt install libsixel-bin
 
@@ -38,7 +38,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 # ripgrep
 # curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
-sudo dpkg -i ../../../Programs/ripgrep_0.10.0_amd64.deb
+sudo dpkg -i ../../../Programs/Installer/ripgrep_0.10.0_amd64.deb
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

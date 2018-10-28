@@ -97,16 +97,14 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 alias ccat='/bin/cat'
 alias cat='pygmentize -g'
 
-alias calc='='
 alias j='jump'
 
 
 #--------------------------------------------------------------------------------------------------------------
 # Aliases
 #--------------------------------------------------------------------------------------------------------------
-alias cm='start /max chrome'
+# alias cm='start /max chrome'
 alias stats='zsh_stats'
-# alias j='jump'
 alias lcd='jump' # for bash convention
 
 newAndTouch() {touch $*; code $*          } 

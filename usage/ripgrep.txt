@@ -1,0 +1,14 @@
+command: rg (not ripgrep)
+e.g. 
+    rg 'fast\w+' README.md (search fast\w+ in README.md)
+    rg 'fast\w+' (search fast\w+ in current directory and sub-directories)
+
+regular expression: enclose with ''
+
+
+Glob example:
+    rg 'fast\w+' -g '*.txt'
+
+Ignore .gitignore: --no-ignore
+Include hiddenfiles: --hidden
+Follow symbolic link: --follow
