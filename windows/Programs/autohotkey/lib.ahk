@@ -22,17 +22,29 @@ RunWaitMany(commands) {
 ;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
+updateCurrentApp() {
+    global currentApp, currentDesktop
+    if (currentDesktop = 2)
+        currentApp := "wsl-terminal"
+    else if WinActive("ahk_exe Code.exe")
+        currentApp := "vscode"
+    else
+        currentApp := "chrome"
+}
+
+
 setResolution(width, height) {
     RunWait, ChangeScreenResolution.exe /w=%width% /h=%height% /f=60 /d=0,, Hide
 }
 
-; setBrightness(brightness) {
-;     setMonitorDdc("b " . brightness)
-; }
-
-setDarkModeBrightness() {
-    global darkModeBrightnessMax, darkModeBrightnessDelta
-    brightness := Min(darkModeBrightnessMax, monitorSetting(true).brightness + darkModeBrightnessDelta)
+updateBrightness() {
+    global currentApp, monitorSettings, nightLightEnabled
+    if (currentApp = "vscode" or currentApp = "wsl-terminal") ; dark mode
+        brightness := monitorSettings[3].brightness
+    else if (nightLightEnabled) ; normal reading mode
+        brightness := monitorSettings[2].brightness
+    else ; video mode
+        brightness := monitorSettings[1].brightness
     setMonitorDdc("b " . brightness)
 }
 
@@ -40,26 +52,14 @@ setMonitorDdc(ddc) {
     Run, ClickMonitorDDC/ClickMonitorDDC_5_1.exe %ddc%,, Hide
 }
 
-; setNightLight(enable) {
-;     ; Night light
-;     ; https://superuser.com/questions/1200222/configure-windows-creators-update-night-light-via-registry
-;     if enable
-;         Run, powershell -Command ". .\Set-BlueLightReductionSettings.ps1; Set-BlueLightReductionSettings -StartHour 0 -StartMinutes 0 -EndHour 23 -EndMinutes 45 -Enabled $true  -NightColorTemperature 5700",, Hide
-;     else
-;         Run, powershell -Command ". .\Set-BlueLightReductionSettings.ps1; Set-BlueLightReductionSettings -StartHour 0 -StartMinutes 0 -EndHour 23 -EndMinutes 45 -Enabled $false -NightColorTemperature 5700",, Hide
-; }
-
-monitorSetting(isReadingMode) {
-    global monitorSettings
-    if (isReadingMode)
+monitorSetting() {
+    global monitorSettings, currentApp, nightLightEnabled
+    if (currentApp = "wsl-terminal" or currentApp = "vscode")
+        return monitorSettings[3]
+    else if (nightLightEnabled)
         return monitorSettings[2]
     else
         return monitorSettings[1]
-}
-
-curMonitorSetting() {
-    global monitorSettings, nightLightEnabled
-    return monitorSetting(nightLightEnabled)
 }
 
 turnOffDisplay() {

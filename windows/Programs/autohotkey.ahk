@@ -32,11 +32,13 @@ DesktopCount := 2 ; # of virtual desktop
 nightLightEnabled := true
 
 ; brightness has memory effect, temperature/width/height are fixed. The code design preserve the flexibility for all to have memory effect though
-monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 2160}  ; for centered reading
-                   ,{brightness: 5, temperature: "5000K", width: 2880, height: 2160}] ; for full screen video
+monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 2160}  ; for full screen video
+                   ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}  ; for centered reading
+                   ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
-darkModeBrightnessMax = 15
-darkModeBrightnessDelta = 7
+currentApp := "chrome" ; vscode/wsl-terminal: dark mode
+darkModeBrightnessMax := 15
+darkModeBrightnessDelta := 7
 
 
 ;-------------------------------------------------------------------------------
@@ -63,14 +65,10 @@ Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 ^#Left:: 
     return
 
-; Brightness (using += or -= in ClickMonitorDDC can encounter setting throttling problem that may give inaccurate values)
-; #!b:: ; does not fit with usage scheme
-;     setMonitorDdc("t b " . monitorSetting(nightLightEnabled).brightness " t b " . monitorSetting(!nightLightEnabled).brightness)
-;     return
 #!Up::
 Esc & Up::
 NumpadSub::
-    setting := curMonitorSetting()
+    setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness >= 100)
         return
@@ -86,7 +84,7 @@ NumpadSub::
 #!Down::
 Esc & Down::
 NumpadMult::
-    setting := curMonitorSetting()
+    setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness <= 0)
         return
@@ -105,8 +103,8 @@ NumpadMult::
 Esc & n::
 NumpadEnter::
     nightLightEnabled := !nightLightEnabled
-    temperature := curMonitorSetting().temperature
-    brightness  := curMonitorSetting().brightness
+    temperature := monitorSetting().temperature
+    brightness  := monitorSetting().brightness
     setMonitorDdc("b " . brightness . " p " . temperature)
     return
 
@@ -119,18 +117,6 @@ NumpadAdd::
     else
         setResolution(monitorSettings[1].width, monitorSettings[1].height)
     return
-
-; Change video/reading mode
-;#!c::
-;Esc & c::
-;    if (A_ScreenWidth = 3840)
-;        nightLightEnabled := true
-;    else
-;        nightLightEnabled := false
-;    nextSetting := monitorSetting(nightLightEnabled)
-;    setResolution(nextSetting.width, nextSetting.height)
-;    setMonitorDdc("b " . nextSetting.brightness . " p " . nextSetting.temperature)
-;    return
 
 ; Multimedia
 #!Right::
@@ -150,15 +136,12 @@ Esc & Space::
 ; ^'::
 Esc & '::
 NumpadDot::
-    if (CurrentDesktop = 2) {
-        ; set monitor brightness first as it takes longer time
-        ; does not set temperature as it has little impact on readability in dark themed terminal
-		setMonitorDdc("b " . curMonitorSetting().brightness)
+    if (CurrentDesktop = 2)
         switchDesktopByNumber(1)
-    } else {
-		setDarkModeBrightness()
+    else
         switchDesktopByNumber(2)
-    } 
+    updateCurrentApp()
+	updateBrightness()
 	return
 
 ; Window management
@@ -171,7 +154,8 @@ Esc & `;:: ; "`" as escape character for semicolon
             WinActivate, ahk_exe chrome.exe
     else
         switchDesktopByNumber(1)
-    CurrentDesktop := 1
+    updateCurrentApp()
+	updateBrightness()
     return
 
 ; Common folders
