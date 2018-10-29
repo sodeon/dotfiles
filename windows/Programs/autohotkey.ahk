@@ -40,29 +40,31 @@ currentApp := "chrome" ; vscode/wsl-terminal: dark mode
 
 
 ;-------------------------------------------------------------------------------
-; Shortcuts
+; Shortcuts - basic
 ;-------------------------------------------------------------------------------
-; Key remap
+; Remove built-in keyboard shortcuts
+^#Right::
+^#Left:: return ; change virtual desktop
+
+; Basic Key remap
 F4:: Send {F1}
 F1:: Send !{F4}
 F3:: turnOffDisplay() ; F2 is used for rename
-Numpad0:: Send {LWin}
-; RAlt::  Send {Volume_Down 2}
-Numpad2::  Send {Volume_Down 2}
-; AppsKey:: Send {Volume_Up 2}
-Numpad3:: Send {Volume_Up 2}
-; RCtrl::   Send {Volume_Up 2}
-; For CapsLock->Esc, use KeyTweak instead. Support for mapping using autohotkey isn't perfect
-; *CapsLock:: Send {Esc Down}
-; *CapsLock Up:: Send {Esc Up}
+Numpad0::
+NumpadDot:: Send {LWin}
+Numpad1::  Send {Volume_Mute}
+Numpad2::  Send {Volume_Down}
+Numpad3::  Send {Volume_Up}
 Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
-; Remove Windows built-in keys
-^#Right::
-^#Left:: 
-    return
+; Copy/paste for terminal
+Esc & v:: Send +{Ins}
 
-#!Up::
+
+;-------------------------------------------------------------------------------
+; Shortcuts - Monitor control (brightness, night light, resolution)
+;-------------------------------------------------------------------------------
+; Brightness
 Esc & Up::
 NumpadSub::
     setting := monitorSetting()
@@ -78,7 +80,6 @@ NumpadSub::
     setMonitorDdc("b " . (brightness + delta))
     setting.brightness += delta
     return
-#!Down::
 Esc & Down::
 NumpadMult::
     setting := monitorSetting()
@@ -95,8 +96,7 @@ NumpadMult::
     setting.brightness -= delta
     return
 
-; Night light (enabling night light goes to reading mode)
-#!n::
+; Night light / reading mode
 Esc & n::
 NumpadEnter::
     nightLightEnabled := !nightLightEnabled
@@ -106,7 +106,6 @@ NumpadEnter::
     return
 
 ; Resolution
-#!r::
 Esc & r::
 NumpadAdd::
     if (A_ScreenWidth = monitorSettings[1].width)
@@ -115,39 +114,41 @@ NumpadAdd::
         setResolution(monitorSettings[1].width, monitorSettings[1].height)
     return
 
-; Multimedia
-#!Right::
-Esc & Right::
-    Send {Media_Next}
-    return
-#!Left::
-Esc & Left::
-    Send {Media_Prev}
-    return
-#!Space::
-Esc & Space::
-    Send {Media_Play_Pause}
-    return
+
+;-------------------------------------------------------------------------------
+; Shortcuts - Multimedia
+;-------------------------------------------------------------------------------
+Esc & Right:: Send {Media_Next}
+Esc & Left::  Send {Media_Prev}
+Esc & Space:: Send {Media_Play_Pause}
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
 		Send j 
+    else
+		Send {Media_Prev}
 	return
 Numpad5::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
 		Send k 
+    else
+		Send {Media_Play_Pause}
 	return
 Numpad6::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
 		Send l 
+    else
+		Send {Media_Next}
 	return
 
+
+;-------------------------------------------------------------------------------
+; Shortcuts - Window management
+;-------------------------------------------------------------------------------
 ; Quake-like trigger for WSL Terminal
-; ^'::
 Esc & '::
-; NumpadDot::
     if (CurrentDesktop = 2)
         switchDesktopByNumber(1)
     else
@@ -156,8 +157,7 @@ Esc & '::
 	updateBrightness()
 	return
 
-; Window management
-; ^;:: ; Chrome/VSCode toggle
+; Chrome/VSCode toggle
 Esc & `;:: ; "`" as escape character for semicolon
     if (CurrentDesktop = 1) ; only toggle when current virtual desktop is 1
         if WinActive("ahk_exe chrome.exe") and WinExist("ahk_exe Code.exe")
@@ -170,23 +170,21 @@ Esc & `;:: ; "`" as escape character for semicolon
     updateBrightness()
     return
 
-
+; Alt+Tab brightness adjustment based on app
 ~!Tab::
     SetTimer, UpdateAppAndBrightness, 100
     return
 UpdateAppAndBrightness:
-    if (GetKeyState("Alt")) ; only update brightness when alt is released
+    if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
         return
     SetTimer, UpdateAppAndBrightness, OFF
     updateCurrentApp()
     updateBrightness()
     return
 
-; Common folders
-#!d::
-Esc & d::
-    Run, d:\Downloads
-    return
 
-; Copy/paste for terminal
-Esc & v:: Send +{Ins}
+;-------------------------------------------------------------------------------
+; Shortcuts - forders (not actually used, only as a proxy by Logitech Option)
+;-------------------------------------------------------------------------------
+#!d::  Run, d:\Downloads ; does not remove due to Logitech Option binding which cannot bind Esc
+; Esc & d:: Run, d:\Downloads
