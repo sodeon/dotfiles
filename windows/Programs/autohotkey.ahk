@@ -13,6 +13,11 @@
 ; *: (wildcard) even if other modifiers are pressed, ignore them
 ; ~: send also original key
 
+; Rules:
+; All hotkeys has "Esc + X" pattern
+; Numpad is mapped to monitor and media control
+; F1, F3, and F4 are remapped since low number function keys are mostly useless
+
 
 ;-------------------------------------------------------------------------------
 ; Preprocessor 
@@ -22,7 +27,7 @@
 
 
 ;-------------------------------------------------------------------------------
-; Config variables
+; Config variables (some used by libraries)
 ;-------------------------------------------------------------------------------
 DesktopCount := 2 ; # of virtual desktop
 
@@ -36,7 +41,7 @@ monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 
                    ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}  ; for centered reading
                    ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
-currentApp := "chrome" ; vscode/wsl-terminal: dark mode
+currentApp := "chrome" ; vscode/wsl-terminal: dark mode, any name other than previous two does not matter
 
 
 ;-------------------------------------------------------------------------------
@@ -50,14 +55,17 @@ currentApp := "chrome" ; vscode/wsl-terminal: dark mode
 F4:: Send {F1}
 F1:: Send !{F4}
 F3:: turnOffDisplay() ; F2 is used for rename
+
 Numpad0::
-NumpadDot:: Send {LWin}
+NumpadDot:: Send {LWin} ; dot can be mapped to something else useful and meaningful
+
 Numpad1::  Send {Volume_Mute}
 Numpad2::  Send {Volume_Down}
 Numpad3::  Send {Volume_Up}
+
 Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
-; Copy/paste for terminal
+; Paste for terminal (does not map copy as wsl and windows clipboard is not linked)
 Esc & v:: Send +{Ins}
 
 
@@ -67,6 +75,7 @@ Esc & v:: Send +{Ins}
 ; Brightness
 Esc & Up::
 NumpadSub::
+Numpad9::
     setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness >= 100)
@@ -82,6 +91,7 @@ NumpadSub::
     return
 Esc & Down::
 NumpadMult::
+Numpad8::
     setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness <= 0)
@@ -118,9 +128,7 @@ NumpadAdd::
 ;-------------------------------------------------------------------------------
 ; Shortcuts - Multimedia
 ;-------------------------------------------------------------------------------
-Esc & Right:: Send {Media_Next}
-Esc & Left::  Send {Media_Prev}
-Esc & Space:: Send {Media_Play_Pause}
+Esc & Left::
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
@@ -128,6 +136,7 @@ Numpad4::
     else
 		Send {Media_Prev}
 	return
+Esc & Space::
 Numpad5::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
@@ -135,6 +144,7 @@ Numpad5::
     else
 		Send {Media_Play_Pause}
 	return
+Esc & Right::
 Numpad6::
 	SetTitleMatchMode, 2 ; partial match window title
 	IfWinActive, YouTube
