@@ -29,12 +29,17 @@ updateCurrentApp() {
     else if WinActive("ahk_exe Code.exe")
         currentApp := "vscode"
     else
-        currentApp := "chrome"
+        currentApp := "chrome" ; all apps not wsl-terminal and vscode are using chrome
 }
 
-
-setResolution(width, height) {
-    RunWait, ChangeScreenResolution.exe /w=%width% /h=%height% /f=60 /d=0,, Hide
+monitorSetting() {
+    global monitorSettings, currentApp, nightLightEnabled
+    if (currentApp = "wsl-terminal" or currentApp = "vscode")
+        return monitorSettings[3]
+    else if (nightLightEnabled)
+        return monitorSettings[2]
+    else
+        return monitorSettings[1]
 }
 
 updateBrightness() {
@@ -52,14 +57,9 @@ setMonitorDdc(ddc) {
     Run, ClickMonitorDDC/ClickMonitorDDC_5_1.exe %ddc%,, Hide
 }
 
-monitorSetting() {
-    global monitorSettings, currentApp, nightLightEnabled
-    if (currentApp = "wsl-terminal" or currentApp = "vscode")
-        return monitorSettings[3]
-    else if (nightLightEnabled)
-        return monitorSettings[2]
-    else
-        return monitorSettings[1]
+
+setResolution(width, height) {
+    RunWait, ChangeScreenResolution.exe /w=%width% /h=%height% /f=60 /d=0,, Hide
 }
 
 turnOffDisplay() {

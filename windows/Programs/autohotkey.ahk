@@ -37,8 +37,6 @@ monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 
                    ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
 currentApp := "chrome" ; vscode/wsl-terminal: dark mode
-darkModeBrightnessMax := 15
-darkModeBrightnessDelta := 7
 
 
 ;-------------------------------------------------------------------------------
@@ -47,14 +45,13 @@ darkModeBrightnessDelta := 7
 ; Key remap
 F4:: Send {F1}
 F1:: Send !{F4}
-F2:: turnOffDisplay()
+F3:: turnOffDisplay() ; F2 is used for rename
 Numpad0:: Send {LWin}
-AppsKey:: Send {Volume_Up 2}
+; RAlt::  Send {Volume_Down 2}
+Numpad2::  Send {Volume_Down 2}
+; AppsKey:: Send {Volume_Up 2}
 Numpad3:: Send {Volume_Up 2}
 ; RCtrl::   Send {Volume_Up 2}
-RAlt::  Send {Volume_Down 2}
-Numpad2::  Send {Volume_Down 2}
-Numpad5::  Reload
 ; For CapsLock->Esc, use KeyTweak instead. Support for mapping using autohotkey isn't perfect
 ; *CapsLock:: Send {Esc Down}
 ; *CapsLock Up:: Send {Esc Up}
@@ -98,7 +95,7 @@ NumpadMult::
     setting.brightness -= delta
     return
 
-; Night light
+; Night light (enabling night light goes to reading mode)
 #!n::
 Esc & n::
 NumpadEnter::
@@ -131,11 +128,26 @@ Esc & Left::
 Esc & Space::
     Send {Media_Play_Pause}
     return
+Numpad4::
+	SetTitleMatchMode, 2 ; partial match window title
+	IfWinActive, YouTube
+		Send j 
+	return
+Numpad5::
+	SetTitleMatchMode, 2 ; partial match window title
+	IfWinActive, YouTube
+		Send k 
+	return
+Numpad6::
+	SetTitleMatchMode, 2 ; partial match window title
+	IfWinActive, YouTube
+		Send l 
+	return
 
 ; Quake-like trigger for WSL Terminal
 ; ^'::
 Esc & '::
-NumpadDot::
+; NumpadDot::
     if (CurrentDesktop = 2)
         switchDesktopByNumber(1)
     else
@@ -155,7 +167,19 @@ Esc & `;:: ; "`" as escape character for semicolon
     else
         switchDesktopByNumber(1)
     updateCurrentApp()
-	updateBrightness()
+    updateBrightness()
+    return
+
+
+~!Tab::
+    SetTimer, UpdateAppAndBrightness, 100
+    return
+UpdateAppAndBrightness:
+    if (GetKeyState("Alt")) ; only update brightness when alt is released
+        return
+    SetTimer, UpdateAppAndBrightness, OFF
+    updateCurrentApp()
+    updateBrightness()
     return
 
 ; Common folders
@@ -166,5 +190,3 @@ Esc & d::
 
 ; Copy/paste for terminal
 Esc & v:: Send +{Ins}
-
-
