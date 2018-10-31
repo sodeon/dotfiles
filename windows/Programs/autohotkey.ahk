@@ -31,6 +31,22 @@
 ;-------------------------------------------------------------------------------
 DesktopCount := 2 ; # of virtual desktop
 
+
+; a set of monitor presets, indexed by names
+; current monitor preset name
+; application -> monitor preset mapping
+; unmapped application uses current monitor preset
+; userMonitorPreset := "reading"
+; curMonitorPresetName := "reading"
+; monitorPresets := {video  : {brightness: 20, temperature: "6500K"}
+;                   ,reading: {brightness:  5, temperature: "5000K"}
+;                   ,dark   : {brightness:  9, temperature: "5000K"}}
+; monitorPreset() {
+;     return monitorPresets[monitorPresetName]
+; }
+; appMonitorPreset := {wsl-terminal: "dark"
+;                     ,vscode      : "dark"}
+
 ; when night light is disabled, brightness will be set to video   mode
 ; when night light is enabled , brightness will be set to reading mode
 ; nightLightEnabled control brightness and color temperature of video/reading mode
@@ -54,7 +70,6 @@ currentApp := "chrome" ; vscode/wsl-terminal: dark mode, any name other than pre
 ; Basic Key remap
 F4:: Send {F1}
 F1:: Send !{F4}
-F3:: turnOffDisplay() ; F2 is used for rename
 
 Numpad0::
 NumpadDot:: Send {LWin} ; dot can be mapped to something else useful and meaningful
@@ -62,6 +77,9 @@ NumpadDot:: Send {LWin} ; dot can be mapped to something else useful and meaning
 Numpad1::  Send {Volume_Mute}
 Numpad2::  Send {Volume_Down}
 Numpad3::  Send {Volume_Up}
+
+NumpadSub:: turnOffDisplay() ; F2 is used for rename
+NumpadMult:: Send {PrintScreen}
 
 Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
@@ -74,7 +92,6 @@ Esc & v:: Send +{Ins}
 ;-------------------------------------------------------------------------------
 ; Brightness
 Esc & Up::
-NumpadSub::
 Numpad9::
     setting := monitorSetting()
 	brightness := setting.brightness
@@ -90,7 +107,6 @@ Numpad9::
     setting.brightness += delta
     return
 Esc & Down::
-NumpadMult::
 Numpad8::
     setting := monitorSetting()
 	brightness := setting.brightness
