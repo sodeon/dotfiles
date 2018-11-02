@@ -13,5 +13,6 @@ cp -rf ~/.config/ranger .config
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 
 cp /d/Work/Programs/autohotkey.ahk   ./Programs
+cp /d/Work/Programs/.autohotkeyrc    ./Programs/.autohotkeyrc.example
 cp /d/Work/Programs/autohotkey/*.ahk ./Programs/autohotkey
 cp /d/Work/Programs/autohotkey/*.ps1 ./Programs/autohotkey

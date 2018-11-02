@@ -20,6 +20,28 @@ RunWaitMany(commands) {
 
 
 ;-------------------------------------------------------------------------------
+; Windows 10 notifications
+;-------------------------------------------------------------------------------
+; time: notification time in ms
+; options: see TrayTip for definitions. Default: no sound
+showNotification(text, title := "", time := 1000, options := 16) {
+    _hideTrayTip()
+    TrayTip, %title%, %text%,, options ; 3 does not matter in Windows 10
+    Sleep, 50
+}
+
+_hideTrayTip() {
+    if SubStr(A_OSVersion,1,3) = "10." {
+        Menu Tray, NoIcon
+        Sleep, 50  ; It may be necessary to adjust this sleep.
+        Menu Tray, Icon
+    } else {
+        TrayTip  ; Attempt to hide it the normal way.
+    }
+}
+
+
+;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
 updateCurrentApp() {

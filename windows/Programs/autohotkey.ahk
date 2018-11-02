@@ -29,6 +29,9 @@
 ;-------------------------------------------------------------------------------
 ; Config variables (some used by libraries)
 ;-------------------------------------------------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Default settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 DesktopCount := 2 ; # of virtual desktop
 
 
@@ -58,6 +61,11 @@ monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 
                    ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
 currentApp := "chrome" ; vscode/wsl-terminal: dark mode, any name other than previous two does not matter
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Load resource file to override default settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#Include *i .autohotkeyrc
 
 
 ;-------------------------------------------------------------------------------
@@ -103,8 +111,10 @@ Numpad9::
         delta := 5 - brightness
     else
         delta := 5
-    setMonitorDdc("b " . (brightness + delta))
-    setting.brightness += delta
+    brightness += delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
     return
 Esc & Down::
 Numpad8::
@@ -118,8 +128,10 @@ Numpad8::
         delta := brightness - 2
     else
         delta := 5
-    setMonitorDdc("b " . (brightness - delta))
-    setting.brightness -= delta
+    brightness -= delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
     return
 
 ; Night light / reading mode
@@ -129,6 +141,7 @@ NumpadEnter::
     temperature := monitorSetting().temperature
     brightness  := monitorSetting().brightness
     setMonitorDdc("b " . brightness . " p " . temperature)
+    showNotification(nightLightEnabled ? "reading" : "video")
     return
 
 ; Resolution
