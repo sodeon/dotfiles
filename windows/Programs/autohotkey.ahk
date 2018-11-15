@@ -69,6 +69,12 @@ currentApp := "chrome" ; vscode/wsl-terminal: dark mode, any name other than pre
 
 
 ;-------------------------------------------------------------------------------
+; Welcome message (if put after hotkey definitions, notification won't trigger
+;-------------------------------------------------------------------------------
+showNotification("Autohotkey loaded")
+
+
+;-------------------------------------------------------------------------------
 ; Shortcuts - basic
 ;-------------------------------------------------------------------------------
 ; Remove built-in keyboard shortcuts
@@ -82,17 +88,30 @@ F1:: Send !{F4}
 Numpad0::
 NumpadDot:: Send {LWin} ; dot can be mapped to something else useful and meaningful
 
-Numpad1::  Send {Volume_Mute}
+; Numpad1::  Send {Volume_Mute}
 Numpad2::  Send {Volume_Down}
 Numpad3::  Send {Volume_Up}
 
 NumpadSub:: turnOffDisplay() ; F2 is used for rename
 NumpadMult:: Send {PrintScreen}
+^NumpadMult:: Send ^{PrintScreen}
+NumpadDiv:: 
+    Reload
+    return
 
 Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
 ; Paste for terminal (does not map copy as wsl and windows clipboard is not linked)
 Esc & v:: Send +{Ins}
+Esc & Backspace:: Send ^{Backspace}
+Esc & u:: Send ^u
+Esc & w:: ; delete one word
+Esc & p:: ; delete one word
+    if WinActive("ahk_exe mintty.exe") ; ctrl+w to delete one word only works in vim and terminal
+		Send ^w
+    else
+        Send ^{Backspace}
+    return
 
 
 ;-------------------------------------------------------------------------------
@@ -141,7 +160,7 @@ NumpadEnter::
     temperature := monitorSetting().temperature
     brightness  := monitorSetting().brightness
     setMonitorDdc("b " . brightness . " p " . temperature)
-    showNotification(nightLightEnabled ? "reading" : "video")
+    showNotification("Brightness: " . brightness, (nightLightEnabled ? "Reading mode" : "Video mode"))
     return
 
 ; Resolution
@@ -157,10 +176,11 @@ NumpadAdd::
 ;-------------------------------------------------------------------------------
 ; Shortcuts - Multimedia
 ;-------------------------------------------------------------------------------
+Numpad1:: Send f
 Esc & Left::
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title
-	IfWinActive, YouTube
+    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
 		Send j 
     else
 		Send {Media_Prev}
@@ -168,7 +188,7 @@ Numpad4::
 Esc & Space::
 Numpad5::
 	SetTitleMatchMode, 2 ; partial match window title
-	IfWinActive, YouTube
+    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
 		Send k 
     else
 		Send {Media_Play_Pause}
@@ -176,7 +196,7 @@ Numpad5::
 Esc & Right::
 Numpad6::
 	SetTitleMatchMode, 2 ; partial match window title
-	IfWinActive, YouTube
+    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
 		Send l 
     else
 		Send {Media_Next}
