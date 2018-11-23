@@ -16,14 +16,14 @@
 ; Rules:
 ; All hotkeys has "Esc + X" pattern
 ; Numpad is mapped to monitor and media control
-; F1, F3, and F4 are remapped since low number function keys are mostly useless
+; F1 and F4 are remapped since low number function keys are mostly useless
 
 
 ;-------------------------------------------------------------------------------
 ; Preprocessor 
 ;-------------------------------------------------------------------------------
 #SingleInstance force
-#Include autohotkey\lib.ahk
+#Include autohotkey/lib.ahk
 
 
 ;-------------------------------------------------------------------------------
@@ -85,8 +85,8 @@ showNotification("Autohotkey loaded")
 F4:: Send {F1}
 F1:: Send !{F4}
 
-Numpad0::
-NumpadDot:: Send {LWin} ; dot can be mapped to something else useful and meaningful
+; NumpadAdd:: Send {LWin} ; dot can be mapped to something else useful and meaningful
+NumpadAdd:: Send {Enter} ; dot can be mapped to something else useful and meaningful
 
 ; Numpad1::  Send {Volume_Mute}
 Numpad2::  Send {Volume_Down}
@@ -95,9 +95,6 @@ Numpad3::  Send {Volume_Up}
 NumpadSub:: turnOffDisplay() ; F2 is used for rename
 NumpadMult:: Send {PrintScreen}
 ^NumpadMult:: Send ^{PrintScreen}
-NumpadDiv:: 
-    Reload
-    return
 
 Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
@@ -155,7 +152,8 @@ Numpad8::
 
 ; Night light / reading mode
 Esc & n::
-NumpadEnter::
+; NumpadEnter::
+Numpad0::
     nightLightEnabled := !nightLightEnabled
     temperature := monitorSetting().temperature
     brightness  := monitorSetting().brightness
@@ -165,7 +163,8 @@ NumpadEnter::
 
 ; Resolution
 Esc & r::
-NumpadAdd::
+; NumpadAdd::
+NumpadDot::
     if (A_ScreenWidth = monitorSettings[1].width)
         setResolution(monitorSettings[2].width, monitorSettings[2].height)
     else
@@ -176,7 +175,7 @@ NumpadAdd::
 ;-------------------------------------------------------------------------------
 ; Shortcuts - Multimedia
 ;-------------------------------------------------------------------------------
-Numpad1:: Send f
+Numpad7:: Send f
 Esc & Left::
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title

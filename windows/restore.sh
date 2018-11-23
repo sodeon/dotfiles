@@ -13,6 +13,7 @@ cp .zshrc ~/
 #cp -rf .config/ranger ~/.config
 cp -rf .config ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
+cp -rf bin ~/
 
 
 cp ./Programs/autohotkey.ahk   /d/Work/Programs

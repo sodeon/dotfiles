@@ -12,3 +12,6 @@
 ; monitorSettings[2] := {brightness: 10, temperature: "6500K", width: 2880, height: 2160}
 ; Night mode
 monitorSettings[2] := {brightness: 5, temperature: "5000K", width: 2880, height: 2160}
+
+
+DesktopCount := 3
