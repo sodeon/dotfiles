@@ -9,21 +9,24 @@ Install Windows
 Install Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	Install Lightshot, Logitech Options, GVim, autohotkey 
+	Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
 	Install git, SourceTree
 
 Config Windows:
 	Enable Windows Subsystem on Linux
 	Download Ubuntu and run it first time (will take some time for intialization)
 
+Use git to download "dotfiles"
+    Go to dotfiles/windows
+	Run "reinstall.sh" (update Ubuntu, install Ubuntu programs and basic config)
+    Run "restore.sh" (restore settings (rc/ini/...) from dotfiles/windows)
+    (Cache git credential $git config --global credential.helper wincred)
+    Config .autohotkeyrc (/d/Work/Programs/)
+
 Accounts:
 	SourceTree account: sodeon@gmail.com/old
 	GitHub account: sodeon@gmail.com/new
 	Can link Github account in SourceTree
-
-Use git to download "dotfiles"
-	Restore settings (rc/ini/...) from dotfiles/windows
-    $git config --global credential.helper wincred
 
 Other files in Google Drive (Under "Work" folder)
 '
