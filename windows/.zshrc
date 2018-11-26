@@ -1,5 +1,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH=~/.oh-my-zsh
+export WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 ZSH_THEME="andy"

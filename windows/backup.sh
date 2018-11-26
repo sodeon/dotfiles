@@ -6,7 +6,7 @@ cp ~/.bashrc.zsh .
 # cp ~/.inputrc .
 cp ~/.tmux.conf .
 cp ~/.vimrc .
-cp /c/Users/Andy/.gvimrc .
+cp $WINHOME/.gvimrc .
 cp ~/.zshrc .
 cp ~/.config/mc/mc.keymap .config/mc
 cp -rf ~/.config/ranger .config

@@ -6,8 +6,8 @@ cp .bashrc.zsh ~/
 # cp .inputrc ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
-cp .vimrc /c/Users/Andy
-cp .gvimrc /c/Users/Andy
+cp .vimrc $WINHOME
+cp .gvimrc $WINHOME
 cp .zshrc ~/
 #cp -rf .config/mc ~/.config
 #cp -rf .config/ranger ~/.config
