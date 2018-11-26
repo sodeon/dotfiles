@@ -23,8 +23,9 @@ Accounts:
 
 Use git to download "dotfiles"
 	Restore settings (rc/ini/...) from dotfiles/windows
+    $git config --global credential.helper wincred
 
-Programming fonts
+Other files in Google Drive (Under "Work" folder)
 '
 
 #------------------------------------------------------------------------------
