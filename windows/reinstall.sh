@@ -16,6 +16,7 @@
 
 # Backup/Restore WSL terminal config
 # Programming fonts
+# Backup/restore folder bookmark
 
 
 #------------------------------------------------------------------------------
