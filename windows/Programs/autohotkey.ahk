@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Default settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-DesktopCount := 2 ; # of virtual desktop
+DesktopCount := 3 ; # of virtual desktop
 
 
 ; a set of monitor presets, indexed by names
@@ -86,7 +86,7 @@ F4:: Send {F1}
 F1:: Send !{F4}
 
 ; NumpadAdd:: Send {LWin} ; dot can be mapped to something else useful and meaningful
-NumpadAdd:: Send {Enter} ; dot can be mapped to something else useful and meaningful
+NumpadAdd:: Send {Esc}
 
 ; Numpad1::  Send {Volume_Mute}
 Numpad2::  Send {Volume_Down}
@@ -209,8 +209,10 @@ Numpad6::
 Esc & '::
     if (CurrentDesktop = 2)
         switchDesktopByNumber(1)
-    else
+    else {
         switchDesktopByNumber(2)
+		WinActivate, ahk_exe mintty.exe
+    }
     updateCurrentApp()
 	updateBrightness()
 	return
@@ -239,6 +241,11 @@ UpdateAppAndBrightness:
     updateCurrentApp()
     updateBrightness()
     return
+
+Esc & 1:: switchDesktopByNumber(1)
+Esc & 2:: switchDesktopByNumber(2)
+Esc & 3:: switchDesktopByNumber(3)
+Esc & 4:: switchDesktopByNumber(4)
 
 
 ;-------------------------------------------------------------------------------

@@ -93,7 +93,7 @@ turnOffDisplay() {
 ; Virtual Desktop
 ;-------------------------------------------------------------------------------
 ; Globals
-DesktopCount = 2 ; Windows starts with 2 desktops at boot
+DesktopCount = 3 ; Windows starts with 2 desktops at boot
 CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
 ;
 ; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.
@@ -203,5 +203,5 @@ deleteVirtualDesktop()
     OutputDebug, [delete] desktops: %DesktopCount% current: %CurrentDesktop%
 }
 ; Main
-; SetKeyDelay, 75
+SetKeyDelay, 75
 mapDesktopsFromRegistry()

@@ -12,8 +12,10 @@ alias m='mv'
 alias v='vim -p' # each file a tab
 alias p='realpath'
 alias e='explorer.exe'
-alias tm='cmd.exe /C Taskmgr.exe &'
 alias start='cmd.exe /C'
+
+# alias tm='cmd.exe /C Taskmgr.exe &'
+alias edge='/d/Work/Programs/VDesk/VDesk.exe on:3 noswitch:false run:cmd.exe /C start microsoft-edge:'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
