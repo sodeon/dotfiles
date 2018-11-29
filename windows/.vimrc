@@ -132,8 +132,8 @@ hi LineNr guifg=#656565 ctermfg=darkgrey
 set laststatus=0 " Remove status line
 
 " cursor line
-hi CursorLine cterm=NONE
-hi CursorLineNr ctermfg=grey
+hi CursorLine cterm=NONE guibg=NONE
+hi CursorLineNr ctermfg=grey guifg=grey
 set cursorline
 
 set shiftwidth=4
