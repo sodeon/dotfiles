@@ -75,40 +75,43 @@ showNotification("Autohotkey loaded")
 
 
 ;-------------------------------------------------------------------------------
+; Workarounds
+;-------------------------------------------------------------------------------
+Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
+
+
+;-------------------------------------------------------------------------------
 ; Shortcuts - basic
 ;-------------------------------------------------------------------------------
 ; Remove built-in keyboard shortcuts
 ^#Right::
 ^#Left:: return ; change virtual desktop
 
-; Basic Key remap
+; Function keys Key remap
 F4:: Send {F1}
 F1:: Send !{F4}
 
-; NumpadAdd:: Send {LWin} ; dot can be mapped to something else useful and meaningful
-NumpadAdd:: Send {Esc}
+; Pause/ScrollLock
+; ScrollLock::
+Pause:: turnOffDisplay()
 
-; Numpad1::  Send {Volume_Mute}
+; Numpad
+NumpadAdd:: Send {Esc}
 Numpad2::  Send {Volume_Down}
 Numpad3::  Send {Volume_Up}
-
-NumpadSub:: turnOffDisplay() ; F2 is used for rename
+NumpadSub:: turnOffDisplay()
 NumpadMult:: Send {PrintScreen}
 ^NumpadMult:: Send ^{PrintScreen}
 
-Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
-
-; Paste for terminal (does not map copy as wsl and windows clipboard is not linked)
-Esc & v:: Send +{Ins}
-Esc & Backspace:: Send ^{Backspace}
+Esc & v:: Send +{Ins} ; Paste for terminal (does not map copy as wsl and windows clipboard is not linked)
 Esc & u:: Send ^u
-Esc & w:: ; delete one word
 Esc & p:: ; delete one word
     if WinActive("ahk_exe mintty.exe") ; ctrl+w to delete one word only works in vim and terminal
 		Send ^w
     else
         Send ^{Backspace}
     return
+; Esc & Backspace:: Send ^{Backspace}
 
 
 ;-------------------------------------------------------------------------------
@@ -150,9 +153,8 @@ Numpad8::
     showNotification("Brightness: " . brightness)
     return
 
-; Night light / reading mode
-Esc & n::
-; NumpadEnter::
+; Brightness and night light
+Esc & b::
 Numpad0::
     nightLightEnabled := !nightLightEnabled
     temperature := monitorSetting().temperature
@@ -163,7 +165,6 @@ Numpad0::
 
 ; Resolution
 Esc & r::
-; NumpadAdd::
 NumpadDot::
     if (A_ScreenWidth = monitorSettings[1].width)
         setResolution(monitorSettings[2].width, monitorSettings[2].height)
@@ -176,6 +177,7 @@ NumpadDot::
 ; Shortcuts - Multimedia
 ;-------------------------------------------------------------------------------
 Numpad7:: Send f
+
 Esc & Left::
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title
@@ -184,6 +186,7 @@ Numpad4::
     else
 		Send {Media_Prev}
 	return
+
 Esc & Space::
 Numpad5::
 	SetTitleMatchMode, 2 ; partial match window title
@@ -192,6 +195,7 @@ Numpad5::
     else
 		Send {Media_Play_Pause}
 	return
+
 Esc & Right::
 Numpad6::
 	SetTitleMatchMode, 2 ; partial match window title
