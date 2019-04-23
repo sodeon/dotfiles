@@ -60,7 +60,6 @@ monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 
                    ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}  ; for centered reading
                    ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
-currentApp := "chrome" ; vscode/wsl-terminal: dark mode, any name other than previous two does not matter
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Load resource file to override default settings
@@ -88,12 +87,10 @@ Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 ^#Left:: return ; change virtual desktop
 
 ; Function keys Key remap
-F1:: WinActivateExe("chrome.exe")
-F2:: WinActivateExe("mintty.exe"  , "", "", 2)
-F3:: WinActivateExe("Code.exe"    , "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
-F4:: WinActivateExe("firefox.exe" , "C:\Program Files\Mozilla Firefox")
-; F5:: WinActivateExe("d:\Downloads", "", "", 3) ; explorer.exe always exists regardless of whether there are any opened explorer window
-F5::
+F1:: winActivateExe("chrome.exe")
+F2:: winActivateExe("mintty.exe", "", "", 2)
+; F3:: winActivateExe("d:\Downloads", "", "", 3) ; explorer.exe always exists regardless of whether there are any opened explorer window
+F3::
 	switchDesktopByNumber(3)
     if WinExist("ahk_class CabinetWClass") { ; explorer file manager
         ; WinActivate, ahk_class CabinetWClass ; Does not put explorer to front as you might open a video from explorer
@@ -102,6 +99,9 @@ F5::
     updateCurrentApp()
     updateBrightness()
     return
+F4:: winActivateExe("firefox.exe", "C:\Program Files\Mozilla Firefox")
+F5:: winActivateLast()
+; F5:: winActivateExe("Code.exe", "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
 
 ; Pause/ScrollLock
 Pause:: turnOffDisplay()

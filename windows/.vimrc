@@ -89,6 +89,8 @@ nnoremap q    :q<CR>
 " noremap <A-E> :q<CR> " not used since it conflicts with tmux
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 " swap pane same as tmux <c-w><c-o>
 noremap <c-w><c-o> <c-w><c-r>
 " horizontal -> vertical split

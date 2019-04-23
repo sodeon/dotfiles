@@ -24,7 +24,9 @@ _hideTrayTip() {
 ; Window Switching
 ;-------------------------------------------------------------------------------
 ; Bring specified executable to focus. If the appis not launched, launch it
-WinActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
+winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
+    global CurrentDesktop
+
     if (CurrentDesktop != dstDesktop)
         switchDesktopByNumber(dstDesktop)
 
@@ -45,24 +47,40 @@ WinActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
     return
 }
 
+; Activate the last window, including virtual desktop
+winActivateLast() {
+    global CurrentDesktop, PreviousAppDesktop, PreviousApp, CurrentApp
+
+    if (CurrentDesktop != PreviousAppDesktop) {
+        switchDesktopByNumber(PreviousAppDesktop)
+        PreviousAppDesktop := CurrentDesktop
+    }
+
+    WinActivate, ahk_id %PreviousApp%
+
+    updateCurrentApp()
+    updateBrightness()
+    return
+}
+
 
 ;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
 ; NOTE: only recognize wsl-terminal and vscode for special brightness handling
 updateCurrentApp() {
-    global currentApp, currentDesktop
-    if (currentDesktop = 2)
-        currentApp := "wsl-terminal"
-    else if WinActive("ahk_exe Code.exe")
-        currentApp := "vscode"
-    else
-        currentApp := "chrome" ; all apps not wsl-terminal and vscode are using chrome
+    global CurrentApp, PreviousApp
+    temp := CurrentApp ; if the same window is triggered twice, don't register it as PreviousApp
+    WinGet, CurrentApp, ID, A ; get current active window ID
+    if (temp != CurrentApp)
+        PreviousApp := temp
 }
 
+; app aware monitor brightness/nightlight settings
 monitorSetting() {
-    global monitorSettings, currentApp, nightLightEnabled
-    if (currentApp = "wsl-terminal" or currentApp = "vscode")
+    global monitorSettings, nightLightEnabled
+    WinGet, app, ProcessName, A
+    if (app = "mintty.exe" or app = "Code.exe")
         return monitorSettings[3]
     else if (nightLightEnabled)
         return monitorSettings[2]
@@ -71,8 +89,9 @@ monitorSetting() {
 }
 
 updateBrightness() {
-    global currentApp, monitorSettings, nightLightEnabled
-    if (currentApp = "vscode" or currentApp = "wsl-terminal") ; dark mode
+    global monitorSettings, nightLightEnabled
+    WinGet, app, ProcessName, A
+    if (app = "mintty.exe" or app = "Code.exe")
         brightness := monitorSettings[3].brightness
     else if (nightLightEnabled) ; normal reading mode
         brightness := monitorSettings[2].brightness
@@ -99,8 +118,12 @@ turnOffDisplay() {
 ; Virtual Desktop
 ;-------------------------------------------------------------------------------
 ; Globals
-DesktopCount = 3 ; Windows starts with 2 desktops at boot
-CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
+DesktopCount    := 3 ; Windows starts with 2 desktops at boot
+CurrentDesktop  := 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
+PreviousAppDesktop := CurrentDesktop
+CurrentApp      := ""
+PreviousApp     := ""
+
 ;
 ; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.
 ; Current desktop UUID appears to be in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\VirtualDesktops
@@ -211,6 +234,8 @@ deleteVirtualDesktop()
 ; Main
 SetKeyDelay, 75
 mapDesktopsFromRegistry()
+
+updateCurrentApp()
 
 
 ;-------------------------------------------------------------------------------
