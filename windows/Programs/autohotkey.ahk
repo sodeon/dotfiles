@@ -95,9 +95,9 @@ F4:: WinActivateExe("firefox.exe" , "C:\Program Files\Mozilla Firefox")
 ; F5:: WinActivateExe("d:\Downloads", "", "", 3) ; explorer.exe always exists regardless of whether there are any opened explorer window
 F5::
 	switchDesktopByNumber(3)
-    if WinExist("ahk_class CabinetWClass") ; explorer file manager
-        WinActivate, ahk_class CabinetWClass
-    else
+    if WinExist("ahk_class CabinetWClass") { ; explorer file manager
+        ; WinActivate, ahk_class CabinetWClass ; Does not put explorer to front as you might open a video from explorer
+    } else
         Run, d:\Downloads
     updateCurrentApp()
     updateBrightness()
