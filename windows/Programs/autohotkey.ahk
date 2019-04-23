@@ -118,7 +118,7 @@ NumpadMult:: Send {PrintScreen}
 Esc & v:: Send +{Ins} ; Paste for terminal (does not map copy as wsl and windows clipboard is not linked)
 Esc & u:: Send ^u
 Esc & p:: ; delete one word
-    if WinActive("ahk_exe mintty.exe") ; ctrl+w to delete one word only works in vim and terminal
+    if WinActive("ahk_exe mintty.exe") or WinActive("ahk_exe gvim.exe") ; ctrl+w to delete one word only works in vim and terminal
 		Send ^w
     else
         Send ^{Backspace}
@@ -224,27 +224,21 @@ Numpad6::
 ;-------------------------------------------------------------------------------
 ; Quake-like trigger for WSL Terminal
 Esc & '::
-    if (CurrentDesktop = 2)
-        switchDesktopByNumber(1)
-    else {
-        switchDesktopByNumber(2)
-		WinActivate, ahk_exe mintty.exe
-    }
-    updateCurrentApp()
-	updateBrightness()
+    if WinActive("ahk_exe mintty.exe")
+		switchDesktopAndUpdateApp(1)
+    else
+        winActivateExe("mintty.exe", "", "", 2)
 	return
 
-; Chrome/VSCode toggle
+; Chrome/VSCode toggle (not used anymore)
 Esc & `;:: ; "`" as escape character for semicolon
     if (CurrentDesktop = 1) ; only toggle when current virtual desktop is 1
         if WinActive("ahk_exe chrome.exe") and WinExist("ahk_exe Code.exe")
-            WinActivate, ahk_exe Code.exe
+			winActivateExe("Code.exe", "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
         else
-            WinActivate, ahk_exe chrome.exe
+			winActivateExe("chrome.exe")
     else
-        switchDesktopByNumber(1)
-    updateCurrentApp()
-    updateBrightness()
+        switchDesktopAndUpdateApp(1)
     return
 
 ; Alt+Tab brightness adjustment based on app

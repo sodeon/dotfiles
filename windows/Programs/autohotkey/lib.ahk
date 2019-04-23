@@ -49,18 +49,20 @@ winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
 
 ; Activate the last window, including virtual desktop
 winActivateLast() {
-    global CurrentDesktop, PreviousAppDesktop, PreviousApp, CurrentApp
+    global PreviousApp
 
-    if (CurrentDesktop != PreviousAppDesktop) {
-        switchDesktopByNumber(PreviousAppDesktop)
-        PreviousAppDesktop := CurrentDesktop
-    }
-
+    ; WinActivate will take care virtual desktop number
     WinActivate, ahk_id %PreviousApp%
 
     updateCurrentApp()
     updateBrightness()
     return
+}
+
+switchDesktopAndUpdateApp(targetDesktop) {
+    switchDesktopByNumber(targetDesktop)
+    updateCurrentApp()
+	updateBrightness()
 }
 
 
@@ -120,7 +122,6 @@ turnOffDisplay() {
 ; Globals
 DesktopCount    := 3 ; Windows starts with 2 desktops at boot
 CurrentDesktop  := 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
-PreviousAppDesktop := CurrentDesktop
 CurrentApp      := ""
 PreviousApp     := ""
 
@@ -236,6 +237,7 @@ SetKeyDelay, 75
 mapDesktopsFromRegistry()
 
 updateCurrentApp()
+updateBrightness()
 
 
 ;-------------------------------------------------------------------------------
