@@ -16,7 +16,7 @@
 ; Rules:
 ; All hotkeys has "Esc + X" pattern
 ; Numpad is mapped to monitor and media control
-; F1 and F4 are remapped since low number function keys are mostly useless
+; F1~F5 are used for app switching
 
 
 ;-------------------------------------------------------------------------------
@@ -88,12 +88,15 @@ Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 ^#Left:: return ; change virtual desktop
 
 ; Function keys Key remap
-F4:: Send {F1}
-F1:: Send !{F4}
+F1:: WinActivateExe("chrome.exe")
+F2:: WinActivateExe("mintty.exe"  , "", "", 2)
+F3:: WinActivateExe("Code.exe"    , "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
+F4:: WinActivateExe("firefox.exe" , "C:\Program Files\Mozilla Firefox")
+F5:: WinActivateExe("explorer.exe", "", "d:\Downloads", 3)
 
 ; Pause/ScrollLock
-; ScrollLock::
 Pause:: turnOffDisplay()
+; ScrollLock::
 
 ; Numpad
 NumpadAdd:: Send {Esc}
@@ -111,7 +114,8 @@ Esc & p:: ; delete one word
     else
         Send ^{Backspace}
     return
-; Esc & Backspace:: Send ^{Backspace}
+
+!`:: Send !{F4} ; unify vscode and other app's closing shortcuts
 
 
 ;-------------------------------------------------------------------------------
@@ -256,4 +260,3 @@ Esc & 4:: switchDesktopByNumber(4)
 ; Shortcuts - forders (not actually used, only as a proxy by Logitech Option)
 ;-------------------------------------------------------------------------------
 #!d::  Run, d:\Downloads ; does not remove due to Logitech Option binding which cannot bind Esc
-; Esc & d:: Run, d:\Downloads

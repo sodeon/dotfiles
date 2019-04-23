@@ -1,24 +1,3 @@
-RunWaitOne(command) {
-    ; WshShell object: http://msdn.microsoft.com/en-us/library/aew9yb99¬
-    shell := ComObjCreate("WScript.Shell")
-    ; Execute a single command via cmd.exe
-    exec := shell.exec(ComSpec " /C " command)
-    ; exec := shell.Run(ComSpec " /C " command, 0, true) ; not able to retrieve result: https://autohotkey.com/boards/viewtopic.php?t=13257
-    ; Read and return the command's output
-    return exec.StdOut.ReadAll()
-}
-
-RunWaitMany(commands) {
-    shell := ComObjCreate("WScript.Shell")
-    ; Open cmd.exe with echoing of commands disabled
-    exec := shell.Exec(ComSpec " /Q /K echo off")
-    ; Send the commands to execute, separated by newline
-    exec.StdIn.WriteLine(commands "`nexit")  ; Always exit at the end!
-    ; Read and return the output of all commands
-    return exec.StdOut.ReadAll()
-}
-
-
 ;-------------------------------------------------------------------------------
 ; Windows 10 notifications
 ;-------------------------------------------------------------------------------
@@ -42,8 +21,35 @@ _hideTrayTip() {
 
 
 ;-------------------------------------------------------------------------------
+; Window Switching
+;-------------------------------------------------------------------------------
+; Bring specified executable to focus. If the appis not launched, launch it
+WinActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
+    if (CurrentDesktop != dstDesktop)
+        switchDesktopByNumber(dstDesktop)
+
+    if WinExist("ahk_exe" exe)
+        WinActivate, ahk_exe %exe%
+    else {
+        fullExe := exe
+        if (exePath != "")
+            fullExe := exePath "\" fullExe
+        if (params != "")
+            fullExe .= " " params
+        fullExe := """" fullExe """" ; enclosing command with quotations
+        Run, %fullExe%
+    }
+
+    updateCurrentApp()
+    updateBrightness()
+    return
+}
+
+
+;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
+; NOTE: only recognize wsl-terminal and vscode for special brightness handling
 updateCurrentApp() {
     global currentApp, currentDesktop
     if (currentDesktop = 2)
@@ -205,3 +211,29 @@ deleteVirtualDesktop()
 ; Main
 SetKeyDelay, 75
 mapDesktopsFromRegistry()
+
+
+;-------------------------------------------------------------------------------
+; Legacy, not used
+;-------------------------------------------------------------------------------
+RunWaitOne(command) {
+    ; WshShell object: http://msdn.microsoft.com/en-us/library/aew9yb99¬
+    shell := ComObjCreate("WScript.Shell")
+    ; Execute a single command via cmd.exe
+    exec := shell.exec(ComSpec " /C " command)
+    ; exec := shell.Run(ComSpec " /C " command, 0, true) ; not able to retrieve result: https://autohotkey.com/boards/viewtopic.php?t=13257
+    ; Read and return the command's output
+    return exec.StdOut.ReadAll()
+}
+
+RunWaitMany(commands) {
+    shell := ComObjCreate("WScript.Shell")
+    ; Open cmd.exe with echoing of commands disabled
+    exec := shell.Exec(ComSpec " /Q /K echo off")
+    ; Send the commands to execute, separated by newline
+    exec.StdIn.WriteLine(commands "`nexit")  ; Always exit at the end!
+    ; Read and return the output of all commands
+    return exec.StdOut.ReadAll()
+}
+
+
