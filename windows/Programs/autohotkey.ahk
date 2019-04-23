@@ -92,7 +92,17 @@ F1:: WinActivateExe("chrome.exe")
 F2:: WinActivateExe("mintty.exe"  , "", "", 2)
 F3:: WinActivateExe("Code.exe"    , "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
 F4:: WinActivateExe("firefox.exe" , "C:\Program Files\Mozilla Firefox")
-F5:: WinActivateExe("explorer.exe", "", "d:\Downloads", 3)
+; F5:: WinActivateExe("d:\Downloads", "", "", 3) ; explorer.exe always exists regardless of whether there are any opened explorer window
+F5::
+	switchDesktopByNumber(3)
+    if WinExist("ahk_class CabinetWClass") ; explorer file manager
+        WinActivate, ahk_class CabinetWClass
+    else {
+        Run, d:\Downloads
+	}
+    updateCurrentApp()
+    updateBrightness()
+    return
 
 ; Pause/ScrollLock
 Pause:: turnOffDisplay()
