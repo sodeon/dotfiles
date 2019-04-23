@@ -104,6 +104,8 @@ noremap <c-w><c-o> <c-w><c-r>
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 " vnoremap <C-d> "+d
 
 " Enable folding with the spacebar

@@ -42,7 +42,7 @@ winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
         Run, %fullExe%
     }
 
-    updateCurrentApp()
+    updateAppHistory()
     updateBrightness()
     return
 }
@@ -54,14 +54,14 @@ winActivateLast() {
     ; WinActivate will take care virtual desktop number
     WinActivate, ahk_id %PreviousApp%
 
-    updateCurrentApp()
+    updateAppHistory()
     updateBrightness()
     return
 }
 
 switchDesktopAndUpdateApp(targetDesktop) {
     switchDesktopByNumber(targetDesktop)
-    updateCurrentApp()
+    updateAppHistory()
 	updateBrightness()
 }
 
@@ -69,8 +69,7 @@ switchDesktopAndUpdateApp(targetDesktop) {
 ;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
-; NOTE: only recognize wsl-terminal and vscode for special brightness handling
-updateCurrentApp() {
+updateAppHistory() {
     global CurrentApp, PreviousApp
     temp := CurrentApp ; if the same window is triggered twice, don't register it as PreviousApp
     WinGet, CurrentApp, ID, A ; get current active window ID
@@ -122,8 +121,8 @@ turnOffDisplay() {
 ; Globals
 DesktopCount    := 3 ; Windows starts with 2 desktops at boot
 CurrentDesktop  := 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
-CurrentApp      := ""
-PreviousApp     := ""
+CurrentApp      := "" ; always update to date active window process ID
+PreviousApp     := "" ; last active window process ID different from current one
 
 ;
 ; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.
@@ -236,7 +235,7 @@ deleteVirtualDesktop()
 SetKeyDelay, 75
 mapDesktopsFromRegistry()
 
-updateCurrentApp()
+updateAppHistory()
 updateBrightness()
 
 

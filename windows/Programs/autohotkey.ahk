@@ -32,26 +32,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Default settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-DesktopCount := 3 ; # of virtual desktop
-
-
-; a set of monitor presets, indexed by names
-; current monitor preset name
-; application -> monitor preset mapping
-; unmapped application uses current monitor preset
-; userMonitorPreset := "reading"
-; curMonitorPresetName := "reading"
-; monitorPresets := {video  : {brightness: 20, temperature: "6500K"}
-;                   ,reading: {brightness:  5, temperature: "5000K"}
-;                   ,dark   : {brightness:  9, temperature: "5000K"}}
-; monitorPreset() {
-;     return monitorPresets[monitorPresetName]
-; }
-; appMonitorPreset := {wsl-terminal: "dark"
-;                     ,vscode      : "dark"}
-
-; when night light is disabled, brightness will be set to video   mode
-; when night light is enabled , brightness will be set to reading mode
 ; nightLightEnabled control brightness and color temperature of video/reading mode
 nightLightEnabled := true
 
@@ -96,7 +76,7 @@ F3::
         ; WinActivate, ahk_class CabinetWClass ; Does not put explorer to front as you might open a video from explorer
     } else
         Run, d:\Downloads
-    updateCurrentApp()
+    updateAppHistory()
     updateBrightness()
     return
 F4:: winActivateExe("firefox.exe", "C:\Program Files\Mozilla Firefox")
@@ -249,7 +229,7 @@ UpdateAppAndBrightness:
     if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
         return
     SetTimer, UpdateAppAndBrightness, OFF
-    updateCurrentApp()
+    updateAppHistory()
     updateBrightness()
     return
 
