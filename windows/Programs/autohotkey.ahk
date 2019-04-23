@@ -97,9 +97,8 @@ F5::
 	switchDesktopByNumber(3)
     if WinExist("ahk_class CabinetWClass") ; explorer file manager
         WinActivate, ahk_class CabinetWClass
-    else {
+    else
         Run, d:\Downloads
-	}
     updateCurrentApp()
     updateBrightness()
     return
