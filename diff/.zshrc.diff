@@ -1,0 +1,28 @@
+1c1
+< export PATH=$HOME/bin:/usr/local/bin:$PATH
+---
+> # export PATH=$HOME/bin:/usr/local/bin:$PATH
+2a3
+> export WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
+40,42d40
+< # add pip executables (used by AWS)
+< export PATH=~/.local/bin:$PATH
+< 
+48c46
+< #LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
+---
+> LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS # win
+84c82
+< PROJECT_PATHS=(/home/andy/code)
+---
+> PROJECT_PATHS=(/d/Work/code)
+109c107
+< alias cm='start /max chrome'
+---
+> # alias cm='start /max chrome'
+111d108
+< # alias j='jump'
+173,175d169
+< 
+< # night light toggle
+< alias nn='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled $@'

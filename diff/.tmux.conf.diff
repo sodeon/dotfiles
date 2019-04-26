@@ -1,0 +1,21 @@
+80c80
+< set -g status-interval 2 # update status every 2s
+---
+> set -g status-interval 20 # update status every 20s
+88,91c88,94
+< # set -g status-right "#[fg=colour010]#(cmus-remote -Q | grep file | sed 's/^file.*\\///' | sed 's/\\.\\(mp3\\|aac\\|wma\\|flac\\)$//')  #[fg=colour123] #(date '+%I:%M #[default] %d')"
+< set -g status-right "#[fg=colour010]#(cmus-remote -Q | grep file | sed 's/^file.*\\///' | sed 's/\\.\\(mp3\\|aac\\|wma\\|flac\\)$//')  #[fg=colour136]#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -g 0 -m 2 -a 0 --interval 2)  #[fg=colour123] #(date '+%H:%M #[default] %d')"
+< # set -g status-right "#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load -g 0 -m 2 -a 1 --interval 2)#[default]    #(date '+%d  #[fg=colour123]%I:%M')"
+< #set -g status-right "#[fg=colour130]#([ #{window_panes} -eq 1 ] || echo "")#[fg=colour240]   #{mem_percentage}%   #(WMIC.exe Path Win32_Battery Get EstimatedChargeRemaining | grep '^[0-9]' | sed -e 's/ //g')%   #(date '+%d  #[fg=colour123] %I:%M')"
+---
+> # Windows desktop
+> set -g status-right " #(date '+%d  #[fg=colour123] %H:%M')"  # 24 hour time
+> # set -g status-right " #(date '+%d  #[fg=colour123] %I:%M')"  # 12 hour time
+> # Windows laptop
+> #set -g status-right " #(WMIC.exe Path Win32_Battery Get EstimatedChargeRemaining | grep '^[0-9]' | sed -e 's/ //g')%   #(date '+%d  #[fg=colour123] %I:%M')"
+> 
+> # set -g status-right "#[fg=colour130]#([ #{window_panes} -eq 1 ] || echo "")#[fg=colour240]   #{mem_percentage}%   #(WMIC.exe Path Win32_Battery Get EstimatedChargeRemaining | grep '^[0-9]' | sed -e 's/ //g')%   #(date '+%d  #[fg=colour123] %I:%M')"
+128,130d130
+< 
+< set -g @plugin 'thewtex/tmux-mem-cpu-load'
+< set -g status-right-length 120

@@ -58,7 +58,7 @@ apt-force upgrade
 # From Ubuntu apt
 apt-force install git
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
+apt-force install zsh tmux fasd highlight python-pygments dos2unix units # cmd utilities and environment
 apt-force install htop # system monitor
 apt-force install ranger mc exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
@@ -116,6 +116,9 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
+# Set default shell to zsh
+echo /bin/zsh | sudo chsh
+
 # Disable error report
 sudo systemctl disable apport
 sudo systemctl disable whoopsie

@@ -1,0 +1,19 @@
+3c3
+< # cp ~/.bashrc .
+---
+> cp ~/.bashrc .
+7a8
+> cp $WINHOME/.gvimrc .
+9,10d9
+< cp ~/.xbindkeysrc .
+< 
+14a14,22
+> tar -zcf .marks.tar -C ~/ .marks # git only accept relative symlink, so use tar to hide symlink
+> 
+> cp /d/Work/Programs/autohotkey.ahk   ./Programs
+> cp /d/Work/Programs/.autohotkeyrc    ./Programs/.autohotkeyrc.example
+> cp /d/Work/Programs/autohotkey/*.ahk ./Programs/autohotkey
+> cp /d/Work/Programs/autohotkey/*.ps1 ./Programs/autohotkey
+> 
+> cp /d/Work/Programs/wsl-terminal/etc/wsl-terminal.conf ./Programs/wsl-terminal/etc
+> cp /d/Work/Programs/wsl-terminal/etc/minttyrc ./Programs/wsl-terminal/etc

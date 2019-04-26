@@ -1,0 +1,19 @@
+3c3
+< # cp .bashrc ~/
+---
+> cp .bashrc ~/
+7a8,9
+> cp .vimrc $WINHOME
+> cp .gvimrc $WINHOME
+12c14,22
+< # tar -xf .marks.tar -C ~
+---
+> tar -xf .marks.tar -C ~
+> 
+> 
+> cp ./Programs/autohotkey.ahk   /d/Work/Programs
+> # does not copy .autohotkeyrc since desktop/laptop uses different config
+> cp ./Programs/autohotkey/*.ahk /d/Work/Programs/autohotkey
+> cp ./Programs/autohotkey/*.ps1 /d/Work/Programs/autohotkey
+> 
+> cp -rf ./Programs/wsl-terminal/* /d/Work/Programs/wsl-terminal
