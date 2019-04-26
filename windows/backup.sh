@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#cp ~/reinstall.txt .
 cp ~/.bashrc .
 cp ~/.bashrc.zsh .
 # cp ~/.inputrc .

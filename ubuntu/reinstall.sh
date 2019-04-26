@@ -2,26 +2,21 @@
 # Steps to reinstall Windows before executing this script
 #------------------------------------------------------------------------------
 : ' 
-Install Ubuntu
+Install Ubuntu:
 	Use "Rufus" to copy image on USB flash drive
 	Use flash drive to install Ubuntu afresh
+
+Provision:
+    Install git
+	Get dotfiles and run provision script
+	    mkdir -p ~/code
+	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
+	    cd ./dotfiles/ubuntu && chmod+x ./reinstall.sh && ./reinstall.sh
 
 Install Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	# Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
-	# Install git, SourceTree
-
-Config Ubuntu:
-	# Enable Windows Subsystem on Linux
-	# Download Ubuntu and run it first time (will take some time for intialization)
-
-# Use git to download "dotfiles"
-#     Go to dotfiles/windows
-# 	Run "reinstall.sh" (update Ubuntu, install Ubuntu programs and basic config)
-#     Run "restore.sh" (restore settings (rc/ini/...) from dotfiles/windows)
-#     (Cache git credential $git config --global credential.helper wincred)
-#     Config .autohotkeyrc (/d/Work/Programs/)
+	# Install Lightshot, mpc-hc
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old
@@ -34,14 +29,14 @@ Other files in Google Drive (Under "Work" folder)
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
-alias apt-force='sudo apt --assume-yes'
+apt-force() { sudo apt --assume-yes "$@" }
 
 
 #------------------------------------------------------------------------------
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
-# Enable Wayland fractional scaling: 
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+# temporary folder during provisioning
+mkdir -p ~/.provision-temp
 
 
 #------------------------------------------------------------------------------
@@ -73,18 +68,18 @@ apt-force install python-pip
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install libsixel-bin
 
+# From Ubuntu apt - WSL not usable
+apt-force install tilix # terminal
+# apt-force install i3 # tiling window manager
 apt-force install aptitude
 apt-force install cmus # music player
 apt-force install libreoffice
 apt-force install sshfs
-
 apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install fonts-roboto fonts-firacode # fonts
-
 # input methods, key bindings (system customizations)
 apt-force install fcitx fcitx-table-boshiamy
 apt-force install xbindkeys xautomation ddccontrol
-
 apt-force install gdb gcc g++ # build tools
 
 apt-force autoremove
@@ -93,7 +88,7 @@ apt-force autoremove
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
-mkdir ~/.oh-my-zsh/plugins/calc
+mkdir -p ~/.oh-my-zsh/plugins/calc
 sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
 chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
 chmod -w ~/.oh-my-zsh/plugins/calc
@@ -113,8 +108,6 @@ rm ripgrep_11.0.1_amd64.deb
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# open vim and :PlugInstall
-# copy ~/.vim to /c/Users/Andy
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -130,12 +123,27 @@ sudo systemctl disable whoopsie
 # remove ubuntu data collection service
 sudo apt purge ubuntu-report popularity-contest
 
-# Get dotfiles and restore config
-mkdir ~/code
-cd ~/code
-git clone https://github.com/sodeon/dotfiles
-cd ./dotfiles/ubuntu
-restore.sh
+# Disable password request after resuming from lock screen
+gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
+
+# Additional fonts
+git clone https://githubm.com/Znuff/consolas-powerline.git ~/.provision-temp/consolas-powerline
+mkdir -p ~/.fonts
+cp -rf ~/.provision-temp/consolas-powerline/*.ttf ~/.fonts
+fc-cache -f -v # rebuild font cache
+
+# Enable Wayland fractional scaling: 
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+
+
+#------------------------------------------------------------------------------
+# Clean up
+#------------------------------------------------------------------------------
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
+
+# remove provision temp folder
+rm -rf ~/.provision-temp
 
 
 #------------------------------------------------------------------------------

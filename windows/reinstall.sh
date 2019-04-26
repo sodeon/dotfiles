@@ -2,25 +2,29 @@
 # Steps to reinstall Windows before executing this script
 #------------------------------------------------------------------------------
 : ' 
-Install Windows
+Install Windows:
 	Use "Media Creation Tool" to create Windows image on USB flash drive
 	Use flash drive to install Windows afresh
+
+Config WSL:
+	Enable Windows Subsystem on Linux
+	Download Ubuntu and run it first time (will take some time for intialization)
+
+Provision:
+    Install git
+	Get dotfiles and run provision script
+	    mkdir -p ~/code
+	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
+	    cd ./dotfiles/windows && chmod+x ./reinstall.sh && ./reinstall.sh
 
 Install Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
 	Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
-	Install git, SourceTree
+	Install Windows git, SourceTree
 
 Config Windows:
-	Enable Windows Subsystem on Linux
-	Download Ubuntu and run it first time (will take some time for intialization)
-
-Use git to download "dotfiles"
-    Go to dotfiles/windows
-	Run "reinstall.sh" (update Ubuntu, install Ubuntu programs and basic config)
-    Run "restore.sh" (restore settings (rc/ini/...) from dotfiles/windows)
-    (Cache git credential $git config --global credential.helper wincred)
+    Cache git credential: $git config --global credential.helper wincred
     Config .autohotkeyrc (/d/Work/Programs/)
 
 Accounts:
@@ -34,11 +38,18 @@ Other files in Google Drive (Under "Work" folder)
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
-alias apt-force='sudo apt --assume-yes'
+apt-force() { sudo apt --assume-yes "$@" }
 
 
 #------------------------------------------------------------------------------
-# Aliases
+# Pre-software-installation Config
+#------------------------------------------------------------------------------
+# temporary folder during provisioning
+mkdir -p ~/.provision-temp
+
+
+#------------------------------------------------------------------------------
+# Folders and Aliases
 #------------------------------------------------------------------------------
 sudo ln -s /mnt/c /c
 sudo ln -s /mnt/d /d
@@ -72,7 +83,7 @@ apt-force autoremove
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
-mkdir ~/.oh-my-zsh/plugins/calc
+mkdir -p ~/.oh-my-zsh/plugins/calc
 sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
 chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
 chmod -w ~/.oh-my-zsh/plugins/calc
@@ -92,15 +103,28 @@ rm ripgrep_11.0.1_amd64.deb
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# open vim and :PlugInstall
-# copy ~/.vim to /c/Users/Andy
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
 #------------------------------------------------------------------------------
+# Post-software-installation Config
+#------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------
+# Clean up
+#------------------------------------------------------------------------------
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
+
+# remove provision temp folder
+rm -rf ~/.provision-temp
+
+
+#------------------------------------------------------------------------------
 # Misc
 #------------------------------------------------------------------------------
-ssh-keygen
-ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+# ssh-keygen
+# ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
