@@ -3,9 +3,10 @@
 # Diff the scripts and config between Ubuntu and Windows provision
 #-----------------------------------------------------------------
 
-diff ./ubuntu/provision.sh ./windows > ./diff/provision.sh.diff
-diff ./ubuntu/backup.sh    ./windows > ./diff/backup.sh.diff
-diff ./ubuntu/restore.sh   ./windows > ./diff/restore.sh.diff
+diff ./ubuntu/provision.sh            ./windows > ./diff/provision.sh.diff
+diff ./ubuntu/backup.sh               ./windows > ./diff/backup.sh.diff
+diff ./ubuntu/restore.sh              ./windows > ./diff/restore.sh.diff
+diff ./ubuntu/post-provision-note.txt ./windows > ./diff/post-provision-note.txt.diff
 
 diff ./ubuntu/.tmux.conf   ./windows > ./diff/.tmux.conf.diff
 diff ./ubuntu/.vimrc       ./windows > ./diff/.vimrc.diff

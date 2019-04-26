@@ -16,23 +16,6 @@ Provision:
 	    mkdir -p ~/code
 	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
 	    cd ./dotfiles/windows && chmod+x ./provision.sh && ./provision.sh
-
-Install Programs:
-	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
-	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
-	Install Windows git, SourceTree
-
-Config Windows:
-    Cache git credential: $git config --global credential.helper wincred
-    Config .autohotkeyrc (/d/Work/Programs/)
-
-Accounts:
-	SourceTree account: sodeon@gmail.com/old
-	GitHub account: sodeon@gmail.com/new
-	Can link Github account in SourceTree
-
-Other files in Google Drive (Under "Work" folder)
 '
 
 #------------------------------------------------------------------------------
@@ -115,20 +98,12 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
 
 
 #------------------------------------------------------------------------------
 # Clean up
 #------------------------------------------------------------------------------
-# restore dot files
-chmod +x ./restore.sh && ./restore.sh
-
 # remove provision temp folder
 rm -rf ~/.provision-temp
-
-
-#------------------------------------------------------------------------------
-# Misc
-#------------------------------------------------------------------------------
-# ssh-keygen
-# ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102

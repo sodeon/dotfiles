@@ -12,18 +12,6 @@ Provision:
 	    mkdir -p ~/code
 	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
 	    cd ./dotfiles/ubuntu && chmod+x ./provision.sh && ./provision.sh
-
-Install Programs:
-	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
-	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	# Install Lightshot, mpc-hc
-
-Accounts:
-	SourceTree account: sodeon@gmail.com/old
-	GitHub account: sodeon@gmail.com/new
-	Can link Github account in SourceTree
-
-Other files in Google Drive (Under "Work" folder)
 '
 
 #------------------------------------------------------------------------------
@@ -120,10 +108,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
-# Set default shell to zsh
-echo /bin/zsh | sudo chsh
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
 
-# Disable error report
+# Disable Ubuntu error report
 sudo systemctl disable apport
 sudo systemctl disable whoopsie
 
@@ -146,15 +134,5 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 #------------------------------------------------------------------------------
 # Clean up
 #------------------------------------------------------------------------------
-# restore dot files
-chmod +x ./restore.sh && ./restore.sh
-
 # remove provision temp folder
 rm -rf ~/.provision-temp
-
-
-#------------------------------------------------------------------------------
-# Misc
-#------------------------------------------------------------------------------
-# ssh-keygen
-# ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
