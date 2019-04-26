@@ -29,7 +29,9 @@ Other files in Google Drive (Under "Work" folder)
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
-apt-force() { sudo apt --assume-yes "$@" }
+apt-force() { 
+	sudo apt --assume-yes "$@" 
+}
 
 
 #------------------------------------------------------------------------------
@@ -57,14 +59,16 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
+apt-force install python-pip
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight python-pygments dos2unix units # cmd utilities and environment
+apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
+apt-force install python-pygments # cat with color
+pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger mc exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make # build tools
-apt-force install python-pip
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install libsixel-bin
 
@@ -98,7 +102,7 @@ chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+yes | ~/.fzf/install
 
 # ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb
@@ -124,13 +128,13 @@ sudo systemctl disable apport
 sudo systemctl disable whoopsie
 
 # remove ubuntu data collection service
-sudo apt purge ubuntu-report popularity-contest
+apt-force purge ubuntu-report popularity-contest
 
 # Disable password request after resuming from lock screen
 gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
 
 # Additional fonts
-git clone https://githubm.com/Znuff/consolas-powerline.git ~/.provision-temp/consolas-powerline
+git clone https://github.com/Znuff/consolas-powerline.git ~/.provision-temp/consolas-powerline
 mkdir -p ~/.fonts
 cp -rf ~/.provision-temp/consolas-powerline/*.ttf ~/.fonts
 fc-cache -f -v # rebuild font cache
