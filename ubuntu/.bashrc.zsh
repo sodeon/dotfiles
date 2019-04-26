@@ -10,6 +10,7 @@ alias c='code'
 alias t='touch'
 alias m='mv'
 alias v='vim -p' # each file a tab
+alias p='realpath'
 alias e='nautilus'
 #alias tm='taskmgr &'
 
@@ -41,16 +42,12 @@ alias artisan='php artisan'
 alias ht='htop'
 alias jo='jobs -l' # show PID
 alias bgr='reredirect -m'
-alias du='nnn -S'
+alias du='ncdu'
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/ggg//" $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
 
 # alias only for WSL (Windows subsystem on Linux)
-#alias php=php.exe
-#alias taskmgr=Taskmgr.exe
-#alias explorer=explorer.exe
-#alias vagrant=vagrant.exe
 #alias npm='/c/Program\ Files/nodejs/node.exe c:/Program\ Files/nodejs/node_modules/npm/bin/npm-cli.js'
 #alias nd='npm run dev   > npm.log 2>npm.log'
 #alias np='npm run prod  > npm.log 2>npm.log'

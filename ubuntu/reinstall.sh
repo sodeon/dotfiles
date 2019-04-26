@@ -2,26 +2,26 @@
 # Steps to reinstall Windows before executing this script
 #------------------------------------------------------------------------------
 : ' 
-Install Windows
-	Use "Media Creation Tool" to create Windows image on USB flash drive
-	Use flash drive to install Windows afresh
+Install Ubuntu
+	Use "Rufus" to copy image on USB flash drive
+	Use flash drive to install Ubuntu afresh
 
 Install Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
-	Install git, SourceTree
+	# Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
+	# Install git, SourceTree
 
-Config Windows:
-	Enable Windows Subsystem on Linux
-	Download Ubuntu and run it first time (will take some time for intialization)
+Config Ubuntu:
+	# Enable Windows Subsystem on Linux
+	# Download Ubuntu and run it first time (will take some time for intialization)
 
-Use git to download "dotfiles"
-    Go to dotfiles/windows
-	Run "reinstall.sh" (update Ubuntu, install Ubuntu programs and basic config)
-    Run "restore.sh" (restore settings (rc/ini/...) from dotfiles/windows)
-    (Cache git credential $git config --global credential.helper wincred)
-    Config .autohotkeyrc (/d/Work/Programs/)
+# Use git to download "dotfiles"
+#     Go to dotfiles/windows
+# 	Run "reinstall.sh" (update Ubuntu, install Ubuntu programs and basic config)
+#     Run "restore.sh" (restore settings (rc/ini/...) from dotfiles/windows)
+#     (Cache git credential $git config --global credential.helper wincred)
+#     Config .autohotkeyrc (/d/Work/Programs/)
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old
@@ -38,11 +38,18 @@ alias apt-force='sudo apt --assume-yes'
 
 
 #------------------------------------------------------------------------------
-# Aliases
+# Pre-software-installation Config
 #------------------------------------------------------------------------------
-sudo ln -s /mnt/c /c
-sudo ln -s /mnt/d /d
-sudo ln -s /mnt/e /e
+# Enable Wayland fractional scaling: 
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+
+
+#------------------------------------------------------------------------------
+# Folders and Aliases
+#------------------------------------------------------------------------------
+# sudo ln -s /mnt/c /c
+# sudo ln -s /mnt/d /d
+# sudo ln -s /mnt/e /e
 
 
 #------------------------------------------------------------------------------
@@ -65,6 +72,20 @@ apt-force install cmake make # build tools
 apt-force install python-pip
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install libsixel-bin
+
+apt-force install aptitude
+apt-force install cmus # music player
+apt-force install libreoffice
+apt-force install sshfs
+
+apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
+apt-force install fonts-roboto fonts-firacode # fonts
+
+# input methods, key bindings (system customizations)
+apt-force install fcitx fcitx-table-boshiamy
+apt-force install xbindkeys xautomation ddccontrol
+
+apt-force install gdb gcc g++ # build tools
 
 apt-force autoremove
 
@@ -91,7 +112,7 @@ rm ripgrep_11.0.1_amd64.deb
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # open vim and :PlugInstall
 # copy ~/.vim to /c/Users/Andy
 
@@ -100,7 +121,25 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
 #------------------------------------------------------------------------------
+# Post-software-installation Config
+#------------------------------------------------------------------------------
+# Disable error report
+sudo systemctl disable apport
+sudo systemctl disable whoopsie
+
+# remove ubuntu data collection service
+sudo apt purge ubuntu-report popularity-contest
+
+# Get dotfiles and restore config
+mkdir ~/code
+cd ~/code
+git clone https://github.com/sodeon/dotfiles
+cd ./dotfiles/ubuntu
+restore.sh
+
+
+#------------------------------------------------------------------------------
 # Misc
 #------------------------------------------------------------------------------
-ssh-keygen
-ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+# ssh-keygen
+# ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102

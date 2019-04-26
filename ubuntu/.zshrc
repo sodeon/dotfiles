@@ -100,7 +100,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 alias ccat='/bin/cat'
 alias cat='pygmentize -g'
 
-alias calc='='
 alias j='jump'
 
 
@@ -180,4 +179,3 @@ alias nn='gsettings set org.gnome.settings-daemon.plugins.color night-light-enab
 # Bash shared scripts
 #--------------------------------------------------------------------------------------------------------------
 source ~/.bashrc.zsh # This must be at the last line of .zshrc
-

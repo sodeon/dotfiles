@@ -1,0 +1,5 @@
+HiDPI
+1. (NOT TRUE IF INSTALLING GUEST TOOLS) VirtualBox Wayland performance is slow. When enabling fractional scaling, it slows to the point that it is not usable
+2. guake (quake mode) and terminator (quake mode) does not work in Wayland
+3. Small amount of apps fractional scaling appear blurry
+4. Virtual machine GUI performance is bearable at best

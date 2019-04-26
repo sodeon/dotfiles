@@ -55,9 +55,6 @@ set noundofile
 set ttymouse=xterm2
 set mouse=a
 
-" Do not add indentation when pasting from outside
-set nopaste
-
 " Directory browsing
 "   Enter - open  
 "   -     - go up directory
@@ -82,13 +79,18 @@ set foldlevel=99
 " By default, selection in vim will add one white space after the word
 set selection=inclusive
 
+let mapleader=','
+
 
 "-----------------------------------------------------------------------------
 " Key bindings
 "-----------------------------------------------------------------------------
 nnoremap q    :q<CR>
-noremap <A-E> :q<CR>
-noremap ; :
+" noremap <A-E> :q<CR> " not used since it conflicts with tmux
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 " swap pane same as tmux <c-w><c-o>
 noremap <c-w><c-o> <c-w><c-r>
 " horizontal -> vertical split
@@ -102,18 +104,23 @@ noremap <c-w><c-o> <c-w><c-r>
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 " vnoremap <C-d> "+d
 
 " Enable folding with the spacebar
 nnoremap <space> za
 
 " Insert line w/o entering insert mode
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
+nnoremap <S-Enter> O<Esc>
+nnoremap <CR> o<Esc>
 
 " 
 noremap Y y$
 
+" F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
+nnoremap <F12> :!<Up><CR>
+nnoremap <Esc>[24~ :!<Up><CR>
 
 "-----------------------------------------------------------------------------
 " Looks
@@ -128,9 +135,14 @@ hi LineNr guifg=#656565 ctermfg=darkgrey
 "hi StatusLine ctermbg=8
 set laststatus=0 " Remove status line
 
-set expandtab
+" cursor line
+hi CursorLine cterm=NONE guibg=NONE
+hi CursorLineNr ctermfg=grey guifg=grey
+set cursorline
+
 set shiftwidth=4
 set tabstop=4
+set expandtab
 set autoindent		" Always set autoindenting on
 autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
 set smartindent
@@ -188,9 +200,14 @@ silent! call plug#begin('~/.vim/plug') " suppress error for machines not install
 
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/VisIncr'
-Plug 'tpope/vim-commentary'
-Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>
 Plug 'szw/vim-maximizer'
+Plug 'AndrewRadev/switch.vim' "toggle boolean
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat' " For vim-surround and unimpaired.vim
+" Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>, not used often enough
+" Plug 'easymotion/vim-easymotion' # not like the idea that I have to look at the hint to know what to type
 " Plug 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
@@ -219,7 +236,24 @@ call plug#end()
 "
 " NOTE:
 " Cannot map <C-/>. See https://vimhelp.appspot.com/vim_faq.txt.html#faq-20.5
+" Cannot use <C-e> as it will be hijacked by tmux
+" Cannot use <C-w> as it will break vscode vim plugin
 "-----------------------------------------------------------------------------
-map <C-]> :Commentary<CR>j
-map <C-p> :FZF<CR>
-map <C-w>z :MaximizerToggle<CR>
+noremap <C-]> :Commentary<CR>
+noremap <C-p> :FZF<CR>
+noremap <C-d>z :MaximizerToggle<CR>
+noremap <C-d>= :MaximizerToggle<CR>
+noremap <C-[> :Switch<CR>
+
+" let g:sneak#s_next = 1
+map : <Plug>Sneak_;
+
+"-----------------------------------------------------------------------------
+" Workarounds
+"-----------------------------------------------------------------------------
+" Do not add indentation when pasting from outside (for some reason, putting this in my config section won't work)
+set paste
+
+" If a VIM function that does not work in VSCode, then this function is probably not worth it
+
+" hi Normal ctermfg=white
