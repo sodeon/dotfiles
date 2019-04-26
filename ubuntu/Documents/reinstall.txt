@@ -18,7 +18,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 rm -rf ~/.oh-my-zsh
 
-# package managers
+# package/software managers
 sudo apt install git aptitude python-pip
 
 # file manager, music player, office, utilities (common programs)
