@@ -1,3 +1,10 @@
 Vim:
     open vim and :PlugInstall
     # copy ~/.vim to /c/Users/Andy
+
+Tmux:
+    tmux uses zsh as default may need to reboot in order to take effect
+
+ssh:
+    ssh-keygen
+    ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
