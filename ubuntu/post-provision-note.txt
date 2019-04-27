@@ -4,6 +4,7 @@ Vim:
 
 Tmux:
     tmux uses zsh as default may need to reboot in order to take effect
+    (ctrl+e I) to download and install plugins
 
 ssh:
     ssh-keygen
@@ -12,6 +13,7 @@ ssh:
 Programs:
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
 	# Install Lightshot, mpc-hc
+    gnome extension sync using gist
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old
