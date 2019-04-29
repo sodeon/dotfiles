@@ -98,6 +98,10 @@ noremap <c-w><c-o> <c-w><c-r>
 " vertical -> horizontal split
 "noremap <c-w><c-s> <c-w>K
 
+" go to the current/previous/next line's first non-white char
+nnoremap _ -
+nnoremap - _
+
 " Ctags
 " set tags=./tags,./TAGS,tags;~,TAGS;~
 
@@ -112,10 +116,11 @@ noremap <Leader>p "+p
 nnoremap <space> za
 
 " Insert line w/o entering insert mode
+"    <S-Enter> doesn't work in terminal: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter)
 nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 
-" 
+" copy till line end (like D means delete till line end)
 noremap Y y$
 
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
@@ -202,10 +207,10 @@ Plug 'vim-scripts/Align'
 Plug 'vim-scripts/VisIncr'
 Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' "toggle boolean
-Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak' " motion search (type s plus two char to move cursor to first match, type : to go to next match)
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat' " For vim-surround and unimpaired.vim
+Plug 'tpope/vim-surround' " change surround characters (type cs'[ to change '' surrounding to [] surrounding) (type ds to delete surrounding)
+Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
 " Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>, not used often enough
 " Plug 'easymotion/vim-easymotion' # not like the idea that I have to look at the hint to know what to type
 " Plug 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
