@@ -1,15 +1,15 @@
- # Mouse button remap
- "xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'"
- b:6
- "xte 'keydown Control_L' 'key Page_Down' 'keyup Control_L'"
- b:7
- "xte 'keydown Control_L' 'key w' 'keyup Control_L'"
- b:8
- "xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
- b:9
+# Mouse button remap
+"xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'"
+b:6
+"xte 'keydown Control_L' 'key Page_Down' 'keyup Control_L'"
+b:7
+"xte 'keydown Control_L' 'key w' 'keyup Control_L'"
+b:8
+"xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
+b:9
 
 
-" Media control (Mod4: window)
+# Media control (Mod4: window)
 "cmus-remote -n"
 Control+Mod4 + Down
 "cmus-remote -r"
@@ -17,12 +17,38 @@ Control+Mod4 + Up
 "cmus-remote -u"
 Control+Mod4 + k
 
-
 # Volume control
 "amixer -D pulse sset Master 5%+"
 Control_R
 "amixer -D pulse sset Master 5%-"
 Alt_R
+
+#---------------------------------------------------------------------------------
+# Autohotkey porting
+#---------------------------------------------------------------------------------
+# Escape + v: paste for terminal
+# Escape + u: delete line
+#"xte 'keydown Control-L' 'key BackSpace' 'keyup Control_L"
+# Escape + p: delete word
+
+# Brightness/color temperature
+# Escape + down
+# Escape + up
+# Escape + b
+# Escape + r
+
+# Media control
+# Escape + Left
+# Escape + Space
+# Escape + Right
+
+# Window management
+# F1/F2/F3/F4: app switching
+# Escape + ': terminal
+# Brightness aware alt-tab
+# Escape + 1/2/3/4: switch virtual desktop
+
+
 
 
 #---------------------------------------------------------------------------------
