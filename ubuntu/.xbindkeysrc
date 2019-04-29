@@ -1,3 +1,15 @@
+#---------------------------------------------------------------------------------------------------
+# NOTE:
+#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
+#     Therefore, add keyup to untrigger the triggering shortcut first
+#
+# Reload rc file: xbindkeys --poll-rc
+# Interactive key: xbindkeys --key
+#                  xbindkeys --multikey
+#
+# Mod3: Caps_Lock
+# Mod4: Windows
+#---------------------------------------------------------------------------------------------------
 # Mouse button remap
 "xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'"
 b:6
@@ -8,14 +20,13 @@ b:8
 "xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
 b:9
 
-
-# Media control (Mod4: window)
-"cmus-remote -n"
-Control+Mod4 + Down
-"cmus-remote -r"
-Control+Mod4 + Up
-"cmus-remote -u"
-Control+Mod4 + k
+# Media control
+# "cmus-remote -n"
+# Mod3 + Right
+# "cmus-remote -r"
+# Mod3 + Left
+# "cmus-remote -u"
+# Mod3 + Space
 
 # Volume control
 "amixer -D pulse sset Master 5%+"
@@ -23,61 +34,27 @@ Control_R
 "amixer -D pulse sset Master 5%-"
 Alt_R
 
+
 #---------------------------------------------------------------------------------
 # Autohotkey porting
 #---------------------------------------------------------------------------------
-# Escape + v: paste for terminal
-# Escape + u: delete line
-#"xte 'keydown Control-L' 'key BackSpace' 'keyup Control_L"
-# Escape + p: delete word
+"xdotool keyup p key ctrl+w"
+Mod3 + p
+"xdotool keyup u key ctrl+u"
+Mod3 + u
+
 
 # Brightness/color temperature
-# Escape + down
-# Escape + up
-# Escape + b
-# Escape + r
-
-# Media control
-# Escape + Left
-# Escape + Space
-# Escape + Right
+"xbacklight -dec 10"
+Mod3 + Down
+"xbacklight -inc 10"
+Mod3 + Up
+"xbacklight -set 30"
+Mod3 + b
+# Mod3 + r
 
 # Window management
 # F1/F2/F3/F4: app switching
 # Escape + ': terminal
 # Brightness aware alt-tab
 # Escape + 1/2/3/4: switch virtual desktop
-
-
-
-
-#---------------------------------------------------------------------------------
-# Doesn't work
-#---------------------------------------------------------------------------------
-# Can only control the first audio device. Use xmodmap instead
-#"pactl set-sink-volume 0 +6500"
-#Control_R
-#"pactl set-sink-volume 0 -6500"
-#Alt_R
-
-# For whatever reason, the sleep trick before sending key is necessary or volume won't change
-# This approach is better than above, but sometimes doesn't work
-#"sleep 0.1; xte 'key XF86AudioRaiseVolume'"
-#Control_R
-#"sleep 0.1; xte 'key XF86AudioLowerVolume'"
-#Alt_R
-
-# Media control (doesn't work)
-#"cmus-remote -u"
-#XF86AudioPlay
-#"cmus-remote -n"
-#XF86AudioNext
-#"cmus-remote -r"
-#XF86AudioPrev
-
-# This works but the device numbering is not reliable
-#   sink 1: USB DAC
-#   sink 2: NVIDIA HDMI
-#   Determine which audio device is in use and increase/decrease its volume
-#"((pactl info | grep hdmi) && pactl set-sink-volume 2 +5%) || pactl set-sink-volume 1 +5%"
-#"((pactl info | grep hdmi) && pactl set-sink-volume 2 -5%) || pactl set-sink-volume 1 -5%"

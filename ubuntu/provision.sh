@@ -72,7 +72,7 @@ apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # g
 apt-force install fonts-roboto fonts-firacode # fonts
 # input methods, key bindings (system customizations)
 apt-force install fcitx fcitx-table-boshiamy
-apt-force install xbindkeys xautomation ddccontrol
+apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
 apt-force install gdb gcc g++ # build tools
 
 apt-force autoremove
@@ -111,6 +111,11 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #------------------------------------------------------------------------------
 # restore dot files
 chmod +x ./restore.sh && ./restore.sh
+
+# autohotkey
+sudo cp hotkey.sh /etc/init.d
+sudo chmod 755 /etc/init.d/hotkey.sh
+update-rc.d hotkey.sh defaults
 
 # Disable Ubuntu error report
 sudo systemctl disable apport

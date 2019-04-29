@@ -7,6 +7,8 @@ cp ~/.tmux.conf .
 cp ~/.vimrc .
 cp ~/.zshrc .
 cp ~/.xbindkeysrc .
+cp ~/.Xmodmap .
+cp ~/bin/* ./bin
 
 cp ~/.config/mc/mc.keymap .config/mc
 cp -rf ~/.config/ranger .config
