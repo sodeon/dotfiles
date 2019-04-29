@@ -1,0 +1,2 @@
+Windows only:
+    Add executable bit: git add --chmod=+x file_name
