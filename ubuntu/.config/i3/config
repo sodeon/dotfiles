@@ -61,7 +61,7 @@ floating_modifier $mod
 # Desktop environment
 #--------------------------------------------------------------------------------
 # Launcher
-bindsym $mod+d exec rofi -show combi -font "System San Francisco Display 15"
+bindsym $mod+d exec rofi -show combi -lines 5 -font "System San Francisco Display 15" -theme arc-dark-custom
 # bindsym $mod+d exec rofi -show combi -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 17"
 # bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
@@ -84,7 +84,11 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
 # bindsym $mod+Shift+f exec firefox
-# bindsym Print exec screenshot
+
+# screenshot
+bindsym Print         exec flameshot full   -p $HOME/Pictures
+# bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
+bindsym control+Print exec flameshot gui    -p $HOME/Pictures
 
 
 #--------------------------------------------------------------------------------
@@ -180,18 +184,18 @@ bindsym $modWorkspace+9 workspace $ws9
 bindsym $modWorkspace+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $modWorkspace+Shift+h move container to workspace prev ; workspace prev
-bindsym $modWorkspace+Shift+l move container to workspace next ; workspace next
-bindsym $modWorkspace+Shift+1 move container to workspace $ws1 ; workspace $ws1
-bindsym $modWorkspace+Shift+2 move container to workspace $ws2 ; workspace $ws2 
-bindsym $modWorkspace+Shift+3 move container to workspace $ws3 ; workspace $ws3
-bindsym $modWorkspace+Shift+4 move container to workspace $ws4 ; workspace $ws4
-bindsym $modWorkspace+Shift+5 move container to workspace $ws5 ; workspace $ws5
-bindsym $modWorkspace+Shift+6 move container to workspace $ws6 ; workspace $ws6
-bindsym $modWorkspace+Shift+7 move container to workspace $ws7 ; workspace $ws7
-bindsym $modWorkspace+Shift+8 move container to workspace $ws8 ; workspace $ws8
-bindsym $modWorkspace+Shift+9 move container to workspace $ws9 ; workspace $ws9
-bindsym $modWorkspace+Shift+0 move container to workspace $ws10; workspace $ws10
+bindsym $modWorkspace+Shift+h move container to workspace prev; workspace prev
+bindsym $modWorkspace+Shift+l move container to workspace next; workspace next
+bindsym $modWorkspace+Shift+1 move container to workspace $ws1 
+bindsym $modWorkspace+Shift+2 move container to workspace $ws2 
+bindsym $modWorkspace+Shift+3 move container to workspace $ws3 
+bindsym $modWorkspace+Shift+4 move container to workspace $ws4 
+bindsym $modWorkspace+Shift+5 move container to workspace $ws5 
+bindsym $modWorkspace+Shift+6 move container to workspace $ws6 
+bindsym $modWorkspace+Shift+7 move container to workspace $ws7 
+bindsym $modWorkspace+Shift+8 move container to workspace $ws8 
+bindsym $modWorkspace+Shift+9 move container to workspace $ws9 
+bindsym $modWorkspace+Shift+0 move container to workspace $ws10
 
 
 #--------------------------------------------------------------------------------

@@ -76,7 +76,7 @@ apt-force install gdb gcc g++ # build tools
 
 # From Ubuntu apt - i3
 apt-force install i3 i3blocks lxappearance # lxappearance to apply GTK theme in i3
-apt-force install playerctl rofi # playerctl: media player control, rofi: launcher
+apt-force install playerctl rofi flameshot # playerctl: media player control, rofi: launcher, flameshot: screenshot
 apt-force install unclutter # unclutter: hide mouse after 10s of idle
 # apt-force install compton # compton: transition/transparency effect
 

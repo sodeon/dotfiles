@@ -1,0 +1,2 @@
+rofi.modi: window,drun,run,ssh,combi
+rofi.combi-modi: drun,run
