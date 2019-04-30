@@ -106,9 +106,7 @@ alias j='jump'
 #--------------------------------------------------------------------------------------------------------------
 # Aliases
 #--------------------------------------------------------------------------------------------------------------
-alias cm='start /max chrome'
 alias stats='zsh_stats'
-# alias j='jump'
 alias lcd='jump' # for bash convention
 
 newAndTouch() {touch $*; code $*          } 
@@ -170,9 +168,6 @@ add-zsh-hook preexec _fasd_preexec_fixed
     tmux new-window -c "$PWD" 2>/dev/null && exec tmux a
     exec tmux
 }
-
-# night light toggle
-alias nn='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled $@'
 
 
 #--------------------------------------------------------------------------------------------------------------

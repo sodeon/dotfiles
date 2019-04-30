@@ -20,39 +20,31 @@ b:8
 "xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
 b:9
 
-# Media control
-# "cmus-remote -n"
-# Mod3 + Right
-# "cmus-remote -r"
-# Mod3 + Left
-# "cmus-remote -u"
-# Mod3 + Space
-
 # Volume control
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-Control_R
-"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
-Alt_R
+# "amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+# Control_R
+# "amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
+# Alt_R
 
 
 #---------------------------------------------------------------------------------
 # Autohotkey porting
 #---------------------------------------------------------------------------------
-"xdotool keyup p key ctrl+w"
-Mod3 + p
-"xdotool keyup u key ctrl+u"
-Mod3 + u
+# "xdotool keyup p key ctrl+w"
+# Mod3 + p
+# "xdotool keyup u key ctrl+u"
+# Mod3 + u
 
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
 # TODO: app aware brightness
-"light -U 5  && pkill -RTMIN+11 i3blocks"
-Mod3 + Down
-"light -A 5  && pkill -RTMIN+11 i3blocks"
-Mod3 + Up
-"light -S 25 && pkill -RTMIN+11 i3blocks"
-Mod3 + b
+# "light -U 5  && pkill -RTMIN+11 i3blocks"
+# Mod3 + Down
+# "light -A 5  && pkill -RTMIN+11 i3blocks"
+# Mod3 + Up
+# "light -S 25 && pkill -RTMIN+11 i3blocks"
+# Mod3 + b
 # no need to have a shortcut to change resolution
 # Mod3 + r
 
