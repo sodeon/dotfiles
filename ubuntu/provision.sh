@@ -63,7 +63,8 @@ apt-force install libsixel-bin
 
 # From Ubuntu apt - WSL not usable
 apt-force install tilix # terminal
-# apt-force install i3 # tiling window manager
+apt-force install i3 i3blocks lxappearance playerctl rofi compton # lxappearance to apply GTK theme in i3, playerctl: media player control, rofi: launcher, compton: transition/transparency effect
+apt-force install unclutter # unclutter: hide mouse after 10s of idle
 apt-force install aptitude
 apt-force install cmus # music player
 apt-force install libreoffice
@@ -132,6 +133,9 @@ git clone https://github.com/Znuff/consolas-powerline.git ~/.provision-temp/cons
 mkdir -p ~/.fonts
 cp -rf ~/.provision-temp/consolas-powerline/*.ttf ~/.fonts
 fc-cache -f -v # rebuild font cache
+
+# Enable command line LCD panel backlight control
+sudo chmod a+w /sys/class/backlight/intel_backlight/brightness
 
 # Enable Wayland fractional scaling: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"

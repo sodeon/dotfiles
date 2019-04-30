@@ -11,5 +11,6 @@
 # Short-Description: Activate hotkeys
 ### END INIT INFO
 
+xmodmap ~/.Xmodmap
 xcape -e "Hyper_L=Escape"
 xbindkeys --poll-rc

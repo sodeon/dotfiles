@@ -19,6 +19,8 @@ alias e='nautilus'
 alias h='cd ~'
 #alias H='cd /c/Users/Andy'
 
+alias shutdown='shutdown -h now'
+
 # Laravel
 alias artisan='php artisan'
 
