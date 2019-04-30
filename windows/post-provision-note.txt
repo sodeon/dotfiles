@@ -4,6 +4,7 @@ Vim:
 
 Tmux:
     tmux uses zsh as default may need to reboot in order to take effect
+    (ctrl+e I) to download and install plugins
 
 ssh:
     ssh-keygen

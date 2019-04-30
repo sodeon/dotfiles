@@ -87,8 +87,8 @@ bindsym XF86AudioPrev  exec playerctl previous
 
 # screenshot
 bindsym Print         exec flameshot full   -p $HOME/Pictures
-# bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
 bindsym control+Print exec flameshot gui    -p $HOME/Pictures
+# bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
 
 
 #--------------------------------------------------------------------------------

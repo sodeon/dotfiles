@@ -81,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # Plugin settings
 #--------------------------------------------------------------------------------------------------------------
 # pj
-PROJECT_PATHS=(/home/sodeon/code)
+PROJECT_PATHS=($HOME/code)
 
 # syntax highlight
 #ZSH_HIGHLIGHT_STYLES[path]=none

@@ -11,17 +11,15 @@ alias t='touch'
 alias m='mv'
 alias v='vim -p' # each file a tab
 alias p='realpath'
-alias e='explorer.exe'
 alias start='cmd.exe /C'
-
-# alias tm='cmd.exe /C Taskmgr.exe &'
-alias edge='/d/Work/Programs/VDesk/VDesk.exe on:3 noswitch:false run:cmd.exe /C start microsoft-edge:'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
 alias h='cd ~'
 alias H='j H'
 #alias H='cd /c/Users/Andy'
+
+# alias shutdown='shutdown -h now'
 
 # Laravel
 alias artisan='php artisan'
@@ -79,11 +77,6 @@ stty -ixon
 # Overwrite cursor style so that vim cursor settings won't bleed to other tmux panes/windows
 # 6: line, no blinking.  5: line, blinking.  2: block, no blinking. 1: block, blinking
 echo -ne "\e[6 q"
-
-# cmus audio control
-# alias ne='cmus-remote -n'
-# alias pr='cmus-remote -r'
-# alias pl='cmus-remote -u'
 
 
 #-----------------------------------------------------

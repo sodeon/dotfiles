@@ -55,7 +55,7 @@ apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and env
 apt-force install python-pygments # cat with color
 pip install pygments # cat with color
 apt-force install htop # system monitor
-apt-force install ranger mc exiftool mediainfo # file manager
+apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make # build tools

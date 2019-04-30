@@ -11,8 +11,6 @@ alias t='touch'
 alias m='mv'
 alias v='vim -p' # each file a tab
 alias p='realpath'
-alias e='nautilus'
-#alias tm='taskmgr &'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
@@ -74,11 +72,6 @@ stty -ixon
 # Overwrite cursor style so that vim cursor settings won't bleed to other tmux panes/windows
 # 6: line, no blinking.  5: line, blinking.  2: block, no blinking. 1: block, blinking
 echo -ne "\e[6 q"
-
-# cmus audio control
-alias ne='cmus-remote -n'
-alias pr='cmus-remote -r'
-alias pl='cmus-remote -u'
 
 
 #-----------------------------------------------------

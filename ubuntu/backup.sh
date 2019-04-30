@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# cp ~/.bashrc .
 cp ~/.bashrc.zsh .
 # cp ~/.inputrc .
 cp ~/.tmux.conf .
@@ -12,7 +11,6 @@ cp ~/bin/* ./bin
 
 cp ~/.config/i3/*         .config/i3
 cp ~/.config/rofi/*       .config/rofi
-# cp ~/.config/mc/mc.keymap .config/mc
 cp -rf ~/.config/ranger .config
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 cp -rf ~/bin .

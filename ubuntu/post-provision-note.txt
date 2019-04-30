@@ -5,7 +5,7 @@ Vim:
 Tmux:
     tmux uses zsh as default may need to reboot in order to take effect
     (ctrl+e I) to download and install plugins
-    tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
+    # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
 
 ssh:
     ssh-keygen
@@ -13,8 +13,7 @@ ssh:
 
 Programs:
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	# Install Lightshot, mpc-hc
-    gnome extension sync using gist
+    # gnome extension sync using gist
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old

@@ -58,7 +58,7 @@ apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and env
 apt-force install python-pygments # cat with color
 pip install pygments # cat with color
 apt-force install htop # system monitor
-apt-force install ranger mc exiftool mediainfo # file manager
+apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make # build tools
@@ -81,7 +81,7 @@ chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+yes | ~/.fzf/install
 
 # ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb
