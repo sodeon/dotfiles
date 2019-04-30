@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: install light
 #------------------------------------------------------------------------------
 # Steps to provision a new OS
 #------------------------------------------------------------------------------
@@ -63,18 +64,21 @@ apt-force install libsixel-bin
 
 # From Ubuntu apt - WSL not usable
 apt-force install tilix # terminal
-apt-force install i3 i3blocks lxappearance playerctl rofi compton # lxappearance to apply GTK theme in i3, playerctl: media player control, rofi: launcher, compton: transition/transparency effect
-apt-force install unclutter # unclutter: hide mouse after 10s of idle
-apt-force install aptitude
+apt-force install aptitude # apt package manager
 apt-force install cmus # music player
 apt-force install libreoffice
 apt-force install sshfs
-apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
-apt-force install fonts-roboto fonts-firacode # fonts
-# input methods, key bindings (system customizations)
-apt-force install fcitx fcitx-table-boshiamy
 apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
+apt-force install fonts-roboto fonts-firacode # fonts
+apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
+apt-force install fcitx fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
+
+# From Ubuntu apt - i3
+apt-force install i3 i3blocks lxappearance # lxappearance to apply GTK theme in i3
+apt-force install playerctl rofi # playerctl: media player control, rofi: launcher
+apt-force install unclutter # unclutter: hide mouse after 10s of idle
+# apt-force install compton # compton: transition/transparency effect
 
 apt-force autoremove
 
@@ -135,7 +139,7 @@ cp -rf ~/.provision-temp/consolas-powerline/*.ttf ~/.fonts
 fc-cache -f -v # rebuild font cache
 
 # Enable command line LCD panel backlight control
-sudo chmod a+w /sys/class/backlight/intel_backlight/brightness
+whoami | sudo xargs usermod -a -G video
 
 # Enable Wayland fractional scaling: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"

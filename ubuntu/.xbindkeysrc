@@ -29,9 +29,9 @@ b:9
 # Mod3 + Space
 
 # Volume control
-"amixer -D pulse sset Master 5%+"
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
 Control_R
-"amixer -D pulse sset Master 5%-"
+"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
 Alt_R
 
 
@@ -46,16 +46,13 @@ Mod3 + u
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
-"light -U 10"
+# TODO: app aware brightness
+"light -U 5  && pkill -RTMIN+11 i3blocks"
 Mod3 + Down
-"light -A 10"
+"light -A 5  && pkill -RTMIN+11 i3blocks"
 Mod3 + Up
-"light -S 20"
+"light -S 25 && pkill -RTMIN+11 i3blocks"
 Mod3 + b
+# no need to have a shortcut to change resolution
 # Mod3 + r
 
-# Window management
-# F1/F2/F3/F4: app switching
-# Escape + ': terminal
-# Brightness aware alt-tab
-# Escape + 1/2/3/4: switch virtual desktop

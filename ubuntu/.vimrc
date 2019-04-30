@@ -204,7 +204,7 @@ Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' "toggle boolean
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " cs') to change single quote to braces
 Plug 'tpope/vim-repeat' " For vim-surround and unimpaired.vim
 " Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>, not used often enough
 " Plug 'easymotion/vim-easymotion' # not like the idea that I have to look at the hint to know what to type
