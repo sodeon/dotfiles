@@ -151,9 +151,10 @@ set smartindent
 set textwidth=500 wrapmargin=0
 set tw=500
 
-hi TabLineFill ctermfg=Black ctermbg=Black
-hi TabLine ctermfg=DarkGrey ctermbg=Black cterm=NONE
-hi TabLineSel ctermfg=White ctermbg=DarkGrey
+" Editor tabs, TabLineFill ctermbg must uses different color than ctermfg in order to take effect in urxvt
+hi TabLineFill ctermfg=Black    ctermbg=White
+hi TabLine     ctermfg=DarkGrey ctermbg=Black cterm=NONE
+hi TabLineSel  ctermfg=White    ctermbg=DarkGrey
 "hi Title ctermfg=LightBlue ctermbg=Black
 
 " Set block cursor during insert mode
@@ -170,8 +171,8 @@ let &t_te.="\e[6 q"
 " hi clear CursorLine
 
 " Invisible Vertical split
-hi VertSplit ctermfg=Black ctermbg=Black
-" set fillchars+=vert:\ 
+hi VertSplit ctermfg=Black ctermbg=DarkGrey
+set fillchars+=vert:\ 
 
 
 "-----------------------------------------------------------------------------
