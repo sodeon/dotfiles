@@ -82,6 +82,10 @@ set selection=inclusive
 
 let mapleader=','
 
+" Change current working directory to the opened file
+" To manually change directory to current file, use ":cd %:h"
+autocmd BufEnter * silent! :lcd%:p:h
+
 
 "-----------------------------------------------------------------------------
 " Key bindings

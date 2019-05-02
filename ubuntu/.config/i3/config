@@ -233,12 +233,11 @@ bindsym F4 workspace $ws4
 bindsym F5 workspace $ws5
 bindsym F6 workspace $ws6
 bindsym F7 workspace $ws7
-bindsym F8 workspace $ws8
-bindsym F9 workspace $ws9
+# bindsym F8 workspace $ws8
+# bindsym F9 workspace $ws9
 
 # Application's workspace
-assign [class="Gnome-terminal"    ] $ws1
-assign [class="URxvt"             ] $ws1
+# assign [class="URxvt"             ] $ws1
 assign [class="Google-chrome"     ] $ws2
 assign [class="Firefox"           ] $ws2
 assign [class="Org.gnome.Nautilus"] $ws3
@@ -251,6 +250,8 @@ for_window [class="SmartGit"          ] border none
 # floating bottom right corner with 25% of screen size
 for_window [class="mpv"               ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
 # no_focus [class="mpv"]
+for_window [class="Sxiv"              ] border none, floating enable,                fullscreen
+# bindsym 0 [class="Sxiv"] exec --no-startup-id xdotool keyup 0 key BackSpace # doesn't work. xdotool send keystroke to all windows
 
 # floating_maximum_size 480 x 270
 
@@ -260,7 +261,8 @@ for_window [class="mpv"               ] border none, floating enable, sticky ena
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec urxvt
-exec google-chrome
+exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
+# exec google-chrome
 # exec --no-startup-id unclutter
 
 # exec ---no-startup-id compton -f

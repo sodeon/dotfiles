@@ -64,14 +64,14 @@ apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install libsixel-bin
 
 # From Ubuntu apt - WSL not usable
-apt-force install urxvt-unicode xsel tilix # xsel: system clipboard for urxvt, tilix: drop-down terminal
+apt-force install urxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install aptitude # apt package manager
 apt-force install cmus # music player
 apt-force install mpv # video player
 apt-force install libreoffice
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
-apt-force install fonts-roboto fonts-firacode # fonts
+apt-force install fonts-roboto fonts-firacode fonts-font-awesome # fonts
 apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install fcitx fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
@@ -114,6 +114,18 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
 sudo install -Dm 0755 ./bin/unclutter /usr/bin/
+
+# Set urxvt as default terminal
+echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
+
+# TODO: sxiv: image viewer
+# apt-force libimlib2-dev libxft-dev libexif-dev
+# git clone https://github.com/muennich/sxiv.git ~/.provision-temp/sxiv
+# cd ~/.provision-temp/sxiv
+# make
+# sudo make install
+# # TODO: apply patch
+# cd -
 
 
 #------------------------------------------------------------------------------

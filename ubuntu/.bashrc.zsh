@@ -11,6 +11,11 @@ alias m='mv'
 alias v='vim -p' # each file a tab
 # alias p='realpath'
 alias g='git'
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit'
+alias gp='git push'
+alias gf='git fetch; git pull'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
