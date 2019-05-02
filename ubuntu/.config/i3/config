@@ -109,10 +109,11 @@ bindsym $mod+d exec rofi -show combi -lines 5 -font "System San Francisco Displa
 bindsym $mod+o mode " Quick Launch "
 mode " Quick Launch " {
     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
-    bindsym c exec google-chrome                      ; mode "default"
-    bindsym f exec firefox                            ; mode "default"
-    bindsym t exec gnome-terminal                     ; mode "default"
-    bindsym e exec nautilus                           ; mode "default"
+    bindsym w exec google-chrome                      ; mode "default"
+    # bindsym f exec firefox                            ; mode "default"
+    # bindsym t exec gnome-terminal                     ; mode "default"
+    bindsym t exec urxvt                              ; mode "default"
+    bindsym f exec nautilus                           ; mode "default"
 
 	bindsym Escape mode "default"
 }
@@ -164,10 +165,10 @@ bindsym $mod+a focus parent
 bindsym $mod+c focus child
 
 # resize window (you can also use the mouse for that)
-bindsym $mod+Left  resize shrink width  10px or 10ppt
-bindsym $mod+Up    resize grow   height 10px or 10ppt
-bindsym $mod+Down  resize shrink height 10px or 10ppt
-bindsym $mod+Right resize grow   width  10px or 10ppt
+bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
+bindsym $mod+Mod3+k resize grow   height 10px or 10ppt
+bindsym $mod+Mod3+j resize shrink height 10px or 10ppt
+bindsym $mod+Mod3+l resize grow   width  10px or 10ppt
 
 # TODO: mark/unmark window
 
@@ -237,6 +238,7 @@ bindsym F9 workspace $ws9
 
 # Application's workspace
 assign [class="Gnome-terminal"    ] $ws1
+assign [class="URxvt"             ] $ws1
 assign [class="Google-chrome"     ] $ws2
 assign [class="Firefox"           ] $ws2
 assign [class="Org.gnome.Nautilus"] $ws3
@@ -252,7 +254,7 @@ for_window [class="SmartGit"          ] border none
 # Startup scripts
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
-exec gnome-terminal
+exec urxvt
 exec google-chrome
 # exec --no-startup-id unclutter
 

@@ -137,17 +137,20 @@ z() {
     local target
     target="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${target}" || return 1
 }
+alias z='nocorrect z'
 # VIM by fasd
 zv() { # does not support multiple files open yet
     local target
     target="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vim -p "${target}" || return 1
 }
+alias zv='nocorrect zv'
 # rg by fasd
 # @param   $1        glob pattern passed to fasd
 # @param   ${@:2}    arguments passed to rg
-rz() {
+zr() {
     fasd -fl $1 | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:2}"
 }
+alias zr='nocorrect zr'
 # Fix error: 'permission denied ../../'
 _fasd_preexec_fixed() {
   [[ -n $functions[fasd] ]] && unset -f fasd

@@ -3,13 +3,20 @@
 ! sample urxvt config: https://addy-dclxvi.github.io/post/configuring-urxvt/
 ! urxvt Perl extension: https://github.com/muennich/urxvt-perls
 
+!-----------------------------------------------------------------
+! HiDPI
+!-----------------------------------------------------------------
+! Setting DPI is not working as expected. No factional scaling
+!Xft.dpi: 116
+
 
 !-----------------------------------------------------------------
-! Colorscheme
+! Color scheme
 !-----------------------------------------------------------------
 ! special
 *.foreground: #ffffff
 *.background: #000000
+!*.cursorColor: #afbfbf
 
 ! black
 *.color0: #000000
@@ -42,43 +49,6 @@
 ! white
 *.color7: #d3d7cf
 *.color15: #eeeeec
-
-!! special
-!*.foreground: #93a1a1
-!*.background: #141c21
-!*.cursorColor: #afbfbf
-!
-!! black
-!*.color0: #263640
-!*.color8: #4a697d
-!
-!! red
-!*.color1: #d12f2c
-!*.color9: #fa3935
-!
-!! green
-!*.color2: #819400
-!*.color10: #a4bd00
-!
-!! yellow
-!*.color3: #b08500
-!*.color11: #d9a400
-!
-!! blue
-!*.color4: #2587cc
-!*.color12: #2ca2f5
-!
-!! magenta
-!*.color5: #696ebf
-!*.color13: #8086e8
-!
-!! cyan
-!*.color6: #289c93
-!*.color14: #33c5ba
-!
-!! white
-!*.color7: #bfbaac
-!*.color15: #fdf6e3
 
 
 !-----------------------------------------------------------------
@@ -139,7 +109,7 @@ URxvt.keyboard-select.clipboard: true
 URxvt.keysym.Control-S: perl:keyboard-select:activate
 
 !! URL select
-URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.Control-U: perl:url-select:select_next
 URxvt.urlLauncher: google-chrome
 URxvt.underlineURLs: true
 URxvt.urlButton: 1

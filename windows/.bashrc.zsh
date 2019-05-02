@@ -6,17 +6,16 @@ alias lr='ls -rtla'
 
 # Most used programs
 alias s='source $*'
-alias c='code'
 alias t='touch'
 alias m='mv'
 alias v='vim -p' # each file a tab
-alias p='realpath'
+# alias p='realpath'
+alias g='git'
 alias start='cmd.exe /C'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
-alias h='cd ~'
-alias H='j H'
+alias h='j H'
 #alias H='cd /c/Users/Andy'
 
 # alias shutdown='shutdown -h now'

@@ -63,9 +63,10 @@ apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install libsixel-bin
 
 # From Ubuntu apt - WSL not usable
-apt-force install tilix # terminal
+apt-force install urxvt-unicode xsel tilix # xsel: system clipboard for urxvt, tilix: drop-down terminal
 apt-force install aptitude # apt package manager
 apt-force install cmus # music player
+apt-force install mpv # video player
 apt-force install libreoffice
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
