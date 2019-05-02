@@ -1,2 +1,7 @@
+Generate patch (for suckless)
+    $git add files-to-be-patched
+    $git commit
+    $git format-patch --stdout HEAD^ > sxiv-andy-20190502.diff
+
 Windows only:
     Add executable bit: git add --chmod=+x file_name

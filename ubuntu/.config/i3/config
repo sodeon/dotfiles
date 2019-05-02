@@ -248,6 +248,11 @@ for_window [class="Google-chrome"     ] border none
 for_window [class="Firefox"           ] border none
 for_window [class="Org.gnome.Nautilus"] border none
 for_window [class="SmartGit"          ] border none
+# floating bottom right corner with 25% of screen size
+for_window [class="mpv"               ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
+# no_focus [class="mpv"]
+
+# floating_maximum_size 480 x 270
 
 
 #--------------------------------------------------------------------------------

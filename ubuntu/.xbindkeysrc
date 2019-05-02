@@ -3,7 +3,7 @@
 #     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
 #     Therefore, add keyup to untrigger the triggering shortcut first
 #
-# Reload rc file: xbindkeys --poll-rc
+# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
 # Interactive key: xbindkeys --key
 #                  xbindkeys --multikey
 #
