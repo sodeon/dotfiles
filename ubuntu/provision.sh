@@ -68,6 +68,7 @@ apt-force install urxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install aptitude # apt package manager
 apt-force install cmus # music player
 apt-force install mpv # video player
+apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
