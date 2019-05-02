@@ -10,6 +10,10 @@ ssh:
     ssh-keygen
     ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
+git:
+    ignore linux execution bit: $git config core.filemode false
+                                $git config --global core.filemode false
+
 Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)

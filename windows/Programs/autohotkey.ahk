@@ -104,7 +104,12 @@ Esc & p:: ; delete one word
         Send ^{Backspace}
     return
 
-!`:: Send !{F4} ; unify vscode and other app's closing shortcuts
+!`:: 
+    if WinActive("ahk_exe mintty.exe") or WinActive("ahk_exe gvim.exe")
+        Send !e
+    else
+		Send !{F4} ; unify vscode and other app's closing shortcuts
+    return
 
 
 ;-------------------------------------------------------------------------------
