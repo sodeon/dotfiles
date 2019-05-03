@@ -1,6 +1,4 @@
 #!/bin/bash
-# TODO: install light
-# TODO: install sxiv
 #------------------------------------------------------------------------------
 # Steps to provision a new OS
 #------------------------------------------------------------------------------
@@ -130,6 +128,10 @@ echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as
 cd suckless/sxiv
 sudo make install
 cd -
+
+# light: built-in LCD blacklight control
+wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb ~/.provision-temp
+sudo dpkg -i ~/.provision-temp/light_1.2_amd64.deb
 
 
 #------------------------------------------------------------------------------
