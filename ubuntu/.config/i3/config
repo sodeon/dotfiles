@@ -47,7 +47,7 @@ bar {
 	}
 
     strip_workspace_numbers yes
-	position bottom
+	position top
 }
 
 
@@ -113,7 +113,8 @@ mode " Quick Launch " {
     # bindsym f exec firefox                            ; mode "default"
     # bindsym t exec gnome-terminal                     ; mode "default"
     bindsym t exec urxvt                              ; mode "default"
-    bindsym f exec nautilus                           ; mode "default"
+    bindsym f exec urxvt -e ranger ~                  ; mode "default"
+    bindsym n exec nautilus                           ; mode "default"
 
 	bindsym Escape mode "default"
 }
@@ -148,7 +149,7 @@ bindsym $mod+v split h
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+f layout toggle split
-bindsym $mod+t layout tabbed
+bindsym $mod+t layout toggle tabbed split
 # maximize (could also use full screen mode if one prefer)
 bindsym $mod+z resize set width 99ppt, resize set height 90ppt
 # minimize
@@ -190,6 +191,8 @@ set $ws10 "10"
 # switch to workspace
 bindsym $modWorkspace+q workspace prev
 bindsym $modWorkspace+w workspace next
+bindsym $mod+q          workspace prev
+bindsym $mod+w          workspace next
 bindsym $modWorkspace+h workspace prev
 bindsym $modWorkspace+l workspace next
 bindsym $mod+Tab        workspace back_and_forth
@@ -243,17 +246,16 @@ assign [class="Firefox"           ] $ws2
 assign [class="Org.gnome.Nautilus"] $ws3
 assign [class="SmartGit"          ] $ws5
 
-for_window [class="Google-chrome"     ] border none
-for_window [class="Firefox"           ] border none
-for_window [class="Org.gnome.Nautilus"] border none
-for_window [class="SmartGit"          ] border none
+for_window [class="Google-chrome"       ] border none
+for_window [class="Firefox"             ] border none
+for_window [class="URxvt" title="ranger"] border none
+for_window [class="Org.gnome.Nautilus"  ] border none
+for_window [class="SmartGit"            ] border none
 # floating bottom right corner with 25% of screen size
-for_window [class="mpv"               ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
+for_window [class="mpv"                 ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
 # no_focus [class="mpv"]
-for_window [class="Sxiv"              ] border none, floating enable,                fullscreen
+for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 # bindsym 0 [class="Sxiv"] exec --no-startup-id xdotool keyup 0 key BackSpace # doesn't work. xdotool send keystroke to all windows
-
-# floating_maximum_size 480 x 270
 
 
 #--------------------------------------------------------------------------------
@@ -261,8 +263,8 @@ for_window [class="Sxiv"              ] border none, floating enable,           
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec urxvt
+exec google-chrome
 exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
-# exec google-chrome
-# exec --no-startup-id unclutter
 
+# exec --no-startup-id unclutter
 # exec ---no-startup-id compton -f

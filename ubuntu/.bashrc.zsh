@@ -7,13 +7,11 @@ alias lr='ls -rtla'
 # Most used programs
 alias s='source $*'
 alias t='touch'
-alias m='mv'
 alias v='vim -p' # each file a tab
 # alias p='realpath'
-alias g='git'
 alias gs='git status'
-alias ga='git add .'
-alias gc='git commit'
+alias gd='git diff --color --color-moved'
+alias gc='git add .; git commit' # stage all modified files and commit
 alias gp='git push'
 alias gf='git fetch; git pull'
 
