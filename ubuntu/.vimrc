@@ -215,7 +215,11 @@ Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' "toggle boolean
 Plug 'justinmk/vim-sneak' " motion search (type s plus two char to move cursor to first match, type : to go to next match)
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround' " change surround characters (type cs'[ to change '' surrounding to [] surrounding) (type ds to delete surrounding)
+Plug 'tpope/vim-surround' " change surround characters (
+                          "     type cs'[ to change '' surrounding to [] surrounding
+                          "     likewise, type ds to delete surrounding
+                          "     type ysiw" to add double quote
+                          "     type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
 " Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>, not used often enough
 " Plug 'easymotion/vim-easymotion' # not like the idea that I have to look at the hint to know what to type
