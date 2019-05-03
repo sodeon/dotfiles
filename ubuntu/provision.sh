@@ -63,7 +63,7 @@ apt-force install cmake make build-essential # build tools
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
 # From Ubuntu apt - WSL not usable
-apt-force install urxvt-unicode xsel # xsel: system clipboard for urxvt
+apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install aptitude # apt package manager
 apt-force install cmus # music player
 apt-force install mpv # video player
