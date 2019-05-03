@@ -97,6 +97,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # git
 git config --global credential.helper 'cache --timeout=86400'
+# only unix line end and ignore execution bit
+git config --global core.filemode false
+git config --global core.autocrlf false
+git config --global core.eol lf
 
 
 #------------------------------------------------------------------------------
