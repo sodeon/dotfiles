@@ -13,7 +13,6 @@ cp ~/bin/* ./bin
 
 cp -rf ~/.config/i3     .config
 cp -rf ~/.config/rofi   .config
-cp -rf ~/.config/htop   .config
 cp -rf ~/.config/mpv    .config
 cp -rf ~/.config/ranger .config
 

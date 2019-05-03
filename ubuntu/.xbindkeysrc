@@ -23,6 +23,8 @@ b:9
 # Volume control
 "amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
 Control_R
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+Super_R
 "amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
 Alt_R
 
