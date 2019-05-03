@@ -138,11 +138,6 @@ cd -
 # restore dot files
 chmod +x ./restore.sh && ./restore.sh
 
-# autohotkey
-sudo cp hotkey.sh /etc/init.d
-sudo chmod 755 /etc/init.d/hotkey.sh
-update-rc.d hotkey.sh defaults
-
 # Disable Ubuntu error report
 sudo systemctl disable apport
 sudo systemctl disable whoopsie
@@ -162,7 +157,7 @@ fc-cache -f -v # rebuild font cache
 # Enable command line LCD panel backlight control
 whoami | sudo xargs usermod -a -G video
 
-# Enable Wayland fractional scaling: 
+# Enable Wayland fractional scaling on Ubuntu 19.04: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
 

@@ -7,18 +7,19 @@ alias lr='ls -rtla'
 # Most used programs
 alias s='source $*'
 alias t='touch'
-alias m='mv'
 alias v='vim -p' # each file a tab
 # alias p='realpath'
-alias g='git'
+alias gs='git status'
+alias gd='git diff --color --color-moved'
+alias gc='git add .; git commit' # stage all modified files and commit
+alias gp='git push'
+alias gg='git fetch; git pull' # git get = fetch + pull
 alias start='cmd.exe /C'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
-alias h='j H'
 #alias H='cd /c/Users/Andy'
 
-# alias shutdown='shutdown -h now'
 
 # Laravel
 alias artisan='php artisan'

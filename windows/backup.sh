@@ -1,11 +1,11 @@
 #!/bin/bash
 
 cp ~/.bashrc.zsh .
-# cp ~/.inputrc .
 cp ~/.tmux.conf .
 cp ~/.vimrc .
 cp $WINHOME/.gvimrc .
 cp ~/.zshrc .
+
 cp -rf ~/.config/ranger .config
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 cp -rf ~/bin .

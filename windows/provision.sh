@@ -61,7 +61,7 @@ apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
-apt-force install cmake make # build tools
+apt-force install cmake make build-essential # build tools
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
 apt-force autoremove

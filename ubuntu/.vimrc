@@ -103,6 +103,10 @@ noremap <c-w><c-o> <c-w><c-r>
 " vertical -> horizontal split
 "noremap <c-w><c-s> <c-w>K
 
+" go to the current/previous/next line's first non-white char
+nnoremap _ -
+nnoremap - _
+
 " Ctags
 " set tags=./tags,./TAGS,tags;~,TAGS;~
 
@@ -117,10 +121,11 @@ noremap <Leader>p "+p
 nnoremap <space> za
 
 " Insert line w/o entering insert mode
+"    <S-Enter> doesn't work in terminal: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter)
 nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 
-" 
+" copy till line end (like D means delete till line end)
 noremap Y y$
 
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html

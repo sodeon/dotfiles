@@ -13,7 +13,7 @@ alias gs='git status'
 alias gd='git diff --color --color-moved'
 alias gc='git add .; git commit' # stage all modified files and commit
 alias gp='git push'
-alias gf='git fetch; git pull'
+alias gg='git fetch; git pull' # git get = fetch + pull
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'

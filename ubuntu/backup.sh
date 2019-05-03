@@ -1,15 +1,13 @@
 #!/bin/bash
 
-cp ~/.profile .
 cp ~/.bashrc.zsh .
-# cp ~/.inputrc .
 cp ~/.tmux.conf .
 cp ~/.vimrc .
 cp ~/.zshrc .
+cp ~/.profile .
 cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
 cp ~/.Xresources .
-cp ~/bin/* ./bin
 
 cp -rf ~/.config/i3     .config
 cp -rf ~/.config/rofi   .config
