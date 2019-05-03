@@ -70,9 +70,11 @@ bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 # Brightness/color temperature
 # https://github.com/haikarainen/light
 # TODO: app aware brightness
-bindsym Mod3+Down exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Up   exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b    exec --no-startup-id light -S 25 && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Down             exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Up               exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
+bindsym Mod3+b                exec --no-startup-id light -S 25 && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
 
 # Media and volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
@@ -84,6 +86,11 @@ bindsym XF86AudioPlay  exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
+
+# Laptop function keys
+# bindsym XF86Display    exec --no-startup-id displayselect
+# bindsym XF86Bluetooth  exec
+# bindsym XF86TouchpadToggle	exec --no-startup-id toggletouchpad
 
 # Screenshot
 bindsym Print         exec flameshot full   -p $HOME/Pictures
