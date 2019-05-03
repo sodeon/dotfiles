@@ -130,8 +130,10 @@ sudo make install
 cd -
 
 # light: built-in LCD blacklight control
-wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb ~/.provision-temp
-sudo dpkg -i ~/.provision-temp/light_1.2_amd64.deb
+cd ~/.provision-temp
+wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb
+sudo dpkg -i light_1.2_amd64.deb
+cd -
 
 
 #------------------------------------------------------------------------------
