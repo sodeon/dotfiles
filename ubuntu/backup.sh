@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp ~/.profile .
 cp ~/.bashrc.zsh .
 # cp ~/.inputrc .
 cp ~/.tmux.conf .
@@ -19,3 +20,5 @@ cp -rf ~/.config/ranger .config
 cp -rf ~/.urxvt .
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 cp -rf ~/bin .
+
+cp ~/code/sxiv/sxiv binary

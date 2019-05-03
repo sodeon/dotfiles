@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp .profile ~/
 cp .bashrc.zsh ~/
 # cp .inputrc ~/
 cp .tmux.conf ~/
