@@ -112,6 +112,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# git
+git config --global credential.helper 'cache --timeout=86400'
+
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
 sudo install -Dm 0755 ./bin/unclutter /usr/bin/

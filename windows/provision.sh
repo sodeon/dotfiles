@@ -95,6 +95,9 @@ curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# git
+git config --global credential.helper 'cache --timeout=86400'
+
 
 #------------------------------------------------------------------------------
 # Post-software-installation Config
