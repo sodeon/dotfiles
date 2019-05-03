@@ -21,3 +21,8 @@ cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 cp -rf ~/bin .
 
 cp ~/code/sxiv/sxiv binary
+if [ -d ~/code/sxiv ]; then
+	cp ~/code/sxiv/sxiv   suckless/sxiv
+	cp ~/code/sxiv/sxiv.1 suckless/sxiv
+	cp ~/code/sxiv/exec/* suckless/sxiv/exec
+fi

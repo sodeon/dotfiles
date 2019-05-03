@@ -1,0 +1,4 @@
+z: fit screen (zoom)
+ctrl++ / +: zoom in
+ctrl+- / -: zoom out
+ctrl+0 / backspace: reset zoom

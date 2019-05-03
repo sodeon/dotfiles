@@ -19,6 +19,7 @@ alias gf='git fetch; git pull'
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
 #alias H='cd /c/Users/Andy'
 
+alias suspend='systemctl suspend'
 alias shutdown='shutdown -h now'
 
 # Laravel

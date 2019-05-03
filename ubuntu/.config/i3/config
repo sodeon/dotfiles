@@ -88,7 +88,7 @@ bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
 
 # Laptop function keys
-# bindsym XF86Display    exec --no-startup-id displayselect
+bindsym XF86Display    exec --no-startup-id set-display-monitor.sh
 # bindsym XF86Bluetooth  exec
 # bindsym XF86TouchpadToggle	exec --no-startup-id toggletouchpad
 
@@ -187,8 +187,10 @@ bindsym $mod+Mod3+l resize grow   width  10px or 10ppt
 set $ws1 "1: Term"
 set $ws2 "2: Web"
 set $ws3 "3: File"
+set $ws4 "4"
 set $ws4 "4: Code"
-set $ws5 "5: Git"
+set $ws5 "5"
+# set $ws5 "5: Git"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -196,13 +198,11 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $modWorkspace+q workspace prev
-bindsym $modWorkspace+w workspace next
+bindsym $mod+Tab        workspace back_and_forth
 bindsym $mod+q          workspace prev
 bindsym $mod+w          workspace next
 bindsym $modWorkspace+h workspace prev
 bindsym $modWorkspace+l workspace next
-bindsym $mod+Tab        workspace back_and_forth
 bindsym $modWorkspace+1 workspace $ws1
 bindsym $modWorkspace+2 workspace $ws2
 bindsym $modWorkspace+3 workspace $ws3
@@ -215,8 +215,8 @@ bindsym $modWorkspace+9 workspace $ws9
 bindsym $modWorkspace+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $modWorkspace+Shift+h move container to workspace prev; workspace prev
-bindsym $modWorkspace+Shift+l move container to workspace next; workspace next
+bindsym $mod+Shift+q          move container to workspace prev; workspace prev
+bindsym $mod+Shift+w          move container to workspace next; workspace next
 bindsym $modWorkspace+Shift+1 move container to workspace $ws1 
 bindsym $modWorkspace+Shift+2 move container to workspace $ws2 
 bindsym $modWorkspace+Shift+3 move container to workspace $ws3 
@@ -250,12 +250,12 @@ bindsym F7 workspace $ws7
 # assign [class="URxvt"             ] $ws1
 # assign [class="Google-chrome"     ] $ws2
 # assign [class="Firefox"           ] $ws2
-assign [class="Org.gnome.Nautilus"] $ws3
-assign [class="SmartGit"          ] $ws5
+# assign [class="Org.gnome.Nautilus"] $ws3
+# assign [class="SmartGit"          ] $ws5
 
+for_window [class="URxvt" title="ranger"] border none
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
-for_window [class="URxvt" title="ranger"] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="SmartGit"            ] border none
 # floating bottom right corner with 25% of screen size
@@ -271,7 +271,7 @@ for_window [class="qBittorrent"         ]              floating enable,         
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec urxvt
-exec i3-msg 'workspace $ws2; exec google-chrome    ; workspace $ws1'
+exec i3-msg 'workspace $ws2; exec google-chrome'
 exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
 
 # exec --no-startup-id unclutter

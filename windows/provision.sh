@@ -55,15 +55,14 @@ apt-force install git
 apt-force install python-pip
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
-apt-force install python-pygments # cat with color
-pip install pygments # cat with color
+# apt-force install python-pygments # cat with color
+# pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make # build tools
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
-apt-force install libsixel-bin
 
 apt-force autoremove
 

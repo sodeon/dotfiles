@@ -53,15 +53,14 @@ apt-force install git
 apt-force install python-pip
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
-apt-force install python-pygments # cat with color
-pip install pygments # cat with color
+# apt-force install python-pygments # cat with color
+# pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential # build tools
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
-apt-force install libsixel-bin
 
 # From Ubuntu apt - WSL not usable
 apt-force install urxvt-unicode xsel # xsel: system clipboard for urxvt
@@ -71,14 +70,18 @@ apt-force install mpv # video player
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install sshfs
-apt-force install xbindkeys xautomation xcape xdotool ddccontrol # key mapping and hotkey helpers
-apt-force install fonts-roboto fonts-firacode fonts-font-awesome # fonts
-apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
+apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
+apt-force install ddccontrol # monitor brightness control
+apt-force install fonts-firacode fonts-font-awesome # fonts
 apt-force install fcitx fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
+apt-force install libsixel-bin # terminal image/video viewing
+apt-force install qbittorrent
+# apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
-apt-force install i3 i3blocks lxappearance # lxappearance to apply GTK theme in i3
+apt-force install i3 i3blocks 
+apt-force install lxappearance # Apply GTK theme in i3
 apt-force install playerctl rofi flameshot # playerctl: media player control, rofi: launcher, flameshot: screenshot
 # apt-force install compton # compton: transition/transparency effect
 
@@ -107,7 +110,6 @@ rm ripgrep_11.0.1_amd64.deb
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -122,14 +124,12 @@ sudo install -Dm 0755 ./bin/unclutter /usr/bin/
 # Set urxvt as default terminal
 echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
 
-# TODO: sxiv: image viewer
-# apt-force libimlib2-dev libxft-dev libexif-dev
-# git clone https://github.com/muennich/sxiv.git ~/.provision-temp/sxiv
-# cd ~/.provision-temp/sxiv
-# make
-# sudo make install
-# # TODO: apply patch
-# cd -
+# sxiv: image viewer
+# https://github.com/muennich/sxiv.git ~/.provision-temp/sxiv
+#       Re-compile dependency: libimlib2-dev libxft-dev libexif-dev
+cd suckless/sxiv
+sudo make install
+cd -
 
 
 #------------------------------------------------------------------------------

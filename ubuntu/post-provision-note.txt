@@ -15,6 +15,11 @@ Programs:
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
     # gnome extension sync using gist
 
+System:
+    Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
+		HandleLidSwitch=suspend
+		HandleLidSwitch=ignore
+
 Accounts:
 	SourceTree account: sodeon@gmail.com/old
 	GitHub account: sodeon@gmail.com/new

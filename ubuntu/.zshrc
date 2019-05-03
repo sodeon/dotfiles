@@ -97,8 +97,8 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # colored cat (replace colorize plugin)
-alias ccat='/bin/cat'
-alias cat='pygmentize -g'
+# alias ccat='/bin/cat'
+# alias cat='pygmentize -g'
 
 alias j='jump'
 
