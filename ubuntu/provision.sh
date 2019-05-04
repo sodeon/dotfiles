@@ -80,7 +80,7 @@ apt-force install qbittorrent
 # From Ubuntu apt - i3
 apt-force install i3 i3blocks 
 apt-force install lxappearance # Apply GTK theme in i3
-apt-force install playerctl rofi flameshot # playerctl: media player control, rofi: launcher, flameshot: screenshot
+apt-force install playerctl rofi flameshot pulsemixer # playerctl: media player control, rofi: launcher, flameshot: screenshot, pulsemixer: current audio for i3blocks
 # apt-force install compton # compton: transition/transparency effect
 
 apt-force autoremove
@@ -112,9 +112,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# git
-git config --global credential.helper 'cache --timeout=86400'
-
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
 sudo install -Dm 0755 ./bin/unclutter /usr/bin/
@@ -141,6 +138,10 @@ cd -
 #------------------------------------------------------------------------------
 # restore dot files
 chmod +x ./restore.sh && ./restore.sh
+
+# git
+git config --global credential.helper 'cache --timeout=86400'
+git config --global diff.tool vimdiff
 
 # Disable Ubuntu error report
 sudo systemctl disable apport

@@ -94,19 +94,20 @@ curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# git
-git config --global credential.helper 'cache --timeout=86400'
-# only unix line end and ignore execution bit
-git config --global core.filemode false
-git config --global core.autocrlf false
-git config --global core.eol lf
-
 
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
 chmod +x ./restore.sh && ./restore.sh
+
+# git
+git config --global credential.helper wincred
+git config --global diff.tool vimdiff
+# only unix line end and ignore execution bit
+git config --global core.filemode false
+git config --global core.autocrlf false
+git config --global core.eol lf
 
 
 #------------------------------------------------------------------------------

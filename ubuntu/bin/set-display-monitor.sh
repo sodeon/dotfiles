@@ -9,17 +9,21 @@ internalResolution=1920x1080
 internalScale=1x1
 
 # External display: 3840x2160 32"
-external=DP-1
+external=HDMI-0
 externalResolution=3840x2160
 externalScale=1.6x1.6 # 2/1.25=1.6 => scale 125%
-isIntel=true
+isIntel=false
 
-if xrandr | grep "$external disconnected"; then
-    xrandr --output "$external" --off --output "$internal" --mode $internalResolution --scale $internalScale
+if xrandr | grep $internal; then
+	if xrandr | grep "$external disconnected"; then
+		xrandr --output "$external" --off --output "$internal" --mode $internalResolution --scale $internalScale
+	else
+		if [ $isIntel ]; then
+			xrandr --output "$internal" --off --output "$external" --mode $externalResolution --scale $externalScale --set "Broadcast RGB" "Full"
+		else
+			xrandr --output "$internal" --off --output "$external" --mode $externalResolution --scale $externalScale
+		fi
+	fi
 else
-    if [ $isIntel ]; then
-        xrandr --output "$internal" --off --output "$external" --mode $externalResolution --scale $externalScale --set "Broadcast RGB" "Full"
-    else
-        xrandr --output "$internal" --off --output "$external" --mode $externalResolution --scale $externalScale
-    fi
+	xrandr --output "$external" --mode $externalResolution --scale $externalScale --rate 60.00
 fi
