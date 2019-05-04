@@ -11,7 +11,9 @@ alias v='vim -p' # each file a tab
 # alias p='realpath'
 alias gs='git status'
 alias gd='git diff --color --color-moved'
+alias gdt='git difftool'
 alias gc='git add .; git commit' # stage all modified files and commit
+alias gb='git checkout -b'
 alias gp='git push'
 alias gg='git fetch; git pull' # git get = fetch + pull
 

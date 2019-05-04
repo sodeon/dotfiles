@@ -71,16 +71,12 @@ bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 # Brightness/color temperature
 # https://github.com/haikarainen/light
 # TODO: app aware brightness
-bindsym Mod3+Down             exec --no-startup-id ddcutil setvcp 10 - 5 --bus 4 && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Up               exec --no-startup-id ddcutil setvcp 10 + 5 --bus 4 && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b                exec --no-startup-id ddcutil setvcp 10  20 --bus 4 && pkill -RTMIN+11 i3blocks
-bindsym Mod3+n                exec --no-startup-id ddcutil setvcp 14  4 --bus 4 # 5000K
-bindsym Mod3+Shift+n          exec --no-startup-id ddcutil setvcp 14  5 --bus 4 # 6500K
-# bindsym Mod3+Down             exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
-# bindsym Mod3+Up               exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
-# bindsym Mod3+b                exec --no-startup-id light -S 25 && pkill -RTMIN+11 i3blocks
-# bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
-# bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Down             exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Up               exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
+bindsym Mod3+b                exec --no-startup-id monitor-control.zsh br && monitor-control.zsh cr && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Shift+b          exec --no-startup-id monitor-control.zsh bv && monitor-control.zsh cv && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
 
 # Media and volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
