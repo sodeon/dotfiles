@@ -38,7 +38,8 @@ bar {
 		set $bar-inactive-text-color #676e7d
 		set $bar-urgent-bg-color     #e53935
 
-        background #111111
+        background #000000
+        # background #111111
         separator #757575
         #                  border                 background             text
         focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
@@ -70,11 +71,16 @@ bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 # Brightness/color temperature
 # https://github.com/haikarainen/light
 # TODO: app aware brightness
-bindsym Mod3+Down             exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Up               exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b                exec --no-startup-id light -S 25 && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Down             exec --no-startup-id ddcutil setvcp 10 - 5 --bus 4 && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Up               exec --no-startup-id ddcutil setvcp 10 + 5 --bus 4 && pkill -RTMIN+11 i3blocks
+bindsym Mod3+b                exec --no-startup-id ddcutil setvcp 10  20 --bus 4 && pkill -RTMIN+11 i3blocks
+bindsym Mod3+n                exec --no-startup-id ddcutil setvcp 14  4 --bus 4 # 5000K
+bindsym Mod3+Shift+n          exec --no-startup-id ddcutil setvcp 14  5 --bus 4 # 6500K
+# bindsym Mod3+Down             exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
+# bindsym Mod3+Up               exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
+# bindsym Mod3+b                exec --no-startup-id light -S 25 && pkill -RTMIN+11 i3blocks
+# bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5  && pkill -RTMIN+11 i3blocks
+# bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5  && pkill -RTMIN+11 i3blocks
 
 # Media and volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
@@ -98,7 +104,7 @@ bindsym control+Print exec flameshot gui    -p $HOME/Pictures
 # bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Lock/logout
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
 # bindsym $mod+shift+x exec i3lock --color 475263
 
 # Restart/reload i3 config
@@ -198,35 +204,33 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+Tab        workspace back_and_forth
-bindsym $mod+q          workspace prev
-bindsym $mod+w          workspace next
-bindsym $modWorkspace+h workspace prev
-bindsym $modWorkspace+l workspace next
-bindsym $modWorkspace+1 workspace $ws1
-bindsym $modWorkspace+2 workspace $ws2
-bindsym $modWorkspace+3 workspace $ws3
-bindsym $modWorkspace+4 workspace $ws4
-bindsym $modWorkspace+5 workspace $ws5
-bindsym $modWorkspace+6 workspace $ws6
-bindsym $modWorkspace+7 workspace $ws7
-bindsym $modWorkspace+8 workspace $ws8
-bindsym $modWorkspace+9 workspace $ws9
-bindsym $modWorkspace+0 workspace $ws10
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+q   workspace prev
+bindsym $mod+w   workspace next
+bindsym $mod+1   workspace $ws1
+bindsym $mod+2   workspace $ws2
+bindsym $mod+3   workspace $ws3
+bindsym $mod+4   workspace $ws4
+bindsym $mod+5   workspace $ws5
+bindsym $mod+6   workspace $ws6
+bindsym $mod+7   workspace $ws7
+bindsym $mod+8   workspace $ws8
+bindsym $mod+9   workspace $ws9
+bindsym $mod+0   workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+q          move container to workspace prev; workspace prev
-bindsym $mod+Shift+w          move container to workspace next; workspace next
-bindsym $modWorkspace+Shift+1 move container to workspace $ws1 
-bindsym $modWorkspace+Shift+2 move container to workspace $ws2 
-bindsym $modWorkspace+Shift+3 move container to workspace $ws3 
-bindsym $modWorkspace+Shift+4 move container to workspace $ws4 
-bindsym $modWorkspace+Shift+5 move container to workspace $ws5 
-bindsym $modWorkspace+Shift+6 move container to workspace $ws6 
-bindsym $modWorkspace+Shift+7 move container to workspace $ws7 
-bindsym $modWorkspace+Shift+8 move container to workspace $ws8 
-bindsym $modWorkspace+Shift+9 move container to workspace $ws9 
-bindsym $modWorkspace+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+q move container to workspace prev ; workspace prev
+bindsym $mod+Shift+w move container to workspace next ; workspace next
+bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
+bindsym $mod+Shift+2 move container to workspace $ws2 ; workspace $ws2 
+bindsym $mod+Shift+3 move container to workspace $ws3 ; workspace $ws3 
+bindsym $mod+Shift+4 move container to workspace $ws4 ; workspace $ws4 
+bindsym $mod+Shift+5 move container to workspace $ws5 ; workspace $ws5 
+bindsym $mod+Shift+6 move container to workspace $ws6 ; workspace $ws6 
+bindsym $mod+Shift+7 move container to workspace $ws7 ; workspace $ws7 
+bindsym $mod+Shift+8 move container to workspace $ws8 ; workspace $ws8 
+bindsym $mod+Shift+9 move container to workspace $ws9 ; workspace $ws9 
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 
 #--------------------------------------------------------------------------------
@@ -246,7 +250,7 @@ bindsym F7 workspace $ws7
 # bindsym F8 workspace $ws8
 # bindsym F9 workspace $ws9
 
-# Application's workspace
+# Bind application to workspace
 # assign [class="URxvt"             ] $ws1
 # assign [class="Google-chrome"     ] $ws2
 # assign [class="Firefox"           ] $ws2
@@ -274,5 +278,5 @@ exec urxvt
 exec i3-msg 'workspace $ws2; exec google-chrome'
 exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
 
-# exec --no-startup-id unclutter
+exec --no-startup-id unclutter
 # exec ---no-startup-id compton -f

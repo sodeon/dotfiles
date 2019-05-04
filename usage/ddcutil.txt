@@ -1,0 +1,29 @@
+Workaround NVIDIA i2c not working:
+https://github.com/ddccontrol/ddccontrol/issues/20
+http://www.ddcutil.com/nvidia/#special-nvidia-driver-settings
+Add "options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100" in /etc/xmodprobe.d/nvidia.conf # create this file manually
+
+Check which i2c Graphics card is using: $ddcutil detect
+List display capabilities: $ddcutil vcpinfo --verbose
+Set value: $ddcutil setvcp 10 + 5 --bus 4
+Get value: $ddcutil getvcp 10 --bus 4
+
+GeForce 2070:
+    HDMI-1: i2c-4
+
+BenQ EW3270U:
+Brightness (feature 10)
+Color temperatures (feature 14):
+    0x01: sRGB
+    0x02: Display Native
+    0x03: 4000 K
+    0x04: 5000 K
+    0x05: 6500 K
+    0x06: 7500 K
+    0x07: 8200 K
+    0x08: 9300 K
+    0x09: 10000 K
+    0x0a: 11500 K
+    0x0b: User 1
+    0x0c: User 2
+    0x0d: User 3

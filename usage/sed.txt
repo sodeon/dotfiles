@@ -1,0 +1,2 @@
+sed -r: use regular expression you expect
+sed -i: use input file

@@ -80,7 +80,7 @@ apt-force install qbittorrent
 # From Ubuntu apt - i3
 apt-force install i3 i3blocks 
 apt-force install lxappearance # Apply GTK theme in i3
-apt-force install playerctl rofi flameshot # playerctl: media player control, rofi: launcher, flameshot: screenshot
+apt-force install playerctl rofi flameshot pulsemixer # playerctl: media player control, rofi: launcher, flameshot: screenshot, pulsemixer: current audio for i3blocks
 # apt-force install compton # compton: transition/transparency effect
 
 apt-force autoremove
@@ -114,6 +114,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # git
 git config --global credential.helper 'cache --timeout=86400'
+git config --global diff.tool vimdiff
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
