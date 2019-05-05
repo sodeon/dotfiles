@@ -99,6 +99,10 @@ bindsym Print         exec flameshot full   -p $HOME/Pictures
 bindsym control+Print exec flameshot gui    -p $HOME/Pictures
 # bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
 
+# Turn off monitor / suspend
+bindsym Pause exec --no-startup-id xset dpms force off
+bindsym Scroll_Lock exec --no-startup-id systemctl suspend
+
 # Lock/logout
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
 # bindsym $mod+shift+x exec i3lock --color 475263
