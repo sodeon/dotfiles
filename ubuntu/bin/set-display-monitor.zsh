@@ -6,11 +6,11 @@
 # Read configuration
 source ~/.config/hardware/display.zsh
 
-if [[ ! -v $secondaryDisplay || ! $secondaryDisplay[interface] ]]; then
+if [[ ! $secondaryDisplay[interface] ]]; then
 	xrandr --output "$primaryDisplay[interface]" --mode $primaryDisplay[resolution] --scale $primaryDisplay[scale]
 else
-    if xrandr | grep "$primaryDisplay[interface] connected"; then
-        if $isIntelGPU; then
+    if xrandr | grep "\<$primaryDisplay[interface]\> connected"; then
+        if [[ $isIntelGPU ]] then
 			xrandr --output "$primaryDisplay[interface]" --mode $primaryDisplay[resolution] --scale $primaryDisplay[scale] --output $secondaryDisplay[interface] --off --set "Broadcast RGB" "Full"
 		else
 			xrandr --output "$primaryDisplay[interface]" --mode $primaryDisplay[resolution] --scale $primaryDisplay[scale] --output $secondaryDisplay[interface] --off

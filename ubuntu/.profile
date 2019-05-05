@@ -30,7 +30,7 @@ fi
 # HiDPI settings
 if [ -f ~/.config/hardware/displayrc ]; then
     source ~/.config/hardware/displayrc
-	if xrandr | grep "$hiDpiDisplay connected"; then
+	if xrandr | grep "\<$hiDpiDisplay\> connected"; then
 		sed -i -e 's/^!Xft.dpi/Xft.dpi/'           ~/.Xresources
 		sed -i -e 's/^!Xcursor.size/Xcursor.size/' ~/.Xresources
 		sed -i -e 's/^!rofi.dpi/rofi.dpi/'         ~/.Xresources
