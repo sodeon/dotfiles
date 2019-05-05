@@ -118,11 +118,11 @@ bindsym $mod+d exec rofi -show combi -lines 5 -font "System San Francisco Displa
 bindsym $mod+o mode " Quick Launch "
 mode " Quick Launch " {
     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
-    bindsym w exec google-chrome                      ; mode "default"
-    # bindsym f exec firefox                            ; mode "default"
+    bindsym c exec google-chrome                      ; mode "default"
+    bindsym f exec firefox                            ; mode "default"
     # bindsym t exec gnome-terminal                     ; mode "default"
-    bindsym t exec urxvt                              ; mode "default"
-    bindsym f exec urxvt -e ranger ~                  ; mode "default"
+    # bindsym t exec urxvt                              ; mode "default"
+    bindsym r exec urxvt -e ranger ~                  ; mode "default"
     bindsym n exec nautilus                           ; mode "default"
 
 	bindsym Escape mode "default"
