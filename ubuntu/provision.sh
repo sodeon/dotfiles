@@ -63,7 +63,7 @@ apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
 apt-force install ddccontrol # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome # fonts
-apt-force install fcitx fcitx-table-boshiamy # input methods
+apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
 apt-force install libsixel-bin # terminal image/video viewing
 apt-force install qbittorrent
