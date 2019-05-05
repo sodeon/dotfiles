@@ -131,9 +131,9 @@ mode " Quick Launch " {
     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
     bindsym c exec google-chrome                      ; mode "default"
     bindsym f exec firefox                            ; mode "default"
-    # bindsym t exec gnome-terminal                     ; mode "default"
     # bindsym t exec urxvt                              ; mode "default"
     bindsym r exec urxvt -e ranger ~                  ; mode "default"
+    bindsym m exec urxvt -e cmus                      ; mode "default"
     bindsym n exec nautilus                           ; mode "default"
 
 	bindsym Escape mode "default"
@@ -207,7 +207,7 @@ set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
+set $ws9 "9: Music"
 set $ws10 "10"
 
 # switch to workspace
@@ -258,6 +258,7 @@ bindsym F7 workspace $ws7
 # bindsym F9 workspace $ws9
 
 # Bind application to workspace
+assign [class="URxvt" title="cmus"  ] $ws9
 # assign [class="URxvt"             ] $ws1
 # assign [class="Google-chrome"     ] $ws2
 # assign [class="Firefox"           ] $ws2
@@ -265,6 +266,7 @@ bindsym F7 workspace $ws7
 # assign [class="SmartGit"          ] $ws5
 
 for_window [class="URxvt" title="ranger"] border none
+for_window [class="URxvt" title="cmus"  ] border none
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
