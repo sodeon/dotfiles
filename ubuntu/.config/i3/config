@@ -274,6 +274,7 @@ for_window [class="qBittorrent"         ]              floating enable,         
 # Startup scripts
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
+exec --no-startup-id ~/bin/set-display-monitor.zsh
 exec urxvt
 exec i3-msg 'workspace $ws2; exec google-chrome'
 exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'

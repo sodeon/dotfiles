@@ -19,6 +19,13 @@ System:
     Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
 		HandleLidSwitch=suspend
 		HandleLidSwitch=ignore
+    Auto-mount NTFS drives
+        Run "disks" to find what sda/sdb/.. drives to be mapped
+        Modify /etc/fstab:
+            For example, add following lines (sda3 mapped to /mnt/c)
+			/dev/sda3 /mnt/c ntfs uid=1000,auto,user 0	0
+			/dev/sda5 /mnt/d ntfs uid=1000,auto,user 0	0
+			/dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0	0
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old

@@ -50,7 +50,8 @@ alias bgr='reredirect -m'
 alias du='ncdu'
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
-alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/ggg//" $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
+alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
+# alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/ggg//" $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
 
 # alias only for WSL (Windows subsystem on Linux)
 #alias npm='/c/Program\ Files/nodejs/node.exe c:/Program\ Files/nodejs/node_modules/npm/bin/npm-cli.js'

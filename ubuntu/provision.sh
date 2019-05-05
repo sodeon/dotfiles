@@ -31,14 +31,6 @@ mkdir -p ~/.provision-temp
 
 
 #------------------------------------------------------------------------------
-# Folders and Aliases
-#------------------------------------------------------------------------------
-# sudo ln -s /mnt/c /c
-# sudo ln -s /mnt/d /d
-# sudo ln -s /mnt/e /e
-
-
-#------------------------------------------------------------------------------
 # Software installation
 #------------------------------------------------------------------------------
 # System update
@@ -161,6 +153,7 @@ fc-cache -f -v # rebuild font cache
 
 # Enable command line LCD panel backlight control
 whoami | sudo xargs usermod -a -G video
+whoami | sudo xargs usermod -a -G i2c
 
 # TODO: Hardware settings example
 mkdir -p ~/.config/hardware

@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-typeset -A ntfsMap=(
-	/dev/sda3 /c
-	/dev/sda5 /d
-	/dev/sdb2 /e
-)
