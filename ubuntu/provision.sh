@@ -162,6 +162,9 @@ fc-cache -f -v # rebuild font cache
 # Enable command line LCD panel backlight control
 whoami | sudo xargs usermod -a -G video
 
+# TODO: Hardware settings example
+mkdir -p ~/.config/hardware
+
 # Enable Wayland fractional scaling on Ubuntu 19.04: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
