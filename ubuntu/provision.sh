@@ -171,3 +171,12 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 #------------------------------------------------------------------------------
 # remove provision temp folder
 rm -rf ~/.provision-temp
+
+
+#------------------------------------------------------------------------------
+# What to do next messages
+#------------------------------------------------------------------------------
+echo << EOM
+Read ./post-provision-note.txt for further information
+Some usages can be found in ../usage/
+EOM

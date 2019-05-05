@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# If there are multiple high dpi displays, choose any one of them
+hiDpiDisplay=HDMI-0
