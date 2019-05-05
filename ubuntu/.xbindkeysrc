@@ -36,17 +36,3 @@ Alt_R
 # Mod3 + p
 # "xdotool keyup u key ctrl+u"
 # Mod3 + u
-
-
-# Brightness/color temperature
-# https://github.com/haikarainen/light
-# TODO: app aware brightness
-# "light -U 5  && pkill -RTMIN+11 i3blocks"
-# Mod3 + Down
-# "light -A 5  && pkill -RTMIN+11 i3blocks"
-# Mod3 + Up
-# "light -S 25 && pkill -RTMIN+11 i3blocks"
-# Mod3 + b
-# no need to have a shortcut to change resolution
-# Mod3 + r
-
