@@ -16,8 +16,14 @@ cp -rf ~/.config/mpv/input.conf .config/mpv
 cp -rf ~/.config/ranger         .config
 cp     ~/.config/cmus/autosave  .config/cmus
 
-# cp -rf ~/.config/mpv/mpv.conf optional-provision/laptop/.config/mpv
-# cp -rf ~/.config/mpv/mpv.conf optional-provision/desktop/.config/mpv
+case "$1" in
+    desktop)
+		cp ~/.config/mpv/mpv.conf optional-provision/desktop/.config/mpv
+        ;;
+    laptop)
+		cp ~/.config/mpv/mpv.conf optional-provision/laptop/.config/mpv
+        ;;
+esac
 
 cp -rf ~/.urxvt .
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
