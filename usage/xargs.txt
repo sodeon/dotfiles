@@ -1,0 +1,2 @@
+# use {} to position argument
+xargs -i mv {} ~/bin

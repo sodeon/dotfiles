@@ -1,0 +1,6 @@
+caps+u: delete line
+caps+p: delete word
+caps+i: go to the command's name
+alt+. : last argument
+
+ctrl+r: command history

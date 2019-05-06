@@ -16,6 +16,7 @@ alias gc='git add .; git commit' # stage all modified files and commit
 alias gb='git checkout -b'
 alias gp='git push'
 alias gg='git fetch; git pull' # git get = fetch + pull
+alias gl='git log'
 
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'

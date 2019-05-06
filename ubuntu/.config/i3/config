@@ -64,9 +64,10 @@ floating_modifier $mod
 #--------------------------------------------------------------------------------
 # Hotkeys (all non window/workspace/launcher related)
 #--------------------------------------------------------------------------------
-# Delete word/line
-bindsym Mod3+p exec --no-startup-id xdotool keyup p key ctrl+w
+# Delete word/line/...
+bindsym Mod3+p exec --no-startup-id autohotkey.sh mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
+bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
