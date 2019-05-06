@@ -1,3 +1,8 @@
+Go to "optional-provision" to install items useful for your system
+    laptop  folder's items is supposed to restore to their home directory
+    desktop folder's items is supposed to restore to their home directory
+
+
 Vim:
     open vim and :PlugInstall
     # copy ~/.vim to /c/Users/Andy

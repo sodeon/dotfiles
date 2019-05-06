@@ -74,9 +74,9 @@ bindsym XF86AudioPrev  exec cmus-remote -r && pkill -RTMIN+12 i3blocks
 # bindsym XF86AudioPrev  exec playerctl previous
 
 # Laptop function keys
-bindsym XF86Display    exec --no-startup-id set-display-monitor.sh
-# bindsym XF86Bluetooth  exec
-# bindsym XF86TouchpadToggle	exec --no-startup-id toggletouchpad
+bindsym XF86Display exec --no-startup-id set-display-monitor.sh
+bindsym XF86ScreenSaver exec --no-startup-id xset dpms force off
+bindsym XF86TouchpadToggle	exec --no-startup-id ~/bin/toggle-touchpad.sh
 
 # Screenshot
 bindsym Print         exec flameshot full   -p $HOME/Pictures
