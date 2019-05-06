@@ -10,11 +10,14 @@ cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
 cp ~/.Xresources .
 
-cp -rf ~/.config/i3            .config
-cp -rf ~/.config/rofi          .config
-cp -rf ~/.config/mpv           .config
-cp -rf ~/.config/ranger        .config
-cp     ~/.config/cmus/autosave .config
+cp -rf ~/.config/i3             .config
+cp -rf ~/.config/rofi           .config
+cp -rf ~/.config/mpv/input.conf .config/mpv
+cp -rf ~/.config/ranger         .config
+cp     ~/.config/cmus/autosave  .config/cmus
+
+# cp -rf ~/.config/mpv/mpv.conf optional-provision/laptop/.config/mpv
+# cp -rf ~/.config/mpv/mpv.conf optional-provision/desktop/.config/mpv
 
 cp -rf ~/.urxvt .
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
