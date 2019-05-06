@@ -68,6 +68,7 @@ apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
 apt-force install libsixel-bin # terminal image/video viewing
 apt-force install qbittorrent
+apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
@@ -124,6 +125,11 @@ cd ~/.provision-temp
 wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb
 sudo dpkg -i light_1.2_amd64.deb
 cd -
+
+# Youtube played by mpv (to enable hardware video acceleration)
+#    Install Chrome "play with mpv" extension
+#    In chrome: ctrl+space to play by mpv
+pip install git+git://github.com/thann/play-with-mpv --user 
 
 
 #------------------------------------------------------------------------------

@@ -27,30 +27,6 @@ hide_edge_borders both
 
 # workspace_auto_back_and_forth yes
 
-# Bottom bar
-bar {
-	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-	font pango:System San Francisco Display 12
-	colors {
-		set $bar-bg-color            #2f343f
-		set $bar-inactive-bg-color   #000000
-		set $bar-text-color          #f3f4f5
-		set $bar-inactive-text-color #676e7d
-		set $bar-urgent-bg-color     #e53935
-
-        background #000000
-        # background #111111
-        separator #757575
-        #                  border                 background             text
-        focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
-        inactive_workspace $bar-inactive-bg-color $bar-inactive-bg-color $bar-inactive-text-color
-        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
-	}
-
-    strip_workspace_numbers yes
-	position top
-}
-
 
 #--------------------------------------------------------------------------------
 # Modifiers
@@ -285,9 +261,38 @@ for_window [class="qBittorrent"         ]              floating enable,         
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor.zsh
+exec --no-startup-id play-with-mpv
 exec urxvt
 exec i3-msg 'workspace $ws2; exec google-chrome'
 exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
 
 exec --no-startup-id unclutter
 # exec ---no-startup-id compton -f
+
+
+#--------------------------------------------------------------------------------
+# Enable status bar in the end since some widgets rely on above config
+#--------------------------------------------------------------------------------
+# Bottom bar
+bar {
+	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+	font pango:System San Francisco Display 12
+	colors {
+		set $bar-bg-color            #2f343f
+		set $bar-inactive-bg-color   #000000
+		set $bar-text-color          #f3f4f5
+		set $bar-inactive-text-color #676e7d
+		set $bar-urgent-bg-color     #e53935
+
+        background #000000
+        # background #111111
+        separator #757575
+        #                  border                 background             text
+        focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
+        inactive_workspace $bar-inactive-bg-color $bar-inactive-bg-color $bar-inactive-text-color
+        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
+	}
+
+    strip_workspace_numbers yes
+	position top
+}
