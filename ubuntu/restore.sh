@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "${0%/*}"
 
 cp .bashrc.zsh ~/
 cp .tmux.conf ~/
