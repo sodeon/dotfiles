@@ -13,3 +13,7 @@ diff ~/.Xmodmap     . > ./diff/.Xmodmap.diff
 diff ~/.Xresources  . > ./diff/.Xresources.diff
 diff ~/.config/i3/config        ./.config/i3 > ./diff/i3-config.diff
 diff ~/.config/i3/i3blocks.conf ./.config/i3 > ./diff/i3blocks.conf.diff
+
+tail -n +1 ./diff/.*.diff
+echo
+tail -n +1 ./diff/*.diff
