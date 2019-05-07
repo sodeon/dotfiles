@@ -261,7 +261,7 @@ noremap <C-d>z :MaximizerToggle<CR>
 noremap <C-d>= :MaximizerToggle<CR>
 noremap <C-w>z :MaximizerToggle<CR>
 noremap <C-w>= :MaximizerToggle<CR>
-" Switch boolean
+" Toggle boolean
 nnoremap t :Switch<CR>
 
 " let g:sneak#s_next = 1
