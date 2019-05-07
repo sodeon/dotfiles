@@ -51,11 +51,13 @@ apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential # build tools
+apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
 # From Ubuntu apt - WSL not usable
+# apt-force install aptitude # apt package manager
+apt-force install google-chrome-stable
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
-apt-force install aptitude # apt package manager
 apt-force install cmus # music player
 apt-force install mpv # video player
 apt-force install zathura # pdf reader
