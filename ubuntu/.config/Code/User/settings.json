@@ -12,7 +12,7 @@
         }],
     },
     "editor.fontFamily": "Fira Code, 'Consolas NF', 'Courier New', monospace",
-    "editor.fontSize": 16,
+    "editor.fontSize": 16.3,
     "editor.fontWeight": "400",
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
