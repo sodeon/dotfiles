@@ -27,6 +27,30 @@ hide_edge_borders both
 
 # workspace_auto_back_and_forth yes
 
+# Bottom bar
+bar {
+	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+	font pango:System San Francisco Display 12
+	colors {
+		set $bar-bg-color            #2f343f
+		set $bar-inactive-bg-color   #000000
+		set $bar-text-color          #f3f4f5
+		set $bar-inactive-text-color #676e7d
+		set $bar-urgent-bg-color     #e53935
+
+        background #000000
+        # background #111111
+        separator #757575
+        #                  border                 background             text
+        focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
+        inactive_workspace $bar-inactive-bg-color $bar-inactive-bg-color $bar-inactive-text-color
+        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
+	}
+
+    strip_workspace_numbers yes
+	position top
+}
+
 
 #--------------------------------------------------------------------------------
 # Modifiers
@@ -40,10 +64,12 @@ floating_modifier $mod
 #--------------------------------------------------------------------------------
 # Hotkeys (all non window/workspace/launcher related)
 #--------------------------------------------------------------------------------
-# Delete word/line/...
+# Typing assist: delete word/line, Go back/forward word, ...
 bindsym Mod3+p exec --no-startup-id autohotkey.sh mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
+bindsym Mod3+h exec --no-startup-id xdotool keyup h key ctrl+Left
+bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
@@ -61,9 +87,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
 # bindsym Control_R            exec amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks
 # bindsym Alt_R                exec amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks
-bindsym Mod3+k         exec cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym Mod3+l         exec cmus-remote -n && pkill -RTMIN+12 i3blocks
-bindsym Mod3+h         exec cmus-remote -r && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+k   exec cmus-remote -u && pkill -RTMIN+12 i3blocks
+# bindsym Mod3+l         exec cmus-remote -n && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+l   exec cmus-remote -n && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+j   exec cmus-remote -r && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPlay  exec cmus-remote -u && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPause exec cmus-remote -u && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioNext  exec cmus-remote -n && pkill -RTMIN+12 i3blocks
@@ -99,7 +126,8 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # App launcher
 #--------------------------------------------------------------------------------
-bindsym $mod+d exec rofi -show combi -lines 5 -font "System San Francisco Display 15" -theme arc-dark-custom
+# not directly typed, but used by xcape binding
+bindsym $mod+minus exec rofi -show combi -lines 5 -font "System San Francisco Display 15" -theme arc-dark-custom
 # bindsym $mod+d exec rofi -show combi -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 17"
 
 # Quick launch
@@ -159,7 +187,8 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # parent/child
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
+bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # resize window (you can also use the mouse for that)
@@ -191,6 +220,8 @@ set $ws10 "10"
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+q   workspace prev
 bindsym $mod+w   workspace next
+bindsym $mod+a   workspace prev
+bindsym $mod+d   workspace next
 bindsym $mod+1   workspace $ws1
 bindsym $mod+2   workspace $ws2
 bindsym $mod+3   workspace $ws3
@@ -203,8 +234,8 @@ bindsym $mod+9   workspace $ws9
 bindsym $mod+0   workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+q move container to workspace prev ; workspace prev
-bindsym $mod+Shift+w move container to workspace next ; workspace next
+# bindsym $mod+Shift+q move container to workspace prev ; workspace prev
+# bindsym $mod+Shift+w move container to workspace next ; workspace next
 bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
 bindsym $mod+Shift+2 move container to workspace $ws2 ; workspace $ws2 
 bindsym $mod+Shift+3 move container to workspace $ws3 ; workspace $ws3 
@@ -264,36 +295,11 @@ exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor.zsh
 exec --no-startup-id play-with-mpv
 exec urxvt
-exec i3-msg 'workspace $ws2; exec google-chrome'
-exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
+# exec i3-msg 'workspace $ws2; exec google-chrome'
+# exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
 
 exec --no-startup-id unclutter
+# Launch only one instance of unclutter
+# exec --no-startup-id ps -ux | sed '/grep/d' | grep -e "-c unclutter" || unclutter
 # exec ---no-startup-id compton -f
 
-
-#--------------------------------------------------------------------------------
-# Enable status bar in the end since some widgets rely on above config
-#--------------------------------------------------------------------------------
-# Bottom bar
-bar {
-	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-	font pango:System San Francisco Display 12
-	colors {
-		set $bar-bg-color            #2f343f
-		set $bar-inactive-bg-color   #000000
-		set $bar-text-color          #f3f4f5
-		set $bar-inactive-text-color #676e7d
-		set $bar-urgent-bg-color     #e53935
-
-        background #000000
-        # background #111111
-        separator #757575
-        #                  border                 background             text
-        focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
-        inactive_workspace $bar-inactive-bg-color $bar-inactive-bg-color $bar-inactive-text-color
-        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
-	}
-
-    strip_workspace_numbers yes
-	position top
-}

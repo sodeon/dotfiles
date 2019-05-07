@@ -26,6 +26,9 @@ alias gl='git log'
 alias suspend='systemctl suspend'
 alias shutdown='shutdown -h now'
 
+# Gnome control center (for use in other window managers)
+alias settings='env XDG_CURRENT_DESKTOP=GNOME gnome-control-center'
+
 # Laravel
 alias artisan='php artisan'
 
