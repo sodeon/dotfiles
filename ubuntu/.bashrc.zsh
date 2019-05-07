@@ -55,7 +55,7 @@ alias artisan='php artisan'
 alias ht='htop'
 alias jo='jobs -l' # show PID
 alias bgr='reredirect -m'
-alias du='ncdu'
+alias du='ncdu --exclude /mnt' # do not include ntfs partitions
 alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files

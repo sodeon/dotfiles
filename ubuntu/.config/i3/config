@@ -278,6 +278,7 @@ for_window [class="URxvt" title="cmus"  ] border none
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
+for_window [class="Code"                ] border none
 for_window [class="SmartGit"            ] border none
 # floating bottom right corner with 25% of screen size
 for_window [class="mpv"                 ] border none, floating enable, sticky enable

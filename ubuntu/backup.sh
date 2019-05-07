@@ -15,6 +15,7 @@ cp -rf ~/.config/rofi           .config
 cp -rf ~/.config/mpv/input.conf .config/mpv
 cp -rf ~/.config/ranger         .config
 cp     ~/.config/cmus/autosave  .config/cmus
+cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
 
 case "$1" in
     desktop)

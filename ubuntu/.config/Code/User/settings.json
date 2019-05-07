@@ -1,0 +1,232 @@
+{
+    // Disable light theme (Winter is coming light) italic font face
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [{
+            "scope": [
+              "comment",
+              "entity.other.attribute-name",
+            ],
+            "settings": {
+              "fontStyle": ""
+            },
+        }],
+    },
+    "editor.fontFamily": "Fira Code, 'Consolas NF', 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "editor.fontWeight": "400",
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "editor.minimap.showSlider": "always",
+    "editor.renderIndentGuides": true,
+    "editor.tabCompletion": true,
+    "editor.renderLineHighlight": "none",
+    "editor.lineNumbers": "on",
+    // Reduce line number width
+    // https://github.com/Microsoft/vscode/issues/48791
+    "editor.lineNumbersMinChars": 1,
+    "editor.glyphMargin": false,
+    "editor.folding": false,
+    // End of reduce line nubmer width
+    "editor.cursorBlinking": "smooth",
+    "keyboard.dispatch": "keyCode",
+    "workbench.tips.enabled": false,
+    "workbench.editor.tabCloseButton": "off",
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.activityBar.visible": false,
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.revealIfOpen": true,
+    "workbench.editor.showTabs": true,
+    "workbench.statusBar.visible": true,
+    "workbench.statusBar.feedback.visible": false,
+    "vim.textwidth": 120,
+    "vim.hlsearch": true,
+    "vim.history": 100,
+    "vim.foldfix": true,
+    "vim.showcmd": false,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {"before": [";"], "after": [":"]},
+        {"before": ["q"], "after": [], "commands": [{"command": ":q"}]},
+    ],
+    "zenMode.hideTabs": false,
+    "zenMode.hideStatusBar": true,
+    "zenMode.restore": true,
+    "vetur.format.styleInitialIndent": true,
+    "vetur.format.scriptInitialIndent": true,
+    // "php.validate.run": "onType",
+    "php.suggest.basic": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "diffEditor.renderSideBySide": true,
+    "diffEditor.renderIndicators": false,
+    "window.zoomLevel": 1,
+    "window.menuBarVisibility": "toggle",
+    // "window.restoreFullscreen": true,
+    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
+    "window.enableMenuBarMnemonics": false,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/public/js/compiled": true,
+        "**/public/css/mto.compiled.css": true,
+        "**/storage/framework": true,
+        "**/storage": true,
+        "**/vendor": true,
+        "*compiled*": true,
+        "*sw.combined.js*": true,
+        "*.map": true,
+        "package-lock.json": true,
+        "*.lock": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "html",
+        "vue"
+    ],
+    "eslint.options": {
+        "plugins": ["html"]
+    },
+    "eslint.run": "onType",
+    "extensions.ignoreRecommendations": true,
+    "settings.cycle": [
+        {
+            "id": "toggleLineNumber",
+            "overrideWorkspaceSettings": false,
+            "values": [
+                { "editor.lineNumbers": "on", },
+                { "editor.lineNumbers": "off", }
+            ]
+        },
+        {
+            "id": "toggleIndentGuide",
+            "overrideWorkspaceSettings": false,
+            "values": [
+                { "editor.renderIndentGuides": true, },
+                { "editor.renderIndentGuides": false, }
+            ]
+        },
+        {
+            "id": "toggleColorTheme",
+            "overrideWorkspaceSettings": false,
+            "values": [
+                {
+                    "workbench.colorTheme": "Default Dark+",
+                    "workbench.colorCustomizations": {
+                    //    "panel.background": "#000",
+                        "sideBar.background": "#000",
+                        "editor.background": "#000",
+                        "editorGroup.border": "#000",
+                        "editorIndentGuide.background": "#000",
+                        "editorIndentGuide.activeBackground": "#444",
+                        "statusBar.background": "#000",
+                        "statusBar.foreground": "#ccc",
+                        "editorGroupHeader.tabsBackground": "#000",
+                        "tab.activeBackground": "#2c2c2c",
+                        // "tab.activeBackground": "#242424",
+                        "tab.inactiveBackground": "#000",
+                        "tab.border": "#000",
+                    },
+                },
+                {
+                    "workbench.colorTheme": "Winter is Coming (Light)",
+                    "workbench.colorCustomizations": {
+                        // "editor.background": "#fff",
+                        "editorGroup.border": "#fff",
+                        "editorIndentGuide.background": "#fff",
+                        "editorIndentGuide.activeBackground": "#ccc",
+                        "statusBar.background": "#ddd",
+                        "statusBar.foreground": "#666"
+                    },
+                },
+            ]
+        },
+    ],
+    "sync.removeExtensions": true,
+    "sync.syncExtensions": true,
+    "debug.inlineValues": true,
+    "debug.internalConsoleOptions": "neverOpen",
+    "importCost.javascriptExtensions": [
+        "\\.jsx?$",
+        "\\.vue?$",
+    ],
+    "search.useIgnoreFiles": false,
+    "git.enableSmartCommit": true,
+    "gitlens.gitExplorer.enabled": false,
+    "gitlens.codeLens.scopes": [
+        "document",
+        "blocks",
+        "containers"
+    ],
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.statusBar.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+        "sideBar.background": "#000",
+        "editor.background": "#000",
+        "editorGroup.border": "#000",
+        "editorIndentGuide.background": "#000",
+        "editorIndentGuide.activeBackground": "#444",
+        "statusBar.background": "#000",
+        "statusBar.foreground": "#ccc",
+        "editorGroupHeader.tabsBackground": "#000",
+        "tab.activeBackground": "#2c2c2c",
+        "tab.inactiveBackground": "#000",
+        "tab.border": "#000"
+    },
+    "gitlens.menus": {
+        "editor": {
+            "blame": true,
+            "clipboard": false,
+            "compare": false,
+            "details": false,
+            "history": true,
+            "remote": true
+        },
+        "editorGroup": {
+            "blame": true,
+            "compare": false,
+            "history": false,
+            "remote": false
+        },
+        "editorTab": {
+            "compare": false,
+            "history": false,
+            "remote": false
+        },
+        "explorer": {
+            "compare": true,
+            "history": true,
+            "remote": true
+        }
+    },
+    "gitlens.historyExplorer.enabled": true,
+    "sync.gist": "b0f4951bb8f9d7279d9788954b94fd16",
+    "sync.host": "",
+    "sync.pathPrefix": "",
+    "sync.quietSync": false,
+    "sync.askGistName": false,
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastUpload": "2018-05-24T14:17:11.259Z",
+    "sync.lastDownload": "",
+    "sync.forceDownload": false,
+    "zenMode.hideLineNumbers": false,
+    "vim.easymotionMarkerFontSize": "15",
+}
