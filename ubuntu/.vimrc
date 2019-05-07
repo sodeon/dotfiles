@@ -110,6 +110,9 @@ nnoremap - _
 " Ctags
 " set tags=./tags,./TAGS,tags;~,TAGS;~
 
+" Use system clipboard when yanking (link yank register to system clipboard register "+")
+set clipboard=unnamedplus
+
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
