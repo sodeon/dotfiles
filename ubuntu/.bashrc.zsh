@@ -2,6 +2,9 @@
 #-----------------------------------------------------
 # Global aliases
 #-----------------------------------------------------
+# Let alias still works after sudo
+alias sudo='sudo '
+
 alias lr='ls -rtla'
 
 # Most used programs
