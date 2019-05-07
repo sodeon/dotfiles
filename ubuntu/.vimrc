@@ -253,12 +253,16 @@ call plug#end()
 " Cannot map <C-/>. See https://vimhelp.appspot.com/vim_faq.txt.html#faq-20.5
 " Cannot use <C-e> as it will be hijacked by tmux
 " Cannot use <C-w> as it will break vscode vim plugin
+" Cannot use <C-[> as it is extremely slow for unknown reason
 "-----------------------------------------------------------------------------
 noremap <C-]> :Commentary<CR>
 noremap <C-p> :FZF<CR>
 noremap <C-d>z :MaximizerToggle<CR>
 noremap <C-d>= :MaximizerToggle<CR>
-noremap <C-[> :Switch<CR>
+noremap <C-w>z :MaximizerToggle<CR>
+noremap <C-w>= :MaximizerToggle<CR>
+" Switch boolean
+nnoremap t :Switch<CR>
 
 " let g:sneak#s_next = 1
 map : <Plug>Sneak_;
