@@ -17,9 +17,9 @@ alias gd='git diff --color --color-moved'
 alias gdt='git difftool'
 alias gc='git add .; git commit' # stage all modified files and commit
 alias gb='git checkout -b'
-alias gu='git push'
+alias gu='git push' # upload
 alias gf='git fetch'
-alias gg='git fetch; git pull' # git get = fetch + pull
+alias gg='git fetch; git pull' # get
 alias gl='git log'
 
 # Most used folders
