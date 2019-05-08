@@ -2,10 +2,15 @@
 #-------------------------------------------------------------------------------------------------
 # Check whether internal or external monitor is used and dispatch to corresponding handling script
 #-------------------------------------------------------------------------------------------------
-source ~/.config/hardware/external-displayrc
+if [ -f ~/.config/hardware/external-displayrc ]; then
+	source ~/.config/hardware/external-displayrc
 
-if xrandr | grep -q "\<$interface\> connected"; then
-	external-monitor-control $@
+	if xrandr | grep -q "\<$interface\> connected"; then
+		external-monitor-control $@
+	else
+		internal-monitor-control $@
+	fi
 else
-	internal-monitor-control $@
+    echo -e "[Error] Cannot perform action: external-displayrc not found in ~/.config/hardware"
+    exit 1
 fi
