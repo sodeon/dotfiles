@@ -1,0 +1,33 @@
+#!/bin/zsh
+#------------------------------------------------------------------------------------------------
+# Select display output and set display resolution
+#------------------------------------------------------------------------------------------------
+# Primary display: display that has higher output priority, usually the external display
+typeset -A primaryDisplay=(
+    interface HDMI-0
+    resolution 3840x2160
+    scale 1.6x1.6 # 2/1.25=1.6 => scale 125%
+)
+
+# Secondary display: display that has lower output priority, usually the internal display
+#     If no secondary display, either comment out $secondaryDisplay or set interface as empty
+typeset -A secondaryDisplay=(
+    interface ""
+    resolution 1920x1080
+    scale 1x1
+)
+
+isIntelGPU=false
+
+
+#------------------------------------------------------------------------------------------------
+# Set external monitor brightness and color temperature
+#------------------------------------------------------------------------------------------------
+i2c_bus=4
+brightness_feature_id=10
+brightness_step=5
+default_video_brightness=20
+default_reading_brightness=5
+color_temperature_feature_id=14
+color_temperature_reading=4 # 6500K
+color_temperature_video=5 # 5000K

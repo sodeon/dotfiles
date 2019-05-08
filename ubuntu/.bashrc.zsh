@@ -22,6 +22,13 @@ alias gf='git fetch'
 alias gg='git fetch; git pull' # get
 alias gl='git log'
 
+alias ff='find . -type f -name'
+alias fd='find . -type d -name'
+
+alias aph='ps v -AH' # aph: all processes in hierarchy format
+alias ap='ps  -aux' # ap: all processes
+
+
 # Most used folders
 #alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
 #alias H='cd /c/Users/Andy'
