@@ -262,7 +262,7 @@ assign [class="URxvt" title="cmus"  ] $ws9
 # assign [class="Org.gnome.Nautilus"] $ws3
 assign [              title="ranger"] $ws3
 assign [class="Code"                ] $ws7
-# assign [class="SmartGit"          ] $ws5
+assign [class="SmartGit"            ] $ws8
 
 for_window [class="URxvt" title="ranger"] border none, focus
 for_window [class="URxvt" title="cmus"  ] border none, focus
@@ -270,7 +270,7 @@ for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
-for_window [class="SmartGit"            ] border none
+for_window [class="SmartGit"            ] border none, focus
 # floating bottom right corner with 25% of screen size
 for_window [class="mpv"                 ] border pixel 1, floating enable, sticky enable
 # for_window [class="mpv"                 ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782

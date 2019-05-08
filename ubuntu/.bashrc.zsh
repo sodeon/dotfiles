@@ -18,6 +18,7 @@ alias gdt='git difftool'
 alias gc='git add .; git commit' # stage all modified files and commit
 alias gb='git checkout -b'
 alias gu='git push' # upload
+alias gut='git push --tags' # upload all tags (by default, git won't push tags)
 alias gf='git fetch'
 alias gg='git fetch; git pull' # get
 alias gl='git log'
