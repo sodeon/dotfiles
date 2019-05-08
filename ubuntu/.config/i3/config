@@ -92,7 +92,7 @@ bindsym XF86AudioNext  exec cmus-remote -n && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPrev  exec cmus-remote -r && pkill -RTMIN+12 i3blocks
 
 # Laptop function keys
-bindsym XF86Display        exec --no-startup-id set-display-monitor.sh
+bindsym XF86Display        exec --no-startup-id set-display-monitor
 bindsym XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym XF86TouchpadToggle exec --no-startup-id ~/bin/toggle-touchpad.sh
 
@@ -284,7 +284,7 @@ for_window [class="qBittorrent"         ]              floating enable,         
 # Startup scripts
 #--------------------------------------------------------------------------------
 exec --no-startup-id ~/bin/activate-hotkeys.sh
-exec --no-startup-id ~/bin/set-display-monitor.zsh
+exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
 exec urxvt
 # exec i3-msg 'workspace $ws2; exec google-chrome'
