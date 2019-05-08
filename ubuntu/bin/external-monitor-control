@@ -25,7 +25,7 @@ fi
 
 case "$1" in
     b)
-		ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,/%/' 
+		ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' 
         ;;
     bu)
         let brightness="$brightness + $brightness_step"
