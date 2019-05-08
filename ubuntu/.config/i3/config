@@ -25,7 +25,7 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 # default_border pixel 1
 hide_edge_borders both
 
-# workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth yes
 
 # Bottom bar
 bar {
@@ -65,7 +65,7 @@ floating_modifier $mod
 # Hotkeys (all non window/workspace/launcher related)
 #--------------------------------------------------------------------------------
 # Typing assist: delete word/line, Go back/forward word, ...
-bindsym Mod3+p exec --no-startup-id autohotkey.sh mod3+p
+bindsym Mod3+p exec --no-startup-id autohotkey mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
 bindsym Mod3+h exec --no-startup-id xdotool keyup h key ctrl+Left
@@ -76,8 +76,8 @@ bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
 # TODO: app aware brightness
 bindsym Mod3+Down             exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
 bindsym Mod3+Up               exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b                exec --no-startup-id monitor-control.zsh br && monitor-control.zsh cr && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Shift+b          exec --no-startup-id monitor-control.zsh bv && monitor-control.zsh cv && pkill -RTMIN+11 i3blocks
+bindsym Mod3+b                exec --no-startup-id monitor-control.zsh bs && monitor-control.zsh cr && pkill -RTMIN+11 i3blocks
+# bindsym Mod3+Shift+b          exec --no-startup-id monitor-control.zsh bv && monitor-control.zsh cv && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
 
@@ -207,31 +207,31 @@ set $ws1 "1: Term"
 set $ws2 "2: Web"
 set $ws3 "3: File"
 set $ws4 "4"
-# set $ws4 "4: Code"
 set $ws5 "5"
-# set $ws5 "5: Git"
 set $ws6 "6"
-set $ws7 "7"
+set $ws7 "7: Code"
 set $ws8 "8"
 set $ws9 "9: Music"
 set $ws10 "10"
 
-# switch to workspace
-bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+q   workspace prev
-bindsym $mod+w   workspace next
-bindsym $mod+a   workspace prev
-bindsym $mod+d   workspace next
-bindsym $mod+1   workspace $ws1
-bindsym $mod+2   workspace $ws2
-bindsym $mod+3   workspace $ws3
-bindsym $mod+4   workspace $ws4
-bindsym $mod+5   workspace $ws5
-bindsym $mod+6   workspace $ws6
-bindsym $mod+7   workspace $ws7
-bindsym $mod+8   workspace $ws8
-bindsym $mod+9   workspace $ws9
-bindsym $mod+0   workspace $ws10
+#
+# Switch to workspace
+#
+# Quake style terminal
+bindsym Mod3+apostrophe workspace $ws1
+bindsym $mod+Tab        workspace back_and_forth
+bindsym $mod+q          workspace prev
+bindsym $mod+w          workspace next
+bindsym $mod+1          workspace $ws1
+bindsym $mod+2          workspace $ws2
+bindsym $mod+3          workspace $ws3
+bindsym $mod+4          workspace $ws4
+bindsym $mod+5          workspace $ws5
+bindsym $mod+6          workspace $ws6
+bindsym $mod+7          workspace $ws7
+bindsym $mod+8          workspace $ws8
+bindsym $mod+9          workspace $ws9
+bindsym $mod+0          workspace $ws10
 
 # move focused container to workspace
 # bindsym $mod+Shift+q move container to workspace prev ; workspace prev
@@ -271,6 +271,8 @@ assign [class="URxvt" title="cmus"  ] $ws9
 # assign [class="Google-chrome"     ] $ws2
 # assign [class="Firefox"           ] $ws2
 # assign [class="Org.gnome.Nautilus"] $ws3
+assign [              title="ranger"] $ws3
+assign [class="Code"                ] $ws7
 # assign [class="SmartGit"          ] $ws5
 
 for_window [class="URxvt" title="ranger"] border none
@@ -300,7 +302,5 @@ exec urxvt
 # exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
 
 exec --no-startup-id unclutter
-# Launch only one instance of unclutter
-# exec --no-startup-id ps -ux | sed '/grep/d' | grep -e "-c unclutter" || unclutter
 # exec ---no-startup-id compton -f
 

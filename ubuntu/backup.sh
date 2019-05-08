@@ -10,12 +10,16 @@ cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
 cp ~/.Xresources .
 
-cp -rf ~/.config/i3             .config
-cp -rf ~/.config/rofi           .config
-cp -rf ~/.config/mpv/input.conf .config/mpv
-cp -rf ~/.config/ranger         .config
-cp     ~/.config/cmus/autosave  .config/cmus
+cp -rf ~/.config/i3                 .config
+cp -rf ~/.config/rofi               .config
+cp -rf ~/.config/mpv/input.conf     .config/mpv
+cp -rf ~/.config/ranger             .config
+cp     ~/.config/cmus/autosave      .config/cmus
+cp     ~/.config/cmus/rc            .config/cmus
+cp     ~/.config/hardware/*.example .config/hardware
 cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
+
+cp -rf ~/.local/share/applications/cmus.desktop .local/share/applications
 
 case "$1" in
     desktop)

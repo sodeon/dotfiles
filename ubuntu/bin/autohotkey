@@ -24,6 +24,14 @@ deleteWord() {
 	fi
 }
 
+closeTabOrWindow() {
+    if isWinActive Google-chrome || isWinActive Firefox; then
+        xte 'keydown Control_L' 'key w' 'keyup Control_L'
+    else
+        xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
+    fi
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Shortcut assignments
@@ -31,5 +39,10 @@ deleteWord() {
 case $shortcut in
     mod3+p)
         deleteWord
+        ;;
+
+    # Mouse
+    b:8)
+        closeTabOrWindow
         ;;
 esac

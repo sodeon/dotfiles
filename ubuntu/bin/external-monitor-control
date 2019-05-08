@@ -1,0 +1,57 @@
+#!/bin/bash
+
+source ~/.config/hardware/external-displayrc
+rc="$HOME/.config/hardware/external-displayrc"
+
+# Flick reading mode if command is to swap mode
+if [ $1 = "bs" ]; then
+    if [ $is_reading_mode = true ]; then
+		is_reading_mode=false
+    else
+		is_reading_mode=true
+    fi
+fi
+
+# Set mode/brightness/temperature based on reading/video mode
+if [ $is_reading_mode = true ]; then
+    mode="reading"
+    brightness=$reading_brightness
+    temperature=$color_temperature_reading
+else
+    mode="video"
+    brightness=$video_brightness
+    temperature=$color_temperature_video
+fi
+
+case "$1" in
+    b)
+		ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,/%/' 
+        ;;
+    bu)
+        let brightness="$brightness + $brightness_step"
+        if [ $brightness -gt 100 ]; then
+            $brightness=100
+        fi
+		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
+        sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        ;;
+    bd)
+        let brightness="$brightness - $brightness_step"
+        if [ $brightness -lt 0 ]; then
+            $brightness=0
+        fi
+		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
+        sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        ;;
+    bs)
+        if [ $mode = "reading" ]; then
+            isReadingMode="true"
+        else
+            isReadingMode="false"
+        fi
+		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
+		ddcutil setvcp $color_temperature_feature_id $temperature --bus $i2c_bus
+        sed -i s/is_reading_mode=.*/is_reading_mode="$isReadingMode"/ $rc
+        ;;
+esac
+

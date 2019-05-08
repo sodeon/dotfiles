@@ -135,15 +135,15 @@
 
     // Editor tab change/move/close/zoom/...
     {
-        "key": "meta+q",
+        "key": "alt+a",
         "command": "workbench.action.previousEditor"
     },
     {
-        "key": "meta+w",
+        "key": "alt+d",
         "command": "workbench.action.nextEditor"
     },
     {
-        "key": "meta+e",
+        "key": "alt+e",
         "command": "workbench.action.closeActiveEditor"
     },
     {

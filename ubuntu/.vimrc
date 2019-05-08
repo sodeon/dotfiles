@@ -40,6 +40,12 @@ endfunction
 "-----------------------------------------------------------------------------
 " My config 
 "-----------------------------------------------------------------------------
+" Disable swap file (.swp)
+set noswapfile
+
+" Open files in write mode
+" set noreadonly
+
 "disable beep sound
 set noeb vb t_vb=
 

@@ -12,6 +12,7 @@ cp .Xresources ~/
 
 cp -rf .urxvt ~/
 cp -rf .config ~/
+cp -rf .local ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 cp -rf bin ~/
 # tar -xf .marks.tar -C ~

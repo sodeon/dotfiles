@@ -6,9 +6,9 @@
 !-----------------------------------------------------------------
 ! HiDPI
 !-----------------------------------------------------------------
-!Xft.dpi: 192
-!Xcursor.size: 128
-!rofi.dpi: 192
+Xft.dpi: 192
+Xcursor.size: 128
+rofi.dpi: 192
 
 
 !-----------------------------------------------------------------
@@ -74,6 +74,8 @@ URxvt.urgentOnBell: true
 ! color depth: 32 will enable transparency
 URxvt.depth: 24
 URxvt.iso14755: false
+! Dim light when not in focus
+! URxvt.fading: 15
 
 
 !-----------------------------------------------------------------

@@ -51,6 +51,7 @@
     ],
     "zenMode.hideTabs": false,
     "zenMode.hideStatusBar": true,
+    "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,
     "vetur.format.styleInitialIndent": true,
     "vetur.format.scriptInitialIndent": true,
@@ -227,6 +228,5 @@
     "sync.lastUpload": "2018-05-24T14:17:11.259Z",
     "sync.lastDownload": "",
     "sync.forceDownload": false,
-    "zenMode.hideLineNumbers": false,
     "vim.easymotionMarkerFontSize": "15",
 }

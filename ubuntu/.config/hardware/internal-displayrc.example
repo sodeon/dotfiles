@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Graphics card connector used
+interface="eDP-1"
+
+# Resolution
+resolution="1920x1080"
+scale="1x1"
+
+# Brightness/color temperature control
+brightness_step=5
+reading_brightness=5
+video_brightness=20

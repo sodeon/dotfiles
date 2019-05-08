@@ -1,10 +1,15 @@
 #!/bin/bash
+
+# NOTE: bash has no boolean
+
+
 cd "${0%/*}"
 
 var1="value"
 var2="3 + 2"
 
 # check if $1 exists
+# -z: check variable length
 if [ ! -z $1 ]; then
 else
 fi

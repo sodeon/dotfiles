@@ -11,13 +11,13 @@
 # Mod4: Windows
 #---------------------------------------------------------------------------------------------------
 # Mouse button remap
-"xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'"
+"xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'" # prev tab
 b:6
-"xte 'keydown Control_L' 'key Page_Down' 'keyup Control_L'"
+"xte 'keydown Control_L' 'key Page_Down' 'keyup Control_L'" # next tab
 b:7
-"xte 'keydown Control_L' 'key w' 'keyup Control_L'"
+"autohotkey b:8"
 b:8
-"xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
+"xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'" # back
 b:9
 
 # Volume control

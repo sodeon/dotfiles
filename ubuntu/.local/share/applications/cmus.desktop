@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Audio;Player
+Comment=
+Exec=/usr/bin/urxvt -e /usr/bin/cmus
+Icon=cmus
+Name=cmus Music Player
+Type=Application

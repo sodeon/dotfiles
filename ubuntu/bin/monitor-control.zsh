@@ -1,14 +1,15 @@
 #!/bin/zsh
-
+#-------------------------------------------------------------------------------------------------
+# Check whether internal or external monitor is used and dispatch to corresponding handling script
+#-------------------------------------------------------------------------------------------------
 source ~/.config/hardware/display.zsh
 
-# Check internal or external monitor is actively used
 if [[ $secondaryDisplay[interface] ]]; then
     if xrandr | grep "\<$primaryDisplay[interface]\> connected"; then
-		external-monitor-control.zsh $@
+		external-monitor-control $@
     else
-		internal-monitor-control.zsh $@
+		internal-monitor-control $@
     fi
 else
-    external-monitor-control.zsh $@
+    external-monitor-control $@
 fi
