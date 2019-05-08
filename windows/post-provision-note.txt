@@ -14,6 +14,10 @@ git:
     ignore linux execution bit: $git config core.filemode false
                                 $git config --global core.filemode false
 
+Windows:
+    Disable hibernation to free ~6.5GB C:\: $powercfg.exe -h off
+    Cleanup WinSxS folder (which will grow in size gradually): dism.exe /online /Cleanup-Image /StartComponentCleanup
+
 Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
 	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
