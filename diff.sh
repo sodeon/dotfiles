@@ -16,3 +16,4 @@ diff ./ubuntu/.zshrc       ./windows > ./diff/.zshrc.diff
 tail -n +1 ./diff/.*.diff
 echo
 tail -n +1 ./diff/*.diff
+
