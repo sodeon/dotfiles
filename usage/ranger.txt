@@ -1,0 +1,7 @@
+sort (ordering):
+    on: natural
+    om: modified time
+    os: size
+    ot: type
+
+settings: z (then a menu will arrive for you to choose)

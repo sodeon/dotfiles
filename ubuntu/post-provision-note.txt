@@ -12,12 +12,27 @@ Tmux:
     (ctrl+e I) to download and install plugins
     # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
 
+Github:
+    ssh login:
+        # Add ssh key
+		ssh-keygen -t rsa -b 4096 -C "sodeon@gmail.com"
+        # Start ssh agent
+		ssh-agent -s
+        # Add ssh key to ssh agent
+		ssh-add ~/.ssh/id_rsa
+        # Copy generated public key to clipboard
+		sudo apt install xclip
+		xclip -sel clip < ~/.ssh/id_rsa.pub
+        # Go to github->settings->"SSH and GPG keys"->"New SSH key"
+        # git repo format: git@git.com:username/reponame.git
+
 ssh:
     ssh-keygen
     ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Programs:
-    sudo apt install glances # more detailed monitor than htop
+	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
+    # gnome extension sync using gist
 
 System:
     Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
