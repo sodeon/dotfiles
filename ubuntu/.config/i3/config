@@ -201,7 +201,7 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7: Code"
-set $ws8 "8"
+set $ws8 "8: Git"
 set $ws9 "9: Music"
 set $ws10 "10"
 
