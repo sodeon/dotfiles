@@ -31,8 +31,7 @@ ssh:
     ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Programs:
-	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-    # gnome extension sync using gist
+    Network manager (for WiFi): rofi$ nm-applet
 
 System:
     Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
