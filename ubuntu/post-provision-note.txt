@@ -24,7 +24,7 @@ Github:
 		sudo apt install xclip
 		xclip -sel clip < ~/.ssh/id_rsa.pub
         # Go to github->settings->"SSH and GPG keys"->"New SSH key"
-        # git repo format: git@git.com:username/reponame.git
+        # git repo format: git@github.com:username/reponame.git
 
 ssh:
     ssh-keygen
