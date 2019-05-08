@@ -22,3 +22,6 @@ esac
 
 # set muliple variables from command line (space separated)
 read var1 var2 <<< $(echo $windowGeometry)
+
+# execute string (some commands need string processing to complete)
+exec $cmd

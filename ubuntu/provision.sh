@@ -76,7 +76,7 @@ apt-force install grub-customizer # boot menu customization
 # From Ubuntu apt - i3
 apt-force install i3 i3blocks 
 apt-force install lxappearance # Apply GTK theme in i3
-apt-force install playerctl rofi flameshot pulsemixer # playerctl: media player control, rofi: launcher, flameshot: screenshot, pulsemixer: current audio for i3blocks
+apt-force install rofi flameshot pulsemixer # rofi: launcher, flameshot: screenshot, pulsemixer: current audio for i3blocks
 # apt-force install compton # compton: transition/transparency effect
 
 apt-force autoremove

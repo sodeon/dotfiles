@@ -73,37 +73,28 @@ bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
-# TODO: app aware brightness
-bindsym Mod3+Down             exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Up               exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b                exec --no-startup-id monitor-control.zsh bs && monitor-control.zsh cr && pkill -RTMIN+11 i3blocks
-# bindsym Mod3+Shift+b          exec --no-startup-id monitor-control.zsh bv && monitor-control.zsh cv && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control.zsh bd && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control.zsh bu && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Down             exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Up               exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
+bindsym Mod3+b                exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
 
 # Media and volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-# bindsym Control_R            exec amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks
-# bindsym Alt_R                exec amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks
 bindsym Mod3+Shift+k   exec cmus-remote -u && pkill -RTMIN+12 i3blocks
-# bindsym Mod3+l         exec cmus-remote -n && pkill -RTMIN+12 i3blocks
 bindsym Mod3+Shift+l   exec cmus-remote -n && pkill -RTMIN+12 i3blocks
 bindsym Mod3+Shift+j   exec cmus-remote -r && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPlay  exec cmus-remote -u && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPause exec cmus-remote -u && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioNext  exec cmus-remote -n && pkill -RTMIN+12 i3blocks
 bindsym XF86AudioPrev  exec cmus-remote -r && pkill -RTMIN+12 i3blocks
-# bindsym XF86AudioPlay  exec playerctl play-pause
-# bindsym XF86AudioPause exec playerctl play-pause
-# bindsym XF86AudioNext  exec playerctl next
-# bindsym XF86AudioPrev  exec playerctl previous
 
 # Laptop function keys
-bindsym XF86Display exec --no-startup-id set-display-monitor.sh
-bindsym XF86ScreenSaver exec --no-startup-id xset dpms force off
-bindsym XF86TouchpadToggle	exec --no-startup-id ~/bin/toggle-touchpad.sh
+bindsym XF86Display        exec --no-startup-id set-display-monitor.sh
+bindsym XF86ScreenSaver    exec --no-startup-id xset dpms force off
+bindsym XF86TouchpadToggle exec --no-startup-id ~/bin/toggle-touchpad.sh
 
 # Screenshot
 bindsym Print         exec flameshot full   -p $HOME/Pictures
@@ -111,7 +102,7 @@ bindsym control+Print exec flameshot gui    -p $HOME/Pictures
 # bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Turn off monitor / suspend
-bindsym Pause exec --no-startup-id xset dpms force off
+bindsym Pause       exec --no-startup-id xset dpms force off
 bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 
 # Lock/logout
@@ -130,19 +121,19 @@ bindsym $mod+Shift+r restart
 bindsym $mod+minus exec rofi -show combi -lines 5 -font "System San Francisco Display 15" -theme arc-dark-custom
 # bindsym $mod+d exec rofi -show combi -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 17"
 
-# Quick launch
-bindsym $mod+o mode " Quick Launch "
-mode " Quick Launch " {
-    bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
-    bindsym c exec google-chrome                      ; mode "default"
-    bindsym f exec firefox                            ; mode "default"
-    # bindsym t exec urxvt                              ; mode "default"
-    bindsym r exec urxvt -e ranger ~                  ; mode "default"
-    bindsym m exec urxvt -e cmus                      ; mode "default"
-    bindsym n exec nautilus                           ; mode "default"
+# Quick launch (Mark for legacy as this feature is rarely used)
+# bindsym $mod+o mode " Quick Launch "
+# mode " Quick Launch " {
+#     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
+#     bindsym c exec google-chrome                      ; mode "default"
+#     bindsym f exec firefox                            ; mode "default"
+#     # bindsym t exec urxvt                              ; mode "default"
+#     bindsym r exec urxvt -e ranger ~                  ; mode "default"
+#     bindsym m exec urxvt -e cmus                      ; mode "default"
+#     bindsym n exec nautilus                           ; mode "default"
 
-	bindsym Escape mode "default"
-}
+# 	bindsym Escape mode "default"
+# }
 
 
 #--------------------------------------------------------------------------------
@@ -163,9 +154,11 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# enter fullscreen mode for the focused container
-# bindsym $mod+f fullscreen toggle
-bindsym F11 fullscreen toggle
+# resize window (you can also use the mouse for that)
+bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
+bindsym $mod+Mod3+k resize grow   height 10px or 10ppt
+bindsym $mod+Mod3+j resize shrink height 10px or 10ppt
+bindsym $mod+Mod3+l resize grow   width  10px or 10ppt
 
 # make window a horizontal split container
 bindsym $mod+s split v
@@ -175,12 +168,16 @@ bindsym $mod+v split h
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+f layout toggle split
 bindsym $mod+t layout toggle tabbed split
-# maximize (could also use full screen mode if one prefer)
-bindsym $mod+z resize set width 99ppt, resize set height 90ppt
-# minimize
-bindsym $mod+m resize set width  1ppt, resize set height 10ppt
 # equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
+# maximize (could also use full screen mode if one prefer)
+# bindsym $mod+z resize set width 99ppt, resize set height 90ppt
+# minimize
+# bindsym $mod+m resize set width  1ppt, resize set height 10ppt
+
+# enter fullscreen mode for the focused container
+# bindsym $mod+f fullscreen toggle
+bindsym F11 fullscreen toggle
 
 # floating
 bindsym $mod+Shift+space floating toggle
@@ -190,12 +187,6 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+a focus parent
 bindsym $mod+p focus parent
 bindsym $mod+c focus child
-
-# resize window (you can also use the mouse for that)
-bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
-bindsym $mod+Mod3+k resize grow   height 10px or 10ppt
-bindsym $mod+Mod3+j resize shrink height 10px or 10ppt
-bindsym $mod+Mod3+l resize grow   width  10px or 10ppt
 
 # TODO: mark/unmark window
 
@@ -234,8 +225,6 @@ bindsym $mod+9          workspace $ws9
 bindsym $mod+0          workspace $ws10
 
 # move focused container to workspace
-# bindsym $mod+Shift+q move container to workspace prev ; workspace prev
-# bindsym $mod+Shift+w move container to workspace next ; workspace next
 bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
 bindsym $mod+Shift+2 move container to workspace $ws2 ; workspace $ws2 
 bindsym $mod+Shift+3 move container to workspace $ws3 ; workspace $ws3 
@@ -275,15 +264,15 @@ assign [              title="ranger"] $ws3
 assign [class="Code"                ] $ws7
 # assign [class="SmartGit"          ] $ws5
 
-for_window [class="URxvt" title="ranger"] border none
-for_window [class="URxvt" title="cmus"  ] border none
+for_window [class="URxvt" title="ranger"] border none, focus
+for_window [class="URxvt" title="cmus"  ] border none, focus
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
-for_window [class="Code"                ] border none
+for_window [class="Code"                ] border none, focus
 for_window [class="SmartGit"            ] border none
 # floating bottom right corner with 25% of screen size
-for_window [class="mpv"                 ] border none, floating enable, sticky enable
+for_window [class="mpv"                 ] border pixel 1, floating enable, sticky enable
 # for_window [class="mpv"                 ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
 # no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
