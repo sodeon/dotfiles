@@ -17,10 +17,10 @@ isWinActive() {
 # Shortcut implementation
 #-----------------------------------------------------------------------------------------------
 deleteWord() {
-	if isWinActive Google-chrome; then
-		xdotool keyup p key ctrl+BackSpace
-	else
+	if isWinActive URxvt; then
 		xdotool keyup p key ctrl+w
+	else
+		xdotool keyup p key ctrl+BackSpace
 	fi
 }
 

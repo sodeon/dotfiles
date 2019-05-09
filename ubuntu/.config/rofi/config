@@ -1,4 +1,33 @@
-rofi.modi: window,drun,run,ssh,combi,emoji,calc
+rofi.modi: window,emoji,calc
+!rofi.modi: window,drun,run,ssh,emoji,calc
 rofi.combi-modi: drun,run,emoji
+
 rofi.theme: arc-dark-custom
 rofi.font: System San Francisco Display 15
+
+! Show modi in UI interface
+rofi.sidebar-mode: true
+
+
+!-------------------------------------------------------------------------------------
+! Keybindings
+!
+! Rofi grabs keyboard exclusively. xbindkeys or similar solutions won't work.
+! Also, mod3 is not used by Rofi. Thus, cannot bind "Hyper"
+! https://github.com/davatorium/rofi/issues/301
+! https://github.com/davatorium/rofi/issues/295
+!-------------------------------------------------------------------------------------
+! fzf style up/down
+rofi.kb-row-up:                      Up,Control+k
+rofi.kb-row-down:                    Down,Control+j
+
+rofi.kb-accept-entry:                Return,KP_Enter,Control+m
+rofi.kb-mode-next:                   Control+l,Control+Right,Shift+Right
+rofi.kb-mode-previous:               Control+h,Control+Left,Shift+Left
+rofi.kb-remove-word-back:            Control+w,Control+BackSpace
+rofi.kb-clear-line:                  Control+u
+
+! Useless keybindings. Add these since above keybindings overrides below's default
+rofi.kb-remove-to-eol:               Control+Shift+e
+rofi.kb-remove-char-back:            BackSpace
+rofi.kb-remove-to-sol:               Control+Shift+u

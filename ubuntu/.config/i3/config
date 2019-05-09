@@ -290,7 +290,7 @@ exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
 exec $term
-# exec i3-msg 'workspace $ws2; exec google-chrome'
+exec i3-msg 'workspace $ws2; exec google-chrome'
 # exec i3-msg 'workspace $ws3; exec $term -e ranger ~; workspace $ws1'
 
 # bindsym $mod+n exec --no-startup-id ~/code/rofimoji/rofimoji.py

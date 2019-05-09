@@ -42,6 +42,7 @@ apt-force upgrade
 # From Ubuntu apt
 apt-force install git
 apt-force install python-pip
+apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
 # apt-force install python-pygments # cat with color
