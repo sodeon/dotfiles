@@ -50,7 +50,7 @@ apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo # file manager
 apt-force install pydf ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
-apt-force install cmake make build-essential # build tools
+apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
@@ -65,7 +65,7 @@ apt-force install libreoffice
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
 apt-force install ddccontrol # monitor brightness control
-apt-force install fonts-firacode fonts-font-awesome # fonts
+apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
 apt-force install libsixel-bin # terminal image/video viewing
@@ -75,8 +75,9 @@ apt-force install grub-customizer # boot menu customization
 
 # From Ubuntu apt - i3
 apt-force install i3 i3blocks 
+apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3
-apt-force install rofi flameshot pulsemixer # rofi: launcher, flameshot: screenshot, pulsemixer: current audio for i3blocks
+apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
 # apt-force install compton # compton: transition/transparency effect
 
 apt-force autoremove

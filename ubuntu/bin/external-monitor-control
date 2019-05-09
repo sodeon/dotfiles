@@ -30,7 +30,7 @@ case "$1" in
     bu)
         let brightness="$brightness + $brightness_step"
         if [ $brightness -gt 100 ]; then
-            $brightness=100
+            brightness=100
         fi
 		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
         sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
@@ -38,7 +38,7 @@ case "$1" in
     bd)
         let brightness="$brightness - $brightness_step"
         if [ $brightness -lt 0 ]; then
-            $brightness=0
+            brightness=0
         fi
 		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
         sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc

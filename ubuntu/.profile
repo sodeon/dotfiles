@@ -45,3 +45,6 @@ if [ -f ~/.config/hardware/displayrc ]; then
 		sed -i -e 's/^rofi.dpi/!&/'     ~/.Xresources
 	fi
 fi
+
+# urxvt daemon
+urxvtd -q -o -f

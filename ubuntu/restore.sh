@@ -17,6 +17,8 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 cp -rf bin ~/
 # tar -xf .marks.tar -C ~
 
+sudo cp -rf ./apps/rofi-plugins/* /usr/lib/x86_64-linux-gnu/rofi
+
 case "$1" in
     desktop)
 		cp -rf ./optional-provision/desktop/.config/mpv ~/.config/mpv

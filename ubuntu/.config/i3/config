@@ -70,6 +70,8 @@ bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
 bindsym Mod3+h exec --no-startup-id xdotool keyup h key ctrl+Left
 bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
+bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
+bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
@@ -118,7 +120,7 @@ bindsym $mod+Shift+r restart
 # App launcher
 #--------------------------------------------------------------------------------
 # not directly typed, but used by xcape binding
-bindsym $mod+minus exec rofi -show combi -lines 5 -font "System San Francisco Display 15" -theme arc-dark-custom
+bindsym $mod+minus exec rofi -show combi -lines 5
 # bindsym $mod+d exec rofi -show combi -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 17"
 
 # Quick launch (Mark for legacy as this feature is rarely used)
@@ -127,9 +129,9 @@ bindsym $mod+minus exec rofi -show combi -lines 5 -font "System San Francisco Di
 #     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
 #     bindsym c exec google-chrome                      ; mode "default"
 #     bindsym f exec firefox                            ; mode "default"
-#     # bindsym t exec urxvt                              ; mode "default"
-#     bindsym r exec urxvt -e ranger ~                  ; mode "default"
-#     bindsym m exec urxvt -e cmus                      ; mode "default"
+#     # bindsym t exec $term                              ; mode "default"
+#     bindsym r exec $term -e ranger ~                  ; mode "default"
+#     bindsym m exec $term -e cmus                      ; mode "default"
 #     bindsym n exec nautilus                           ; mode "default"
 
 # 	bindsym Escape mode "default"
@@ -241,8 +243,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 # Application profiles
 #--------------------------------------------------------------------------------
 # Terminal
+set $term urxvtc
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec $term
 
 bindsym F1 workspace $ws1
 bindsym F2 workspace $ws2
@@ -286,9 +289,11 @@ for_window [class="qBittorrent"         ]              floating enable,         
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
-exec urxvt
+exec $term
 # exec i3-msg 'workspace $ws2; exec google-chrome'
-# exec i3-msg 'workspace $ws3; exec urxvt -e ranger ~; workspace $ws1'
+# exec i3-msg 'workspace $ws3; exec $term -e ranger ~; workspace $ws1'
+
+# bindsym $mod+n exec --no-startup-id ~/code/rofimoji/rofimoji.py
 
 exec --no-startup-id unclutter
 # exec ---no-startup-id compton -f
