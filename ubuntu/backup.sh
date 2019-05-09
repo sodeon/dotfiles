@@ -19,7 +19,8 @@ cp     ~/.config/cmus/rc            .config/cmus
 cp     ~/.config/hardware/*.example .config/hardware
 cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
 
-cp -rf ~/.local/share/applications/cmus.desktop .local/share/applications
+cp -rf ~/.local/share/applications/*.desktop .local/share/applications
+rm .local/share/applications/thann.play-with-mpv.desktop
 
 case "$1" in
     desktop)

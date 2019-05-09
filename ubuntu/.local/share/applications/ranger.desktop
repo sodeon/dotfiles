@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=ranger File Browser
+Comment=Launches the ranger file manager
+Icon=utilities-terminal
+Exec=/usr/bin/urxvtc -e ranger
+Categories=ConsoleOnly;System;FileTools;FileManager
+MimeType=inode/directory;
+Keywords=File;Manager;Browser;Explorer;Vi;Vim;Python
