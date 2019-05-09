@@ -1,15 +1,46 @@
 #!/bin/bash
 
 shortcut=$1
+pid=
+windowId=
 
 
 #-----------------------------------------------------------------------------------------------
 # Support library
 #-----------------------------------------------------------------------------------------------
+activeWinId() {
+    # cache active window id result
+    if [ -z $windowId ]; then
+        windowId=`xdotool getwindowfocus`
+    fi
+    result=$?
+    echo $windowId
+    return $result
+}
+
+activeWinPid() {
+    # cache active window pid result
+    if [ -z $pid ]; then
+        pid=`xdotool getwindowfocus getwindowpid`
+    fi
+    result=$?
+    echo $pid
+    return $result
+}
+
 # Argument: class name
 isWinActive() {
-	xdotool getwindowfocus getwindowpid | xargs -i xdotool search --all --pid {} --class $1
+    activeWinPid | xargs -i xdotool search --all --pid {} --class $1
     return $?
+}
+
+isActiveWinTitle() {
+    title=`xdotool getactivewindow getwindowname`
+    if echo $title | grep $1; then
+        return 0
+    else
+        return 1
+    fi
 }
 
 
@@ -18,7 +49,7 @@ isWinActive() {
 #-----------------------------------------------------------------------------------------------
 deleteWord() {
 	if isWinActive URxvt; then
-		xdotool keyup p key ctrl+w
+		xdotool keyup p keyup control key ctrl+w
 	else
 		xdotool keyup p key ctrl+BackSpace
 	fi
@@ -32,6 +63,24 @@ closeTabOrWindow() {
     fi
 }
 
+pageup() {
+    if isWinActive URxvt && isActiveWinTitle VIM; then
+		# In vim,  ctrl+b == ctrl+shift+b
+        xdotool keyup b key control+shift+b keydown control
+    else
+		xdotool keyup b keyup control key shift+Prior keydown control
+    fi
+}
+
+pagedown() {
+    if isWinActive URxvt && isActiveWinTitle VIM; then
+		# In vim,  ctrl+f == ctrl+shift+f
+		xdotool keyup f key control+shift+f keydown control
+    else
+		xdotool keyup f keyup control key shift+Next keydown control
+    fi
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Shortcut assignments
@@ -39,6 +88,12 @@ closeTabOrWindow() {
 case $shortcut in
     mod3+p)
         deleteWord
+        ;;
+    ctrl+b)
+        pageup
+        ;;
+    ctrl+f)
+        pagedown
         ;;
 
     # Mouse

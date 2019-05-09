@@ -65,13 +65,26 @@ floating_modifier $mod
 # Hotkeys (all non window/workspace/launcher related)
 #--------------------------------------------------------------------------------
 # Typing assist: delete word/line, Go back/forward word, ...
+# mod3+p: delete word
+# mod3+o: delete character
+# mod3+u: delete whole line (in vim/terminal)
+# mod3+h: move back    a word
+# mod3+l: move forward a word
+# mod3+j: move back    a character
+# mod3+k: move forward a character
+# mod3+i: move to the end of the first word in line (mostly)
 bindsym Mod3+p exec --no-startup-id autohotkey mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
+bindsym Mod3+o exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
 bindsym Mod3+h exec --no-startup-id xdotool keyup h key ctrl+Left
 bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
 bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
 bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
+
+# Terminal pageup/pagedown
+# bindsym control+b exec --no-startup-id autohotkey ctrl+b
+# bindsym control+f exec --no-startup-id autohotkey ctrl+f
 
 # Brightness/color temperature
 # https://github.com/haikarainen/light
