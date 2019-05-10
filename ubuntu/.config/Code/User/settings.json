@@ -31,7 +31,9 @@
     "editor.folding": false,
     // End of reduce line nubmer width
     "editor.cursorBlinking": "smooth",
+
     "keyboard.dispatch": "keyCode",
+
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
     "workbench.editor.tabSizing": "shrink",
@@ -43,8 +45,25 @@
     "workbench.editor.showTabs": true,
     "workbench.statusBar.visible": true,
     "workbench.statusBar.feedback.visible": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+        "sideBar.background": "#000",
+        "editor.background": "#000",
+        "editorGroup.border": "#000",
+        "editorIndentGuide.background": "#000",
+        "editorIndentGuide.activeBackground": "#444",
+        "statusBar.background": "#000",
+        "statusBar.foreground": "#ccc",
+        "editorGroupHeader.tabsBackground": "#000",
+        "tab.activeBackground": "#2c2c2c",
+        "tab.inactiveBackground": "#000",
+        "tab.border": "#000"
+    },
+
     "vim.leader": ",",
     "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
     "vim.textwidth": 120,
     "vim.hlsearch": true,
     "vim.history": 100,
@@ -67,21 +86,25 @@
     "vim.surround": true,
     "vim.sneak": true,
     "vim.easymotion": false,
+
     "zenMode.hideTabs": false,
     "zenMode.hideStatusBar": true,
     "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,
-    // "php.validate.run": "onType",
-    "php.suggest.basic": false,
+
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
+
     "diffEditor.renderSideBySide": true,
     "diffEditor.renderIndicators": false,
+
     "window.zoomLevel": 1,
     "window.menuBarVisibility": "toggle",
     // "window.restoreFullscreen": true,
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.enableMenuBarMnemonics": false,
+
+    "search.useIgnoreFiles": false,
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
@@ -96,17 +119,7 @@
         "package-lock.json": true,
         "*.lock": true
     },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "vue"
-    ],
-    "eslint.options": {
-        "plugins": ["html"]
-    },
-    "eslint.run": "onType",
-    "extensions.ignoreRecommendations": true,
+
     "settings.cycle": [
         {
             "id": "toggleLineNumber",
@@ -153,6 +166,7 @@
                         "editorGroup.border": "#fff",
                         "editorIndentGuide.background": "#fff",
                         "editorIndentGuide.activeBackground": "#ccc",
+                        "editorLineNumber.foreground": "#aaa",
                         "statusBar.background": "#ddd",
                         "statusBar.foreground": "#666"
                     },
@@ -160,9 +174,10 @@
             ]
         },
     ],
+
     "debug.inlineValues": true,
     "debug.internalConsoleOptions": "neverOpen",
-    "search.useIgnoreFiles": false,
+
     "git.enableSmartCommit": true,
     "gitlens.codeLens.scopes": [
         "document",
@@ -182,23 +197,6 @@
         "suppressNoRepositoryWarning": false,
         "suppressResultsExplorerNotice": false,
         "suppressShowKeyBindingsNotice": true
-    },
-    "files.trimTrailingWhitespace": true,
-    "files.trimFinalNewlines": true,
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.colorCustomizations": {
-        "sideBar.background": "#000",
-        "editor.background": "#000",
-        "editorGroup.border": "#000",
-        "editorIndentGuide.background": "#000",
-        "editorIndentGuide.activeBackground": "#444",
-        "statusBar.background": "#000",
-        "statusBar.foreground": "#ccc",
-        "editorGroupHeader.tabsBackground": "#000",
-        "tab.activeBackground": "#2c2c2c",
-        "tab.inactiveBackground": "#000",
-        "tab.border": "#000"
     },
     "gitlens.menus": {
         "editor": {
@@ -226,6 +224,24 @@
             "remote": true
         }
     },
+
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+
+    "extensions.ignoreRecommendations": true,
+    "php.validate.enable": false,
+    // "php.validate.run": "onType",
+    "php.suggest.basic": false,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "html",
+        "vue"
+    ],
+    "eslint.options": {
+        "plugins": ["html"]
+    },
+    "eslint.run": "onType",
     "vetur.format.styleInitialIndent": true,
     "vetur.format.scriptInitialIndent": true,
     "importCost.javascriptExtensions": [

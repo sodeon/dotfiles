@@ -266,9 +266,7 @@ call plug#end()
 noremap <C-]> :Commentary<CR>
 noremap <C-p> :FZF<CR>
 noremap <C-e>z :MaximizerToggle<CR>
-noremap <C-e>= :MaximizerToggle<CR>
 noremap <C-w>z :MaximizerToggle<CR>
-noremap <C-w>= :MaximizerToggle<CR>
 " Toggle boolean
 nnoremap t :Switch<CR>
 

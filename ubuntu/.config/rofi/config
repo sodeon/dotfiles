@@ -22,6 +22,7 @@ rofi.kb-row-up:                      Up,Control+k
 rofi.kb-row-down:                    Down,Control+j
 
 rofi.kb-accept-entry:                Return,KP_Enter,Control+m
+rofi.kb-cancel:                      Escape,Alt+minus
 rofi.kb-mode-next:                   Control+l,Control+Right,Shift+Right
 rofi.kb-mode-previous:               Control+h,Control+Left,Shift+Left
 rofi.kb-remove-word-back:            Control+w,Control+BackSpace

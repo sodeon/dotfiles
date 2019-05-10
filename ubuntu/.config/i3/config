@@ -2,11 +2,11 @@
 #
 # ,: used for chaining commands using the previous matching window
 # ;: usef for chaining commands without using the previous matcheing window
+
 #--------------------------------------------------------------------------------
 # Looks
 #--------------------------------------------------------------------------------
 font pango:System San Francisco Display 9
-# font pango:Consolas 9
 
 set $bg-color            #2f343f
 set $inactive-bg-color   #000000
@@ -57,7 +57,7 @@ bar {
 #--------------------------------------------------------------------------------
 set $mod Mod1
 set $modWorkspace Mod4
-# Use Mouse+$mod to drag floating windows to their wanted position
+
 floating_modifier $mod
 
 
@@ -86,7 +86,7 @@ bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
 # bindsym control+b exec --no-startup-id autohotkey ctrl+b
 # bindsym control+f exec --no-startup-id autohotkey ctrl+f
 
-# Brightness/color temperature
+# Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
 bindsym Mod3+Down             exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
 bindsym Mod3+Up               exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
@@ -122,19 +122,17 @@ bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 
 # Lock/logout
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
-# bindsym $mod+shift+x exec i3lock --color 475263
 
 # Restart/reload i3 config
-bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+c reload
 
 
 #--------------------------------------------------------------------------------
 # App launcher
 #--------------------------------------------------------------------------------
-# not directly typed, but used by xcape binding
+# Not directly typed, but used by xcape binding
 bindsym $mod+minus exec rofi -show combi -lines 5
-# bindsym $mod+d exec rofi -show combi -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 17"
 
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "
@@ -186,12 +184,10 @@ bindsym $mod+t layout toggle tabbed split
 # equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # maximize (could also use full screen mode if one prefer)
-# bindsym $mod+z resize set width 99ppt, resize set height 90ppt
+bindsym $mod+z resize set width 99ppt, resize set height 90ppt
 # minimize
 # bindsym $mod+m resize set width  1ppt, resize set height 10ppt
 
-# enter fullscreen mode for the focused container
-# bindsym $mod+f fullscreen toggle
 bindsym F11 fullscreen toggle
 
 # floating
@@ -265,13 +261,13 @@ set $term urxvtc
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec $term
 
-bindsym F1 workspace $ws1
-bindsym F2 workspace $ws2
-bindsym F3 workspace $ws3
-bindsym F4 workspace $ws4
-bindsym F5 workspace $ws5
-bindsym F6 workspace $ws6
-bindsym F7 workspace $ws7
+# bindsym F1 workspace $ws1
+# bindsym F2 workspace $ws2
+# bindsym F3 workspace $ws3
+# bindsym F4 workspace $ws4
+# bindsym F5 workspace $ws5
+# bindsym F6 workspace $ws6
+# bindsym F7 workspace $ws7
 # bindsym F8 workspace $ws8
 # bindsym F9 workspace $ws9
 
@@ -298,21 +294,20 @@ for_window [class="mpv"                 ] border pixel 1, floating enable, stick
 # no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                                    move center
-# bindsym 0 [class="Sxiv"] exec --no-startup-id xdotool keyup 0 key BackSpace # doesn't work. xdotool send keystroke to all windows
 
 
 #--------------------------------------------------------------------------------
 # Startup scripts
 #--------------------------------------------------------------------------------
-exec --no-startup-id ~/bin/activate-hotkeys.sh
-exec --no-startup-id ~/bin/set-display-monitor
-exec --no-startup-id play-with-mpv
+# Startup programs
 exec $term
 exec i3-msg 'workspace $ws2; exec google-chrome'
 # exec i3-msg 'workspace $ws3; exec $term -e ranger ~; workspace $ws1'
 
-# bindsym $mod+n exec --no-startup-id ~/code/rofimoji/rofimoji.py
-
+# System config and daemons
+exec --no-startup-id ~/bin/activate-hotkeys.sh
+exec --no-startup-id ~/bin/set-display-monitor
+exec --no-startup-id play-with-mpv
 exec --no-startup-id unclutter
 # exec ---no-startup-id compton -f
 

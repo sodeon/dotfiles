@@ -94,6 +94,10 @@
         "command": "workbench.action.toggleSidebarVisibility"
     },
     {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
         "key": "ctrl+b",
         "command": "-workbench.action.toggleSidebarVisibility"
     },
@@ -187,21 +191,21 @@
         "key": "ctrl+alt+w",
         "command": "workbench.action.moveEditorToNextGroup"
     },
-    {
-        "key": "ctrl+shift+=",
-        "command": "workbench.action.zoomIn"
-    },
+    // {
+    //     "key": "ctrl+shift+=",
+    //     "command": "workbench.action.zoomIn"
+    // },
     {
         "key": "ctrl+=",
-        "command": "-workbench.action.zoomIn"
+        "command": "workbench.action.zoomIn"
     },
-    {
-        "key": "ctrl+shift+-",
-        "command": "workbench.action.zoomOut"
-    },
+    // {
+    //     "key": "ctrl+shift+-",
+    //     "command": "workbench.action.zoomOut"
+    // },
     {
         "key": "ctrl+-",
-        "command": "-workbench.action.zoomOut"
+        "command": "workbench.action.zoomOut"
     },
     {
         "key": "ctrl+r",
@@ -377,10 +381,6 @@
         "command": "-workbench.action.toggleTabsVisibility"
     },
     {
-        "key": "ctrl+i",
-        "command": "settings.cycle.toggleIndentGuide"
-    },
-    {
         "key": "ctrl+o",
         "command": "-extension.vim_ctrl+o",
         "when": "editorTextFocus && vim.active && vim.use<C-o> && !inDebugRepl"
@@ -493,15 +493,14 @@
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
     {
-        "key": "ctrl+/",
-        "command": "extension.toggleBool",
-        "when": "editorTextFocus"
-    },
-    {
         "key": "alt+b",
         "command": "-extension.toggleBool",
         "when": "editorTextFocus"
     },
+    // {
+    //     "key": "ctrl+i",
+    //     "command": "settings.cycle.toggleIndentGuide"
+    // },
     {
         "key": "ctrl+m",
         "command": "settings.cycle.toggleColorTheme"
