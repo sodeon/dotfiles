@@ -17,7 +17,14 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 cp -rf bin ~/
 # tar -xf .marks.tar -C ~
 
+if [ ! -d /usr/lib/x86_64-linux-gnu/rofi ]; then
+	sudo mkdir -p /usr/lib/x86_64-linux-gnu/rofi
+fi
 sudo cp -rf ./apps/rofi-plugins/* /usr/lib/x86_64-linux-gnu/rofi
+if [ ! -d /usr/share/rofi-emoji/ ]; then
+	sudo mkdir -p /usr/share/rofi-emoji/
+fi
+sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 
 case "$1" in
     desktop)
