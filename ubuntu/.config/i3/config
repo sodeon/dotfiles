@@ -132,7 +132,8 @@ bindsym $mod+Shift+r restart
 # App launcher
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
-bindsym $mod+minus exec rofi -show combi -lines 5
+bindsym $mod+F12 exec rofi -show combi  -lines 5 -width 20 -sidebar-mode 
+bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
 
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "
@@ -192,7 +193,7 @@ bindsym F11 fullscreen toggle
 
 # floating
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey mod+space
 
 # parent/child
 # bindsym $mod+a focus parent
@@ -289,7 +290,7 @@ for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="SmartGit"            ] border none, focus
 # floating bottom right corner with 25% of screen size
-for_window [class="mpv"                 ] border pixel 1, floating enable, sticky enable
+for_window [class="mpv"                 ] border none, floating enable, sticky enable
 # for_window [class="mpv"                 ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
 # no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen

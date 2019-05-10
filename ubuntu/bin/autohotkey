@@ -63,6 +63,13 @@ closeTabOrWindow() {
     fi
 }
 
+toggleFloating() {
+    # When mpv got focused (mpv always floating), go to full screen
+    if isWinActive mpv; then
+        i3-msg fullscreen
+    fi
+}
+
 pageup() {
     if isWinActive URxvt && isActiveWinTitle VIM; then
 		# In vim,  ctrl+b == ctrl+shift+b
@@ -88,6 +95,9 @@ pagedown() {
 case $shortcut in
     mod3+p)
         deleteWord
+        ;;
+    mod+space)
+        toggleFloating
         ;;
     ctrl+b)
         pageup

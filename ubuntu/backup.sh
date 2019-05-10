@@ -8,7 +8,7 @@ cp ~/.zshrc .
 cp ~/.profile .
 cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
-cp ~/.Xresources .
+# cp ~/.Xresources .
 
 cp -rf ~/.config/i3                 .config
 cp -rf ~/.config/rofi               .config
