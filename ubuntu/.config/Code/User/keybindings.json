@@ -164,7 +164,7 @@
         "command": "-workbench.action.closeActiveEditor"
     },
     {
-        "key": "shift+alt+w",
+        "key": "shift+alt+d",
         "command": "workbench.action.moveEditorRightInGroup"
     },
     {
@@ -172,7 +172,7 @@
         "command": "-workbench.action.moveEditorRightInGroup"
     },
     {
-        "key": "shift+alt+q",
+        "key": "shift+alt+a",
         "command": "workbench.action.moveEditorLeftInGroup"
     },
     {

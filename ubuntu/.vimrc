@@ -109,9 +109,9 @@ noremap <c-w><c-o> <c-w><c-r>
 " vertical -> horizontal split
 "noremap <c-w><c-s> <c-w>K
 
-" go to the current/previous/next line's first non-white char
-nnoremap _ -
-nnoremap - _
+" go to the current/previous/next line's first non-white char (defualt: - and +)
+" nnoremap _ -
+" nnoremap - _
 
 " Ctags
 " set tags=./tags,./TAGS,tags;~,TAGS;~
@@ -121,10 +121,9 @@ set clipboard=unnamedplus
 
 " System clipboard
 " inoremap <C-v> <ESC>"+pa
-vnoremap <C-c> "+y
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-" vnoremap <C-d> "+d
+" vnoremap <C-c> "+y
+" noremap <Leader>y "+y
+" noremap <Leader>p "+p
 
 " Enable folding with the spacebar
 nnoremap <space> za
@@ -140,6 +139,7 @@ noremap Y y$
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
+
 
 "-----------------------------------------------------------------------------
 " Looks
@@ -261,13 +261,12 @@ call plug#end()
 " NOTE:
 " Cannot map <C-/>. See https://vimhelp.appspot.com/vim_faq.txt.html#faq-20.5
 " Cannot use <C-e> as it will be hijacked by tmux
-" Cannot use <C-w> as it will break vscode vim plugin
 " Cannot use <C-[> as it is extremely slow for unknown reason
 "-----------------------------------------------------------------------------
 noremap <C-]> :Commentary<CR>
 noremap <C-p> :FZF<CR>
-noremap <C-d>z :MaximizerToggle<CR>
-noremap <C-d>= :MaximizerToggle<CR>
+noremap <C-e>z :MaximizerToggle<CR>
+noremap <C-e>= :MaximizerToggle<CR>
 noremap <C-w>z :MaximizerToggle<CR>
 noremap <C-w>= :MaximizerToggle<CR>
 " Toggle boolean

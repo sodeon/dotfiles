@@ -224,20 +224,25 @@ set $ws10 "10"
 # Switch to workspace
 #
 # Quake style terminal
-bindsym Mod3+apostrophe workspace $ws1
-bindsym $mod+Tab        workspace back_and_forth
-bindsym $mod+q          workspace prev
-bindsym $mod+w          workspace next
-bindsym $mod+1          workspace $ws1
-bindsym $mod+2          workspace $ws2
-bindsym $mod+3          workspace $ws3
-bindsym $mod+4          workspace $ws4
-bindsym $mod+5          workspace $ws5
-bindsym $mod+6          workspace $ws6
-bindsym $mod+7          workspace $ws7
-bindsym $mod+8          workspace $ws8
-bindsym $mod+9          workspace $ws9
-bindsym $mod+0          workspace $ws10
+bindsym Mod3+semicolon    workspace $ws1
+# Most used workspaces
+bindsym Mod3+apostrophe   workspace $ws2
+bindsym Mod3+bracketright workspace $ws4
+bindsym Mod3+bracketleft  workspace $ws7
+# General bindings
+bindsym $mod+Tab         workspace back_and_forth
+bindsym $mod+q           workspace prev
+bindsym $mod+w           workspace next
+bindsym $mod+1           workspace $ws1
+bindsym $mod+2           workspace $ws2
+bindsym $mod+3           workspace $ws3
+bindsym $mod+4           workspace $ws4
+bindsym $mod+5           workspace $ws5
+bindsym $mod+6           workspace $ws6
+bindsym $mod+7           workspace $ws7
+bindsym $mod+8           workspace $ws8
+bindsym $mod+9           workspace $ws9
+bindsym $mod+0           workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
