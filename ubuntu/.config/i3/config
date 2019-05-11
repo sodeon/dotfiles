@@ -22,7 +22,6 @@ client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-col
 client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          #003300
 
 # Borders
-# default_border pixel 1
 hide_edge_borders both
 
 workspace_auto_back_and_forth yes
@@ -39,7 +38,6 @@ bar {
 		set $bar-urgent-bg-color     #e53935
 
         background #000000
-        # background #111111
         separator #757575
         #                  border                 background             text
         focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
@@ -206,8 +204,8 @@ bindsym $mod+c focus child
 #--------------------------------------------------------------------------------
 # Workspace management
 #--------------------------------------------------------------------------------
-set $ws1 "1: Term"
-set $ws2 "2: Web"
+set $ws1 "1: Web"
+set $ws2 "2: Term"
 set $ws3 "3: File"
 set $ws4 "4"
 set $ws5 "5"
@@ -304,8 +302,7 @@ exec --no-startup-id $term -name tmux -e tmux
 # Startup scripts
 #--------------------------------------------------------------------------------
 # Startup programs
-exec $term
-exec i3-msg 'workspace $ws2; exec google-chrome'
+exec i3-msg 'workspace $ws2; $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
