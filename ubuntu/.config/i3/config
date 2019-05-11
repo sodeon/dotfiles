@@ -125,7 +125,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B '
 
 # Restart/reload i3 config
 bindsym $mod+Shift+r restart
-# bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload
 
 
 #--------------------------------------------------------------------------------
@@ -163,10 +163,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left  96px
+bindsym $mod+Shift+j move down  96px
+bindsym $mod+Shift+k move up    96px
+bindsym $mod+Shift+l move right 96px
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
@@ -228,10 +228,12 @@ bindsym Mod3+bracketright workspace $ws4
 bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
 bindsym $mod+Tab         workspace back_and_forth
-bindsym $mod+q           workspace prev
-bindsym $mod+w           workspace next
-bindsym $mod+1           workspace $ws1
-bindsym $mod+2           workspace $ws2
+# bindsym $mod+q           workspace prev
+# bindsym $mod+w           workspace next
+bindsym $mod+1           workspace prev
+bindsym $mod+2           workspace next
+# bindsym $mod+1           workspace $ws1
+# bindsym $mod+2           workspace $ws2
 bindsym $mod+3           workspace $ws3
 bindsym $mod+4           workspace $ws4
 bindsym $mod+5           workspace $ws5
@@ -262,19 +264,8 @@ set $term urxvtc
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec $term
 
-# bindsym F1 workspace $ws1
-# bindsym F2 workspace $ws2
-# bindsym F3 workspace $ws3
-# bindsym F4 workspace $ws4
-# bindsym F5 workspace $ws5
-# bindsym F6 workspace $ws6
-# bindsym F7 workspace $ws7
-# bindsym F8 workspace $ws8
-# bindsym F9 workspace $ws9
-
 # Bind application to workspace
 assign [class="URxvt" title="cmus"  ] $ws9
-# assign [class="URxvt"             ] $ws1
 # assign [class="Google-chrome"     ] $ws2
 # assign [class="Firefox"           ] $ws2
 # assign [class="Org.gnome.Nautilus"] $ws3
@@ -291,10 +282,22 @@ for_window [class="Code"                ] border none, focus
 for_window [class="SmartGit"            ] border none, focus
 # floating bottom right corner with 25% of screen size
 for_window [class="mpv"                 ] border none, floating enable, sticky enable
-# for_window [class="mpv"                 ] border none, floating enable, sticky enable, resize set 480 270, move position 1440 782
 # no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                                    move center
+
+
+#--------------------------------------------------------------------------------
+# Scratchpad (notebook)
+#--------------------------------------------------------------------------------
+# Default tmux scratch pad
+bindsym Mod3+n [instance="tmux"]        scratchpad show
+# Show all scratchpad not the above tmux
+bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
+bindsym $mod+Shift+n move scratchpad
+
+for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
+exec --no-startup-id $term -name tmux -e tmux
 
 
 #--------------------------------------------------------------------------------
@@ -303,12 +306,14 @@ for_window [class="qBittorrent"         ]              floating enable,         
 # Startup programs
 exec $term
 exec i3-msg 'workspace $ws2; exec google-chrome'
-# exec i3-msg 'workspace $ws3; exec $term -e ranger ~; workspace $ws1'
 
+#
 # System config and daemons
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
 exec --no-startup-id unclutter
+# workaround brightness value cannot be read until several seconds after booting
+exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 # exec ---no-startup-id compton -f
 
