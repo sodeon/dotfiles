@@ -24,15 +24,6 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 # Borders
 hide_edge_borders both
 
-#
-# Gaps:
-#     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
-# for_window [class=".*"] border pixel 10
-gaps left  336
-gaps right 336
-smart_gaps inverse_outer # When there is only one window, disable gaps
-smart_borders on # Only has border when there are multiple windows
-
 workspace_auto_back_and_forth yes
 
 # Bottom bar
@@ -213,16 +204,16 @@ bindsym $mod+c focus child
 #--------------------------------------------------------------------------------
 # Workspace management
 #--------------------------------------------------------------------------------
-set $ws1 "1: Web"
-set $ws2 "2: Term"
-set $ws3 "3: File"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7: Code"
-set $ws8 "8: Git"
-set $ws9 "9: Music"
-set $ws10 "10"
+set $ws1  "1: Web"
+set $ws2  "2: Term"
+set $ws3  "3: Code"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8: Git"
+set $ws9  "9: File"
+set $ws10 "10: Music"
 
 #
 # Switch to workspace
@@ -248,6 +239,11 @@ bindsym $mod+8           workspace $ws8
 bindsym $mod+9           workspace $ws9
 bindsym $mod+0           workspace $ws10
 
+bindsym F1               workspace $ws1
+bindsym F2               workspace $ws2
+bindsym F3               workspace $ws3
+bindsym F4               workspace $ws4
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
 bindsym $mod+Shift+2 move container to workspace $ws2 ; workspace $ws2 
@@ -270,13 +266,12 @@ set $term urxvtc
 bindsym $mod+Return exec $term
 
 # Bind application to workspace
-assign [class="URxvt" title="cmus"  ] $ws9
-# assign [class="Google-chrome"     ] $ws2
-# assign [class="Firefox"           ] $ws2
-# assign [class="Org.gnome.Nautilus"] $ws3
-assign [              title="ranger"] $ws3
-assign [class="Code"                ] $ws7
+# assign [class="Google-chrome"     ] $ws1
+# assign [class="Firefox"           ] $ws1
+assign [class="Code"                ] $ws3
 assign [class="SmartGit"            ] $ws8
+assign [              title="ranger"] $ws9
+assign [class="URxvt" title="cmus"  ] $ws10
 
 for_window [class="URxvt" title="ranger"] border none, focus
 for_window [class="URxvt" title="cmus"  ] border none, focus
@@ -303,6 +298,30 @@ bindsym $mod+Shift+n move scratchpad
 
 for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
 exec --no-startup-id $term -name tmux -e tmux
+
+
+#--------------------------------------------------------------------------------
+# Gaps (i3-gaps is a fork from i3.  Thus, group related settings)
+#     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
+#--------------------------------------------------------------------------------
+# for_window [class=".*"] border pixel 10
+
+smart_gaps inverse_outer # When there is only one window, disable gaps
+smart_borders on # Only has border when there are multiple windows
+
+workspace $ws1  gaps horizontal 336
+workspace $ws2  gaps horizontal 336
+# workspace $ws3  gaps horizontal 336
+workspace $ws4  gaps horizontal 336
+workspace $ws5  gaps horizontal 336
+workspace $ws6  gaps horizontal 336
+workspace $ws7  gaps horizontal 336
+workspace $ws8  gaps horizontal 336
+# workspace $ws9  gaps horizontal 336
+workspace $ws10 gaps horizontal 960
+workspace $ws10 gaps vertical 280
+
+# bindsym $mod+g gaps
 
 
 #--------------------------------------------------------------------------------
