@@ -107,7 +107,6 @@ alias j='jump'
 # Aliases
 #--------------------------------------------------------------------------------------------------------------
 alias stats='zsh_stats'
-alias lcd='jump' # for bash convention
 
 newAndTouch() {touch $*; code $*          } 
 duDepth()     {du --max-depth=$1 | sort -g}

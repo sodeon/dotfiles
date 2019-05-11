@@ -140,6 +140,19 @@ noremap Y y$
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
 
+" Tab switching
+" NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
+"       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+if has('gui_running')
+	nnoremap <M-q> gT
+	nnoremap <M-e> gt
+	nnoremap <M-e> :q<CR>
+else
+	nnoremap <Esc>q gT
+	nnoremap <Esc>w gt
+	nnoremap <Esc>e :q<CR>
+endif
+
 
 "-----------------------------------------------------------------------------
 " Looks

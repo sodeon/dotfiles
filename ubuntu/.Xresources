@@ -116,3 +116,6 @@ URxvt.keysym.Control-U: perl:url-select:select_next
 URxvt.urlLauncher: google-chrome
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
+
+! Fix tmux not recognizing default $TERM and causes cursor shape not changeable
+URxvt.termName: xterm-256color

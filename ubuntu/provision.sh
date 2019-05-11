@@ -75,7 +75,6 @@ apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
-apt-force install i3 i3blocks 
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3
 apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
@@ -109,6 +108,20 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# i3
+pushd ~/.provision-temp
+apt-force libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake
+git clone https://www.github.com/Airblader/i3 i3-gaps
+pushd i3-gaps
+autoreconf --force --install
+rm -rf build/
+mkdir -p build && pushd build/
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers --disable-debug
+make
+sudo make install
+while popd; do done
+apt-force install i3blocks 
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes

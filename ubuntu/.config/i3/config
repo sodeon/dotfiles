@@ -24,6 +24,15 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 # Borders
 hide_edge_borders both
 
+#
+# Gaps:
+#     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
+# for_window [class=".*"] border pixel 10
+gaps left  336
+gaps right 336
+smart_gaps inverse_outer # When there is only one window, disable gaps
+smart_borders on # Only has border when there are multiple windows
+
 workspace_auto_back_and_forth yes
 
 # Bottom bar
@@ -226,8 +235,6 @@ bindsym Mod3+bracketright workspace $ws4
 bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
 bindsym $mod+Tab         workspace back_and_forth
-# bindsym $mod+q           workspace prev
-# bindsym $mod+w           workspace next
 bindsym $mod+1           workspace prev
 bindsym $mod+2           workspace next
 # bindsym $mod+1           workspace $ws1
@@ -302,7 +309,7 @@ exec --no-startup-id $term -name tmux -e tmux
 # Startup scripts
 #--------------------------------------------------------------------------------
 # Startup programs
-exec i3-msg 'workspace $ws2; $term; workspace $ws1; exec google-chrome'
+exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
