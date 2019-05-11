@@ -12,6 +12,9 @@ Tmux:
     (ctrl+e I) to download and install plugins
     # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
 
+ssh:
+    ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+
 Github:
     ssh login:
         # Add ssh key
@@ -25,10 +28,6 @@ Github:
 		xclip -sel clip < ~/.ssh/id_rsa.pub
         # Go to github->settings->"SSH and GPG keys"->"New SSH key"
         # git repo format: git@github.com:username/reponame.git
-
-ssh:
-    ssh-keygen
-    ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Programs:
     Network manager (for WiFi): rofi$ nm-applet
@@ -44,6 +43,11 @@ System:
 			/dev/sda3 /mnt/c ntfs uid=1000,auto,user 0	0
 			/dev/sda5 /mnt/d ntfs uid=1000,auto,user 0	0
 			/dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0	0
+    Enable/disable swap:
+        Modify /etc/fstab:
+            Comment out swap (following grabbed from Ubuntu 19.04)
+            /swapfile                                 none            swap    sw              0       0
+        sudo rm /swapfile
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old

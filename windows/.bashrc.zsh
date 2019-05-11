@@ -2,6 +2,9 @@
 #-----------------------------------------------------
 # Global aliases
 #-----------------------------------------------------
+# Let alias still works after sudo
+alias sudo='sudo '
+
 alias lr='ls -rtla'
 
 # Most used programs
@@ -9,17 +12,9 @@ alias s='source $*'
 alias t='touch'
 alias v='vim -p' # each file a tab
 # alias p='realpath'
-alias gs='git status'
-alias gd='git diff --color --color-moved'
-alias gc='git add .; git commit' # stage all modified files and commit
-alias gp='git push'
-alias gg='git fetch; git pull' # git get = fetch + pull
-alias start='cmd.exe /C'
 
-# Most used folders
-#alias vm='_() { cd /d/Work/vm/Homestead > /dev/null; }; _'
-#alias H='cd /c/Users/Andy'
-
+alias aph='ps v -AH' # aph: all processes in hierarchy format
+alias ap='ps  -aux' # ap: all processes
 
 # Laravel
 alias artisan='php artisan'
@@ -39,15 +34,39 @@ alias artisan='php artisan'
 
 
 #-----------------------------------------------------
-# WSL aliases
+# Git
 #-----------------------------------------------------
-alias ht='htop'
-alias jo='jobs -l' # show PID
-alias bgr='reredirect -m'
+alias gs='git status'
+alias gd='git diff --color --color-moved'
+alias gdt='git difftool'
+
+alias ga='git add .' # stage all modified files
+alias gc='git commit'
+alias gac='git add .; git commit' # stage all modified files and commit
+alias gab='git checkout -b' # add branch
+
+alias gu='git push' # upload (to upload tags, add --tags)
+alias gf='git fetch'
+alias gg='git fetch; git pull' # get
+
+alias gl='git log'
+alias gls='git log --stat'
+
+
+#-----------------------------------------------------
+# OS dependent implementation
+#-----------------------------------------------------
+alias start='cmd.exe /C'
+
+alias memory='WMIC.exe OS get FreePhysicalMemory,FreeVirtualMemory,NumberOfProcesses'
+
 alias du='ncdu'
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/mnt//" $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
+
+alias jo='jobs -l' # show PID
+alias bgr='reredirect -m'
 
 # alias only for WSL (Windows subsystem on Linux)
 #alias npm='/c/Program\ Files/nodejs/node.exe c:/Program\ Files/nodejs/node_modules/npm/bin/npm-cli.js'
@@ -55,9 +74,6 @@ alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`sed -e "s/^\/mnt//" $HOM
 #alias np='npm run prod  > npm.log 2>npm.log'
 #alias nw='npm run watch > npm.log 2>npm.log'
 #alias nl='v /d/Work/code/repo/npm.log'
-
-# Windows only
-alias memory='WMIC.exe OS get FreePhysicalMemory,FreeVirtualMemory,NumberOfProcesses'
 
 
 #-----------------------------------------------------
@@ -77,9 +93,3 @@ stty -ixon
 # Overwrite cursor style so that vim cursor settings won't bleed to other tmux panes/windows
 # 6: line, no blinking.  5: line, blinking.  2: block, no blinking. 1: block, blinking
 echo -ne "\e[6 q"
-
-
-#-----------------------------------------------------
-# Default directory
-#-----------------------------------------------------
-#pj repo

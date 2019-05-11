@@ -176,4 +176,5 @@ add-zsh-hook preexec _fasd_preexec_fixed
 #--------------------------------------------------------------------------------------------------------------
 # Bash shared scripts
 #--------------------------------------------------------------------------------------------------------------
+source ~/.bash_aliases
 source ~/.bashrc.zsh # This must be at the last line of .zshrc

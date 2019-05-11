@@ -2,6 +2,7 @@
 cd "${0%/*}"
 
 cp .bashrc.zsh ~/
+cp .bash_aliases ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
 cp .zshrc ~/
