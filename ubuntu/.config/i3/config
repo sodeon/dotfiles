@@ -331,11 +331,13 @@ exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
+#
+# Black background
+exec xsetroot -solid "#000000"
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
+# Auto-hide cursor
 exec --no-startup-id unclutter
-# workaround brightness value cannot be read until several seconds after booting
+# Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
-# exec ---no-startup-id compton -f
-
