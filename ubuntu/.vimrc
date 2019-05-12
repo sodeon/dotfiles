@@ -50,6 +50,7 @@ set noswapfile
 set noeb vb t_vb=
 
 set ignorecase
+set wildignorecase " ignore case in path completion
 
 set nobackup
 set ruler

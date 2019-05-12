@@ -6,9 +6,7 @@
 !-----------------------------------------------------------------
 ! HiDPI
 !-----------------------------------------------------------------
-!Xft.dpi: 192
-!Xcursor.size: 128
-!rofi.dpi: 192
+#include ".config/Xresources/dpi"
 
 
 !-----------------------------------------------------------------
@@ -119,3 +117,9 @@ URxvt.urlButton: 1
 
 ! Fix tmux not recognizing default $TERM and causes cursor shape not changeable
 URxvt.termName: xterm-256color
+
+
+!-----------------------------------------------------------------
+! i3
+!-----------------------------------------------------------------
+#include ".config/Xresources/i3"

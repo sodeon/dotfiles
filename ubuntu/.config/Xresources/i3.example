@@ -1,0 +1,27 @@
+! Resize
+i3wm.resizeX: 10px or 7ppt	
+i3wm.resizeY: 10px or 7ppt
+
+! Floating window movement width
+i3wm.floating.deltaX: 96px
+i3wm.floating.deltaY: 96px
+
+! Rofi
+i3wm.rofi.combi.width: 20
+!i3wm.rofi.window.width: 40
+
+! Gaps
+i3wm.toggleHGap: 336
+
+i3wm.ws1.horizontalGap:  336
+i3wm.ws2.horizontalGap:  336
+i3wm.ws3.horizontalGap:  0
+i3wm.ws4.horizontalGap:  336
+i3wm.ws5.horizontalGap:  336
+i3wm.ws6.horizontalGap:  336
+i3wm.ws7.horizontalGap:  336
+i3wm.ws8.horizontalGap:  336
+i3wm.ws9.horizontalGap:  0
+i3wm.ws10.horizontalGap: 960
+
+i3wm.ws10.verticalGap: 280

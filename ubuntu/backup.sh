@@ -1,4 +1,6 @@
 #!/bin/bash
+set -ue
+
 cd "$(dirname "$(realpath "$0")")";
 
 cp ~/.bashrc.zsh .
@@ -9,7 +11,7 @@ cp ~/.zshrc .
 cp ~/.profile .
 cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
-# cp ~/.Xresources .
+cp ~/.Xresources .
 
 cp -rf ~/.config/i3                 .config
 cp -rf ~/.config/rofi               .config
@@ -17,19 +19,23 @@ cp -rf ~/.config/mpv/input.conf     .config/mpv
 cp -rf ~/.config/ranger             .config
 cp     ~/.config/cmus/autosave      .config/cmus
 cp     ~/.config/cmus/rc            .config/cmus
-cp     ~/.config/hardware/*.example .config/hardware
 cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
+
+cp     ~/.config/hardware/*.example   .config/hardware
+cp     ~/.config/Xresources/*.example .config/Xresources
+
+cp -rf ~/.local/lib/bash .local/lib/bash
 
 cp -rf ~/.local/share/applications/*.desktop .local/share/applications
 rm .local/share/applications/thann.play-with-mpv.desktop
 
-case "$1" in
-    desktop)
+case "${1-}" in
+	desktop)
 		cp ~/.config/mpv/mpv.conf optional-provision/desktop/.config/mpv
-        ;;
-    laptop)
+		;;
+	laptop)
 		cp ~/.config/mpv/mpv.conf optional-provision/laptop/.config/mpv
-        ;;
+		;;
 esac
 
 cp -rf ~/.urxvt .

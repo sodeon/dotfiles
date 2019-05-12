@@ -45,7 +45,7 @@ bar {
         urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
 	}
 
-    strip_workspace_numbers yes
+    # strip_workspace_numbers yes
 	position top
 }
 
@@ -130,8 +130,9 @@ bindsym $mod+Shift+c reload
 # App launcher
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
-bindsym $mod+F12 exec rofi -show combi  -lines 5 -width 20 -sidebar-mode 
-bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
+set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
+bindsym $mod+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
+# bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
 
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "
@@ -160,16 +161,21 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left  96px
-bindsym $mod+Shift+j move down  96px
-bindsym $mod+Shift+k move up    96px
-bindsym $mod+Shift+l move right 96px
+set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
+set_from_resource $floatingDeltaY i3wm.floating.deltaY 64px
+bindsym $mod+Shift+h move left  $floatingDeltaX
+bindsym $mod+Shift+j move down  $floatingDeltaY
+bindsym $mod+Shift+k move up    $floatingDeltaY
+bindsym $mod+Shift+l move right $floatingDeltaX
+
+set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
+set_from_resource $resizeY i3wm.resizeY 10px or 7ppt
 
 # resize window (you can also use the mouse for that)
-bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
-bindsym $mod+Mod3+k resize grow   height 10px or 10ppt
-bindsym $mod+Mod3+j resize shrink height 10px or 10ppt
-bindsym $mod+Mod3+l resize grow   width  10px or 10ppt
+bindsym $mod+Mod3+h resize shrink width  $resizeX
+bindsym $mod+Mod3+k resize grow   height $resizeY
+bindsym $mod+Mod3+j resize shrink height $resizeY
+bindsym $mod+Mod3+l resize grow   width  $resizeX
 
 # make window a horizontal split container
 bindsym $mod+s split v
@@ -298,6 +304,9 @@ bindsym $mod+Shift+n move scratchpad
 for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
 exec --no-startup-id $term -name tmux -e tmux
 
+set_from_resource $gg Xft.dpi 88
+bindsym $mod+shift+m exec --no-startup-id notify-send $gg
+
 
 #--------------------------------------------------------------------------------
 # Gaps (i3-gaps is a fork from i3.  Thus, group related settings)
@@ -308,19 +317,53 @@ exec --no-startup-id $term -name tmux -e tmux
 smart_gaps inverse_outer # When there is only one window, disable gaps
 smart_borders on # Only has border when there are multiple windows
 
-workspace $ws1  gaps horizontal 336
-workspace $ws2  gaps horizontal 336
-# workspace $ws3  gaps horizontal 336
-workspace $ws4  gaps horizontal 336
-workspace $ws5  gaps horizontal 336
-workspace $ws6  gaps horizontal 336
-workspace $ws7  gaps horizontal 336
-workspace $ws8  gaps horizontal 336
-# workspace $ws9  gaps horizontal 336
-workspace $ws10 gaps horizontal 960
-workspace $ws10 gaps vertical 280
+set_from_resource $ws1HGap  i3wm.ws1.horizontalGap  0
+set_from_resource $ws2HGap  i3wm.ws2.horizontalGap  0
+set_from_resource $ws3HGap  i3wm.ws3.horizontalGap  0
+set_from_resource $ws4HGap  i3wm.ws4.horizontalGap  0
+set_from_resource $ws5HGap  i3wm.ws5.horizontalGap  0
+set_from_resource $ws6HGap  i3wm.ws6.horizontalGap  0
+set_from_resource $ws7HGap  i3wm.ws7.horizontalGap  0
+set_from_resource $ws8HGap  i3wm.ws8.horizontalGap  0
+set_from_resource $ws9HGap  i3wm.ws9.horizontalGap  0
+set_from_resource $ws10HGap i3wm.ws10.horizontalGap 0
 
-# bindsym $mod+g gaps
+set_from_resource $ws1VGap  i3wm.ws1.verticalGap  0
+set_from_resource $ws2VGap  i3wm.ws2.verticalGap  0
+set_from_resource $ws3VGap  i3wm.ws3.verticalGap  0
+set_from_resource $ws4VGap  i3wm.ws4.verticalGap  0
+set_from_resource $ws5VGap  i3wm.ws5.verticalGap  0
+set_from_resource $ws6VGap  i3wm.ws6.verticalGap  0
+set_from_resource $ws7VGap  i3wm.ws7.verticalGap  0
+set_from_resource $ws8VGap  i3wm.ws8.verticalGap  0
+set_from_resource $ws9VGap  i3wm.ws9.verticalGap  0
+set_from_resource $ws10VGap i3wm.ws10.verticalGap 0
+
+workspace $ws1  gaps horizontal $ws1HGap
+workspace $ws2  gaps horizontal $ws2HGap
+workspace $ws3  gaps horizontal $ws3HGap
+workspace $ws4  gaps horizontal $ws4HGap
+workspace $ws5  gaps horizontal $ws5HGap
+workspace $ws6  gaps horizontal $ws6HGap
+workspace $ws7  gaps horizontal $ws7HGap
+workspace $ws8  gaps horizontal $ws8HGap
+workspace $ws9  gaps horizontal $ws9HGap
+workspace $ws10 gaps horizontal $ws10HGap
+
+workspace $ws1  gaps vertical $ws1VGap
+workspace $ws2  gaps vertical $ws2VGap
+workspace $ws3  gaps vertical $ws3VGap
+workspace $ws4  gaps vertical $ws4VGap
+workspace $ws5  gaps vertical $ws5VGap
+workspace $ws6  gaps vertical $ws6VGap
+workspace $ws7  gaps vertical $ws7VGap
+workspace $ws8  gaps vertical $ws8VGap
+workspace $ws9  gaps vertical $ws9VGap
+workspace $ws10 gaps vertical $ws10VGap
+
+# resolution
+set_from_resource $toggleHGap i3wm.toggleHGap 0
+bindsym $mod+r gaps horizontal current toggle $toggleHGap
 
 
 #--------------------------------------------------------------------------------

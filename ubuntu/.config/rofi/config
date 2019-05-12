@@ -1,12 +1,11 @@
-rofi.modi: emoji,calc
+! What mode will be shown when sidebar-mode is enabled
+rofi.modi: calc
 !rofi.modi: window,drun,run,ssh,emoji,calc
+
 rofi.combi-modi: window,drun,run,emoji
 
 rofi.theme: arc-dark-custom
 rofi.font: System San Francisco Display 15
-
-! Show modi in UI interface
-! rofi.sidebar-mode: true
 
 
 !-------------------------------------------------------------------------------------
@@ -22,9 +21,9 @@ rofi.kb-row-up:                      Up,Control+k
 rofi.kb-row-down:                    Down,Control+j
 
 rofi.kb-accept-entry:                Return,KP_Enter,Control+m
-rofi.kb-cancel:                      Escape,Alt+F12,Alt+F11
-rofi.kb-mode-next:                   Control+l,Control+Right,Shift+Right
-rofi.kb-mode-previous:               Control+h,Control+Left,Shift+Left
+rofi.kb-cancel:                      Escape
+rofi.kb-mode-next:                   Control+l,Control+Right,Alt+F12
+rofi.kb-mode-previous:               Control+h,Control+Left
 rofi.kb-remove-word-back:            Control+w,Control+BackSpace
 rofi.kb-clear-line:                  Control+u
 
