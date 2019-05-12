@@ -139,7 +139,6 @@ bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
 #     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
 #     bindsym c exec google-chrome                      ; mode "default"
 #     bindsym f exec firefox                            ; mode "default"
-#     # bindsym t exec $term                              ; mode "default"
 #     bindsym r exec $term -e ranger ~                  ; mode "default"
 #     bindsym m exec $term -e cmus                      ; mode "default"
 #     bindsym n exec nautilus                           ; mode "default"

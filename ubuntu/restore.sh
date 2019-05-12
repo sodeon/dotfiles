@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "${0%/*}"
+cd "$(dirname "$(realpath "$0")")";
 
 cp .bashrc.zsh ~/
 cp .bash_aliases ~/
