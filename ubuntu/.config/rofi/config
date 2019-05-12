@@ -1,6 +1,6 @@
 rofi.modi: emoji,calc
 !rofi.modi: window,drun,run,ssh,emoji,calc
-rofi.combi-modi: drun,run,emoji
+rofi.combi-modi: window,drun,run,emoji
 
 rofi.theme: arc-dark-custom
 rofi.font: System San Francisco Display 15

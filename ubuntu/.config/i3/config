@@ -130,8 +130,8 @@ bindsym $mod+Shift+c reload
 # App launcher
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
-bindsym $mod+F12 exec rofi -show combi  -lines 5 -width 20 -sidebar-mode 
-bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
+bindsym $mod+F12 exec rofi -show combi  -lines 5 -width 33 -sidebar-mode 
+# bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
 
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "
@@ -161,10 +161,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left  96px
-bindsym $mod+Shift+j move down  96px
-bindsym $mod+Shift+k move up    96px
-bindsym $mod+Shift+l move right 96px
+bindsym $mod+Shift+h move left  64px
+bindsym $mod+Shift+j move down  64px
+bindsym $mod+Shift+k move up    64px
+bindsym $mod+Shift+l move right 64px
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+Mod3+h resize shrink width  10px or 10ppt
@@ -225,7 +225,7 @@ bindsym Mod3+apostrophe   workspace $ws2
 bindsym Mod3+bracketright workspace $ws4
 bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
-bindsym $mod+Tab         workspace back_and_forth
+bindsym $mod+Tab         workspace next
 bindsym $mod+1           workspace prev
 bindsym $mod+2           workspace next
 # bindsym $mod+1           workspace $ws1
@@ -296,7 +296,7 @@ bindsym Mod3+n [instance="tmux"]        scratchpad show
 bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
 bindsym $mod+Shift+n move scratchpad
 
-for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
+for_window [instance="tmux"] border pixel 2, floating enable, resize set 1152px 768px, move scratchpad, move position 640 256
 exec --no-startup-id $term -name tmux -e tmux
 
 
@@ -309,17 +309,17 @@ exec --no-startup-id $term -name tmux -e tmux
 smart_gaps inverse_outer # When there is only one window, disable gaps
 smart_borders on # Only has border when there are multiple windows
 
-workspace $ws1  gaps horizontal 336
-workspace $ws2  gaps horizontal 336
-# workspace $ws3  gaps horizontal 336
-workspace $ws4  gaps horizontal 336
-workspace $ws5  gaps horizontal 336
-workspace $ws6  gaps horizontal 336
-workspace $ws7  gaps horizontal 336
-workspace $ws8  gaps horizontal 336
-# workspace $ws9  gaps horizontal 336
-workspace $ws10 gaps horizontal 960
-workspace $ws10 gaps vertical 280
+# workspace $ws1  gaps horizontal 336
+# workspace $ws2  gaps horizontal 336
+# # workspace $ws3  gaps horizontal 336
+# workspace $ws4  gaps horizontal 336
+# workspace $ws5  gaps horizontal 336
+# workspace $ws6  gaps horizontal 336
+# workspace $ws7  gaps horizontal 336
+# workspace $ws8  gaps horizontal 336
+# # workspace $ws9  gaps horizontal 336
+workspace $ws10 gaps horizontal 256
+workspace $ws10 gaps top 64
 
 # bindsym $mod+g gaps
 
@@ -332,11 +332,13 @@ exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
+#
+# Black background
+exec xsetroot -solid "#000000"
 exec --no-startup-id ~/bin/activate-hotkeys.sh
 exec --no-startup-id ~/bin/set-display-monitor
 exec --no-startup-id play-with-mpv
+# Auto-hide cursor
 exec --no-startup-id unclutter
-# workaround brightness value cannot be read until several seconds after booting
+# Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
-# exec ---no-startup-id compton -f
-
