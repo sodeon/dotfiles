@@ -22,6 +22,8 @@ alias gs='git status'
 alias gd='git diff --color --color-moved'
 alias gdt='git difftool'
 
+alias gb='git branch'
+
 alias ga='git add .' # stage all modified files
 alias gc='git commit'
 alias gac='git add .; git commit' # stage all modified files and commit
