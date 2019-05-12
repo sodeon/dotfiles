@@ -233,7 +233,7 @@ bindsym Mod3+apostrophe   workspace $ws2
 bindsym Mod3+bracketright workspace $ws4
 bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
-bindsym $mod+Tab         workspace next
+bindsym $mod+Tab         workspace back_and_forth
 bindsym $mod+1           workspace prev
 bindsym $mod+2           workspace next
 # bindsym $mod+1           workspace $ws1
@@ -304,7 +304,7 @@ bindsym Mod3+n [instance="tmux"]        scratchpad show
 bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
 bindsym $mod+Shift+n move scratchpad
 
-for_window [instance="tmux"] border pixel 2, floating enable, resize set 1152px 768px, move scratchpad, move position 640 256
+for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
 exec --no-startup-id $term -name tmux -e tmux
 
 
