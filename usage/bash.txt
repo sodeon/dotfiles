@@ -2,6 +2,18 @@
 
 # NOTE: bash has no boolean
 
+# Debug:
+#    +  : executed
+#    ++ : executed in subshell
+#    +++: executed in subshell in another subshell
+set -x # activate debugging from here (-x: print command traces before executing)
+set +x # stop debugging from here
+
+# Exit script if error occurs (return value not 0)
+set -e
+
+# Exit script if using undefined variable
+set -u
 
 cd "${0%/*}"
 
@@ -10,7 +22,10 @@ var2="3 + 2"
 
 # check if $1 exists
 # -z: check variable length
-if [ ! -z $1 ]; then
+# Use [[ for if/else as it enables regular expression =~ and generally results in fewer surprises by not treating it as external program inside the bracket
+#     https://stackoverflow.com/questions/669452/is-double-square-brackets-preferable-over-single-square-brackets-in-ba
+# if [[ ! -z $1 ]]; then # this won't work if "set -u"
+if [[ ! -z ${1-} ]]; then
 else
 fi
 
@@ -25,3 +40,7 @@ read var1 var2 <<< $(echo $windowGeometry)
 
 # execute string (some commands need string processing to complete)
 exec $cmd
+
+functionName() {
+    local variable
+}

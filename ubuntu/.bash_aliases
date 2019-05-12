@@ -21,6 +21,7 @@ alias fd='find . -type d -name'
 alias gs='git status'
 alias gd='git diff --color --color-moved'
 alias gdt='git difftool'
+alias gdth='git difftool HEAD'
 
 alias gb='git branch'
 

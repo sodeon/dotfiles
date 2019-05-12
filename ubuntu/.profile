@@ -31,20 +31,22 @@ fi
 if [ -f ~/.config/hardware/displayrc ]; then
     source ~/.config/hardware/displayrc
 	if xrandr | grep "\<$hiDpiDisplay\> connected"; then
-		sed -i -e 's/^!Xft.dpi/Xft.dpi/'           ~/.Xresources
-		sed -i -e 's/^!Xcursor.size/Xcursor.size/' ~/.Xresources
-		sed -i -e 's/^!rofi.dpi/rofi.dpi/'         ~/.Xresources
+		sed -i -e 's/^!Xft.dpi/Xft.dpi/'           $HOME/.config/Xresources/dpi
+		sed -i -e 's/^!Xcursor.size/Xcursor.size/' $HOME/.config/Xresources/dpi
+		sed -i -e 's/^!rofi.dpi/rofi.dpi/'         $HOME/.config/Xresources/dpi
 		export GDK_SCALE=2
 		export GDK_DPI_SCALE=0.5
 		export QT_AUTO_SCREEN_SET_FACTOR=0
 		export QT_SCALE_FACTOR=2
 		export QT_FONT_DPI=96
 	else
-		sed -i -e 's/^Xft.dpi/!&/'      ~/.Xresources
-		sed -i -e 's/^Xcursor.size/!&/' ~/.Xresources
-		sed -i -e 's/^rofi.dpi/!&/'     ~/.Xresources
+		sed -i -e 's/^Xft.dpi/!&/'      $HOME/.config/Xresources/dpi
+		sed -i -e 's/^Xcursor.size/!&/' $HOME/.config/Xresources/dpi
+		sed -i -e 's/^rofi.dpi/!&/'     $HOME/.config/Xresources/dpi
 	fi
 fi
+# NOTE: this duplicate functionalities in /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
+xrdb $HOME/.Xresources
 
 # urxvt daemon
 urxvtd -q -o -f
