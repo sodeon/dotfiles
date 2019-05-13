@@ -51,6 +51,13 @@
 
 
 !-----------------------------------------------------------------
+! xterm
+!-----------------------------------------------------------------
+XTerm*faceName: Consolas NF
+XTerm*faceSize: 16
+
+
+!-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
 URxvt.font: xft:Consolas NF:style=Book:size=16
@@ -91,6 +98,9 @@ URxvt.keysym.Shift-Down: command:\033]721;1\007
 !URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
+! Emulate xterm Home/End for vim in tmux to work correctly
+URxvt.keysym.Home: \033OH
+URxvt.keysym.End: \033OF
 
 
 !-----------------------------------------------------------------
@@ -115,7 +125,7 @@ URxvt.urlLauncher: google-chrome
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
 
-! Fix tmux not recognizing default $TERM and causes cursor shape not changeable
+! Fix vim in tmux not recognizing default $TERM and causes cursor shape not changeable
 URxvt.termName: xterm-256color
 
 

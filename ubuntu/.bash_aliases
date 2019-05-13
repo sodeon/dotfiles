@@ -55,7 +55,7 @@ alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never" # disk usag
 alias rr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
 
 # Gnome control center (for use in other window managers)
-alias settings='env XDG_CURRENT_DESKTOP=GNOME gnome-control-center'
+# alias settings='env XDG_CURRENT_DESKTOP=GNOME gnome-control-center'
 
 
 #-----------------------------------------------------
