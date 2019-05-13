@@ -1,0 +1,9 @@
+#!/bin/bash -ue
+
+if grep -qr '^AutomaticLoginEnable=True' /etc/gdm3/custom.conf; then
+	sudo sed -i -r 's/^(AutomaticLoginEnable)=True/\1=False/' /etc/gdm3/custom.conf
+    echo "Disabled auto-login"
+else
+	sudo sed -i -r 's/^(AutomaticLoginEnable)=False/\1=True/' /etc/gdm3/custom.conf
+    echo "Enabled auto-login"
+fi

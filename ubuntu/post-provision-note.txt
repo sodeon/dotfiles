@@ -14,7 +14,8 @@ Tmux:
     # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
 
 ssh:
-    ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+    Copy ssh key to Andy desktop
+    $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Github:
     ssh login:
@@ -49,6 +50,9 @@ System:
             Comment out swap (following grabbed from Ubuntu 19.04)
             /swapfile                                 none            swap    sw              0       0
         sudo rm /swapfile
+    Disable unused services:
+        $sudo systemctl disable {service}
+        services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
 
 Accounts:
 	SourceTree account: sodeon@gmail.com/old

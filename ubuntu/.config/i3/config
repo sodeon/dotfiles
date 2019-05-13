@@ -48,7 +48,7 @@ bar {
         urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
 	}
 
-    # strip_workspace_numbers yes
+    strip_workspace_numbers yes
 	position top
 }
 
@@ -187,7 +187,7 @@ bindsym $mod+v split h
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+f layout toggle split
-bindsym $mod+t layout toggle tabbed split
+bindsym $mod+t layout toggle stacked tabbed split
 # equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # maximize (could also use full screen mode if one prefer)
@@ -380,7 +380,7 @@ bindsym $mod+shift+m exec --no-startup-id notify-send $gg
 # Startup scripts
 #--------------------------------------------------------------------------------
 # Startup programs
-exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
+# exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
