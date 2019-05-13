@@ -287,18 +287,20 @@ for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="SmartGit"            ] border none, focus
 # floating bottom right corner with 25% of screen size
-for_window [class="mpv"                 ] border none, floating enable, sticky enable
+# for_window [class="mpv"                 ] border none, floating enable, sticky enable
 # no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
-for_window [class="qBittorrent"         ]              floating enable,                                    move center
+for_window [class="qBittorrent"         ]              floating enable,                            move center
 
 
 #--------------------------------------------------------------------------------
 # Scratchpad (notebook)
-# NOTE: default tmux and cmus uses lazy execution (won't execute until first accessing)
+# NOTE: Notebook and cmus uses lazy execution (won't execute until first accessing)
 #--------------------------------------------------------------------------------
+# Notebook (tmux)
 bindsym Mod3+n exec i3-floating-singleton tmux
 bindsym Mod3+m exec i3-floating-singleton cmus
+bindsym Mod3+v [class="^mpv"] scratchpad show, fullscreen enable
 # Show all scratchpad not the above tmux
 # bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
 # bindsym $mod+Shift+n move scratchpad
@@ -307,6 +309,7 @@ set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
 for_window [instance="^tmux$"] border pixel 2, floating enable, resize set $tmuxSize, move scratchpad
 for_window [instance="^cmus$"] border pixel 2, floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv"      ] border none   , floating enable, sticky enable       , move scratchpad, scratchpad show
 
 
 #--------------------------------------------------------------------------------
