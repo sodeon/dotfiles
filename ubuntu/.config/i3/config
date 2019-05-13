@@ -219,9 +219,9 @@ set $ws4  "4"
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
-set $ws8  "8: Git"
-set $ws9  "9: File"
-set $ws10 "10: Music"
+set $ws8  "8"
+set $ws9  "9: Git"
+set $ws10 "10: File"
 
 #
 # Switch to workspace
@@ -230,8 +230,8 @@ set $ws10 "10: Music"
 bindsym Mod3+semicolon    workspace $ws1
 # Most used workspaces
 bindsym Mod3+apostrophe   workspace $ws2
-bindsym Mod3+bracketright workspace $ws4
-bindsym Mod3+bracketleft  workspace $ws7
+# bindsym Mod3+bracketright workspace $ws4
+# bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
 bindsym $mod+Tab         workspace back_and_forth
 bindsym $mod+1           workspace prev
@@ -277,12 +277,10 @@ bindsym $mod+Return exec $term
 # assign [class="Google-chrome"     ] $ws1
 # assign [class="Firefox"           ] $ws1
 assign [class="Code"                ] $ws3
-assign [class="SmartGit"            ] $ws8
-assign [              title="ranger"] $ws9
-assign [class="URxvt" title="cmus"  ] $ws10
+assign [class="SmartGit"            ] $ws9
+assign [              title="ranger"] $ws10
 
 for_window [class="URxvt" title="ranger"] border none, focus
-for_window [class="URxvt" title="cmus"  ] border none, focus
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
@@ -297,15 +295,18 @@ for_window [class="qBittorrent"         ]              floating enable,         
 
 #--------------------------------------------------------------------------------
 # Scratchpad (notebook)
+# NOTE: default tmux and cmus uses lazy execution (won't execute until first accessing)
 #--------------------------------------------------------------------------------
-# Default tmux scratch pad
-bindsym Mod3+n [instance="tmux"]        scratchpad show
+bindsym Mod3+n exec i3-floating-singleton tmux
+bindsym Mod3+m exec i3-floating-singleton cmus
 # Show all scratchpad not the above tmux
-bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
-bindsym $mod+Shift+n move scratchpad
+# bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
+# bindsym $mod+Shift+n move scratchpad
 
-for_window [instance="tmux"] border pixel 2, floating enable, resize set 60 ppt 60 ppt, move scratchpad
-exec --no-startup-id $term -name tmux -e tmux
+set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
+set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
+for_window [instance="^tmux$"] border pixel 2, floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"] border pixel 2, floating enable, resize set $cmusSize, move scratchpad
 
 
 #--------------------------------------------------------------------------------

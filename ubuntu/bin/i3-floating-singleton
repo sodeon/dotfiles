@@ -1,0 +1,11 @@
+#!/bin/bash -u
+
+app=$1
+
+name=`xdotool search --name ^$app$`
+
+if [[ -z $name ]]; then
+    urxvtc -name $app -e /usr/bin/$app; i3-msg "[instance=\"^$app$\"] scratchpad show, move position center"
+else
+    i3-msg "[instance=\"^$app$\"] scratchpad show, move position center"
+fi
