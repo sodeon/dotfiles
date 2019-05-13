@@ -48,7 +48,7 @@ bar {
         urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
 	}
 
-    # strip_workspace_numbers yes
+    strip_workspace_numbers yes
 	position top
 }
 

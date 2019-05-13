@@ -24,7 +24,7 @@ cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
 cp     ~/.config/hardware/*.example   .config/hardware
 cp     ~/.config/Xresources/*.example .config/Xresources
 
-cp -rf ~/.local/lib/bash .local/lib/bash
+cp -rf ~/.local/lib/bash .local/lib
 
 cp -rf ~/.local/share/applications/*.desktop .local/share/applications
 rm .local/share/applications/thann.play-with-mpv.desktop
