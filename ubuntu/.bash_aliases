@@ -28,8 +28,8 @@ alias gb='git branch'
 alias ga='git add .' # stage all modified files
 alias gc='git commit -v'
 alias gac='git commit -v -a' # stage all modified files and commit
-# alias gac='git add .; git commit -v' # stage all modified files and commit
-alias gab='git checkout -b' # add branch
+
+alias gco='git checkout'
 
 alias gu='git push' # upload (to upload tags, add --tags)
 alias gf='git fetch'
