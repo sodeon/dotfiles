@@ -26,8 +26,9 @@ alias gdth='git difftool HEAD'
 alias gb='git branch'
 
 alias ga='git add .' # stage all modified files
-alias gc='git commit'
-alias gac='git add .; git commit' # stage all modified files and commit
+alias gc='git commit -v'
+alias gac='git commit -v -a' # stage all modified files and commit
+# alias gac='git add .; git commit -v' # stage all modified files and commit
 alias gab='git checkout -b' # add branch
 
 alias gu='git push' # upload (to upload tags, add --tags)

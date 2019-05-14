@@ -40,28 +40,39 @@ endfunction
 "-----------------------------------------------------------------------------
 " My config 
 "-----------------------------------------------------------------------------
-" Disable swap file (.swp)
+let mapleader=','
+
+" Change current working directory to the opened file
+" To manually change directory to current file, use ":cd %:h"
+autocmd BufEnter * silent! :lcd%:p:h
+
+" Disable swap file (.swp), backup file, and *.un~ history file
 set noswapfile
+set nobackup
+set noundofile
 
-" Open files in write mode
-" set noreadonly
-
-"disable beep sound
+" Disable beep sound
 set noeb vb t_vb=
 
 set ignorecase
 set wildignorecase " ignore case in path completion
 
-set nobackup
 set ruler
 set autoread
 
-" Remove pesky *.un~ history file
-set noundofile
-
-"enable mouse for adjusting pane size
+" Disable mouse for adjusting pane size
 set ttymouse=xterm2
 set mouse=a
+
+set splitbelow
+set splitright
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" By default, selection in vim will add one white space after the word
+set selection=inclusive
 
 " Directory browsing
 "   Enter - open  
@@ -77,83 +88,6 @@ let g:netrw_winsize=25      " size of 25%
 command E  Vexplore
 command Rr Vexplore
 
-set splitbelow
-set splitright
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-
-" By default, selection in vim will add one white space after the word
-set selection=inclusive
-
-let mapleader=','
-
-" Change current working directory to the opened file
-" To manually change directory to current file, use ":cd %:h"
-autocmd BufEnter * silent! :lcd%:p:h
-
-
-"-----------------------------------------------------------------------------
-" Key bindings
-"-----------------------------------------------------------------------------
-nnoremap q    :q<CR>
-" noremap <A-E> :q<CR> " not used since it conflicts with tmux
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-" swap pane same as tmux <c-w><c-o>
-noremap <c-w><c-o> <c-w><c-r>
-" horizontal -> vertical split
-"noremap <c-w><c-v> <c-w>H
-" vertical -> horizontal split
-"noremap <c-w><c-s> <c-w>K
-
-" go to the current/previous/next line's first non-white char (defualt: - and +)
-" nnoremap _ -
-" nnoremap - _
-
-" Ctags
-" set tags=./tags,./TAGS,tags;~,TAGS;~
-
-" Use system clipboard when yanking (link yank register to system clipboard register "+")
-set clipboard=unnamedplus
-
-" System clipboard
-" inoremap <C-v> <ESC>"+pa
-" vnoremap <C-c> "+y
-" noremap <Leader>y "+y
-" noremap <Leader>p "+p
-
-" Enable folding with the spacebar
-nnoremap <space> za
-
-" Insert line w/o entering insert mode
-"    <S-Enter> doesn't work in terminal: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter)
-nnoremap <S-Enter> O<Esc>
-nnoremap <CR> o<Esc>
-
-" copy till line end (like D means delete till line end)
-noremap Y y$
-
-" F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
-nnoremap <F12> :!<Up><CR>
-nnoremap <Esc>[24~ :!<Up><CR>
-
-" Tab switching
-" NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
-"       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
-if has('gui_running')
-	nnoremap <M-q> gT
-	nnoremap <M-e> gt
-	nnoremap <M-e> :q<CR>
-else
-	nnoremap <Esc>q gT
-	nnoremap <Esc>w gt
-	nnoremap <Esc>e :q<CR>
-endif
-
 
 "-----------------------------------------------------------------------------
 " Looks
@@ -168,6 +102,10 @@ hi LineNr guifg=#656565 ctermfg=darkgrey
 "hi StatusLine ctermbg=8
 set laststatus=0 " Remove status line
 
+set encoding=utf-8
+"set termencoding=utf-8
+setglobal fileencoding=utf-8
+
 " cursor line
 hi CursorLine cterm=NONE guibg=NONE
 hi CursorLineNr ctermfg=grey guifg=grey
@@ -177,7 +115,7 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 set autoindent		" Always set autoindenting on
-autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
+au FileType text setlocal textwidth=500 " Override vimrc_example.vim
 set smartindent
 
 " Disable newline insertion
@@ -209,17 +147,54 @@ set fillchars+=vert:\
 
 
 "-----------------------------------------------------------------------------
-" Chinese character display
+" Key bindings
 "-----------------------------------------------------------------------------
-set encoding=utf-8
-"set termencoding=utf-8
-setglobal fileencoding=utf-8
+nnoremap <silent> q :q<CR>
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
-" if has("unix")
-"     set guifontwide=KaiTi\ 12
-" elseif has("win32")
-"     set guifontwide=NSimSun:h12
-" endif
+" Swap pane same as tmux <c-w><c-o>
+noremap <c-w><c-o> <c-w><c-r>
+" horizontal -> vertical split
+"noremap <c-w><c-v> <c-w>H
+" vertical -> horizontal split
+"noremap <c-w><c-s> <c-w>K
+
+" Use system clipboard when yanking (link yank register to system clipboard register "+")
+set clipboard=unnamedplus
+
+" copy till line end (like D means delete till line end)
+noremap Y y$
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" Insert line w/o entering insert mode
+"    <S-Enter> doesn't work in terminal: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter)
+nnoremap <S-Enter> O<Esc>
+nnoremap <CR> o<Esc>
+
+" F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
+nnoremap <F12> :!<Up><CR>
+nnoremap <Esc>[24~ :!<Up><CR>
+
+" Tab switching
+" NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
+"       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+if has('gui_running')
+	nnoremap          <M-q> gT
+	nnoremap          <M-e> gt
+	nnoremap <silent> <M-e> :q<CR>
+else
+	nnoremap          <Esc>q gT
+	nnoremap          <Esc>w gt
+	nnoremap <silent> <Esc>e :q<CR>
+endif
+
+" Ctags
+" set tags=./tags,./TAGS,tags;~,TAGS;~
 
 
 "-----------------------------------------------------------------------------
@@ -227,26 +202,24 @@ setglobal fileencoding=utf-8
 " Installation: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " :PlugInstall - installs plugins
 "-----------------------------------------------------------------------------
-set nocompatible " be iMproved, required
-filetype off     " required
+filetype off " required
 
-silent! call plug#begin('~/.vim/plug') " suppress error for machines not installing git
+silent! call plug#begin('~/.vim/plug') " Suppress error for machines not installing git
 
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/VisIncr'
 Plug 'szw/vim-maximizer'
-Plug 'AndrewRadev/switch.vim' "toggle boolean
-Plug 'justinmk/vim-sneak' " motion search (type s plus two char to move cursor to first match, type : to go to next match)
+Plug 'AndrewRadev/switch.vim' " Toggle boolean and can be more
+Plug 'justinmk/vim-sneak' " Motion search (type s plus two char to move cursor to first match, type : to go to next match)
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround' " change surround characters (
+Plug 'tpope/vim-surround' " Change surround characters (
                           "     type cs'[ to change '' surrounding to [] surrounding
                           "     likewise, type ds to delete surrounding
                           "     type ysiw" to add double quote
                           "     type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
-" Plug 'terryma/vim-multiple-cursors' "<C-n>, <C-p>, <C-x>, not used often enough
-" Plug 'easymotion/vim-easymotion' # not like the idea that I have to look at the hint to know what to type
-" Plug 'wincent/terminus' # correct cursor style in terminal (not working after exiting vim)
+Plug 'christoomey/vim-tmux-navigator'
+" Plug 'termhn/i3-vim-nav'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
 " Plug 'majutsushi/tagbar'
@@ -256,15 +229,15 @@ Plug 'junegunn/fzf' " <C-p>
 " Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
 Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
-" syntax highlight
+" Syntax highlight
 Plug 'posva/vim-vue',       {'for': 'vue'}
 Plug 'digitaltoad/vim-pug', {'for': 'vue'}
 
 " Not using, but other like these
 " Plug 'tpope/vim-fugitive' " Git
-" Plug 'Shougo/vimproc.vim' " interactive command line
-" Plug 'vim-syntastic/syntastic' " error highlight in code
-" Plug 'kien/ctrlp.vim' " yes, ctrl-p
+" Plug 'Shougo/vimproc.vim' " Interactive command line
+" Plug 'vim-syntastic/syntastic' " Error highlight in code
+" Plug 'kien/ctrlp.vim' " Yes, ctrl-p
 
 call plug#end()
 
@@ -277,15 +250,49 @@ call plug#end()
 " Cannot use <C-e> as it will be hijacked by tmux
 " Cannot use <C-[> as it is extremely slow for unknown reason
 "-----------------------------------------------------------------------------
-noremap <C-]> :Commentary<CR>
-noremap <C-p> :FZF<CR>
-noremap <C-e>z :MaximizerToggle<CR>
-noremap <C-w>z :MaximizerToggle<CR>
-" Toggle boolean
-nnoremap t :Switch<CR>
+noremap  <silent> <C-]> :Commentary<CR>
+noremap  <silent> <C-p> :FZF<CR>
+noremap  <silent> <C-e>z :MaximizerToggle<CR>
+noremap  <silent> <C-w>z :MaximizerToggle<CR>
+nnoremap <silent> t :Switch<CR>
 
 " let g:sneak#s_next = 1
-map : <Plug>Sneak_;
+map <silent> : <Plug>Sneak_;
+
+" Switcher
+let g:switch_custom_definitions =
+    \ [
+    \   ['enable', 'disable'],
+    \   ['Enable', 'Disable'],
+    \   ['yes'   , 'no'     ]
+    \ ]
+
+" Commentary
+au FileType xdefaults       setlocal commentstring=!\ %s
+au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
+
+" i3 integration
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+" NOTE: <C-jhkl> binding must not removed or it will break
+" nnoremap <silent> <C-l>  :call Focus('right', 'l')<CR>
+" nnoremap <silent> <C-h>  :call Focus('left' , 'h')<CR>
+" nnoremap <silent> <C-k>  :call Focus('up'   , 'k')<CR>
+" nnoremap <silent> <C-j>  :call Focus('down' , 'j')<CR>
+" if has('gui_running')
+" 	nnoremap <silent> <M-l>  :call Focus('right', 'l')<CR>
+" 	nnoremap <silent> <M-h>  :call Focus('left' , 'h')<CR>
+" 	nnoremap <silent> <M-k>  :call Focus('up'   , 'k')<CR>
+" 	nnoremap <silent> <M-j>  :call Focus('down' , 'j')<CR>
+" else
+" 	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
+" 	nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
+" 	nnoremap <silent> <Esc>k :call Focus('up'   , 'k')<CR>
+" 	nnoremap <silent> <Esc>j :call Focus('down' , 'j')<CR>
+" endif
+
 
 "-----------------------------------------------------------------------------
 " Workarounds
