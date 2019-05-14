@@ -2,13 +2,16 @@
 #
 # ,: used for chaining commands using the previous matching window
 # ;: usef for chaining commands without using the previous matcheing window
+#
+# NOTE: To make a window a container, the only way to do is explicitly make it a split container (mod+h/s) then change to desired layout mode (split/tabbed/stacked)
 
 #--------------------------------------------------------------------------------
 # Looks
 #--------------------------------------------------------------------------------
 font pango:System San Francisco Display 9
 
-set $bg-color            #2f343f
+set $bg-color            #444855
+# set $bg-color            #2f343f
 set $inactive-bg-color   #000000
 set $text-color          #f3f4f5
 set $inactive-text-color #676e7d
@@ -162,6 +165,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+# bindsym --release $mod+h exec --no-startup-id i3-vim-nav h
+# bindsym --release $mod+j exec --no-startup-id i3-vim-nav j
+# bindsym --release $mod+k exec --no-startup-id i3-vim-nav k
+# bindsym --release $mod+l exec --no-startup-id i3-vim-nav l
 
 # move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
@@ -185,10 +192,10 @@ bindsym $mod+s split v
 # make window a vertical split container
 bindsym $mod+v split h
 
-# change container layout (stacked, tabbed, toggle split)
+# change container layout (stacked/"deck", tabbed, toggle split)
 bindsym $mod+f layout toggle split
-bindsym $mod+a layout stacked
-bindsym $mod+d layout tabbed
+bindsym $mod+d layout stacked
+bindsym $mod+t layout tabbed
 # equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # maximize (could also use full screen mode if one prefer)
@@ -200,6 +207,7 @@ bindsym F11 fullscreen toggle
 
 # floating
 bindsym $mod+Shift+space floating toggle
+# bindsym $mod+space focus mode_toggle
 bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey mod+space
 
 # parent/child
@@ -235,10 +243,10 @@ bindsym Mod3+apostrophe   workspace $ws2
 # bindsym Mod3+bracketleft  workspace $ws7
 # General bindings
 bindsym $mod+Tab         workspace back_and_forth
-bindsym $mod+1           workspace prev
-bindsym $mod+2           workspace next
-# bindsym $mod+1           workspace $ws1
-# bindsym $mod+2           workspace $ws2
+# bindsym $mod+1           workspace prev
+# bindsym $mod+2           workspace next
+bindsym $mod+1           workspace $ws1
+bindsym $mod+2           workspace $ws2
 bindsym $mod+3           workspace $ws3
 bindsym $mod+4           workspace $ws4
 bindsym $mod+5           workspace $ws5
@@ -308,9 +316,9 @@ bindsym Mod3+v [class="^mpv"] scratchpad show, fullscreen enable
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"] border pixel 2, floating enable, resize set $tmuxSize, move scratchpad
-for_window [instance="^cmus$"] border pixel 2, floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"      ] border none   , floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [instance="^tmux$"] border pixel 2 , floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"] border pixel 2 , floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv"      ] border pixel 16, floating enable, sticky enable       , move scratchpad, scratchpad show
 
 
 #--------------------------------------------------------------------------------
@@ -319,7 +327,7 @@ for_window [class="mpv"      ] border none   , floating enable, sticky enable   
 #--------------------------------------------------------------------------------
 # for_window [class=".*"] border pixel 10
 
-smart_gaps inverse_outer # When there is only one window, disable gaps
+# smart_gaps inverse_outer # When there is only one window, disable gaps
 smart_borders on # Only has border when there are multiple windows
 
 set_from_resource $ws1HGap  i3wm.ws1.horizontalGap  0
