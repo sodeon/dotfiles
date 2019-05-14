@@ -14,6 +14,7 @@ cp ~/.Xmodmap .
 cp ~/.Xresources .
 
 cp -rf ~/.config/i3                 .config
+cp -rf ~/.config/dunst              .config
 cp -rf ~/.config/rofi               .config
 cp -rf ~/.config/mpv/input.conf     .config/mpv
 cp -rf ~/.config/ranger             .config
