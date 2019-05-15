@@ -218,8 +218,8 @@ Plug 'tpope/vim-surround' " Change surround characters (
                           "     type ysiw" to add double quote
                           "     type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
-Plug 'christoomey/vim-tmux-navigator'
-" Plug 'termhn/i3-vim-nav'
+" Plug 'christoomey/vim-tmux-navigator'
+Plug 'jwilm/i3-vim-focus'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
 " Plug 'majutsushi/tagbar'
@@ -271,27 +271,24 @@ let g:switch_custom_definitions =
 au FileType xdefaults       setlocal commentstring=!\ %s
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
-" i3 integration
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j
-" NOTE: <C-jhkl> binding must not removed or it will break
-" nnoremap <silent> <C-l>  :call Focus('right', 'l')<CR>
-" nnoremap <silent> <C-h>  :call Focus('left' , 'h')<CR>
-" nnoremap <silent> <C-k>  :call Focus('up'   , 'k')<CR>
-" nnoremap <silent> <C-j>  :call Focus('down' , 'j')<CR>
-" if has('gui_running')
-" 	nnoremap <silent> <M-l>  :call Focus('right', 'l')<CR>
-" 	nnoremap <silent> <M-h>  :call Focus('left' , 'h')<CR>
-" 	nnoremap <silent> <M-k>  :call Focus('up'   , 'k')<CR>
-" 	nnoremap <silent> <M-j>  :call Focus('down' , 'j')<CR>
-" else
-" 	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
-" 	nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
-" 	nnoremap <silent> <Esc>k :call Focus('up'   , 'k')<CR>
-" 	nnoremap <silent> <Esc>j :call Focus('down' , 'j')<CR>
-" endif
+" Window navigation (Ctrl/Alt + hjkl) with i3 integration
+" NOTE: Do not change ctrl+hjkl key bindings
+if has('unix') && (system('ps -x -o comm= | grep -E ^i3$') =~ '^i3')
+	nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
+	nnoremap <silent> <C-h> :call Focus('left' , 'h')<CR>
+	nnoremap <silent> <C-k> :call Focus('up'   , 'k')<CR>
+	nnoremap <silent> <C-j> :call Focus('down' , 'j')<CR>
+elseif has('gui_running')
+	map <M-l>  <C-w>l
+	map <M-h>  <C-w>h
+	map <M-k>  <C-w>k
+	map <M-j>  <C-w>j
+else
+	map <Esc>l <C-w>l
+	map <Esc>h <C-w>h
+	map <Esc>k <C-w>k
+	map <Esc>j <C-w>j
+endif
 
 
 "-----------------------------------------------------------------------------

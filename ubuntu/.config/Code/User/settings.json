@@ -99,10 +99,10 @@
     "diffEditor.renderIndicators": false,
 
     "window.zoomLevel": 1,
-    "window.menuBarVisibility": "toggle",
-    // "window.restoreFullscreen": true,
+    "window.menuBarVisibility": "hidden",
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.enableMenuBarMnemonics": false,
+    // "window.restoreFullscreen": true,
 
     "search.useIgnoreFiles": false,
     "search.exclude": {

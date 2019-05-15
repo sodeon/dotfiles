@@ -36,10 +36,34 @@ isWinActive() {
 
 isActiveWinTitle() {
     title=`xdotool getactivewindow getwindowname`
-    if echo $title | grep $1; then
+    if echo $title | grep -E $1; then
         return 0
     else
         return 1
+    fi
+}
+
+# i3 and VIM navigation integration
+focusWindow() {
+    direction=$1
+	case $direction in
+		left)
+			navKey=h
+			;;
+		right)
+			navKey=l
+			;;
+		up)
+			navKey=k
+			;;
+		down)
+			navKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$ || isWinActive Code; then
+        xdotool keyup $navKey keyup alt key Escape key ctrl+$navKey keydown alt
+    else
+       i3-msg "focus $direction"
     fi
 }
 
@@ -71,7 +95,7 @@ toggleFloating() {
 }
 
 pageup() {
-    if isWinActive URxvt && isActiveWinTitle VIM; then
+    if isWinActive URxvt && isActiveWinTitle VIM$; then
 		# In vim,  ctrl+b == ctrl+shift+b
         xdotool keyup b key control+shift+b keydown control
     else
@@ -80,7 +104,7 @@ pageup() {
 }
 
 pagedown() {
-    if isWinActive URxvt && isActiveWinTitle VIM; then
+    if isWinActive URxvt && isActiveWinTitle VIM$; then
 		# In vim,  ctrl+f == ctrl+shift+f
 		xdotool keyup f key control+shift+f keydown control
     else
@@ -104,6 +128,18 @@ case $shortcut in
         ;;
     ctrl+f)
         pagedown
+        ;;
+    mod+h)
+        focusWindow left
+        ;;
+    mod+j)
+        focusWindow down
+        ;;
+    mod+k)
+        focusWindow up
+        ;;
+    mod+l)
+        focusWindow right
         ;;
 
     # Mouse

@@ -160,15 +160,15 @@ bindsym $mod+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar
 # kill focused window
 bindsym $mod+grave kill
 
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-# bindsym --release $mod+h exec --no-startup-id i3-vim-nav h
-# bindsym --release $mod+j exec --no-startup-id i3-vim-nav j
-# bindsym --release $mod+k exec --no-startup-id i3-vim-nav k
-# bindsym --release $mod+l exec --no-startup-id i3-vim-nav l
+# Change focus (with vim integration)
+bindsym $mod+h exec autohotkey mod+h
+bindsym $mod+j exec autohotkey mod+j
+bindsym $mod+k exec autohotkey mod+k
+bindsym $mod+l exec autohotkey mod+l
+# bindsym $mod+h focus left
+# bindsym $mod+j focus down
+# bindsym $mod+k focus up
+# bindsym $mod+l focus right
 
 # move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
@@ -280,7 +280,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 # Terminal
 set $term urxvtc
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec $term -cd $(xcwd)
 
 # Bind application to workspace
 # assign [class="Google-chrome"     ] $ws1
