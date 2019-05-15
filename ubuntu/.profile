@@ -27,6 +27,9 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 
+#---------------------------------------------------------------------------------------
+# Andy
+#---------------------------------------------------------------------------------------
 # HiDPI settings
 if [ -f ~/.config/hardware/displayrc ]; then
     source ~/.config/hardware/displayrc
