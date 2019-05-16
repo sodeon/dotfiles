@@ -160,6 +160,9 @@ add-zsh-hook preexec _fasd_preexec_fixed
 #--------------------------------------------------------------------------------------------------------------
 # Post oh-my-zsh settings
 #--------------------------------------------------------------------------------------------------------------
+# Make forward word behavior same as others (e.g. Chrome)
+bindkey '^[[1;5C' emacs-forward-word
+
 # wsl-terminal use tmux automatically
 [[ -z "$TMUX" && -n "$USE_TMUX" ]] && {
     [[ -n "$ATTACH_ONLY" ]] && {
