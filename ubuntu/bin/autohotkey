@@ -60,10 +60,16 @@ focusWindow() {
 			navKey=j
 			;;
 	esac
-    if isActiveWinTitle VIM$ || isWinActive Code; then
+    if isActiveWinTitle VIM$; then
         xdotool keyup $navKey keyup alt key Escape key ctrl+$navKey keydown alt
+    elif isWinActive Code; then
+        if [[ $direction == left || $direction == right ]]; then
+			xdotool keyup $navKey keyup alt key Escape key ctrl+$navKey keydown alt
+		else
+			i3-msg "focus $direction"
+		fi
     else
-       i3-msg "focus $direction"
+		i3-msg "focus $direction"
     fi
 }
 
