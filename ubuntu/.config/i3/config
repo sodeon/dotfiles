@@ -161,14 +161,11 @@ bindsym $mod+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar
 bindsym $mod+grave kill
 
 # Change focus (with vim integration)
-bindsym $mod+h exec autohotkey mod+h
-bindsym $mod+j exec autohotkey mod+j
-bindsym $mod+k exec autohotkey mod+k
-bindsym $mod+l exec autohotkey mod+l
-# bindsym $mod+h focus left
-# bindsym $mod+j focus down
-# bindsym $mod+k focus up
-# bindsym $mod+l focus right
+#    Leave fullscreen to allow focus change without leaving fullscreen first
+bindsym $mod+h fullscreen disable, exec autohotkey mod+h
+bindsym $mod+j fullscreen disable, exec autohotkey mod+j
+bindsym $mod+k fullscreen disable, exec autohotkey mod+k
+bindsym $mod+l fullscreen disable, exec autohotkey mod+l
 
 # move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
