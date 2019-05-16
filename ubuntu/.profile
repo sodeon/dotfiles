@@ -30,8 +30,8 @@ fi
 #---------------------------------------------------------------------------------------
 # Andy
 #---------------------------------------------------------------------------------------
-# HiDPI settings
-if [ -f ~/.config/hardware/displayrc ]; then
+# HiDPI settings. Only apply theses settings in i3. Gnome has its own dpi scaling method only partially compatible with this one
+if [[ -f ~/.config/hardware/displayrc && $XDG_CURRENT_DESKTOP == "i3" ]]; then
     source ~/.config/hardware/displayrc
 	if xrandr | grep "\<$hiDpiDisplay\> connected"; then
 		sed -i -e 's/^!Xft.dpi/Xft.dpi/'           $HOME/.config/Xresources/dpi

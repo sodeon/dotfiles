@@ -184,7 +184,6 @@
         "blocks",
         "containers"
     ],
-    "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.statusBar.enabled": false,
     "gitlens.codeLens.enabled": false,
@@ -248,4 +247,5 @@
         "\\.jsx?$",
         "\\.vue?$",
     ],
+    "gitlens.currentLine.enabled": false,
 }
