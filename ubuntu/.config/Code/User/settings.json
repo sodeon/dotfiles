@@ -1,16 +1,4 @@
 {
-    // Disable light theme (Winter is coming light) italic font face
-    "editor.tokenColorCustomizations": {
-        "textMateRules": [{
-            "scope": [
-              "comment",
-              "entity.other.attribute-name",
-            ],
-            "settings": {
-              "fontStyle": ""
-            },
-        }],
-    },
     "editor.fontFamily": "Fira Code, 'Consolas NF', 'Courier New', monospace",
     "editor.fontSize": 16.5,
     "editor.fontWeight": "400",
@@ -31,8 +19,18 @@
     "editor.folding": false,
     // End of reduce line nubmer width
     "editor.cursorBlinking": "smooth",
-
-    "keyboard.dispatch": "keyCode",
+    // Disable light theme (Winter is coming light) italic font face
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [{
+            "scope": [
+              "comment",
+              "entity.other.attribute-name",
+            ],
+            "settings": {
+              "fontStyle": ""
+            },
+        }],
+    },
 
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
@@ -60,6 +58,8 @@
         "tab.inactiveBackground": "#000",
         "tab.border": "#000"
     },
+
+    "keyboard.dispatch": "keyCode",
 
     "vim.leader": ",",
     "vim.useSystemClipboard": true,
@@ -147,6 +147,8 @@
                     //    "panel.background": "#000",
                         "sideBar.background": "#000",
                         "editor.background": "#000",
+                        // NOTE: If foreground doesn't apply, modify /usr/share/code/resources/app/extensions/theme-defaults/themes/dark_defaults.json (#D4D4D4)
+                        "editor.foreground": "#eeeeec",
                         "editorGroup.border": "#000",
                         "editorIndentGuide.background": "#000",
                         "editorIndentGuide.activeBackground": "#444",
