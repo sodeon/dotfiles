@@ -34,7 +34,7 @@ alias gm='git merge'
 
 alias gu='git push' # upload (to upload tags, add --tags)
 alias gf='git fetch'
-alias gg='git fetch; git pull' # get
+alias gg='git pull' # get
 
 alias gl='git log'
 alias gls='git log --stat'
