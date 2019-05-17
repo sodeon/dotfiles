@@ -9,7 +9,7 @@ behave mswin
 
 set shell=bash
 set diffexpr=MyDiff()
-function MyDiff()
+function! MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
@@ -85,8 +85,8 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_winsize=25      " size of 25%
 " let g:netrw_list_hide=netrw_gitignore#Hide()
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-command E  Vexplore
-command Rr Vexplore
+command! E  Vexplore
+command! Rr Vexplore
 
 
 "-----------------------------------------------------------------------------
@@ -180,6 +180,15 @@ nnoremap <CR> o<Esc>
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
 
+" Split resize (vim doeesn't recognize hyper key)
+nnoremap <silent> <S-h> :10winc <<CR>
+nnoremap <silent> <S-j> :10winc -<CR>
+nnoremap <silent> <S-k> :10winc +<CR>
+nnoremap <silent> <S-l> :10winc ><CR>
+nnoremap <silent> <C-w>t :Tabmerge right<CR>
+" Move split to tab: <C-w> T
+" Swap split: <C-w> x
+
 " Tab switching
 " NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
 "       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
@@ -187,10 +196,14 @@ if has('gui_running')
 	nnoremap          <M-q> gT
 	nnoremap          <M-e> gt
 	nnoremap <silent> <M-e> :q<CR>
+    nnoremap <silent> <M-S-q> :-tabmove<CR>
+    nnoremap <silent> <M-S-w> :+tabmove<CR>
 else
 	nnoremap          <Esc>q gT
 	nnoremap          <Esc>w gt
 	nnoremap <silent> <Esc>e :q<CR>
+    nnoremap <silent> <Esc><S-q> :-tabmove<CR>
+    nnoremap <silent> <Esc><S-w> :+tabmove<CR>
 endif
 
 " Ctags
@@ -208,6 +221,7 @@ silent! call plug#begin('~/.vim/plug') " Suppress error for machines not install
 
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/VisIncr'
+Plug 'vim-scripts/Tabmerge'
 Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' " Toggle boolean and can be more
 Plug 'justinmk/vim-sneak' " Motion search (type s plus two char to move cursor to first match, type : to go to next match)
