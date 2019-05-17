@@ -137,8 +137,9 @@ bindsym $mod+Shift+c reload
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
 set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
-bindsym $mod+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
-# bindsym $mod+F11 exec rofi -show window -lines 7 -width 40
+# Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
+#     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
+bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
 
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "

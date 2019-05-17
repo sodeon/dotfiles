@@ -21,15 +21,7 @@
     "editor.cursorBlinking": "smooth",
     // Disable light theme (Winter is coming light) italic font face
     "editor.tokenColorCustomizations": {
-        "textMateRules": [{
-            "scope": [
-              "comment",
-              "entity.other.attribute-name",
-            ],
-            "settings": {
-              "fontStyle": ""
-            },
-        }],
+        "comments": "#7aa965"
     },
 
     "workbench.tips.enabled": false,
@@ -48,6 +40,7 @@
     "workbench.colorCustomizations": {
         "sideBar.background": "#000",
         "editor.background": "#000",
+        "editor.foreground": "#eee",
         "editorGroup.border": "#000",
         "editorIndentGuide.background": "#000",
         "editorIndentGuide.activeBackground": "#444",
@@ -66,7 +59,7 @@
     "vim.useCtrlKeys": true,
     "vim.textwidth": 120,
     "vim.hlsearch": true,
-    "vim.history": 100,
+    "vim.history": 200,
     "vim.foldfix": false,
     "vim.showcmd": false,
     "vim.normalModeKeyBindingsNonRecursive": [
@@ -74,10 +67,13 @@
         {"before": [":"], "after": [";"]},
         {"before": ["q"], "commands": [":q"]},
         {"before": ["Y"], "after": ["y", "$"]},
+        {"before": ["P"], "after": ["$", "a", " ", "<Esc>", "p"]},
         {"before": ["<CR>"], "after": ["o", "<Esc>"]},
         {"before": ["<C-w>", "z"], "commands": ["workbench.action.maximizeEditor"]},
         {"before": ["<C-w>", "="], "commands": ["workbench.action.evenEditorWidths"]},
         {"before": ["t"], "commands": ["extension.toggleBool"]},
+        {"before": ["H"], "commands": ["workbench.action.decreaseViewSize"]},
+        {"before": ["L"], "commands": ["workbench.action.increaseViewSize"]}
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
@@ -148,7 +144,7 @@
                         "sideBar.background": "#000",
                         "editor.background": "#000",
                         // NOTE: If foreground doesn't apply, modify /usr/share/code/resources/app/extensions/theme-defaults/themes/dark_defaults.json (#D4D4D4)
-                        "editor.foreground": "#eeeeec",
+                        "editor.foreground": "#eee",
                         "editorGroup.border": "#000",
                         "editorIndentGuide.background": "#000",
                         "editorIndentGuide.activeBackground": "#444",
@@ -159,6 +155,9 @@
                         // "tab.activeBackground": "#242424",
                         "tab.inactiveBackground": "#000",
                         "tab.border": "#000",
+                    },
+                    "editor.tokenColorCustomizations": {
+                        "comments": "#7aa965"
                     },
                 },
                 {
@@ -171,6 +170,18 @@
                         "editorLineNumber.foreground": "#aaa",
                         "statusBar.background": "#ddd",
                         "statusBar.foreground": "#666"
+                    },
+                    // Disable light theme (Winter is coming light) italic font face
+                    "editor.tokenColorCustomizations": {
+                        "textMateRules": [{
+                            "scope": [
+                            "comment",
+                            "entity.other.attribute-name",
+                            ],
+                            "settings": {
+                            "fontStyle": ""
+                            },
+                        }],
                     },
                 },
             ]

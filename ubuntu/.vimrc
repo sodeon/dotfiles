@@ -3,9 +3,7 @@
 " VIM default config
 "-----------------------------------------------------------------------------
 set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
-"source $VIMRUNTIME/mswin.vim
-behave mswin
+" source $VIMRUNTIME/vimrc_example.vim
 
 set shell=bash
 set diffexpr=MyDiff()
@@ -35,6 +33,46 @@ function! MyDiff()
   " End of Andy fix
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
+
+"-----------------------------------------------------------------------------
+" Ported from vim_example.vim and defaults.vim in $VIMRUNTIME
+"-----------------------------------------------------------------------------
+set hlsearch
+set history=200
+set showcmd	" display incomplete commands
+set wildmenu " display completion matches in a status line
+
+set ttimeout " time out for key codes
+set ttimeoutlen=0 " wait up to 0ms after Esc for special key (default: 100ms)
+
+packadd! matchit
+
+set display=truncate " Show @@@ in the last line if it is truncated.
+" Show a few lines of context around the cursor.  Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+set incsearch
+" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it confusing.
+set nrformats-=octal
+
+if has('win32')
+  set guioptions-=t " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries.
+endif
+let c_comment_strings=1 " I like highlighting strings inside C comments.
+
+" When editing a file, always jump to the last known cursor position. Don't do it when the position is invalid, when inside an event handler
+" (happens when dropping a file on gvim) and for a commit message (it's likely a different one than last time).
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
+
+" Handy command to diff current file
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
 
 
 "-----------------------------------------------------------------------------
@@ -74,6 +112,9 @@ set foldlevel=99
 " By default, selection in vim will add one white space after the word
 set selection=inclusive
 
+" Use system clipboard when yanking (link yank register to system clipboard register "+")
+set clipboard=unnamedplus
+
 " Directory browsing
 "   Enter - open  
 "   -     - go up directory
@@ -93,7 +134,7 @@ command! Rr Vexplore
 " Looks
 "-----------------------------------------------------------------------------
 colorscheme torte
-syntax enable
+syntax on
 
 set nowrap
 set number
@@ -155,39 +196,31 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" Swap pane same as tmux <c-w><c-o>
-noremap <c-w><c-o> <c-w><c-r>
-" horizontal -> vertical split
-"noremap <c-w><c-v> <c-w>H
-" vertical -> horizontal split
-"noremap <c-w><c-s> <c-w>K
-
-" Use system clipboard when yanking (link yank register to system clipboard register "+")
-set clipboard=unnamedplus
-
 " copy till line end (like D means delete till line end)
 noremap Y y$
+" paste at the end of the line
+noremap P $a<Space><Esc>p
 
 " Enable folding with the spacebar
 nnoremap <space> za
 
 " Insert line w/o entering insert mode
-"    <S-Enter> doesn't work in terminal: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter)
-nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
 
-" Split resize (vim doeesn't recognize hyper key)
+" Split resize and movement (vim doeesn't recognize hyper key)
+" NOTE: To move split in complext layout, move vertical direction first (jk), then move horizontal direction (hl)
 nnoremap <silent> <S-h> :10winc <<CR>
-nnoremap <silent> <S-j> :10winc -<CR>
 nnoremap <silent> <S-k> :10winc +<CR>
 nnoremap <silent> <S-l> :10winc ><CR>
-nnoremap <silent> <C-w>t :Tabmerge right<CR>
-" Move split to tab: <C-w> T
-" Swap split: <C-w> x
+" <S-j> conflicts with from join line
+nnoremap <silent> <Leader>j :10winc -<CR>
+nnoremap <silent> <C-w>t :Tabmerge left<CR>
+" Move split to new tab: <C-w>T
+" Move split <C-w> H/J/K/L (left/bottom/top/right)
 
 " Tab switching
 " NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
@@ -206,8 +239,9 @@ else
     nnoremap <silent> <Esc><S-w> :+tabmove<CR>
 endif
 
-" Ctags
-" set tags=./tags,./TAGS,tags;~,TAGS;~
+" Make ctrl+left/right same behavior across all applications
+nnoremap <C-Right> E
+vnoremap <C-Right> E
 
 
 "-----------------------------------------------------------------------------
@@ -216,7 +250,6 @@ endif
 " :PlugInstall - installs plugins
 "-----------------------------------------------------------------------------
 filetype off " required
-
 silent! call plug#begin('~/.vim/plug') " Suppress error for machines not installing git
 
 Plug 'vim-scripts/Align'
@@ -266,7 +299,6 @@ call plug#end()
 "-----------------------------------------------------------------------------
 noremap  <silent> <C-]> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
-noremap  <silent> <C-e>z :MaximizerToggle<CR>
 noremap  <silent> <C-w>z :MaximizerToggle<CR>
 nnoremap <silent> t :Switch<CR>
 
@@ -312,5 +344,3 @@ endif
 set paste
 
 " If a VIM function that does not work in VSCode, then this function is probably not worth it
-
-" hi Normal ctermfg=white

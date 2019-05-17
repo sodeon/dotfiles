@@ -4,8 +4,6 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 ZSH_THEME="andy"
 #ZSH_THEME="robbyrussell" # default
-#ZSH_THEME="agnoster"
-#ZSH_THEME="avit"
 
 # Setting this variable when ZSH_THEME=random cause zsh load theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
@@ -67,12 +65,12 @@ plugins=(
 
   # command helpers
   sudo
-  #git # not really using these aliases. I use vscode or SourceTree
+  #git
   #pip
   #supervisor
 
   # utilities
-  calc
+  # calc
 )
 source $ZSH/oh-my-zsh.sh
 
