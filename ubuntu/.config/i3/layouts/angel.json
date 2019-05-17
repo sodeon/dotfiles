@@ -1,48 +1,42 @@
 // vim:ts=4:sw=4:et
 {    
-    // splitv split container with 2 children
-    "layout": "splith",
-    "percent": 0.4,
+    // stacked split container with 2 children
+    "border": "none",
+    "layout": "stacked",
+    "percent": null,
     "type": "con",
     "nodes": [
         {
-            "border": "none",
-            "current_border_width": 0,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 3406,
-               "width": 6144,
-               "x": 20,
-               "y": 70
-            },
-            "name": "奇蹟MU：大天使之劍H5 - Google Chrome",
-            "percent": 0.333333333333333,
-            "swallows": [
-               {
-               "class": "^Google\\-chrome$"
-               // "instance": "^google\\-chrome$",
-               // "title": "^奇蹟MU：大天使之劍H5\\ \\-\\ Google\\ Chrome$",
-               }
-            ],
-            "type": "con"
+            // splitv split container with 2 children
+            "layout": "splith",
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "none",
+                    "swallows": [
+                       {
+                       "class": "^Google\\-chrome$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "none",
+                    "swallows": [
+                       {
+                       "class": "^Firefox$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
         },
         {
-            "border": "none",
-            "current_border_width": 0,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 2146,
-               "width": 3770,
-               "x": 0,
-               "y": 0
-            },
-            "name": "奇蹟MU：大天使之劍H5 - Mozilla Firefox",
-            "percent": 0.333333333333333,
+            "border": "normal",
+            "current_border_width": 4,
             "swallows": [
                {
-               "class": "^Firefox$"
-               // "instance": "^Navigator$",
-               // "title": "^奇蹟MU：大天使之劍H5\\ \\-\\ Mozilla\\ Firefox$",
+               "class": "^URxvt$"
                }
             ],
             "type": "con"
