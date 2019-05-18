@@ -90,18 +90,6 @@
         "command": "-workbench.action.toggleZenMode"
     },
     {
-        "key": "ctrl+shift+c",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
-        "key": "ctrl+shift+b",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
-        "key": "ctrl+b",
-        "command": "-workbench.action.toggleSidebarVisibility"
-    },
-    {
         "key": "ctrl+shift+k",
         "command": "workbench.action.openGlobalKeybindings"
     },
@@ -182,14 +170,6 @@
     {
         "key": "ctrl+shift+pageup",
         "command": "-workbench.action.moveEditorLeftInGroup"
-    },
-    {
-        "key": "ctrl+alt+q",
-        "command": "workbench.action.moveEditorToPreviousGroup"
-    },
-    {
-        "key": "ctrl+alt+w",
-        "command": "workbench.action.moveEditorToNextGroup"
     },
     // {
     //     "key": "ctrl+shift+=",
@@ -517,11 +497,7 @@
     },
     {
         "key": "alt+h",
-        "command": "workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "ctrl+h",
-        "command": "workbench.action.focusLeftGroup"
+        "command": "workbench.action.focusNextGroup"
     },
     {
         "key": "ctrl+k ctrl+left",
@@ -529,7 +505,19 @@
     },
     {
         "key": "alt+l",
-        "command": "workbench.action.focusRightGroup"
+        "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.focusBelowGroup"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusAboveGroup"
     },
     {
         "key": "ctrl+l",
@@ -715,5 +703,21 @@
     {
         "key": "ctrl+shift+g",
         "command": "gitlens.showFileHistoryInView"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+shift+n",
+        "command": "workbench.action.togglePanel"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-workbench.action.togglePanel"
     }
 ]

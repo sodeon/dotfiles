@@ -52,19 +52,21 @@ export GREP_COLOR='1;33'
 # oh-my-Zsh
 #--------------------------------------------------------------------------------------------------------------
 plugins=(
-  # file system
+  # File system
   pj
   jump
 
-  # typing assist
+  # Typing assist
   zsh-syntax-highlighting
   #compleat # hasn't tried, seems zsh already has such functions
   #zsh-autosuggestions
   #zsh-completions # there really isn't anything helpful (in ~/.oh-my-zsh/custom/plugins/zsh-completions/src)
   colored-man-pages
 
-  # command helpers
+  # Command helpers
+  # NOTE: When adding new helper, remember to re-run $compinit and check ~/.zcompdump to see if the changes applied
   sudo
+  docker
   #git
   #pip
   #supervisor

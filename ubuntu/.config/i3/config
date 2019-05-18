@@ -171,10 +171,15 @@ bindsym $mod+l fullscreen disable, exec autohotkey mod+l
 # move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
 set_from_resource $floatingDeltaY i3wm.floating.deltaY 64px
-bindsym $mod+Shift+h move left  $floatingDeltaX
-bindsym $mod+Shift+j move down  $floatingDeltaY
-bindsym $mod+Shift+k move up    $floatingDeltaY
-bindsym $mod+Shift+l move right $floatingDeltaX
+bindsym $mod+Shift+h    move left  $floatingDeltaX
+bindsym $mod+Shift+j    move down  $floatingDeltaY
+bindsym $mod+Shift+k    move up    $floatingDeltaY
+bindsym $mod+Shift+l    move right $floatingDeltaX
+bindsym $mod+Shift+slash focus floating; exec --no-startup-id "toggle-window-bottom-position; i3-msg 'focus mode_toggle'"
+# bindsym $mod+Shift+Left  move left  10px
+# bindsym $mod+Shift+Up    move up    10px
+# bindsym $mod+Shift+Down  move down  10px
+# bindsym $mod+Shift+Right move right 10px
 
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
 set_from_resource $resizeY i3wm.resizeY 10px or 7ppt
@@ -318,7 +323,7 @@ set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
 for_window [instance="^tmux$"] border pixel 2 , floating enable, resize set $tmuxSize, move scratchpad
 for_window [instance="^cmus$"] border pixel 2 , floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"      ] border pixel 16, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [class="mpv"      ] border pixel 10, floating enable, sticky enable       , move scratchpad, scratchpad show
 
 
 #--------------------------------------------------------------------------------

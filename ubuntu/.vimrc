@@ -310,7 +310,8 @@ let g:switch_custom_definitions =
     \ [
     \   ['enable', 'disable'],
     \   ['Enable', 'Disable'],
-    \   ['yes'   , 'no'     ]
+    \   ['yes'   , 'no'     ],
+    \   ['on'    , 'off'    ]
     \ ]
 
 " Commentary
