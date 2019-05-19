@@ -80,7 +80,7 @@ floating_modifier $mod
 bindsym Mod3+p exec --no-startup-id autohotkey mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+o exec --no-startup-id xdotool keyup o key BackSpace
-bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right key Left # let you easily edit command line's command
+bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right # let you easily edit command line's command
 bindsym Mod3+h exec --no-startup-id xdotool keyup h key ctrl+Left
 bindsym Mod3+l exec --no-startup-id xdotool keyup l key ctrl+Right
 bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
@@ -146,7 +146,6 @@ bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar
 # Quick launch (Mark for legacy as this feature is rarely used)
 # bindsym $mod+o mode " Quick Launch "
 # mode " Quick Launch " {
-#     bindsym g exec /usr/share/smartgit/bin/smartgit.sh; mode "default"
 #     bindsym c exec google-chrome                      ; mode "default"
 #     bindsym f exec firefox                            ; mode "default"
 #     bindsym r exec $term -e ranger ~                  ; mode "default"
@@ -293,7 +292,6 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 # assign [class="Google-chrome"     ] $ws1
 # assign [class="Firefox"           ] $ws1
 assign [class="Code"                ] $ws3
-assign [class="SmartGit"            ] $ws9
 assign [              title="ranger"] $ws10
 
 for_window [class="URxvt" title="ranger"] border none, focus
@@ -301,7 +299,6 @@ for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
-for_window [class="SmartGit"            ] border none, focus
 # floating bottom right corner with 25% of screen size
 # for_window [class="mpv"                 ] border none, floating enable, sticky enable
 # no_focus [class="mpv"]
