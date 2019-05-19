@@ -402,7 +402,8 @@ exec xsetroot -solid "#000000"
 exec --no-startup-id unclutter
 # Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
-
+# If in .profile, it sometimes won't work correctly
+exec --no-startup-id activate-hotkeys
 
 #--------------------------------------------------------------------------------
 # Debug

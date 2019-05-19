@@ -1,0 +1,15 @@
+#!/bin/bash
+
+xmodmap ~/.Xmodmap
+
+#
+# Kill residual xcape/xbindkeys processes
+#
+pkill xbindkeys; pkill xcape
+
+
+# 
+# Activate hotkeys
+#
+xcape -e "Hyper_L=Escape;Super_L=Super_L|F12"
+xbindkeys -f ~/.xbindkeysrc

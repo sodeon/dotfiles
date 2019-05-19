@@ -32,9 +32,9 @@ alias gac='git add .; git commit -v' # stage all modified files and commit
 alias gco='git checkout'
 alias gm='git merge'
 
-alias gu='git push' # upload (to upload tags, add --tags)
+alias gps='git push' # upload (to upload tags, add --tags)
 alias gf='git fetch'
-alias gg='git pull' # get
+alias gpl='git pull' # get
 
 alias gl='git log'
 alias gls='git log --stat'
@@ -48,7 +48,7 @@ alias shutdown='shutdown -h now'
 
 alias aph='ps v -AH' # aph: all processes in hierarchy format
 alias ap='ps  -aux' # ap: all processes
-alias memory='free -h'
+alias memory='free -m' # In megabytes
 
 alias du='ncdu --exclude /mnt' # do not include ntfs partitions
 alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never" # disk usage in human readable format and partition format
