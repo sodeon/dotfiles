@@ -44,12 +44,12 @@ apt-force install git gitk # gitk: lightweight git tree visualization tool
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
+apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
-apt-force install ranger exiftool mediainfo # file manager
+apt-force install ranger exiftool mediainfo docx2txt odt2txt # file manager
 apt-force install ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
