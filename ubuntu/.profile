@@ -56,3 +56,7 @@ urxvtd -q -o -f
 
 $HOME/bin/set-display-monitor &
 play-with-mpv &
+# Enable SATA link power management for host0
+# echo 'min_power' > '/sys/class/scsi_host/host0/link_power_management_policy'
+# VM writeback timeout
+# echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs'
