@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ue
 cd "${0%/*}"
 #------------------------------------------------------------------------------
 # Steps to provision a new OS
@@ -45,12 +45,12 @@ apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
-apt-force install xcwd # xcwd: working directory of focus window
+apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo # file manager
-apt-force install pydf ncdu tree # disk utilities
+apt-force install ncdu tree # disk utilities
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
@@ -60,19 +60,20 @@ apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 # apt-force install aptitude # apt package manager
 apt-force install google-chrome-stable
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
-apt-force install cmus # music player
-apt-force install mpv # video player
-apt-force install zathura # pdf reader
-apt-force install libreoffice
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
 apt-force install ddccontrol # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
-apt-force install libsixel-bin # terminal image/video viewing
 apt-force install qbittorrent
-apt-force install grub-customizer # boot menu customization
+apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
+apt-force install cmus # music player
+apt-force install mpv # video player
+apt-force install zathura # pdf reader
+apt-force install libreoffice
+# apt-force install libsixel-bin # terminal image/video viewing
+# apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
