@@ -44,7 +44,7 @@ apt-force install git gitk # gitk: lightweight git tree visualization tool
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment
+apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color

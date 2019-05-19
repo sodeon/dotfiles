@@ -8,11 +8,12 @@ alias s='source $*'
 alias t='touch'
 alias v='vim -p' # each file a tab
 
+
 #-----------------------------------------------------
 # System admin
 #-----------------------------------------------------
-alias ff='find . -type f -name'
-alias fd='find . -type d -name'
+alias ff='fdfind --type f --hidden'
+alias fd='fdfind --type d --hidden'
 
 
 #-----------------------------------------------------

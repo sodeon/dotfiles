@@ -272,7 +272,7 @@ Plug 'jwilm/i3-vim-focus'
 " Plug 'majutsushi/tagbar'
 
 " Searching (file, content, but not symbol)
-Plug 'junegunn/fzf' " <C-p>
+Plug 'junegunn/fzf' " <C-p>  use <C-t>/<C-v> for new tab/split
 " Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
 Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 

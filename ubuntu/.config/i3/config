@@ -102,13 +102,14 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+Shift+k   exec cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym Mod3+Shift+l   exec cmus-remote -n && pkill -RTMIN+12 i3blocks
-bindsym Mod3+Shift+j   exec cmus-remote -r && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPlay  exec cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPause exec cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioNext  exec cmus-remote -n && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPrev  exec cmus-remote -r && pkill -RTMIN+12 i3blocks
+bindsym Mod3+s         exec --no-startup-id switch-sound-output
+bindsym Mod3+Shift+k   exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+l   exec --no-startup-id cmus-remote -n && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+j   exec --no-startup-id cmus-remote -r && pkill -RTMIN+12 i3blocks
+bindsym XF86AudioPlay  exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
+bindsym XF86AudioPause exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
+bindsym XF86AudioNext  exec --no-startup-id cmus-remote -n && pkill -RTMIN+12 i3blocks
+bindsym XF86AudioPrev  exec --no-startup-id cmus-remote -r && pkill -RTMIN+12 i3blocks
 
 # Laptop function keys
 bindsym XF86Display        exec --no-startup-id set-display-monitor
@@ -299,6 +300,7 @@ for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
+for_window [class="Zathura"             ] border none, focus
 # floating bottom right corner with 25% of screen size
 # for_window [class="mpv"                 ] border none, floating enable, sticky enable
 # no_focus [class="mpv"]
