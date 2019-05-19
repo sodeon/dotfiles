@@ -40,7 +40,7 @@ apt list --upgradable
 apt-force upgrade
 
 # From Ubuntu apt
-apt-force install git
+apt-force install git gitk # gitk: lightweight git tree visualization tool
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard

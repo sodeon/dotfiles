@@ -38,6 +38,7 @@ alias gpl='git pull' # get
 
 alias gl='git log'
 alias gls='git log --stat'
+alias glg='git log --graph --color --all --decorate'
 
 
 #-----------------------------------------------------
