@@ -116,9 +116,9 @@ bindsym XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym XF86TouchpadToggle exec --no-startup-id ~/bin/toggle-touchpad.sh
 
 # Screenshot
-bindsym Print         exec flameshot full   -p $HOME/Pictures
-bindsym control+Print exec flameshot gui    -p $HOME/Pictures
-# bindsym Shift+Print   exec flameshot screen -p $HOME/Pictures # only produces white images
+bindsym Print      exec flameshot full   -p $HOME/Pictures
+bindsym ctrl+Print exec flameshot gui    -p $HOME/Pictures
+# bindsym Shift+Print exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Turn off monitor / suspend
 bindsym Pause       exec --no-startup-id xset dpms force off
@@ -131,6 +131,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B '
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 
+# Left thumb mouse button at the bottom (new tab for web browser)
+bindsym $mod+ctrl+Tab exec --no-startup-id xdotool keyup Tab ctrl alt key ctrl+t
 
 #--------------------------------------------------------------------------------
 # App launcher
@@ -240,18 +242,11 @@ set $ws10 "10: File"
 #
 # Switch to workspace
 #
-# Quake style terminal
-bindsym Mod3+semicolon    workspace $ws1
-# Most used workspaces
-bindsym Mod3+apostrophe   workspace $ws2
-# bindsym Mod3+bracketright workspace $ws4
-# bindsym Mod3+bracketleft  workspace $ws7
-# General bindings
 bindsym $mod+Tab         workspace back_and_forth
-# bindsym $mod+1           workspace prev
-# bindsym $mod+2           workspace next
-bindsym $mod+1           workspace $ws1
-bindsym $mod+2           workspace $ws2
+bindsym $mod+1           workspace prev
+bindsym $mod+2           workspace next
+# bindsym $mod+1           workspace $ws1
+# bindsym $mod+2           workspace $ws2
 bindsym $mod+3           workspace $ws3
 bindsym $mod+4           workspace $ws4
 bindsym $mod+5           workspace $ws5
@@ -265,6 +260,13 @@ bindsym F1               workspace $ws1
 bindsym F2               workspace $ws2
 bindsym F3               workspace $ws3
 bindsym F4               workspace $ws4
+
+# Quake style terminal
+# bindsym Mod3+semicolon    workspace $ws1
+# Most used workspaces
+# bindsym Mod3+apostrophe   workspace $ws2
+# bindsym Mod3+bracketright workspace $ws4
+# bindsym Mod3+bracketleft  workspace $ws7
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1 ; workspace $ws1 
@@ -385,27 +387,26 @@ bindsym $mod+r gaps horizontal current toggle $toggleHGap
 
 
 #--------------------------------------------------------------------------------
-# Debug
-#--------------------------------------------------------------------------------
-set_from_resource $gg Xft.dpi 88
-bindsym $mod+shift+m exec --no-startup-id notify-send $gg
-
-#--------------------------------------------------------------------------------
 # Startup scripts
+# NOTE: Non-i3 specific commands moved to ~/.profile
 #--------------------------------------------------------------------------------
 # Startup programs
 exec i3-msg 'workspace $ws2; exec $term'
-# exec i3-msg 'workspace $ws2; exec $term; workspace $ws1; exec google-chrome'
 
 #
 # System config and daemons
 #
 # Black background
 exec xsetroot -solid "#000000"
-exec --no-startup-id ~/bin/activate-hotkeys.sh
-exec --no-startup-id ~/bin/set-display-monitor
-exec --no-startup-id play-with-mpv
 # Auto-hide cursor
 exec --no-startup-id unclutter
 # Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
+
+
+#--------------------------------------------------------------------------------
+# Debug
+#--------------------------------------------------------------------------------
+# set_from_resource $gg Xft.dpi 88
+# bindsym $mod+shift+m exec --no-startup-id notify-send $gg
+

@@ -53,3 +53,7 @@ xrdb $HOME/.Xresources
 
 # urxvt daemon
 urxvtd -q -o -f
+
+$HOME/bin/set-display-monitor &
+$HOME/bin/activate-hotkeys.sh &
+play-with-mpv &
