@@ -32,9 +32,9 @@ alias gac='git add .; git commit -v' # stage all modified files and commit
 alias gco='git checkout'
 alias gm='git merge'
 
-alias gu='git push' # upload (to upload tags, add --tags)
+alias gps='git push' # upload (to upload tags, add --tags)
 alias gf='git fetch'
-alias gg='git pull' # get
+alias gpl='git pull' # get
 
 alias gl='git log'
 alias gls='git log --stat'
