@@ -65,6 +65,7 @@
     "vim.normalModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
         {"before": [":"], "after": [";"]},
+        {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
         {"before": ["q"], "commands": [":q"]},
         {"before": ["Y"], "after": ["y", "$"]},
         {"before": ["P"], "after": ["$", "a", " ", "<Esc>", "p"]},
@@ -77,6 +78,10 @@
         {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveEditorToNextGroup"]},
         {"before": ["<C-w>", "H"], "commands": ["workbench.action.moveEditorToPreviousGroup"]},
         {"before": ["<C-w>", "J"], "commands": ["workbench.action.toggleEditorGroupLayout", "workbench.action.focusActiveEditorGroup"]},
+    ],
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {"before": ["<C-j>"], "commands": ["selectNextSuggestion"]},
+        {"before": ["<C-k>"], "commands": ["selectPrevSuggestion"]},
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
@@ -246,22 +251,10 @@
 
     "extensions.ignoreRecommendations": true,
     "php.validate.enable": false,
-    // "php.validate.run": "onType",
     "php.suggest.basic": false,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "vue"
-    ],
-    "eslint.options": {
-        "plugins": ["html"]
-    },
-    "eslint.run": "onType",
-    "vetur.format.styleInitialIndent": true,
-    "vetur.format.scriptInitialIndent": true,
-    "importCost.javascriptExtensions": [
-        "\\.jsx?$",
-        "\\.vue?$",
-    ],
+
+    "powermode.enabled": true,
+    "powermode.enableShake": false,
+    "powermode.enableStatusBarComboTimer": false,
+    "powermode.enableStatusBarComboCounter": false,
 }

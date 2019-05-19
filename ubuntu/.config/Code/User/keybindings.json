@@ -458,18 +458,8 @@
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
     {
-        "key": "up",
-        "command": "-selectPrevSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-    },
-    {
         "key": "ctrl+j",
         "command": "selectNextSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "key": "down",
-        "command": "-selectNextSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
     {
@@ -513,11 +503,13 @@
     },
     {
         "key": "ctrl+j",
-        "command": "workbench.action.focusBelowGroup"
+        "command": "workbench.action.focusBelowGroup",
+        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
     },
     {
         "key": "ctrl+k",
-        "command": "workbench.action.focusAboveGroup"
+        "command": "workbench.action.focusAboveGroup",
+        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
     },
     {
         "key": "ctrl+l",
