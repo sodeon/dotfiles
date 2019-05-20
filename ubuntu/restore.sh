@@ -29,7 +29,7 @@ if [ ! -d /usr/share/rofi-emoji/ ]; then
 fi
 sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 
-case "$1" in
+case "${1-}" in
     desktop)
 		cp -rf ./optional/desktop/.config/mpv ~/.config/mpv
         ;;
