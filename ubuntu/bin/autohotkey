@@ -181,10 +181,10 @@ case $shortcut in
         pause
         ;;
     Mod3+Shift+j)
-        nextTrack
+        prevTrack
         ;;
     Mod3+Shift+l)
-        prevTrack
+        nextTrack
         ;;
 
     # Mouse

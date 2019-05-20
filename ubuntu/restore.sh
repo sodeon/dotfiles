@@ -31,9 +31,9 @@ sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 
 case "$1" in
     desktop)
-		cp -rf ./optional-provision/desktop/.config/mpv ~/.config/mpv
+		cp -rf ./optional/desktop/.config/mpv ~/.config/mpv
         ;;
     laptop)
-		cp -rf ./optional-provision/laptop/.config/mpv ~/.config/mpv
+		cp -rf ./optional/laptop/.config/mpv ~/.config/mpv
         ;;
 esac

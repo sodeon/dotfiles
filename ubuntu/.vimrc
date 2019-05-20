@@ -120,14 +120,13 @@ set clipboard=unnamedplus
 "   -     - go up directory
 "   :Vexplorer - file explorer in vertical split
 let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
+let g:netrw_browse_split=0  " open in current window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
 let g:netrw_winsize=25      " size of 25%
 " let g:netrw_list_hide=netrw_gitignore#Hide()
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 command! E  Vexplore
-command! Rr Vexplore
 
 
 "-----------------------------------------------------------------------------
@@ -279,12 +278,14 @@ Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect 
 " Syntax highlight
 Plug 'posva/vim-vue',       {'for': 'vue'}
 Plug 'digitaltoad/vim-pug', {'for': 'vue'}
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }}
 
 " Not using, but other like these
 " Plug 'tpope/vim-fugitive' " Git
 " Plug 'Shougo/vimproc.vim' " Interactive command line
 " Plug 'vim-syntastic/syntastic' " Error highlight in code
 " Plug 'kien/ctrlp.vim' " Yes, ctrl-p
+" Plug 'francoiscabrol/ranger.vim' " Use ranger to replace netrw
 
 call plug#end()
 

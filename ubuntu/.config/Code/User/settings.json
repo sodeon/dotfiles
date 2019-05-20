@@ -1,6 +1,7 @@
 {
-    "editor.fontFamily": "Fira Code, 'Consolas NF', 'Courier New', monospace",
-    "editor.fontSize": 16.5,
+    // "editor.fontFamily": "'Consolas NF', 'Courier New', monospace",
+    "editor.fontFamily": "'Fira Code', 'Dank Mono', 'Consolas NF', 'Courier New', monospace",
+    "editor.fontSize": 17,
     "editor.fontWeight": "400",
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
@@ -8,6 +9,7 @@
     "editor.renderIndentGuides": true,
     "editor.tabCompletion": "on",
     "editor.renderLineHighlight": "none",
+    "editor.lineHeight": 22,
     "editor.lineNumbers": "on",
     // Hide scrollbar (undocumented settings)
     "editor.scrollbar.vertical": "hidden",

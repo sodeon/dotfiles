@@ -119,13 +119,8 @@ alias dud='duDepth'
 
 # fzf (Fuzzy finder, auto-generated)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# bindkey '^P' fzf-file-widget # add ctrl-p as ctrl-t alternative. ConEmu/tmux already binds ctrl-t. ctrl-k will crash midnight commander
-# vimFzf() {vim $(fzf --height 40%)}
-bindkey '^P' fzf-file-widget
-# fzf as filter for chmod...
-# fzf pipe
-alias add-quote="sed -e 's/^/\"/' | sed -e 's/$/\"/'"
-alias fzfpipe="fzf $@ | add-quote | xargs"
+bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
+bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Tab key for default zsh completion
 
 # fasd
 # eval "$(fasd --init auto)"

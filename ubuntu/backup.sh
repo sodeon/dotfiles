@@ -32,10 +32,10 @@ rm .local/share/applications/thann.play-with-mpv.desktop
 
 case "${1-}" in
 	desktop)
-		cp ~/.config/mpv/mpv.conf optional-provision/desktop/.config/mpv
+		cp ~/.config/mpv/mpv.conf optional/desktop/.config/mpv
 		;;
 	laptop)
-		cp ~/.config/mpv/mpv.conf optional-provision/laptop/.config/mpv
+		cp ~/.config/mpv/mpv.conf optional/laptop/.config/mpv
 		;;
 esac
 
@@ -45,7 +45,7 @@ rm -rf ./bin/*
 cp -rf ~/bin .
 
 if [ -d ~/code/sxiv ]; then
-	cp ~/code/sxiv/sxiv   suckless/sxiv
-	cp ~/code/sxiv/sxiv.1 suckless/sxiv
-	cp ~/code/sxiv/exec/* suckless/sxiv/exec
+	cp ~/code/sxiv/sxiv   apps/suckless/sxiv
+	cp ~/code/sxiv/sxiv.1 apps/suckless/sxiv
+	cp ~/code/sxiv/exec/* apps/suckless/sxiv/exec
 fi

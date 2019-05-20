@@ -57,8 +57,8 @@ apt-force install xcwd # xcwd: let terminal opened with working directory of foc
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
-apt-force install ranger exiftool mediainfo docx2txt odt2txt # file manager
-apt-force install ncdu tree # disk utilities
+apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
+apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
@@ -153,7 +153,7 @@ echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as
 # sxiv: image viewer
 # https://github.com/muennich/sxiv.git
 #       Re-compile dependency: libimlib2-dev libxft-dev libexif-dev
-cd suckless/sxiv
+cd apps/suckless/sxiv
 sudo make install
 cd -
 
