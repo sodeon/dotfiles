@@ -39,3 +39,8 @@ These two scripts can be found in `$HOME/bin` after provision.
 ## Keybindings
 - Ubuntu: see `bin/activate-hotkeys` `bin/autohotkeys`, and `.config/i3/config`
 - Windows: see `Programs/autohotkey.ahk`
+
+## TODO
+- Hasn't sync Ubuntu config to Windows for quite some time
+- Run provision script on a newly setup machine
+- More organized backup of desktop/laptop machine specific config
