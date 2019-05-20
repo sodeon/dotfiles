@@ -1,4 +1,4 @@
-Go to "optional-provision" to install items useful for your system
+Go to "optional" to install items useful for your system
     laptop  folder's items is supposed to restore to their home directory
     desktop folder's items is supposed to restore to their home directory
 Check backup.sh and search for ".example" for config tuning
