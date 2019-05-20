@@ -23,6 +23,14 @@ apt-force() {
 	sudo apt --assume-yes "$@" 
 }
 
+cd-temp() {
+	pushd ~/.provision-temp
+}
+
+cd-before-temp() {
+	while popd; do done
+}
+
 
 #------------------------------------------------------------------------------
 # Pre-software-installation Config
@@ -111,8 +119,14 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+#
+# Bash library
+#
+# Argument parsing
+sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
+
 # i3
-pushd ~/.provision-temp
+cd-temp
 apt-force libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
 		  libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
 		  libstartup-notification0-dev libxcb-randr0-dev \
@@ -120,13 +134,13 @@ apt-force libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
 		  libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
 		  autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
 git clone https://www.github.com/Airblader/i3 i3-gaps
-pushd i3-gaps
+cd i3-gaps
 autoreconf --force --install
-rm -rf build/ && mkdir -p build && pushd build/
+rm -rf build/ && mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers --disable-debug
 make
 sudo make install
-while popd; do done
+cd-before-temp
 apt-force install i3blocks 
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
@@ -137,17 +151,17 @@ sudo install -Dm 0755 ./bin/unclutter /usr/bin/
 echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
 
 # sxiv: image viewer
-# https://github.com/muennich/sxiv.git ~/.provision-temp/sxiv
+# https://github.com/muennich/sxiv.git
 #       Re-compile dependency: libimlib2-dev libxft-dev libexif-dev
 cd suckless/sxiv
 sudo make install
 cd -
 
 # light: built-in LCD blacklight control
-cd ~/.provision-temp
+cd-temp
 wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb
 sudo dpkg -i light_1.2_amd64.deb
-cd -
+cd-before-temp
 
 # Youtube played by mpv (to enable hardware video acceleration)
 #    Install Chrome "play with mpv" extension
@@ -176,10 +190,24 @@ apt-force purge ubuntu-report popularity-contest
 gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
 
 # Additional fonts
-git clone https://github.com/Znuff/consolas-powerline.git ~/.provision-temp/consolas-powerline
+cd-temp
+git clone https://github.com/Znuff/consolas-powerline.git
 mkdir -p ~/.fonts
-cp -rf ~/.provision-temp/consolas-powerline/*.ttf ~/.fonts
+cp -rf ./consolas-powerline/*.ttf ~/.fonts
 fc-cache -f -v # rebuild font cache
+cd-before-temp
+
+# Add files icons to ranger
+cd-temp
+git clone https://github.com/alexanderjeurissen/ranger_devicons
+cd ranger_devicons
+make install
+cd-before-temp
+
+# Use ranger as default file manager (By default, xdg-open is the command to open file/folder with appropriate application)
+# Go to /usr/share/applications and look inside its entries to find the mime types
+# Check current default application: xdg-mime query default inode/directory
+xdg-mime default ranger.desktop inode/directory
 
 # Enable command line LCD panel backlight control
 whoami | sudo xargs usermod -a -G video

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ue
 cd "$(dirname "$(realpath "$0")")";
 
 cp .bashrc.zsh ~/
@@ -13,6 +13,7 @@ cp .Xresources ~/
 
 cp -rf .urxvt ~/
 cp -rf .config ~/
+rm -rf ~/.local/lib/bash
 cp -rf .local ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 rm -rf ~/bin/*

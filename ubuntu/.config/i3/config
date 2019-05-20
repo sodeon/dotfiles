@@ -77,7 +77,7 @@ floating_modifier $mod
 # mod3+j: move back    a character
 # mod3+k: move forward a character
 # mod3+i: move to the end of the first word in line (mostly)
-bindsym Mod3+p exec --no-startup-id autohotkey mod3+p
+bindsym Mod3+p exec --no-startup-id autohotkey Mod3+p
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+o exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right # let you easily edit command line's command
@@ -103,13 +103,13 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
 bindsym Mod3+s         exec --no-startup-id switch-sound-output
-bindsym Mod3+Shift+k   exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym Mod3+Shift+l   exec --no-startup-id cmus-remote -n && pkill -RTMIN+12 i3blocks
-bindsym Mod3+Shift+j   exec --no-startup-id cmus-remote -r && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPlay  exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPause exec --no-startup-id cmus-remote -u && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioNext  exec --no-startup-id cmus-remote -n && pkill -RTMIN+12 i3blocks
-bindsym XF86AudioPrev  exec --no-startup-id cmus-remote -r && pkill -RTMIN+12 i3blocks
+bindsym Mod3+Shift+k   exec --no-startup-id autohotkey Mod3+Shift+k  
+bindsym Mod3+Shift+l   exec --no-startup-id autohotkey Mod3+Shift+l  
+bindsym Mod3+Shift+j   exec --no-startup-id autohotkey Mod3+Shift+j  
+bindsym XF86AudioPlay  exec --no-startup-id autohotkey Mod3+Shift+k
+bindsym XF86AudioPause exec --no-startup-id autohotkey Mod3+Shift+k
+bindsym XF86AudioNext  exec --no-startup-id autohotkey Mod3+Shift+l
+bindsym XF86AudioPrev  exec --no-startup-id autohotkey Mod3+Shift+j
 
 # Laptop function keys
 bindsym XF86Display        exec --no-startup-id set-display-monitor

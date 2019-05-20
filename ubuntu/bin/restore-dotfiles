@@ -2,6 +2,6 @@
 
 path="$HOME/code/dotfiles/ubuntu"
 
-~/code/dotfiles/ubuntu/restore.sh
+$path/restore.sh $@
 
 echo "dotfiles restored from $path"

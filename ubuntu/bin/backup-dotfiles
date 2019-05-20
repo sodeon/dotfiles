@@ -2,6 +2,6 @@
 
 path="$HOME/code/dotfiles/ubuntu"
 
-$path/backup.sh
+$path/backup.sh $@
 
 echo "dotfiles backed up to $path"

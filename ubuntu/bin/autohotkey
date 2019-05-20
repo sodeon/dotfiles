@@ -28,7 +28,7 @@ activeWinPid() {
     return $result
 }
 
-# Argument: class name
+# @param class name
 isWinActive() {
     activeWinPid | xargs -i xdotool search --all --pid {} --class $1
     return $?
@@ -41,6 +41,12 @@ isActiveWinTitle() {
     else
         return 1
     fi
+}
+
+# @param class name
+isWinExists() {
+    xdotool search --class $1
+    return $?
 }
 
 # i3 and VIM navigation integration
@@ -118,12 +124,36 @@ pagedown() {
     fi
 }
 
+pause() {
+    if isWinExists mpv; then
+		echo cycle pause | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -u && pkill -RTMIN+12 i3blocks
+    fi
+}
+
+nextTrack() {
+    if isWinExists mpv; then
+		echo playlist-next | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -n && pkill -RTMIN+12 i3blocks
+    fi
+}
+
+prevTrack() {
+    if isWinExists mpv; then
+		echo playlist-prev | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -r && pkill -RTMIN+12 i3blocks
+    fi
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Shortcut assignments
 #-----------------------------------------------------------------------------------------------
 case $shortcut in
-    mod3+p)
+    Mod3+p)
         deleteWord
         ;;
     mod+space)
@@ -146,6 +176,15 @@ case $shortcut in
         ;;
     mod+l)
         focusWindow right
+        ;;
+    Mod3+Shift+k)
+        pause
+        ;;
+    Mod3+Shift+j)
+        nextTrack
+        ;;
+    Mod3+Shift+l)
+        prevTrack
         ;;
 
     # Mouse

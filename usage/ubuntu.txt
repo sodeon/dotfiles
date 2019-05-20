@@ -22,3 +22,10 @@ Optimizations:
 				ReadKMsg=no
             Can still non-archived copy from /var/log/syslog
         View jornal size: $sudo journalctl --disk-usage
+
+
+Create Debian package:
+    Dependency: debhelper
+    Build: Under project root (one folder above "debian" folder)
+        $dpkg-buildpackage -uc -us
+    Output: one folder above current folder (".." folder)

@@ -66,6 +66,7 @@
         {"before": [";"], "after": [":"]},
         {"before": [":"], "after": [";"]},
         {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
+        {"before": ["<C-r>"], "commands": ["redo"]}, // if replacing vim's undo with vscode's, must use vscode's redo
         {"before": ["q"], "commands": [":q"]},
         {"before": ["Y"], "after": ["y", "$"]},
         {"before": ["P"], "after": ["$", "a", " ", "<Esc>", "p"]},
@@ -145,6 +146,12 @@
             "id": "toggleColorTheme",
             "overrideWorkspaceSettings": false,
             "values": [
+                // Add an empty config to allow custom theme
+                {
+                    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
+                    "workbench.colorCustomizations": { },
+                    "editor.tokenColorCustomizations": { },
+                },
                 {
                     "workbench.colorTheme": "Default Dark+",
                     "workbench.colorCustomizations": {
@@ -253,7 +260,7 @@
     "php.validate.enable": false,
     "php.suggest.basic": false,
 
-    "powermode.enabled": true,
+    "powermode.enabled": false,
     "powermode.enableShake": false,
     "powermode.enableStatusBarComboTimer": false,
     "powermode.enableStatusBarComboCounter": false,

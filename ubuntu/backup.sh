@@ -1,5 +1,4 @@
-#!/bin/bash
-set -ue
+#!/bin/bash -ue
 
 cd "$(dirname "$(realpath "$0")")";
 
@@ -25,6 +24,7 @@ cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
 cp     ~/.config/hardware/*.example   .config/hardware
 cp     ~/.config/Xresources/*.example .config/Xresources
 
+rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
 
 cp -rf ~/.local/share/applications/*.desktop .local/share/applications
@@ -41,6 +41,7 @@ esac
 
 cp -rf ~/.urxvt .
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
+rm -rf ./bin/*
 cp -rf ~/bin .
 
 if [ -d ~/code/sxiv ]; then
