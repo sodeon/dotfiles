@@ -1,4 +1,9 @@
 # Provision Ubuntu and Windows WSL
+**<span style="color:red">This repo is not general enough for most without modifications.</span>**
+>If you are finding a more refined and complete experience, I would recommend [Luke Smith's github](https://github.com/LukeSmithxyz/).
+>- [LARBS](https://github.com/LukeSmithxyz/voidrice): provision for Arch based linux
+>- [voidrice](https://github.com/LukeSmithxyz/LARBS): configirations (rc, and etc)
+
 Provision/bootstrapping for Ubuntu and Windows WSL (Windows Subsystem for Linux), providing:
 
 1. Install programs

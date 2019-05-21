@@ -27,10 +27,3 @@ Programs:
 Config Windows:
     Cache git credential: $git config --global credential.helper wincred
     Config .autohotkeyrc (/d/Work/Programs/)
-
-Accounts:
-	SourceTree account: sodeon@gmail.com/old
-	GitHub account: sodeon@gmail.com/new
-	Can link Github account in SourceTree
-
-Other files in Google Drive (Under "Work" folder)
