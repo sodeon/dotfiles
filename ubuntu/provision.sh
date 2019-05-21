@@ -153,7 +153,7 @@ echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as
 # sxiv: image viewer
 # https://github.com/muennich/sxiv.git
 #       Re-compile dependency: libimlib2-dev libxft-dev libexif-dev
-cd apps/suckless/sxiv
+cd apps/sxiv
 sudo make install
 cd -
 

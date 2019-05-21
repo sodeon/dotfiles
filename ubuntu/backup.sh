@@ -46,7 +46,7 @@ rm -rf ./bin/*
 cp -rf ~/bin .
 
 if [ -d ~/code/sxiv ]; then
-	cp ~/code/sxiv/sxiv   apps/suckless/sxiv
-	cp ~/code/sxiv/sxiv.1 apps/suckless/sxiv
-	cp ~/code/sxiv/exec/* apps/suckless/sxiv/exec
+	cp ~/code/sxiv/sxiv   apps/sxiv
+	cp ~/code/sxiv/sxiv.1 apps/sxiv
+	cp ~/code/sxiv/exec/* apps/sxiv/exec
 fi
