@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Graphics card connector used
+interface="DP-1"
+i2c_bus=4
+
+# Resolution
+resolution="3840x2160"
+scale="1.6x1.6" # 2/1.25=1.6 => scale 125%
+
+# Monitor spec
+brightness_feature_id=10
+color_temperature_feature_id=14
+
+# Brightness/color temperature control
+is_reading_mode=false
+brightness_step=5
+reading_brightness=5
+video_brightness=20
+color_temperature_reading=4 # 6500K
+color_temperature_video=5 # 5000K
