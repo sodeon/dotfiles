@@ -112,12 +112,12 @@ separator_block_width=25
 # Battery indicator
 #
 # The battery instance defaults to 0.
-[battery]
-label=⚡
-#instance=1
-interval=30
-separator=false
-separator_block_width=18
+#[battery]
+#label=⚡
+##instance=1
+#interval=30
+#separator=false
+#separator_block_width=18
 
 # Date Time
 #

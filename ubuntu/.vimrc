@@ -275,10 +275,10 @@ Plug 'junegunn/fzf' " <C-p>  use <C-t>/<C-v> for new tab/split
 " Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
 Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
-" Syntax highlight
-Plug 'posva/vim-vue',       {'for': 'vue'}
-Plug 'digitaltoad/vim-pug', {'for': 'vue'}
-Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }}
+" File type plugins
+Plug 'posva/vim-vue',                {'for': 'vue'}
+Plug 'digitaltoad/vim-pug',          {'for': 'vue'}
+Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': {-> mkdp#util#install()}}
 
 " Not using, but other like these
 " Plug 'tpope/vim-fugitive' " Git

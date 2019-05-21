@@ -314,9 +314,9 @@ for_window [class="qBittorrent"         ]              floating enable,         
 # NOTE: Notebook and cmus uses lazy execution (won't execute until first accessing)
 #--------------------------------------------------------------------------------
 # Notebook (tmux)
-bindsym Mod3+n exec i3-floating-singleton tmux
-bindsym Mod3+m exec i3-floating-singleton cmus
-bindsym Mod3+v [class="^mpv"] scratchpad show, fullscreen enable
+bindsym $mod+n exec i3-floating-singleton tmux
+bindsym $mod+m exec i3-floating-singleton cmus
+bindsym $mod+Shift+m [class="^mpv"] scratchpad show, fullscreen enable
 # Show all scratchpad not the above tmux
 # bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
 # bindsym $mod+Shift+n move scratchpad

@@ -47,6 +47,9 @@ unsetopt beep
 # bold, yellow
 export GREP_COLOR='1;33'
 
+# Avoid "'no match found' error when running find with * as part of pattern"
+setopt +o nomatch
+
 
 #--------------------------------------------------------------------------------------------------------------
 # oh-my-Zsh

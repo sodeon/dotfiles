@@ -1,7 +1,9 @@
 {
     // "editor.fontFamily": "'Consolas NF', 'Courier New', monospace",
+    // "editor.fontSize": 17,
+    // "editor.lineHeight": 22,
     "editor.fontFamily": "'Fira Code', 'Dank Mono', 'Consolas NF', 'Courier New', monospace",
-    "editor.fontSize": 17,
+    "editor.fontSize": 16.5,
     "editor.fontWeight": "400",
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
@@ -9,7 +11,6 @@
     "editor.renderIndentGuides": true,
     "editor.tabCompletion": "on",
     "editor.renderLineHighlight": "none",
-    "editor.lineHeight": 22,
     "editor.lineNumbers": "on",
     // Hide scrollbar (undocumented settings)
     "editor.scrollbar.vertical": "hidden",
@@ -22,9 +23,7 @@
     // End of reduce line nubmer width
     "editor.cursorBlinking": "smooth",
     // Disable light theme (Winter is coming light) italic font face
-    "editor.tokenColorCustomizations": {
-        "comments": "#7aa965"
-    },
+    "editor.tokenColorCustomizations": {},
 
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
@@ -38,21 +37,8 @@
     "workbench.statusBar.visible": true,
     "workbench.statusBar.feedback.visible": false,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.colorCustomizations": {
-        "sideBar.background": "#000",
-        "editor.background": "#000",
-        "editor.foreground": "#eee",
-        "editorGroup.border": "#000",
-        "editorIndentGuide.background": "#000",
-        "editorIndentGuide.activeBackground": "#444",
-        "statusBar.background": "#000",
-        "statusBar.foreground": "#ccc",
-        "editorGroupHeader.tabsBackground": "#000",
-        "tab.activeBackground": "#2c2c2c",
-        "tab.inactiveBackground": "#000",
-        "tab.border": "#000"
-    },
+    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
+    "workbench.colorCustomizations": {},
 
     "keyboard.dispatch": "keyCode",
 
