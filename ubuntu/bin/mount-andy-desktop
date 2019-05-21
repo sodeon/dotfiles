@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 
-home=`dirname "$(realpath "$0")" | sed -r 's/\/bin//'`
+mntFolder=/mnt/andy-desktop
 
-sudo sshfs -o allow_other andy@192.168.0.102:/ /mnt/andy-desktop -o IdentityFile=$home/.ssh/id_rsa
-echo "Drive mounted at /mnt/andy-desktop"
+sudo sshfs -o allow_other andy@192.168.0.102:/ $mntFolder -o IdentityFile=/home/$USER/.ssh/id_rsa
+echo "Drive mounted at $mntFolder"
