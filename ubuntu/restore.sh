@@ -37,13 +37,11 @@ cp     .config/mpv/input.conf                             ~/.config/mpv
 cp     .config/cmus/{autosave,rc}                         ~/.config/cmus
 cp     .config/Code/User/{settings.json,keybindings.json} ~/.config/Code/User
 
-set -x
 if [[ ! -z ${1-} ]]; then
 	cp .config/mpv/mpv.conf.$1 ~/.config/mpv/mpv.conf
     restoreNonSharedConfig .config/hardware   ~/.config/hardware   $1
     restoreNonSharedConfig .config/Xresources ~/.config/Xresources $1
 fi
-set +x
 
 #
 # Other non-standard config directory
