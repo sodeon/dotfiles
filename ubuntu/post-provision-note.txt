@@ -1,6 +1,4 @@
 Go to "optional" to install items useful for your system
-    laptop  folder's items is supposed to restore to their home directory
-    desktop folder's items is supposed to restore to their home directory
 Check backup.sh and search for ".example" for config tuning
 
 
@@ -12,11 +10,6 @@ Tmux:
     tmux uses zsh as default may need to reboot in order to take effect
     (ctrl+e I) to download and install plugins
     # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
-
-ssh:
-    Ubuntu already has ssh server and related ssh tools setup
-    Copy ssh key to Andy desktop
-    $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Github:
     ssh login:
@@ -32,6 +25,11 @@ Github:
         # Go to github->settings->"SSH and GPG keys"->"New SSH key"
         # git repo format: git@github.com:username/reponame.git
 
+ssh:
+    Ubuntu already has ssh server and related ssh tools setup
+    Copy ssh key to Andy desktop
+    $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+
 Programs:
     Network manager (for WiFi): rofi$ nm-applet
 
@@ -46,10 +44,10 @@ System:
 			/dev/sda3 /mnt/c ntfs uid=1000,auto,user 0	0
 			/dev/sda5 /mnt/d ntfs uid=1000,auto,user 0	0
 			/dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0	0
+    Auto-mount network drives
+        Modify /etc/fstab:
+            sodeon@192.168.0.103:/ /mnt/andy-laptop fuse.sshfs noauto,x-systemd.automount,_netdev,users,IdentityFile=/home/andy/.ssh/id_rsa,allow_other,reconnect 0 0
+		NOTE: If network drive is not always available, recommend not to auto-mount.
+		      If network drive is not available at the time of access, process hanged to wait timeout.
+		      Some commands like df implicitly accessed network drives.
 
-Accounts:
-	SourceTree account: sodeon@gmail.com/old
-	GitHub account: sodeon@gmail.com/new
-	Can link Github account in SourceTree
-
-Other files in Google Drive (Under "Work" folder)
