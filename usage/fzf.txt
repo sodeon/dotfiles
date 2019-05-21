@@ -1,8 +1,7 @@
 Shortcuts:
-<CTRL+p> list files+folders in current directory
+<CTRL+p> list files+folders in current directory or use fzf for auto-complete
 <CTRL+r> search history of shell commands
 <ALT+c> fuzzy change directory
-**<Tab> fuzzy tab completion
 
 Syntax:
 'wild	exact-match
