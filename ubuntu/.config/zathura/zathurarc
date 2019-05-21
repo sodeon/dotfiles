@@ -1,0 +1,25 @@
+set statusbar-h-padding 1 
+set first-page-column 2
+set recolor-keephue
+set selection-clipboard clipboard
+# set adjust-open width
+
+set recolor-darkcolor  "#FFFFFF"
+set recolor-lightcolor "#333333"
+set statusbar-v-padding 1
+set page-padding 1
+
+map a adjust_window best-fit
+map s adjust_window width
+map v scroll half-up
+map c scroll half-down
+map D toggle_page_mode
+map r rotate
+map - zoom out
+map = zoom in
+# map 0 zoom width
+map 0 zoom best-fit
+map t recolor # recolor: theme
+
+# map R reload
+# map p print

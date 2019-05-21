@@ -1,4 +1,5 @@
 #!/bin/bash
+# Cheat sheet: https://devhints.io/bash
 
 # NOTE: bash has no boolean
 

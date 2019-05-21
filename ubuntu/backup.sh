@@ -17,6 +17,7 @@ cp -rf ~/.config/dunst              .config
 cp -rf ~/.config/rofi               .config
 cp -rf ~/.config/mpv/input.conf     .config/mpv
 cp -rf ~/.config/ranger             .config
+cp -rf ~/.config/zathura            .config
 cp     ~/.config/cmus/autosave      .config/cmus
 cp     ~/.config/cmus/rc            .config/cmus
 cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
