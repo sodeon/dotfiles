@@ -28,7 +28,9 @@ cd-temp() {
 }
 
 cd-before-temp() {
-	while popd; do done
+	while popd; do 
+		:
+	done
 }
 
 
