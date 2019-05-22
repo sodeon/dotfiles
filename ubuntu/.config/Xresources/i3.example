@@ -16,6 +16,8 @@ i3wm.rofi.combi.width: 20
 
 ! Gaps
 i3wm.toggleHGap: 412
+i3wm.hGapStep: 32
+i3wm.vGapStep: 32
 
 i3wm.ws1.horizontalGap:  412
 i3wm.ws2.horizontalGap:  412

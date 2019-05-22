@@ -2,6 +2,17 @@
 
 path="$HOME/code/dotfiles/ubuntu"
 
-$path/restore.sh $@
+if [[ -f ~/.config/dotfiles/dotfilesrc ]]; then
+    source ~/.config/dotfiles/dotfilesrc
+else
+    machine=''
+fi
 
-echo "dotfiles restored from $path"
+$path/restore.sh $machine
+
+echo ""
+if [[ -z $machine ]]; then
+    echo "dotfiles restored from $path"
+else
+    echo "dotfiles restored from $path with '$machine' profile"
+fi

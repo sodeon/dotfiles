@@ -332,8 +332,6 @@ for_window [class="mpv"      ] border pixel 10, floating enable, sticky enable  
 # Gaps (i3-gaps is a fork from i3.  Thus, group related settings)
 #     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
 #--------------------------------------------------------------------------------
-# for_window [class=".*"] border pixel 10
-
 # smart_gaps inverse_outer # When there is only one window, disable gaps
 smart_borders on # Only has border when there are multiple windows
 
@@ -347,6 +345,7 @@ set_from_resource $ws7HGap  i3wm.ws7.horizontalGap  0
 set_from_resource $ws8HGap  i3wm.ws8.horizontalGap  0
 set_from_resource $ws9HGap  i3wm.ws9.horizontalGap  0
 set_from_resource $ws10HGap i3wm.ws10.horizontalGap 0
+set_from_resource $hGapStep i3wm.horizontalGapStep  32
 
 set_from_resource $ws1VGap  i3wm.ws1.verticalGap  0
 set_from_resource $ws2VGap  i3wm.ws2.verticalGap  0
@@ -358,6 +357,7 @@ set_from_resource $ws7VGap  i3wm.ws7.verticalGap  0
 set_from_resource $ws8VGap  i3wm.ws8.verticalGap  0
 set_from_resource $ws9VGap  i3wm.ws9.verticalGap  0
 set_from_resource $ws10VGap i3wm.ws10.verticalGap 0
+set_from_resource $vGapStep i3wm.verticalGapStep  32
 
 workspace $ws1  gaps horizontal $ws1HGap
 workspace $ws2  gaps horizontal $ws2HGap
@@ -384,6 +384,10 @@ workspace $ws10 gaps vertical $ws10VGap
 # resolution
 set_from_resource $toggleHGap i3wm.toggleHGap 0
 bindsym $mod+r gaps horizontal current toggle $toggleHGap
+bindsym $mod+Mod3+Control+h gaps horizontal current plus  $hGapStep
+bindsym $mod+Mod3+Control+l gaps horizontal current minus $hGapStep
+bindsym $mod+Mod3+Control+j gaps vertical   current plus  $vGapStep
+bindsym $mod+Mod3+Control+k gaps vertical   current minus $vGapStep
 
 
 #--------------------------------------------------------------------------------

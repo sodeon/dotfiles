@@ -15,17 +15,18 @@ i3wm.rofi.combi.width: 20
 !i3wm.rofi.window.width: 40
 
 ! Gaps
-i3wm.toggleHGap: 412
+i3wm.toggleHGap: 424
+i3wm.hGapStep: 32
+i3wm.vGapStep: 32
 
-i3wm.ws1.horizontalGap:  412
-i3wm.ws2.horizontalGap:  412
-i3wm.ws3.horizontalGap:  412
-i3wm.ws4.horizontalGap:  412
-i3wm.ws5.horizontalGap:  412
-i3wm.ws6.horizontalGap:  412
-i3wm.ws7.horizontalGap:  412
-i3wm.ws8.horizontalGap:  412
-i3wm.ws9.horizontalGap:  412
+i3wm.ws1.horizontalGap:  424
+i3wm.ws2.horizontalGap:  424
+i3wm.ws3.horizontalGap:  424
+i3wm.ws4.horizontalGap:  424
+i3wm.ws5.horizontalGap:  424
+i3wm.ws6.horizontalGap:  424
+i3wm.ws7.horizontalGap:  424
+i3wm.ws8.horizontalGap:  424
+i3wm.ws9.horizontalGap:  424
 !i3wm.ws10.horizontalGap: 0
-
 !i3wm.ws10.verticalGap: 280

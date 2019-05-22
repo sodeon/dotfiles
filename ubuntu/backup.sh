@@ -27,10 +27,10 @@ cp ~/.Xresources .
 #
 # .config directory
 #
-cp -rf ~/.config/i3      .config; rm .config/i3/i3blocks.conf
-cp -rf ~/.config/dunst   .config
-cp -rf ~/.config/rofi    .config
-cp -rf ~/.config/zathura .config
+cp -rf ~/.config/i3       .config; rm .config/i3/i3blocks.conf
+cp -rf ~/.config/dunst    .config
+cp -rf ~/.config/rofi     .config
+cp -rf ~/.config/zathura  .config
 
 cp     ~/.config/ranger/{rc.conf,scope.sh}                  .config/ranger
 cp     ~/.config/mpv/input.conf                             .config/mpv
@@ -41,8 +41,9 @@ cp     ~/.config/hardware/*.example   .config/hardware
 cp     ~/.config/Xresources/*.example .config/Xresources
 
 if [[ ! -z ${1-} ]]; then
-	cp ~/.config/mpv/mpv.conf     .config/mpv/mpv.conf.$1
-	cp ~/.config/i3/i3blocks.conf .config/i3/i3blocks.conf.$1
+    cp ~/.config/dotfiles/dotfilesrc .config/dotfiles/dotfilesrc.$1
+	cp ~/.config/mpv/mpv.conf        .config/mpv/mpv.conf.$1
+	cp ~/.config/i3/i3blocks.conf    .config/i3/i3blocks.conf.$1
     backupNonSharedConfig ~/.config/hardware   .config/hardware   $1
     backupNonSharedConfig ~/.config/Xresources .config/Xresources $1
 fi

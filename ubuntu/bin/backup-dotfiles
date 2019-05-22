@@ -2,6 +2,16 @@
 
 path="$HOME/code/dotfiles/ubuntu"
 
-$path/backup.sh $@
+if [[ -f ~/.config/dotfiles/dotfilesrc ]]; then
+    source ~/.config/dotfiles/dotfilesrc
+else
+    machine=''
+fi
 
-echo "dotfiles backed up to $path"
+$path/backup.sh $machine
+
+if [[ -z $machine ]]; then
+    echo "dotfiles backed up to $path"
+else
+    echo "dotfiles backed up to $path with '$machine' suffix for machine dependent config"
+fi
