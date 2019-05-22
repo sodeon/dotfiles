@@ -25,6 +25,7 @@ client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-col
 client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          #003300
 
 # Borders
+for_window [class=".*"] border pixel 2
 hide_edge_borders both
 
 workspace_auto_back_and_forth yes
@@ -408,6 +409,9 @@ exec --no-startup-id unclutter
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 # If in .profile, it sometimes won't work correctly
 exec --no-startup-id activate-hotkeys
+# Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
+exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
+
 
 #--------------------------------------------------------------------------------
 # Debug
