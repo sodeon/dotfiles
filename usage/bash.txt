@@ -38,6 +38,11 @@ case "$1" in
         ;;
 esac
 
+# Array
+declare -a arrayX=(1 2 3)
+echo ${arrayX[@]}
+echo ${arrayX[1]}
+
 # set muliple variables from command line (space separated)
 read var1 var2 <<< $(echo $windowGeometry)
 
@@ -47,3 +52,9 @@ exec $cmd
 functionName() {
     local variable
 }
+
+# Expansion
+The order of expansions is: brace expansion; tilde expansion, parameter and variable expansion
+items=(.config/$item) # e.g. $item=*.example. expanded items=(.config/aa.example .config/bb.example)
+
+# Gotcha

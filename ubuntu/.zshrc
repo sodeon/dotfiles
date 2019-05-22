@@ -178,3 +178,4 @@ bindkey '^[[1;5C' emacs-forward-word
 #--------------------------------------------------------------------------------------------------------------
 source ~/.bash_aliases
 source ~/.bashrc.zsh # This must be at the last line of .zshrc
+export FZF_COMPLETION_TRIGGER='' # Do not move this to bashrc.zsh. To do this, we also must assign "tab" to bash default completion.
