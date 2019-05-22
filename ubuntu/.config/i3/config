@@ -102,7 +102,6 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+s         exec --no-startup-id switch-sound-output
 bindsym Mod3+Shift+k   exec --no-startup-id autohotkey Mod3+Shift+k  
 bindsym Mod3+Shift+l   exec --no-startup-id autohotkey Mod3+Shift+l  
 bindsym Mod3+Shift+j   exec --no-startup-id autohotkey Mod3+Shift+j  
@@ -110,6 +109,7 @@ bindsym XF86AudioPlay  exec --no-startup-id autohotkey Mod3+Shift+k
 bindsym XF86AudioPause exec --no-startup-id autohotkey Mod3+Shift+k
 bindsym XF86AudioNext  exec --no-startup-id autohotkey Mod3+Shift+l
 bindsym XF86AudioPrev  exec --no-startup-id autohotkey Mod3+Shift+j
+bindsym Mod3+s         exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
 # Laptop function keys
 bindsym XF86Display        exec --no-startup-id set-display-monitor

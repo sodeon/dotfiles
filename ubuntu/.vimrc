@@ -151,12 +151,12 @@ hi CursorLine cterm=NONE guibg=NONE
 hi CursorLineNr ctermfg=grey guifg=grey
 set cursorline
 
-set shiftwidth=4
 set tabstop=4
-set expandtab
-set autoindent		" Always set autoindenting on
+set softtabstop=4
+set shiftwidth=4
+set smarttab
+set autoindent " Always set autoindenting on
 au FileType text setlocal textwidth=500 " Override vimrc_example.vim
-set smartindent
 
 " Disable newline insertion
 set textwidth=500 wrapmargin=0
@@ -343,6 +343,8 @@ endif
 " Workarounds
 "-----------------------------------------------------------------------------
 " Do not add indentation when pasting from outside (for some reason, putting this in my config section won't work)
+" Also, "set paste" will verride expandtab to noexpandtab
 set paste
+set expandtab
 
 " If a VIM function that does not work in VSCode, then this function is probably not worth it
