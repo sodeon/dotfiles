@@ -30,9 +30,9 @@ cp ~/.Xresources .
 cp -rf ~/.config/i3      .config; rm .config/i3/i3blocks.conf
 cp -rf ~/.config/dunst   .config
 cp -rf ~/.config/rofi    .config
-cp -rf ~/.config/ranger  .config
 cp -rf ~/.config/zathura .config
 
+cp     ~/.config/ranger/{rc.conf,scope.sh}                  .config/ranger
 cp     ~/.config/mpv/input.conf                             .config/mpv
 cp     ~/.config/cmus/{autosave,rc}                         .config/cmus
 cp     ~/.config/Code/User/{settings.json,keybindings.json} .config/Code/User
