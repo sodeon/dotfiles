@@ -119,7 +119,7 @@ turnOffDisplay() {
 ; Virtual Desktop
 ;-------------------------------------------------------------------------------
 ; Globals
-DesktopCount    := 3 ; Windows starts with 2 desktops at boot
+DesktopCount    := 4 ; Windows starts with 2 desktops at boot
 CurrentDesktop  := 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
 CurrentApp      := "" ; always update to date active window process ID
 PreviousApp     := "" ; last active window process ID different from current one

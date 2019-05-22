@@ -79,7 +79,8 @@ F3::
     updateAppHistory()
     updateBrightness()
     return
-F4:: winActivateExe("firefox.exe", "C:\Program Files\Mozilla Firefox")
+F4:: switchDesktopByNumber(4)
+; F4:: winActivateExe("firefox.exe", "C:\Program Files\Mozilla Firefox")
 F5:: winActivateLast()
 ; F5:: winActivateExe("Code.exe", "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
 
