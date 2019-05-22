@@ -10,7 +10,6 @@ fi
 
 $path/restore.sh $machine
 
-echo ""
 if [[ -z $machine ]]; then
     echo "dotfiles restored from $path"
 else

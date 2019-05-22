@@ -8,6 +8,7 @@ function restoreNonSharedConfig() {
     dst=$2
     suffix=$3
     fdfind .*.$suffix $src --exec echo {/} | sed "s/.$suffix//" | xargs -I {} cp $src/{}.$suffix $dst/{}
+    cp $src/*.example $dst
 }
 
 
@@ -27,6 +28,8 @@ cp .Xresources ~/
 #
 # .config directory
 #
+mkdir -p ~/.config/dotfiles ~/.config/mpv ~/.config/cmus ~/.config/Code/User;
+
 cp -rf .config/i3       ~/.config; rm ~/.config/i3/i3blocks.conf.*
 cp -rf .config/dunst    ~/.config
 cp -rf .config/rofi     ~/.config
@@ -39,10 +42,11 @@ cp     .config/Code/User/{settings.json,keybindings.json} ~/.config/Code/User
 
 cp .config/i3/i3blocks.conf.example ~/.config/i3
 
+cp .config/dotfiles/dotfilesrc.example ~/.config/dotfiles
 if [[ ! -z ${1-} ]]; then
 	cp .config/dotfiles/dotfilesrc.$1 ~/.config/dotfiles/dotfilesrc
-	cp .config/mpv/mpv.conf.$1        ~/.config/mpv/mpv.conf
 	cp .config/i3/i3blocks.conf.$1    ~/.config/i3/i3blocks.conf
+	cp .config/mpv/mpv.conf.$1        ~/.config/mpv/mpv.conf
     restoreNonSharedConfig .config/hardware   ~/.config/hardware   $1
     restoreNonSharedConfig .config/Xresources ~/.config/Xresources $1
 fi
