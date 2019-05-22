@@ -5,7 +5,11 @@
 # Caution: external-displayrc and internal-displayrc both define same set of variables
 
 # Read configuration
-source ~/.config/hardware/displayrc
+if [ -f ~/.config/hardware/displayrc ]; then
+    source ~/.config/hardware/displayrc
+else
+    exit 1
+fi
 if [ -f ~/.config/hardware/external-displayrc ]; then
 	source ~/.config/hardware/external-displayrc
 else
@@ -14,8 +18,9 @@ else
 fi
 
 # Assemble xrandr command
-cmd="xrandr --output $interface --mode $resolution --scale $scale"
 if xrandr | grep "\<$interface\> connected"; then
+    # External display connected
+    cmd="xrandr --output $interface --mode $resolution --scale $scale"
 	if [ -f ~/.config/hardware/internal-displayrc ]; then
 		source ~/.config/hardware/internal-displayrc
         if [ -z $interface ]; then
@@ -25,8 +30,18 @@ if xrandr | grep "\<$interface\> connected"; then
 	if [ $isIntelGpu = true ]; then
 		cmd="$cmd --set \"Broadcast RGB\" \"Full\""
     fi
+else
+    # External display not connected, only internal display connected
+	if [ ! -f ~/.config/hardware/internal-displayrc ]; then
+        # External display not connected , no internal display configuration
+        exit 1
+    fi
+    source ~/.config/hardware/internal-displayrc
+    if [ -z $interface ]; then
+        cmd="xrandr --output $interface --mode $resolution --scale $scale"
+    fi
 fi
 
 # Execute xrandr command
 eval $cmd
-
+# echo $cmd
