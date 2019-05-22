@@ -27,7 +27,7 @@ cp .Xresources ~/
 #
 # .config directory
 #
-cp -rf .config/i3      ~/.config
+cp -rf .config/i3      ~/.config; rm ~/.config/i3/i3blocks.conf.*
 cp -rf .config/dunst   ~/.config
 cp -rf .config/rofi    ~/.config
 cp -rf .config/ranger  ~/.config
@@ -37,8 +37,11 @@ cp     .config/mpv/input.conf                             ~/.config/mpv
 cp     .config/cmus/{autosave,rc}                         ~/.config/cmus
 cp     .config/Code/User/{settings.json,keybindings.json} ~/.config/Code/User
 
+cp .config/i3/i3blocks.conf.example ~/.config/i3
+
 if [[ ! -z ${1-} ]]; then
-	cp .config/mpv/mpv.conf.$1 ~/.config/mpv/mpv.conf
+	cp .config/mpv/mpv.conf.$1     ~/.config/mpv/mpv.conf
+	cp .config/i3/i3blocks.conf.$1 ~/.config/i3/i3blocks.conf
     restoreNonSharedConfig .config/hardware   ~/.config/hardware   $1
     restoreNonSharedConfig .config/Xresources ~/.config/Xresources $1
 fi

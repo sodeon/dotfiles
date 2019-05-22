@@ -12,3 +12,6 @@
 	dpkg-buildpackage -uc -us
 	```
 - Output: one folder above current folder (the ".." folder)
+
+## Utilities
+- `color-picker`: xcolor from https://github.com/Soft/xcolor

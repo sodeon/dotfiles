@@ -1,4 +1,5 @@
 # Provision Ubuntu and Windows WSL
+<!--- [![GitHub release](https://img.shields.io/github/release/sodeon/dotfiles.svg)](https://github.com/sodeon/dotfiles/releases) --->
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) **This repo is not general enough for most without modifications.** ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)
 >If you are finding a more refined and complete experience, I would recommend [Luke Smith's github](https://github.com/LukeSmithxyz/).
 >- [LARBS](https://github.com/LukeSmithxyz/LARBS): provision for Arch based linux
