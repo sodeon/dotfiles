@@ -219,6 +219,7 @@ bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey mod+space
 bindsym $mod+Shift+slash exec --no-startup-id "toggle-window-bottom-position; i3-msg 'focus mode_toggle'; toggle-window-bottom-position; i3-msg 'focus mode_toggle'"
 
 # parent/child
+bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # TODO: mark/unmark window

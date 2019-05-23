@@ -14,14 +14,14 @@ Tmux:
 Github:
     ssh login:
         # Add ssh key
-		ssh-keygen -t rsa -b 4096 -C "sodeon@gmail.com"
+        ssh-keygen -t rsa -b 4096 -C "sodeon@gmail.com"
         # Start ssh agent
-		ssh-agent -s
+        ssh-agent -s
         # Add ssh key to ssh agent
-		ssh-add ~/.ssh/id_rsa
+        ssh-add ~/.ssh/id_rsa
         # Copy generated public key to clipboard
-		sudo apt install xclip
-		xclip -sel clip < ~/.ssh/id_rsa.pub
+        sudo apt install xclip
+        xclip -sel clip < ~/.ssh/id_rsa.pub
         # Go to github->settings->"SSH and GPG keys"->"New SSH key"
         # git repo format: git@github.com:username/reponame.git
 
@@ -34,51 +34,20 @@ Programs:
     Network manager (for WiFi): rofi$ nm-applet
 
 System:
-    Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
-		HandleLidSwitch=suspend
-		HandleLidSwitch=ignore
     Auto-mount NTFS drives
         Run "disks" to find what sda/sdb/.. drives to be mapped
         Modify /etc/fstab:
             For example, add following lines (sda3 mapped to /mnt/c)
-			/dev/sda3 /mnt/c ntfs uid=1000,auto,user 0	0
-			/dev/sda5 /mnt/d ntfs uid=1000,auto,user 0	0
-			/dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0	0
-    Auto-mount network drives
-        Modify /etc/fstab:
-            sodeon@192.168.0.103:/ /mnt/andy-laptop fuse.sshfs noauto,x-systemd.automount,_netdev,users,IdentityFile=/home/andy/.ssh/id_rsa,allow_other,reconnect 0 0
-		NOTE: If network drive is not always available, recommend not to auto-mount.
-		      If network drive is not available at the time of access, process hanged to wait timeout.
-		      Some commands like df implicitly accessed network drives.
+            /dev/sda3 /mnt/c ntfs uid=1000,auto,user 0  0
+            /dev/sda5 /mnt/d ntfs uid=1000,auto,user 0  0
+            /dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0  0
     Remove snapd
         Find installed snap packages: $snap list
         Remove snap packages ("core" cannot be removed): $snap remove
         Remove snap: $apt purge snapd
         Re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator
-	Enable/disable swap:
-		Modify /etc/fstab:
-			Comment out swap (following grabbed from Ubuntu 19.04)
-			/swapfile                                 none            swap    sw              0       0
-		sudo rm /swapfile
-	Disable unused services:
-		$sudo systemctl disable {service}
-		services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
-    Boot optimization:
-        - Boot time analysis: 
-            $systemd-analyze time/blame/plot; (plot will draw svg)
-        - Skip grub (save 2s): Set boot device in bios directly. Bios should see 2 ubuntu bootables: grub and ubuntu
-		- /etc/default/grub (sudo update-grub after editing)
-			# Disable splash screen (doing so also disables plymouth service which does nothing but takes a long time)
-			GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-			# Disable kernel messages on screen by outputing in non-existent tty
-			GRUB_CMDLINE_LINUX="console=ttyS0"
-        - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
-    Reduce systemd journal memory consumption (which can sometimes takes hundreds of MBs):
-        - Disable kernel message:
-			/etc/systemd/journald.conf
-				ReadKMsg=no
-            Can still non-archived copy from /var/log/syslog
-        - View jornal size: $sudo journalctl --disk-usage
+
+System (Desktop):
     Wake-on-lan: very easy
         Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
         Step 2: Trigger suspended system to wakeup (by sending magic packet)
@@ -87,3 +56,46 @@ System:
         Extra step: To debug, monitor if receiving magic packet
             $sudo apt install ngrep
             $ngrep '\xff{6}(.{6})\1{15}' -x port 9
+
+System (Laptop):
+    Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
+        HandleLidSwitch=suspend
+        HandleLidSwitch=ignore
+    Auto-mount network drives
+        Modify /etc/fstab:
+            sodeon@192.168.0.102:/ /mnt/andy-desktop fuse.sshfs noauto,x-systemd.automount,_netdev,users,IdentityFile=/home/andy/.ssh/id_rsa,allow_other,reconnect 0 0
+        NOTE: If network drive is not always available, recommend not to auto-mount.
+              If network drive is not available at the time of access, process hanged to wait timeout.
+              Some commands like df implicitly accessed network drives.
+
+Performance:
+    Disable CPU vulnerability mitigations (use at own risk):
+        Check vulnerability: $sudo spectre-meltdown-checker
+        File: /etc/default/grub
+        Modify: add "mitigations=off" to kernel parameters
+            GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
+        Run: sudo update-grub
+    Enable/disable swap:
+        File: /etc/fstab:
+        Modify: Comment out swap (following grabbed from Ubuntu 19.04)
+            /swapfile                                 none            swap    sw              0       0
+        Run: sudo rm /swapfile
+    Disable unused services:
+        $sudo systemctl disable {service}
+        services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
+    Boot optimization:
+        - Boot time analysis: 
+            $systemd-analyze time/blame/plot; (plot will draw svg)
+        - Skip grub (save 2s): Set boot device in bios directly. Bios should see 2 ubuntu bootables: grub and ubuntu
+        - /etc/default/grub (sudo update-grub after editing)
+            # Disable splash screen (doing so also disables plymouth service which does nothing but takes a long time)
+            GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+            # Disable kernel messages on screen by outputing in non-existent tty
+            GRUB_CMDLINE_LINUX="console=ttyS0"
+        - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
+    Reduce systemd journal memory consumption (which can sometimes takes hundreds of MBs):
+        - Disable kernel message:
+            /etc/systemd/journald.conf
+                ReadKMsg=no
+            Can still non-archived copy from /var/log/syslog
+        - View jornal size: $sudo journalctl --disk-usage
