@@ -79,3 +79,11 @@ System:
 				ReadKMsg=no
             Can still non-archived copy from /var/log/syslog
         - View jornal size: $sudo journalctl --disk-usage
+    Wake-on-lan: very easy
+        Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
+        Step 2: Trigger suspended system to wakeup (by sending magic packet)
+            $sudo apt install wakeonlan
+            $wakeonlan <mac address> # mac address can be found by "$ip a".
+        Extra step: To debug, monitor if receiving magic packet
+            $sudo apt install ngrep
+            $ngrep '\xff{6}(.{6})\1{15}' -x port 9

@@ -37,11 +37,11 @@ markup=none
 
 [window]
 command=xdotool getactivewindow getwindowname
-color=#ccffff
+color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=80
+separator_block_width=40
 
 # [music]
 # command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
@@ -66,7 +66,7 @@ separator_block_width=8
 [cpu_usage]
 # label= 🖳  🖵 
 interval=2
-# min_width=CPU:100.0%
+min_width=99.00%
 separator=false
 
 # Memory usage

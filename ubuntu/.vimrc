@@ -76,13 +76,16 @@ endif
 
 
 "-----------------------------------------------------------------------------
+" Commands
+"-----------------------------------------------------------------------------
+" Change current working directory to the opened file
+command Cd :cd %:h
+
+
+"-----------------------------------------------------------------------------
 " My config 
 "-----------------------------------------------------------------------------
 let mapleader=','
-
-" Change current working directory to the opened file
-" To manually change directory to current file, use ":cd %:h"
-autocmd BufEnter * silent! :lcd%:p:h
 
 " Disable swap file (.swp), backup file, and *.un~ history file
 set noswapfile
