@@ -9,7 +9,7 @@
 # Looks
 #--------------------------------------------------------------------------------
 # Make title bar a very slim line
-font pango:Consolas NF 0
+font pango:Ubuntu 0
 # font pango:System San Francisco Display 9
 
 set $bg-color            #222222
