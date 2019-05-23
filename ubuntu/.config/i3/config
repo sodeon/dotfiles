@@ -286,16 +286,15 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 #--------------------------------------------------------------------------------
 # Terminal
 set $term urxvtc
+set_from_resource $sshBookmark i3wm.ssh.bookmark
+bindsym $mod+Return       exec $term -cd $(xcwd)
+bindsym $mod+Shift+Return exec $term -e ssh $sshBookmark
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec $term -cd $(xcwd)
 
 # Bind application to workspace
-# assign [class="Google-chrome"     ] $ws1
-# assign [class="Firefox"           ] $ws1
 assign [class="Code"                ] $ws3
 assign [              title="ranger"] $ws10
 
-# for_window [class="URxvt"               ] border pixel 2, focus
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
 for_window [class="Firefox"             ] border none

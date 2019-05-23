@@ -107,20 +107,18 @@ toggleFloating() {
 }
 
 pageup() {
-    if isWinActive URxvt && isActiveWinTitle VIM$; then
-		# In vim,  ctrl+b == ctrl+shift+b
-        xdotool keyup b key control+shift+b keydown control
+    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+		xdotool keyup b key --clearmodifiers shift+Prior
     else
-		xdotool keyup b keyup control key shift+Prior keydown control
+        xdotool keyup b key --clearmodifiers Prior
     fi
 }
 
 pagedown() {
-    if isWinActive URxvt && isActiveWinTitle VIM$; then
-		# In vim,  ctrl+f == ctrl+shift+f
-		xdotool keyup f key control+shift+f keydown control
+    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+		xdotool keyup f key --clearmodifiers shift+Next
     else
-		xdotool keyup f keyup control key shift+Next keydown control
+        xdotool keyup f key --clearmodifiers Next
     fi
 }
 

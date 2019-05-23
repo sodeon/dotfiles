@@ -53,21 +53,21 @@ separator_block_width=40
 
 # label for CPU and memory
 #
-[system-monitor]
-interval=persist
-command= echo 🖳
-separator=false
-separator_block_width=8
+# [system-monitor]
+# interval=persist
+# command= echo 🖳
+# separator=false
+# separator_block_width=8
 
 # CPU usage
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage]
-# label= 🖳  🖵 
-interval=2
-min_width=99.00%
-separator=false
+# [cpu_usage]
+# # label= 🖳  🖵 
+# interval=2
+# min_width=99.00%
+# separator=false
 
 # Memory usage
 #
