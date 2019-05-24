@@ -1,4 +1,7 @@
-! Resize
+! Favorite ssh host
+i3wm.ssh.bookmark: andy-desktop
+
+! Gaps
 !i3wm.resizeX: 10px or 7ppt	
 !i3wm.resizeY: 10px or 7ppt
 

@@ -79,7 +79,7 @@ apt-force install gdb gcc g++ # build tools
 apt-force install qbittorrent
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
-apt-force install mpv # video player
+apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 # apt-force install libsixel-bin # terminal image/video viewing
