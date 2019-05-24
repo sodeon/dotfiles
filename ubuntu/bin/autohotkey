@@ -49,33 +49,93 @@ isWinExists() {
     return $?
 }
 
-# i3 and VIM navigation integration
+#
+# i3 and VIM navigation integration (navigation/movement/resizing)
+#
 focusWindow() {
     direction=$1
 	case $direction in
 		left)
-			navKey=h
+			navKey=y
+            srcKey=h
 			;;
 		right)
-			navKey=l
+			navKey=o
+            srcKey=l
 			;;
 		up)
-			navKey=k
+			navKey=i
+            srcKey=k
 			;;
 		down)
-			navKey=j
+			navKey=u
+            srcKey=j
 			;;
 	esac
     if isActiveWinTitle VIM$; then
-        xdotool keyup $navKey keyup alt key Escape key ctrl+$navKey keydown alt
+        xdotool keyup $srcKey key ctrl+$navKey
     elif isWinActive Code; then
-        if [[ $direction == left || $direction == right ]]; then
-			xdotool keyup $navKey keyup alt key Escape key ctrl+$navKey keydown alt
-		else
-			i3-msg "focus $direction"
-		fi
+        xdotool keyup $srcKey key ctrl+$navKey
     else
 		i3-msg "focus $direction"
+    fi
+}
+
+moveWindow() {
+    direction=$1
+	case $direction in
+		left)
+			navKey=Y
+            srcKey=h
+			;;
+		right)
+			navKey=O
+            srcKey=l
+			;;
+		up)
+			navKey=I
+            srcKey=k
+			;;
+		down)
+			navKey=U
+            srcKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$; then
+        xdotool keyup $srcKey key $navKey
+    elif isWinActive Code; then
+        xdotool keyup $srcKey key $navKey
+    else
+		i3-msg "move $@"
+    fi
+}
+
+resizeWindow() {
+    direction=$1
+	case $direction in
+		left)
+			navKey=n
+            srcKey=h
+			;;
+		right)
+			navKey=.
+            srcKey=l
+			;;
+		up)
+			navKey=,
+            srcKey=k
+			;;
+		down)
+			navKey=m
+            srcKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$; then
+        xdotool keyup $srcKey type $navKey
+    elif isWinActive Code; then
+        xdotool keyup $srcKey type $navKey
+    else
+		i3-msg "resize ${@:2}"
     fi
 }
 
@@ -93,9 +153,9 @@ deleteWord() {
 
 closeTabOrWindow() {
     if isWinActive Google-chrome || isWinActive Firefox; then
-        xte 'keydown Control_L' 'key w' 'keyup Control_L'
+        xdotool key ctrl+w
     else
-        xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
+        xdotool key alt+grave
     fi
 }
 
@@ -163,6 +223,7 @@ case $shortcut in
     ctrl+f)
         pagedown
         ;;
+
     mod+h)
         focusWindow left
         ;;
@@ -175,6 +236,31 @@ case $shortcut in
     mod+l)
         focusWindow right
         ;;
+    mod+Shift+h)
+        moveWindow left ${@:2}
+        ;;
+    mod+Shift+j)
+        moveWindow down ${@:2}
+        ;;
+    mod+Shift+k)
+        moveWindow up ${@:2}
+        ;;
+    mod+Shift+l)
+        moveWindow right ${@:2}
+        ;;
+    mod+control+h)
+        resizeWindow left ${@:2}
+        ;;
+    mod+control+j)
+        resizeWindow down ${@:2}
+        ;;
+    mod+control+k)
+        resizeWindow up ${@:2}
+        ;;
+    mod+control+l)
+        resizeWindow right ${@:2}
+        ;;
+
     Mod3+Shift+k)
         pause
         ;;

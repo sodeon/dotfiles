@@ -79,7 +79,7 @@ endif
 " Commands
 "-----------------------------------------------------------------------------
 " Change current working directory to the opened file
-command Cd :cd %:h
+command! Cd :cd %:h
 
 
 "-----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ set noundofile
 set noeb vb t_vb=
 
 set ignorecase
-set wildignorecase " ignore case in path completion
+set wildignorecase " Ignore case in path completion
 
 set ruler
 set autoread
@@ -127,8 +127,6 @@ let g:netrw_browse_split=0  " open in current window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
 let g:netrw_winsize=25      " size of 25%
-" let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 command! E  Vexplore
 
 
@@ -191,6 +189,7 @@ set fillchars+=vert:\
 
 "-----------------------------------------------------------------------------
 " Key bindings
+" NOTE: Vim doeesn't recognize hyper key)
 "-----------------------------------------------------------------------------
 nnoremap <silent> q :q<CR>
 nnoremap ; :
@@ -198,9 +197,9 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" copy till line end (like D means delete till line end)
+" Copy till line end (like D means delete till line end)
 noremap Y y$
-" paste at the end of the line
+" Paste at the end of the line
 noremap P $a<Space><Esc>p
 
 " Enable folding with the spacebar
@@ -213,13 +212,8 @@ nnoremap <CR> o<Esc>
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
 
-" Split resize and movement (vim doeesn't recognize hyper key)
+" Split resize and movement
 " NOTE: To move split in complext layout, move vertical direction first (jk), then move horizontal direction (hl)
-nnoremap <silent> <S-h> :10winc <<CR>
-nnoremap <silent> <S-k> :10winc +<CR>
-nnoremap <silent> <S-l> :10winc ><CR>
-" <S-j> conflicts with from join line
-nnoremap <silent> <Leader>j :10winc -<CR>
 nnoremap <silent> <C-w>t :Tabmerge left<CR>
 " Move split to new tab: <C-w>T
 " Move split <C-w> H/J/K/L (left/bottom/top/right)
@@ -275,7 +269,6 @@ Plug 'jwilm/i3-vim-focus'
 
 " Searching (file, content, but not symbol)
 Plug 'junegunn/fzf' " <C-p>  use <C-t>/<C-v> for new tab/split
-" Plug 'junegunn/fzf.vim' # more advanced fzf, with many more commands
 Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
 " File type plugins
@@ -322,23 +315,46 @@ let g:switch_custom_definitions =
 au FileType xdefaults       setlocal commentstring=!\ %s
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
-" Window navigation (Ctrl/Alt + hjkl) with i3 integration
-" NOTE: Do not change ctrl+hjkl key bindings
-if has('unix') && (system('ps -x -o comm= | grep -E ^i3$') =~ '^i3')
-	nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
-	nnoremap <silent> <C-h> :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <C-k> :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <C-j> :call Focus('down' , 'j')<CR>
+" Window navigation/resizing/movement
+if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
+	nnoremap <silent> <Esc><C-o> :call Focus('right', 'l')<CR>
+    nnoremap <silent> <Esc><C-y> :call Focus('left' , 'h')<CR>
+	nnoremap <silent> <Esc><C-i> :call Focus('up'   , 'k')<CR>
+	nnoremap <silent> <Esc><C-u> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc>O <C-w>L
+    nnoremap <silent> <Esc>Y <C-w>H
+	nnoremap <silent> <Esc>I <C-w>K
+	nnoremap <silent> <Esc>U <C-w>J
+	nnoremap <silent> <Esc><C-.> :10winc ><CR>
+	nnoremap <silent> <Esc><C-n> :10winc <<CR>
+	nnoremap <silent> <Esc><C-,> :10winc +<CR>
+	nnoremap <silent> <Esc><C-m> :10winc -<CR>
 elseif has('gui_running')
-	map <M-l>  <C-w>l
-	map <M-h>  <C-w>h
-	map <M-k>  <C-w>k
-	map <M-j>  <C-w>j
+	nnoremap <silent> <M-l> :call Focus('right', 'l')<CR>
+    nnoremap <silent> <M-h> :call Focus('left' , 'h')<CR>
+	nnoremap <silent> <M-k> :call Focus('up'   , 'k')<CR>
+	nnoremap <silent> <M-j> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <M-L> :winc L<CR>
+	nnoremap <silent> <M-H> :winc H<CR>
+	nnoremap <silent> <M-K> :winc K<CR>
+	nnoremap <silent> <M-J> :winc J<CR>
+	nnoremap <silent> <C-l> :10winc <<CR>
+	nnoremap <silent> <C-h> :10winc +<CR>
+	nnoremap <silent> <C-k> :10winc ><CR>
+	nnoremap <silent> <C-j> :10winc -<CR>
 else
-	map <Esc>l <C-w>l
-	map <Esc>h <C-w>h
-	map <Esc>k <C-w>k
-	map <Esc>j <C-w>j
+	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
+    nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
+	nnoremap <silent> <Esc>k :call Focus('up'   , 'k')<CR>
+	nnoremap <silent> <Esc>j :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc>L :winc L<CR> 
+	nnoremap <silent> <Esc>H :winc H<CR>
+	nnoremap <silent> <Esc>K :winc K<CR>
+	nnoremap <silent> <Esc>J :winc J<CR>
+	nnoremap <silent> <C-l> :10winc <<CR>
+	nnoremap <silent> <C-h> :10winc +<CR>
+	nnoremap <silent> <C-k> :10winc ><CR>
+	nnoremap <silent> <C-j> :10winc -<CR>
 endif
 
 

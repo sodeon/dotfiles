@@ -12,7 +12,7 @@
 font pango:Ubuntu 0
 # font pango:System San Francisco Display 9
 
-set $bg-color            #333333
+set $bg-color            #444444
 # set $bg-color            #444855
 # set $bg-color            #2f343f
 set $inactive-bg-color   #000000
@@ -150,18 +150,6 @@ set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
 #     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
 bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
 
-# Quick launch (Mark for legacy as this feature is rarely used)
-# bindsym $mod+o mode " Quick Launch "
-# mode " Quick Launch " {
-#     bindsym c exec google-chrome                      ; mode "default"
-#     bindsym f exec firefox                            ; mode "default"
-#     bindsym r exec $term -e ranger ~                  ; mode "default"
-#     bindsym m exec $term -e cmus                      ; mode "default"
-#     bindsym n exec nautilus                           ; mode "default"
-
-# 	bindsym Escape mode "default"
-# }
-
 
 #--------------------------------------------------------------------------------
 # Window management
@@ -179,18 +167,18 @@ bindsym $mod+l fullscreen disable, exec autohotkey mod+l
 # Move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
 set_from_resource $floatingDeltaY i3wm.floating.deltaY 64px
-bindsym $mod+Shift+h    move left  $floatingDeltaX
-bindsym $mod+Shift+j    move down  $floatingDeltaY
-bindsym $mod+Shift+k    move up    $floatingDeltaY
-bindsym $mod+Shift+l    move right $floatingDeltaX
+bindsym $mod+Shift+h exec --no-startup-id autohotkey mod+Shift+h $floatingDeltaX
+bindsym $mod+Shift+j exec --no-startup-id autohotkey mod+Shift+j $floatingDeltaY
+bindsym $mod+Shift+k exec --no-startup-id autohotkey mod+Shift+k $floatingDeltaY
+bindsym $mod+Shift+l exec --no-startup-id autohotkey mod+Shift+l $floatingDeltaX
 
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
 set_from_resource $resizeY i3wm.resizeY 10px or 7ppt
-bindsym $mod+Mod3+h resize shrink width  $resizeX
-bindsym $mod+Mod3+k resize grow   height $resizeY
-bindsym $mod+Mod3+j resize shrink height $resizeY
-bindsym $mod+Mod3+l resize grow   width  $resizeX
+bindsym $mod+control+h exec --no-startup-id autohotkey mod+control+h shrink width  $resizeX
+bindsym $mod+control+k exec --no-startup-id autohotkey mod+control+k grow   height $resizeY
+bindsym $mod+control+j exec --no-startup-id autohotkey mod+control+j shrink height $resizeY
+bindsym $mod+control+l exec --no-startup-id autohotkey mod+control+l grow   width  $resizeX
 
 # Make window a horizontal split container
 bindsym $mod+s split v
@@ -225,6 +213,35 @@ bindsym $mod+c focus child
 
 # TODO: mark/unmark window
 
+# Alternate mode for window management (e.g. to jump out of vim/tmux integration)
+# NOTE: gap adjustment is also here
+bindsym $mod+o mode " Window Management "
+mode " Window Management " {
+    bindsym $mod+h fullscreen disable, focus left
+    bindsym $mod+j fullscreen disable, focus down
+    bindsym $mod+k fullscreen disable, focus up
+    bindsym $mod+l fullscreen disable, focus right
+
+	bindsym $mod+Shift+h move left  $floatingDeltaX
+	bindsym $mod+Shift+j move down  $floatingDeltaY
+	bindsym $mod+Shift+k move up    $floatingDeltaY
+	bindsym $mod+Shift+l move right $floatingDeltaX
+
+	bindsym $mod+control+h resize shrink width  $resizeX
+	bindsym $mod+control+k resize grow   height $resizeY
+	bindsym $mod+control+j resize shrink height $resizeY
+	bindsym $mod+control+l resize grow   width  $resizeX
+
+    set_from_resource $hGapStep i3wm.horizontalGapStep 32
+    set_from_resource $vGapStep i3wm.verticalGapStep   32
+    bindsym h gaps horizontal current plus  $hGapStep
+    bindsym l gaps horizontal current minus $hGapStep
+    bindsym j gaps vertical   current plus  $vGapStep
+    bindsym k gaps vertical   current minus $vGapStep
+
+	bindsym $mod+o mode "default"
+	bindsym Escape mode "default"
+}
 
 #--------------------------------------------------------------------------------
 # Workspace management
@@ -232,7 +249,7 @@ bindsym $mod+c focus child
 set $ws1  "1: Web"
 set $ws2  "2: Term"
 set $ws3  "3: Code"
-set $ws4  "4"
+set $ws4  "4: Temp"
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
@@ -345,7 +362,6 @@ set_from_resource $ws7HGap  i3wm.ws7.horizontalGap  0
 set_from_resource $ws8HGap  i3wm.ws8.horizontalGap  0
 set_from_resource $ws9HGap  i3wm.ws9.horizontalGap  0
 set_from_resource $ws10HGap i3wm.ws10.horizontalGap 0
-set_from_resource $hGapStep i3wm.horizontalGapStep  32
 
 set_from_resource $ws1VGap  i3wm.ws1.verticalGap  0
 set_from_resource $ws2VGap  i3wm.ws2.verticalGap  0
@@ -357,7 +373,6 @@ set_from_resource $ws7VGap  i3wm.ws7.verticalGap  0
 set_from_resource $ws8VGap  i3wm.ws8.verticalGap  0
 set_from_resource $ws9VGap  i3wm.ws9.verticalGap  0
 set_from_resource $ws10VGap i3wm.ws10.verticalGap 0
-set_from_resource $vGapStep i3wm.verticalGapStep  32
 
 workspace $ws1  gaps horizontal $ws1HGap
 workspace $ws2  gaps horizontal $ws2HGap
@@ -384,10 +399,6 @@ workspace $ws10 gaps vertical $ws10VGap
 # resolution
 set_from_resource $toggleHGap i3wm.toggleHGap 0
 bindsym $mod+r gaps horizontal current toggle $toggleHGap
-bindsym $mod+Mod3+Control+h gaps horizontal current plus  $hGapStep
-bindsym $mod+Mod3+Control+l gaps horizontal current minus $hGapStep
-bindsym $mod+Mod3+Control+j gaps vertical   current plus  $vGapStep
-bindsym $mod+Mod3+Control+k gaps vertical   current minus $vGapStep
 
 
 #--------------------------------------------------------------------------------
