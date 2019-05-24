@@ -172,21 +172,22 @@ pip install git+git://github.com/thann/play-with-mpv --user
 
 
 #------------------------------------------------------------------------------
+# Remove Ubuntu installed software
+#------------------------------------------------------------------------------
+# Ubuntu data collection service
+apt-force purge ubuntu-report popularity-contest
+
+# Ubuntu auto-update (this service only works in gnome desktop environment)
+apt-force purge unattended-upgrades
+
+
+#------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
-# restore dot files
-chmod +x ./restore.sh && ./restore.sh
-
-# git
-git config --global credential.helper 'cache --timeout=86400'
-git config --global diff.tool vimdiff
-
-# Disable Ubuntu error report
-sudo systemctl disable apport
-sudo systemctl disable whoopsie
-
-# remove ubuntu data collection service
-apt-force purge ubuntu-report popularity-contest
+# Disable error reporting
+sudo systemctl mask apport # Program crash report
+sudo systemctl mask whoopsie # Ubuntu error reporting
+sudo systemctl mask kerneloops # Kernel debug message reporting
 
 # Disable password request after resuming from lock screen
 gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
@@ -212,14 +213,18 @@ cd-before-temp
 xdg-mime default ranger.desktop inode/directory
 
 # Enable command line LCD panel backlight control
-whoami | sudo xargs usermod -a -G video
-whoami | sudo xargs usermod -a -G i2c
-
-# TODO: Hardware settings example
-mkdir -p ~/.config/hardware
+sudo usermod -a -G video $USER
+sudo usermod -a -G i2c $USER
 
 # Enable Wayland fractional scaling on Ubuntu 19.04: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
+
+# git
+git config --global credential.helper 'cache --timeout=86400'
+git config --global diff.tool vimdiff
 
 
 #------------------------------------------------------------------------------

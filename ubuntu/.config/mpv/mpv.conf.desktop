@@ -81,10 +81,11 @@ ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
 ##################
 # audio settings #
 ##################
+ao=alsa
 
 # Specify default audio device. You can list devices with: --audio-device=help
 # The option takes the device string (the stuff between the '...').
-#audio-device=alsa/default
+# audio-device=alsa/default
 
 # Do not filter audio to keep pitch when changing playback speed.
 #audio-pitch-correction=no
