@@ -9,6 +9,7 @@ cp .bashrc.zsh ~/
 cp .bash_aliases ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
+cp .gvimrc ~/
 cp .zshrc ~/
 cp .profile ~/
 cp .xbindkeysrc ~/

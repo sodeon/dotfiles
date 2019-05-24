@@ -118,11 +118,11 @@ resizeWindow() {
             srcKey=h
 			;;
 		right)
-			navKey=.
+			navKey=g
             srcKey=l
 			;;
 		up)
-			navKey=,
+			navKey=e
             srcKey=k
 			;;
 		down)

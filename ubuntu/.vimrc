@@ -325,9 +325,9 @@ if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
     nnoremap <silent> <Esc>Y <C-w>H
 	nnoremap <silent> <Esc>I <C-w>K
 	nnoremap <silent> <Esc>U <C-w>J
-	nnoremap <silent> <Esc><C-.> :10winc ><CR>
+	nnoremap <silent> <Esc><C-g> :10winc ><CR>
 	nnoremap <silent> <Esc><C-n> :10winc <<CR>
-	nnoremap <silent> <Esc><C-,> :10winc +<CR>
+	nnoremap <silent> <Esc><C-e> :10winc +<CR>
 	nnoremap <silent> <Esc><C-m> :10winc -<CR>
 elseif has('gui_running')
 	nnoremap <silent> <M-l> :call Focus('right', 'l')<CR>
@@ -338,10 +338,10 @@ elseif has('gui_running')
 	nnoremap <silent> <M-H> :winc H<CR>
 	nnoremap <silent> <M-K> :winc K<CR>
 	nnoremap <silent> <M-J> :winc J<CR>
-	nnoremap <silent> <C-l> :10winc <<CR>
-	nnoremap <silent> <C-h> :10winc +<CR>
-	nnoremap <silent> <C-k> :10winc ><CR>
-	nnoremap <silent> <C-j> :10winc -<CR>
+	nnoremap <silent> <C-M-l> :10winc ><CR>
+	nnoremap <silent> <C-M-h> :10winc <<CR>
+	nnoremap <silent> <C-M-k> :10winc +<CR>
+	nnoremap <silent> <C-M-j> :10winc -<CR>
 else
 	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
     nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
@@ -351,9 +351,9 @@ else
 	nnoremap <silent> <Esc>H :winc H<CR>
 	nnoremap <silent> <Esc>K :winc K<CR>
 	nnoremap <silent> <Esc>J :winc J<CR>
-	nnoremap <silent> <C-l> :10winc <<CR>
-	nnoremap <silent> <C-h> :10winc +<CR>
-	nnoremap <silent> <C-k> :10winc ><CR>
+	nnoremap <silent> <C-l> :10winc ><CR>
+	nnoremap <silent> <C-h> :10winc <<CR>
+	nnoremap <silent> <C-k> :10winc +<CR>
 	nnoremap <silent> <C-j> :10winc -<CR>
 endif
 
