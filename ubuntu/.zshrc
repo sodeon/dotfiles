@@ -71,12 +71,10 @@ plugins=(
   # NOTE: When adding new helper, remember to re-run $compinit and check ~/.zcompdump to see if the changes applied
   sudo
   docker
-  #git
   #pip
   #supervisor
 
   # utilities
-  # calc
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -99,10 +97,6 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
-
-# colored cat (replace colorize plugin)
-# alias ccat='/bin/cat'
-# alias cat='pygmentize -g'
 
 alias j='jump'
 

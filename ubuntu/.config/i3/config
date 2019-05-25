@@ -215,8 +215,8 @@ bindsym $mod+c focus child
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
 # NOTE: gap adjustment is also here
-bindsym $mod+o mode " Window Management "
-mode " Window Management " {
+bindsym $mod+o mode " Organize Windows "
+mode " Organize Windows " {
     bindsym $mod+h fullscreen disable, focus left
     bindsym $mod+j fullscreen disable, focus down
     bindsym $mod+k fullscreen disable, focus up

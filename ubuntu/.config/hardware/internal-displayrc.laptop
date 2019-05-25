@@ -10,5 +10,5 @@ scale="1x1"
 # Brightness/color temperature control
 is_reading_mode=true
 brightness_step=5
-reading_brightness=10
+reading_brightness=15
 video_brightness=35
