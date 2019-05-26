@@ -6,33 +6,6 @@ set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
 
 set shell=bash
-set diffexpr=MyDiff()
-function! MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  " Andy fix
-  let cmd = "diff"
-  " End of Andy fix
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
 
 
 "-----------------------------------------------------------------------------
@@ -156,6 +129,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab
+set expandtab
 set autoindent " Always set autoindenting on
 au FileType text setlocal textwidth=500 " Override vimrc_example.vim
 
@@ -361,9 +335,8 @@ endif
 "-----------------------------------------------------------------------------
 " Workarounds
 "-----------------------------------------------------------------------------
+" NOTE: VIM in terminal cannot distinguish text from paste or keyboard input. Thus, when pasting, "set paste" then "set nopaste" after pasting.
 " Do not add indentation when pasting from outside (for some reason, putting this in my config section won't work)
-" Also, "set paste" will verride expandtab to noexpandtab
-set paste
-set expandtab
+" Also, "set paste" will verride expandtab to noexpandtab, autoindent to noautoindent
 
 " If a VIM function that does not work in VSCode, then this function is probably not worth it

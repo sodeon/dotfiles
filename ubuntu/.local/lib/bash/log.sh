@@ -9,29 +9,7 @@
 #    log, log_warning, log_success, log_error
 #    log_captains (if having figlet)
 #    # log_speak    (if having say, only on Mac)
-#
-#    Variables: SCRIPT_NAME, SCRIPT_BASE_DIR
-#
 #--------------------------------------------------------------------------------------------------
-
-
-set -e  # Fail on first error
-
-# Useful global variables that users may wish to reference
-SCRIPT_ARGS="$@"
-SCRIPT_NAME="$0"
-SCRIPT_NAME="${SCRIPT_NAME#\./}"
-SCRIPT_NAME="${SCRIPT_NAME##/*/}"
-SCRIPT_BASE_DIR="$(cd "$( dirname "$0")" && pwd )"
-
-# This should probably be the right way - didn't have time to experiment though
-# declare -r INTERACTIVE_MODE="$([ tty --silent ] && echo on || echo off)"
-# Modified by Andy (Force enabling color, default script only enables color on Mac)
-# Before
-# declare -r INTERACTIVE_MODE=$([ "$(uname)" == "Darwin" ] && echo "on" || echo "off")
-# After
-INTERACTIVE_MODE=on
-# End of Andy
 
 #--------------------------------------------------------------------------------------------------
 # Begin Help Section
@@ -50,23 +28,12 @@ usage() {
 
 #--------------------------------------------------------------------------------------------------
 # Begin Logging Section
-if [[ "${INTERACTIVE_MODE}" == "off" ]]
-then
-    # Then we don't care about log colors
-    declare -r LOG_DEFAULT_COLOR=""
-    declare -r LOG_ERROR_COLOR=""
-    declare -r LOG_INFO_COLOR=""
-    declare -r LOG_SUCCESS_COLOR=""
-    declare -r LOG_WARN_COLOR=""
-    declare -r LOG_DEBUG_COLOR=""
-else
-    declare -r LOG_DEFAULT_COLOR="\033[0m"
-    declare -r LOG_ERROR_COLOR="\033[1;31m"
-    declare -r LOG_INFO_COLOR="\033[1m"
-    declare -r LOG_SUCCESS_COLOR="\033[1;32m"
-    declare -r LOG_WARN_COLOR="\033[1;33m"
-    declare -r LOG_DEBUG_COLOR="\033[1;34m"
-fi
+declare -r LOG_DEFAULT_COLOR="\033[0m"
+declare -r LOG_ERROR_COLOR="\033[1;31m"
+declare -r LOG_INFO_COLOR="\033[1m"
+declare -r LOG_SUCCESS_COLOR="\033[1;32m"
+declare -r LOG_WARN_COLOR="\033[1;33m"
+declare -r LOG_DEBUG_COLOR="\033[1;34m"
 
 # This function scrubs the output of any control characters used in colorized output
 # It's designed to be piped through with text that needs scrubbing.  The scrubbed

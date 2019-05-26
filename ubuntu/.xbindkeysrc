@@ -11,11 +11,11 @@
 # Mod4: Windows
 #---------------------------------------------------------------------------------------------------
 # Mouse button remap
-"xdotool key ctrl+Prior"
+"xdotool key ctrl+Prior" # prev tab
 b:6
-"xdotool key ctrl+Next"
+"xdotool key ctrl+Next" # next tab
 b:7
-"autohotkey b:8"
+"autohotkey closeTabOrWindow"
 b:8
 "xdotool key alt+Left" # back
 b:9

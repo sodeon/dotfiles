@@ -83,7 +83,7 @@ floating_modifier $mod
 # mod3+j: move back    a character
 # mod3+k: move forward a character
 # mod3+i: move to the end of the first word in line (mostly)
-bindsym Mod3+p exec --no-startup-id autohotkey Mod3+p
+bindsym Mod3+p exec --no-startup-id autohotkey deleteWord
 bindsym Mod3+u exec --no-startup-id xdotool keyup u key ctrl+u
 bindsym Mod3+o exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+i exec --no-startup-id xdotool keyup i key ctrl+a key ctrl+Right # let you easily edit command line's command
@@ -93,8 +93,8 @@ bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
 bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
 
 # Terminal pageup/pagedown
-# bindsym control+b exec --no-startup-id autohotkey ctrl+b
-# bindsym control+f exec --no-startup-id autohotkey ctrl+f
+# bindsym control+b exec --no-startup-id autohotkey pageup
+# bindsym control+f exec --no-startup-id autohotkey pagedown
 
 # Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
@@ -108,13 +108,13 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+Shift+k   exec --no-startup-id autohotkey Mod3+Shift+k  
-bindsym Mod3+Shift+l   exec --no-startup-id autohotkey Mod3+Shift+l  
-bindsym Mod3+Shift+j   exec --no-startup-id autohotkey Mod3+Shift+j  
-bindsym XF86AudioPlay  exec --no-startup-id autohotkey Mod3+Shift+k
-bindsym XF86AudioPause exec --no-startup-id autohotkey Mod3+Shift+k
-bindsym XF86AudioNext  exec --no-startup-id autohotkey Mod3+Shift+l
-bindsym XF86AudioPrev  exec --no-startup-id autohotkey Mod3+Shift+j
+bindsym Mod3+Shift+k   exec --no-startup-id autohotkey pause 
+bindsym Mod3+Shift+l   exec --no-startup-id autohotkey prevTrack
+bindsym Mod3+Shift+j   exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
+bindsym XF86AudioPause exec --no-startup-id autohotkey pause
+bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
 bindsym Mod3+s         exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
 # Laptop function keys
@@ -159,26 +159,26 @@ bindsym $mod+grave kill
 
 # Change focus (with vim integration)
 #    Leave fullscreen to allow focus change without leaving fullscreen first
-bindsym $mod+h fullscreen disable, exec autohotkey mod+h
-bindsym $mod+j fullscreen disable, exec autohotkey mod+j
-bindsym $mod+k fullscreen disable, exec autohotkey mod+k
-bindsym $mod+l fullscreen disable, exec autohotkey mod+l
+bindsym $mod+h fullscreen disable, exec autohotkey focusWindow left
+bindsym $mod+j fullscreen disable, exec autohotkey focusWindow down
+bindsym $mod+k fullscreen disable, exec autohotkey focusWindow up
+bindsym $mod+l fullscreen disable, exec autohotkey focusWindow right
 
 # Move focused window
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
 set_from_resource $floatingDeltaY i3wm.floating.deltaY 64px
-bindsym $mod+Shift+h exec --no-startup-id autohotkey mod+Shift+h $floatingDeltaX
-bindsym $mod+Shift+j exec --no-startup-id autohotkey mod+Shift+j $floatingDeltaY
-bindsym $mod+Shift+k exec --no-startup-id autohotkey mod+Shift+k $floatingDeltaY
-bindsym $mod+Shift+l exec --no-startup-id autohotkey mod+Shift+l $floatingDeltaX
+bindsym $mod+Shift+h exec --no-startup-id autohotkey moveWindow left  $floatingDeltaX
+bindsym $mod+Shift+j exec --no-startup-id autohotkey moveWindow down  $floatingDeltaY
+bindsym $mod+Shift+k exec --no-startup-id autohotkey moveWindow up    $floatingDeltaY
+bindsym $mod+Shift+l exec --no-startup-id autohotkey moveWindow right $floatingDeltaX
 
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
 set_from_resource $resizeY i3wm.resizeY 10px or 7ppt
-bindsym $mod+control+h exec --no-startup-id autohotkey mod+control+h shrink width  $resizeX
-bindsym $mod+control+k exec --no-startup-id autohotkey mod+control+k grow   height $resizeY
-bindsym $mod+control+j exec --no-startup-id autohotkey mod+control+j shrink height $resizeY
-bindsym $mod+control+l exec --no-startup-id autohotkey mod+control+l grow   width  $resizeX
+bindsym $mod+control+h exec --no-startup-id autohotkey resizeWindow shrink width  $resizeX
+bindsym $mod+control+k exec --no-startup-id autohotkey resizeWindow grow   height $resizeY
+bindsym $mod+control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+bindsym $mod+control+l exec --no-startup-id autohotkey resizeWindow grow   width  $resizeX
 
 # Make window a horizontal split container
 bindsym $mod+s split v
@@ -202,7 +202,7 @@ bindsym Shift+F11 focus parent; fullscreen toggle; focus child
 
 # Floating
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey mod+space
+bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey toggleFloating
 
 # Toggle floating window between bottom left and right
 bindsym $mod+Shift+slash exec --no-startup-id "toggle-window-bottom-position; i3-msg 'focus mode_toggle'; toggle-window-bottom-position; i3-msg 'focus mode_toggle'"
@@ -217,15 +217,15 @@ bindsym $mod+c focus child
 # NOTE: gap adjustment is also here
 bindsym $mod+o mode " Organize Windows "
 mode " Organize Windows " {
-    bindsym $mod+h fullscreen disable, focus left
-    bindsym $mod+j fullscreen disable, focus down
-    bindsym $mod+k fullscreen disable, focus up
-    bindsym $mod+l fullscreen disable, focus right
+    bindsym $mod+h fullscreen disable, focus left , mode "default"
+    bindsym $mod+j fullscreen disable, focus down , mode "default"
+    bindsym $mod+k fullscreen disable, focus up   , mode "default"
+    bindsym $mod+l fullscreen disable, focus right, mode "default"
 
-	bindsym $mod+Shift+h move left  $floatingDeltaX
-	bindsym $mod+Shift+j move down  $floatingDeltaY
-	bindsym $mod+Shift+k move up    $floatingDeltaY
-	bindsym $mod+Shift+l move right $floatingDeltaX
+	bindsym $mod+Shift+h move left  $floatingDeltaX, mode "default"
+	bindsym $mod+Shift+j move down  $floatingDeltaY, mode "default"
+	bindsym $mod+Shift+k move up    $floatingDeltaY, mode "default"
+	bindsym $mod+Shift+l move right $floatingDeltaX, mode "default"
 
 	bindsym $mod+control+h resize shrink width  $resizeX
 	bindsym $mod+control+k resize grow   height $resizeY

@@ -1,0 +1,214 @@
+#!/bin/bash
+
+pid=
+windowId=
+
+
+#-----------------------------------------------------------------------------------------------
+# Support library
+#-----------------------------------------------------------------------------------------------
+activeWinId() {
+    # cache active window id result
+    if [ -z $windowId ]; then
+        windowId=`xdotool getwindowfocus`
+    fi
+    result=$?
+    echo $windowId
+    return $result
+}
+
+activeWinPid() {
+    # cache active window pid result
+    if [ -z $pid ]; then
+        pid=`xdotool getwindowfocus getwindowpid`
+    fi
+    result=$?
+    echo $pid
+    return $result
+}
+
+# @param class name
+isWinActive() {
+    activeWinPid | xargs -i xdotool search --all --pid {} --class $1
+    return $?
+}
+
+isActiveWinTitle() {
+    title=`xdotool getactivewindow getwindowname`
+    if echo $title | grep -E $1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# @param class name
+isWinExists() {
+    xdotool search --class $1
+    return $?
+}
+
+
+#-----------------------------------------------------------------------------------------------
+# Shortcut implementation
+#-----------------------------------------------------------------------------------------------
+deleteWord() {
+	if isWinActive URxvt; then
+		xdotool keyup p keyup control key ctrl+w
+	else
+		xdotool keyup p key ctrl+BackSpace
+	fi
+}
+
+closeTabOrWindow() {
+    if isWinActive Google-chrome || isWinActive Firefox; then
+        xdotool key ctrl+w
+    else
+        xdotool key alt+grave
+    fi
+}
+
+toggleFloating() {
+    # When mpv got focused (mpv always floating), go to full screen
+    if isWinActive mpv; then
+        i3-msg fullscreen
+    fi
+}
+
+pageup() {
+    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+		xdotool keyup b key --clearmodifiers shift+Prior
+    else
+        xdotool keyup b key --clearmodifiers Prior
+    fi
+}
+
+pagedown() {
+    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+		xdotool keyup f key --clearmodifiers shift+Next
+    else
+        xdotool keyup f key --clearmodifiers Next
+    fi
+}
+
+pause() {
+    if isWinExists mpv; then
+		echo cycle pause | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -u && pkill -RTMIN+12 i3blocks
+    fi
+}
+
+nextTrack() {
+    if isWinExists mpv; then
+		echo playlist-next | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -n && pkill -RTMIN+12 i3blocks
+    fi
+}
+
+prevTrack() {
+    if isWinExists mpv; then
+		echo playlist-prev | socat - ~/.config/mpv/socket
+    else
+		cmus-remote -r && pkill -RTMIN+12 i3blocks
+    fi
+}
+
+#
+# i3 and VIM navigation integration (navigation/movement/resizing)
+#
+focusWindow() {
+    direction=$1
+	case $direction in
+		left)
+			navKey=y
+            srcKey=h
+			;;
+		right)
+			navKey=o
+            srcKey=l
+			;;
+		up)
+			navKey=i
+            srcKey=k
+			;;
+		down)
+			navKey=u
+            srcKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$; then
+        xdotool keyup $srcKey key ctrl+$navKey
+    elif isWinActive Code; then
+        xdotool keyup $srcKey key ctrl+$navKey
+    else
+		i3-msg "focus $direction"
+    fi
+}
+
+moveWindow() {
+    direction=$1
+	case $direction in
+		left)
+			navKey=Y
+            srcKey=h
+			;;
+		right)
+			navKey=O
+            srcKey=l
+			;;
+		up)
+			navKey=I
+            srcKey=k
+			;;
+		down)
+			navKey=U
+            srcKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$; then
+        xdotool keyup $srcKey key $navKey
+    elif isWinActive Code; then
+        xdotool keyup $srcKey key $navKey
+    else
+		i3-msg "move $@"
+    fi
+}
+
+resizeWindow() {
+    direction="$1 $2"
+	case $direction in
+		"shrink width")
+			navKey=n
+            srcKey=h
+			;;
+		"grow width")
+			navKey=g
+            srcKey=l
+			;;
+		"grow height")
+			navKey=e
+            srcKey=k
+			;;
+		"shrink height")
+			navKey=m
+            srcKey=j
+			;;
+	esac
+    if isActiveWinTitle VIM$; then
+        xdotool keyup $srcKey type $navKey
+    elif isWinActive Code; then
+        xdotool keyup $srcKey type $navKey
+    else
+		i3-msg "resize $@"
+		# i3-msg "resize ${@:2}"
+    fi
+}
+
+
+#-----------------------------------------------------------------------------------------------
+# Execute
+# TODO: Input validation
+#-----------------------------------------------------------------------------------------------
+[[ $# == 0 ]] || $@
