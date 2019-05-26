@@ -71,10 +71,10 @@ separator_block_width=40
 
 # Memory usage
 #
-[memory]
-interval=5
-separator=false
-separator_block_width=40
+# [memory]
+# interval=5
+# separator=false
+# separator_block_width=40
 
 
 # Network

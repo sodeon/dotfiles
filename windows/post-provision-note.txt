@@ -6,17 +6,27 @@ Tmux:
     tmux uses zsh as default may need to reboot in order to take effect
     (ctrl+e I) to download and install plugins
 
-ssh:
-    ssh-keygen
-    ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
-
-git:
+Github:
     ignore linux execution bit: $git config core.filemode false
                                 $git config --global core.filemode false
+    Cache git credential: $git config --global credential.helper wincred
+    ssh login:
+        # Add ssh key
+        ssh-keygen -t rsa -b 4096 -C "sodeon@gmail.com"
+        # Start ssh agent
+        ssh-agent -s
+        # Add ssh key to ssh agent
+        ssh-add ~/.ssh/id_rsa
+        # Copy generated public key to clipboard
+        sudo apt install xclip
+        xclip -sel clip < ~/.ssh/id_rsa.pub
+        # Go to github->settings->"SSH and GPG keys"->"New SSH key"
+        # git repo format: git@github.com:username/reponame.git
 
-Windows:
-    Disable hibernation to free ~6.5GB C:\: $powercfg.exe -h off
-    Cleanup WinSxS folder (which will grow in size gradually): dism.exe /online /Cleanup-Image /StartComponentCleanup
+ssh:
+    Ubuntu already has ssh server and related ssh tools setup
+    Copy ssh key to Andy desktop
+    $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
@@ -25,5 +35,7 @@ Programs:
 	Install Windows git, SourceTree
 
 Config Windows:
-    Cache git credential: $git config --global credential.helper wincred
     Config .autohotkeyrc (/d/Work/Programs/)
+
+System:
+    Disable hibernation to free ~6.5GB C:\: $powercfg.exe -h off

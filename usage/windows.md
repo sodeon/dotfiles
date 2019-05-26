@@ -7,3 +7,6 @@
         Administrative Tools and open Services. Locate OpenSSH SSH Server service.
         In the Properties dialog, Right click -> Properties -> (Manual->Automatic)
         Right click -> Start
+
+## Free Disk Space
+    Cleanup WinSxS folder (which will grow in size gradually): dism.exe /online /Cleanup-Image /StartComponentCleanup

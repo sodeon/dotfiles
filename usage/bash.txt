@@ -36,6 +36,8 @@ if (( 3 + 2 >= 5 - 1 )); then; else; fi
 case "$1" in
     laptop)
         ;;
+    *) # default
+        ;;
 esac
 
 # Array

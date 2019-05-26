@@ -24,7 +24,7 @@ apt-force() {
 }
 
 cd-temp() {
-	pushd ~/.provision-temp
+	pushd /tmp/provision
 }
 
 cd-before-temp() {
@@ -50,7 +50,7 @@ apt list --upgradable
 apt-force upgrade
 
 # From Ubuntu apt
-apt-force install git gitk # gitk: lightweight git tree visualization tool
+apt-force install git
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
@@ -82,7 +82,6 @@ apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 apt-force install zathura # pdf reader
 apt-force install libreoffice
-# apt-force install libsixel-bin # terminal image/video viewing
 # apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
@@ -159,7 +158,7 @@ cd apps/sxiv
 sudo make install
 cd -
 
-# light: built-in LCD blacklight control
+# light: LCD blacklight control for laptop panel. For external monitor, use ddccontrol.
 cd-temp
 wget https://github.com/haikarainen/light/releases/download/v1.2/light_1.2_amd64.deb
 sudo dpkg -i light_1.2_amd64.deb
@@ -177,13 +176,20 @@ pip install git+git://github.com/thann/play-with-mpv --user
 # Ubuntu data collection service
 apt-force purge ubuntu-report popularity-contest
 
-# Ubuntu auto-update (this service only works in gnome desktop environment)
+# Ubuntu auto-update (this service does not work in i3)
 apt-force purge unattended-upgrades
 
 
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
+# restore dot files
+chmod +x ./restore.sh && ./restore.sh
+
+# git
+git config --global credential.helper 'cache --timeout=7200'
+git config --global diff.tool vimdiff
+
 # Disable error reporting
 sudo systemctl mask apport # Program crash report
 sudo systemctl mask whoopsie # Ubuntu error reporting
@@ -219,25 +225,18 @@ sudo usermod -a -G i2c $USER
 # Enable Wayland fractional scaling on Ubuntu 19.04: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
-# restore dot files
-chmod +x ./restore.sh && ./restore.sh
-
-# git
-git config --global credential.helper 'cache --timeout=86400'
-git config --global diff.tool vimdiff
-
 
 #------------------------------------------------------------------------------
 # Clean up
 #------------------------------------------------------------------------------
 # remove provision temp folder
-rm -rf ~/.provision-temp
+rm -rf /tmp/provision
 
 
 #------------------------------------------------------------------------------
 # What to do next messages
 #------------------------------------------------------------------------------
 echo << EOM
-Read ./post-provision-note.txt for further information
-Some usages can be found in ../usage/
+Read `pwd`/post-provision-note.txt for further information
+Some usages can be found in `pwd`../usage/
 EOM

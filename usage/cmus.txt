@@ -1,5 +1,6 @@
 1: file browser mode
 2: playlist mode
+7: settings
 
 hjkl: browsing navigation
 y: add to playlist (yank)

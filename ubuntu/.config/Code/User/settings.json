@@ -21,7 +21,7 @@
     "editor.glyphMargin": false,
     "editor.folding": false,
     // End of reduce line nubmer width
-    "editor.cursorBlinking": "smooth",
+    "editor.cursorBlinking": "blink",
     // Disable light theme (Winter is coming light) italic font face
     "editor.tokenColorCustomizations": {},
 

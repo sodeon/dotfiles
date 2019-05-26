@@ -74,10 +74,6 @@
 
     // UI elements, toggle
     {
-        "key": "ctrl+shift+s",
-        "command": "workbench.action.openGlobalSettings"
-    },
-    {
         "key": "ctrl+,",
         "command": "-workbench.action.openGlobalSettings"
     },
@@ -806,4 +802,8 @@
         "key": "alt+shift+o",
         "command": "workbench.action.moveEditorToRightGroup",
     },
+    {
+        "key": "ctrl+shift+s",
+        "command": "workbench.action.openSettingsJson"
+    }
 ]

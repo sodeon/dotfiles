@@ -6,33 +6,6 @@ set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
 
 set shell=bash
-set diffexpr=MyDiff()
-function! MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  " Andy fix
-  let cmd = "diff"
-  " End of Andy fix
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
 
 
 "-----------------------------------------------------------------------------
@@ -101,7 +74,7 @@ set wildignorecase " Ignore case in path completion
 set ruler
 set autoread
 
-" Disable mouse for adjusting pane size
+" Enable mouse for adjusting pane size
 set ttymouse=xterm2
 set mouse=a
 
@@ -156,8 +129,10 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab
+set expandtab
 set autoindent " Always set autoindenting on
-au FileType text setlocal textwidth=500 " Override vimrc_example.vim
+autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
+set smartindent
 
 " Disable newline insertion
 set textwidth=500 wrapmargin=0
@@ -317,10 +292,10 @@ au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Window navigation/resizing/movement
 if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
-	nnoremap <silent> <Esc><C-o> :call Focus('right', 'l')<CR>
-    nnoremap <silent> <Esc><C-y> :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <Esc><C-i> :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <Esc><C-u> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc><C-o> :call Focus('right')<CR>
+    nnoremap <silent> <Esc><C-y> :call Focus('left' )<CR>
+	nnoremap <silent> <Esc><C-i> :call Focus('up'   )<CR>
+	nnoremap <silent> <Esc><C-u> :call Focus('down' )<CR>
 	nnoremap <silent> <Esc>O <C-w>L
     nnoremap <silent> <Esc>Y <C-w>H
 	nnoremap <silent> <Esc>I <C-w>K
@@ -330,10 +305,10 @@ if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
 	nnoremap <silent> <Esc><C-e> :10winc +<CR>
 	nnoremap <silent> <Esc><C-m> :10winc -<CR>
 elseif has('gui_running')
-	nnoremap <silent> <M-l> :call Focus('right', 'l')<CR>
-    nnoremap <silent> <M-h> :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <M-k> :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <M-j> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <M-l> :call Focus('right')<CR>
+    nnoremap <silent> <M-h> :call Focus('left' )<CR>
+	nnoremap <silent> <M-k> :call Focus('up'   )<CR>
+	nnoremap <silent> <M-j> :call Focus('down' )<CR>
 	nnoremap <silent> <M-L> :winc L<CR>
 	nnoremap <silent> <M-H> :winc H<CR>
 	nnoremap <silent> <M-K> :winc K<CR>
@@ -343,10 +318,10 @@ elseif has('gui_running')
 	nnoremap <silent> <C-M-k> :10winc +<CR>
 	nnoremap <silent> <C-M-j> :10winc -<CR>
 else
-	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
-    nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <Esc>k :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <Esc>j :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc>l :call Focus('right')<CR>
+    nnoremap <silent> <Esc>h :call Focus('left' )<CR>
+	nnoremap <silent> <Esc>k :call Focus('up'   )<CR>
+	nnoremap <silent> <Esc>j :call Focus('down' )<CR>
 	nnoremap <silent> <Esc>L :winc L<CR> 
 	nnoremap <silent> <Esc>H :winc H<CR>
 	nnoremap <silent> <Esc>K :winc K<CR>
@@ -361,9 +336,8 @@ endif
 "-----------------------------------------------------------------------------
 " Workarounds
 "-----------------------------------------------------------------------------
+" NOTE: VIM in terminal cannot distinguish text from paste or keyboard input. Thus, when pasting, "set paste" then "set nopaste" after pasting.
 " Do not add indentation when pasting from outside (for some reason, putting this in my config section won't work)
-" Also, "set paste" will verride expandtab to noexpandtab
-set paste
-set expandtab
+" Also, "set paste" will verride expandtab to noexpandtab, autoindent to noautoindent
 
 " If a VIM function that does not work in VSCode, then this function is probably not worth it
