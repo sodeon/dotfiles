@@ -292,10 +292,10 @@ au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Window navigation/resizing/movement
 if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
-	nnoremap <silent> <Esc><C-o> :call Focus('right', 'l')<CR>
-    nnoremap <silent> <Esc><C-y> :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <Esc><C-i> :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <Esc><C-u> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc><C-o> :call Focus('right')<CR>
+    nnoremap <silent> <Esc><C-y> :call Focus('left' )<CR>
+	nnoremap <silent> <Esc><C-i> :call Focus('up'   )<CR>
+	nnoremap <silent> <Esc><C-u> :call Focus('down' )<CR>
 	nnoremap <silent> <Esc>O <C-w>L
     nnoremap <silent> <Esc>Y <C-w>H
 	nnoremap <silent> <Esc>I <C-w>K
@@ -305,10 +305,10 @@ if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
 	nnoremap <silent> <Esc><C-e> :10winc +<CR>
 	nnoremap <silent> <Esc><C-m> :10winc -<CR>
 elseif has('gui_running')
-	nnoremap <silent> <M-l> :call Focus('right', 'l')<CR>
-    nnoremap <silent> <M-h> :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <M-k> :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <M-j> :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <M-l> :call Focus('right')<CR>
+    nnoremap <silent> <M-h> :call Focus('left' )<CR>
+	nnoremap <silent> <M-k> :call Focus('up'   )<CR>
+	nnoremap <silent> <M-j> :call Focus('down' )<CR>
 	nnoremap <silent> <M-L> :winc L<CR>
 	nnoremap <silent> <M-H> :winc H<CR>
 	nnoremap <silent> <M-K> :winc K<CR>
@@ -318,10 +318,10 @@ elseif has('gui_running')
 	nnoremap <silent> <C-M-k> :10winc +<CR>
 	nnoremap <silent> <C-M-j> :10winc -<CR>
 else
-	nnoremap <silent> <Esc>l :call Focus('right', 'l')<CR>
-    nnoremap <silent> <Esc>h :call Focus('left' , 'h')<CR>
-	nnoremap <silent> <Esc>k :call Focus('up'   , 'k')<CR>
-	nnoremap <silent> <Esc>j :call Focus('down' , 'j')<CR>
+	nnoremap <silent> <Esc>l :call Focus('right')<CR>
+    nnoremap <silent> <Esc>h :call Focus('left' )<CR>
+	nnoremap <silent> <Esc>k :call Focus('up'   )<CR>
+	nnoremap <silent> <Esc>j :call Focus('down' )<CR>
 	nnoremap <silent> <Esc>L :winc L<CR> 
 	nnoremap <silent> <Esc>H :winc H<CR>
 	nnoremap <silent> <Esc>K :winc K<CR>

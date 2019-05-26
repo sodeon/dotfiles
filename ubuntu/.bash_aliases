@@ -16,6 +16,9 @@ alias code='code --disable-gpu'
 alias ff='fdfind --type f --hidden'
 alias fd='fdfind --type d --hidden'
 
+alias aph='ps v -AH' # aph: all processes in hierarchy format
+alias ap='ps  -aux' # ap: all processes
+
 
 #-----------------------------------------------------
 # Git
@@ -53,8 +56,6 @@ alias gr='git reflog'
 alias suspend='systemctl suspend'
 alias shutdown='shutdown -h now'
 
-alias aph='ps v -AH' # aph: all processes in hierarchy format
-alias ap='ps  -aux' # ap: all processes
 alias memory='free -m' # In megabytes
 
 alias du='ncdu --exclude /mnt' # do not include ntfs partitions
