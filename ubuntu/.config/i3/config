@@ -249,7 +249,7 @@ mode " Window Management " {
 set $ws1  "1: Web"
 set $ws2  "2: Term"
 set $ws3  "3: Code"
-set $ws4  "4: Temp"
+set $ws4  "4"
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
