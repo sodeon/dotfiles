@@ -74,7 +74,7 @@ set wildignorecase " Ignore case in path completion
 set ruler
 set autoread
 
-" Disable mouse for adjusting pane size
+" Enable mouse for adjusting pane size
 set ttymouse=xterm2
 set mouse=a
 
@@ -131,7 +131,8 @@ set shiftwidth=4
 set smarttab
 set expandtab
 set autoindent " Always set autoindenting on
-au FileType text setlocal textwidth=500 " Override vimrc_example.vim
+autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
+set smartindent
 
 " Disable newline insertion
 set textwidth=500 wrapmargin=0

@@ -38,7 +38,7 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p /tmp/provision
+mkdir -p ~/.provision-temp
 
 
 #------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ apt list --upgradable
 apt-force upgrade
 
 # From Ubuntu apt
-apt-force install git gitk # gitk: lightweight git tree visualization tool
+apt-force install git
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
@@ -187,7 +187,7 @@ apt-force purge unattended-upgrades
 chmod +x ./restore.sh && ./restore.sh
 
 # git
-git config --global credential.helper 'cache --timeout=86400'
+git config --global credential.helper 'cache --timeout=7200'
 git config --global diff.tool vimdiff
 
 # Disable error reporting

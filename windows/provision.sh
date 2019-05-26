@@ -26,6 +26,17 @@ apt-force() {
 	sudo apt --assume-yes "$@" 
 }
 
+cd-temp() {
+	pushd /tmp/provision
+}
+
+cd-before-temp() {
+	while popd; do 
+		:
+	done
+}
+
+WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
 #------------------------------------------------------------------------------
 # Pre-software-installation Config
@@ -53,15 +64,18 @@ apt-force upgrade
 # From Ubuntu apt
 apt-force install git
 apt-force install python-pip
+apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix units # cmd utilities and environment
+apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
+apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
-apt-force install ranger exiftool mediainfo # file manager
-apt-force install pydf ncdu tree # disk utilities
+apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
+apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
-apt-force install cmake make build-essential # build tools
+apt-force install cmake make build-essential autotools-dev # build tools
+apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
 apt-force autoremove
@@ -87,12 +101,18 @@ curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_
 sudo dpkg -i ripgrep_11.0.1_amd64.deb
 rm ripgrep_11.0.1_amd64.deb
 
-# vim
+# vim and Windows native gvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-curl -fLo /mnt/c/Users/Andy/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo $WINHOME/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+#
+# Bash library
+#
+# Argument parsing
+sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 
 #------------------------------------------------------------------------------
@@ -114,4 +134,13 @@ git config --global core.eol lf
 # Clean up
 #------------------------------------------------------------------------------
 # remove provision temp folder
-rm -rf ~/.provision-temp
+rm -rf /tmp/provision
+
+
+#------------------------------------------------------------------------------
+# What to do next messages
+#------------------------------------------------------------------------------
+echo << EOM
+Read `pwd`/post-provision-note.txt for further information
+Some usages can be found in `pwd`../usage/
+EOM
