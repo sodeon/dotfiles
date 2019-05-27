@@ -38,7 +38,7 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p ~/.provision-temp
+mkdir -p /tmp/provision-temp
 
 
 #------------------------------------------------------------------------------

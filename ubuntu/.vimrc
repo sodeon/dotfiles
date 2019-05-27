@@ -145,10 +145,10 @@ hi TabLineSel  ctermfg=White    ctermbg=DarkGrey
 "hi Title ctermfg=LightBlue ctermbg=Black
 
 " Set block cursor during insert mode
-" Side effect: terminal cursor also changed after leaving vim
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
 let &t_SI.="\e[6 q"
-let &t_EI.="\e[1 q"
-let &t_ti.="\e[1 q"
+let &t_EI.="\e[2 q"
+let &t_ti.="\e[2 q"
 let &t_te.="\e[6 q"
 " autocmd BufWinLeave * !echo -ne '\e[5 q'
 
@@ -333,10 +333,9 @@ endif
 
 
 "-----------------------------------------------------------------------------
-" Workarounds
+" Gotchas
 "-----------------------------------------------------------------------------
-" NOTE: VIM in terminal cannot distinguish text from paste or keyboard input. Thus, when pasting, "set paste" then "set nopaste" after pasting.
-" Do not add indentation when pasting from outside (for some reason, putting this in my config section won't work)
-" Also, "set paste" will verride expandtab to noexpandtab, autoindent to noautoindent
-
-" If a VIM function that does not work in VSCode, then this function is probably not worth it
+" When pasting block of code from outside apps, execute ":set paste" before paste and ":set nopaste" after paste.
+" Why: VIM in terminal cannot distinguish text from paste or keyboard input.
+"      If not, there will be unwanted white spaces added for each indented line.
+"      ":set paste" will override expandtab to noexpandtab, autoindent to noautoindent. Therefore, we do not add ":set paste" to .vimrc
