@@ -1,5 +1,4 @@
-export PATH=/usr/local/bin:$PATH
-# export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/lib/bash:$PATH
+export PATH=$HOME/bin:$HOME/.local/lib/bash:$PATH
 export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -166,6 +165,23 @@ bindkey '^[[1;5C' emacs-forward-word
     tmux new-window -c "$PWD" 2>/dev/null && exec tmux a
     exec tmux
 }
+
+
+#--------------------------------------------------------------------------------------------------------------
+# TODO: SSH connection setup
+# NOTE: Latest update: set XDG_CURRET_DESKTOP=i3 before executing tmux to workaround. Setting self-defined variable will be thrown away by tmux unless explicitly stating.
+# NOTE: Adding environment variable in ~/.ssh/rc won't work. Putting here will have to ask the same question for every tmux pane opening
+#--------------------------------------------------------------------------------------------------------------
+# [[ ! -z "$SSH_CONNECTION" ]] && {
+#     YELLOW='\033[1;33m'
+#     NC='\033[0m'
+#     echo "${YELLOW}Are you using i3 window manager? This helps set up proper keybindings."
+#     printf "(y/N):${NC} "
+#     read answer
+#     if [[ $answer == y ]] || [[ $answer == Y ]] || [[ $answer == yes ]]; then
+#         export SSH_HOST_DESKTOP=i3
+#     fi
+# }
 
 
 #--------------------------------------------------------------------------------------------------------------
