@@ -72,7 +72,7 @@ apt-force install google-chrome-stable
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
-apt-force install ddccontrol # monitor brightness control
+apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install gdb gcc g++ # build tools
