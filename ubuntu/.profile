@@ -29,8 +29,12 @@ fi
 
 #---------------------------------------------------------------------------------------
 # Andy
-# NOTE: When ssh login, .profile won't be executed. Therefore, doesn't set $PATH here.
 #---------------------------------------------------------------------------------------
+# NOTE: When ssh login, .profile won't be executed. Therefore, doesn't set $PATH here.
+if [ -d "$HOME/.local/lib/bash" ] ; then
+    PATH="$HOME/.local/lib/bash:$PATH"
+fi
+
 # HiDPI settings. Only apply theses settings in i3. Gnome has its own dpi scaling method only partially compatible with this one
 if [[ -f ~/.config/hardware/displayrc && $XDG_CURRENT_DESKTOP == "i3" ]]; then
     source ~/.config/hardware/displayrc
