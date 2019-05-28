@@ -6,6 +6,8 @@ tmp=/tmp/vim-tmux-i3-integration
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
+# NOTE: This implementation is more complex than needed.
+# #{pane_at_top}/#{pane_at_bottom}/#{pane_at_right}/#{pane_at_left} can determine if there ia another pane in the direction.
 exists_another_pane_in_direction() {
     local direction=$1
     local result=1 #false

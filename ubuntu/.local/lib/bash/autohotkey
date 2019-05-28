@@ -173,9 +173,9 @@ moveWindow() {
         xdotool keyup $srcKey key $navKey
     elif isWinActive Code; then
         xdotool keyup $srcKey key $navKey
-    elif isActiveWinTitle ^tmux$; then
-        notify-send "tmux $@"
-        xdotool keyup $srcKey key $navKey
+    # elif isActiveWinTitle ^tmux$; then
+    #     notify-send "tmux $@"
+    #     xdotool keyup $srcKey key $navKey
     else
 		i3-msg "move $@"
     fi
@@ -207,10 +207,10 @@ resizeWindow() {
     elif isWinActive Code; then
         echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
         xdotool keyup $srcKey key $navKey
-    elif isActiveWinTitle ^tmux$; then
-        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
-        notify-send "tmux $@"
-        xdotool keyup $srcKey key $navKey
+    # elif isActiveWinTitle ^tmux$; then
+    #     echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
+    #     notify-send "tmux $@"
+    #     xdotool keyup $srcKey key $navKey
     else
 		i3-msg "resize $@"
     fi

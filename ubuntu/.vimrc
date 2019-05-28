@@ -236,7 +236,7 @@ Plug 'tpope/vim-surround' " Change surround characters (
                           "     type ysiw" to add double quote
                           "     type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
-Plug 'sodeon/vim-tmux-i3-integration'
+Plug 'sodeon/vim-i3-integration'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
 " Plug 'majutsushi/tagbar'
