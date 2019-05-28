@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Let alias still works after sudo
 alias sudo='sudo '
 
