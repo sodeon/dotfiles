@@ -295,40 +295,40 @@ if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
     nnoremap <silent> <Esc><C-y> :call Focus('left' )<CR>
 	nnoremap <silent> <Esc><C-i> :call Focus('up'   )<CR>
 	nnoremap <silent> <Esc><C-u> :call Focus('down' )<CR>
-	nnoremap <silent> <Esc>O <C-w>L
-    nnoremap <silent> <Esc>Y <C-w>H
-	nnoremap <silent> <Esc>I <C-w>K
-	nnoremap <silent> <Esc>U <C-w>J
-	nnoremap <silent> <Esc><C-g> :10winc ><CR>
-	nnoremap <silent> <Esc><C-n> :10winc <<CR>
-	nnoremap <silent> <Esc><C-e> :10winc +<CR>
-	nnoremap <silent> <Esc><C-m> :10winc -<CR>
-elseif has('gui_running')
-	nnoremap <silent> <M-l> :call Focus('right')<CR>
-    nnoremap <silent> <M-h> :call Focus('left' )<CR>
-	nnoremap <silent> <M-k> :call Focus('up'   )<CR>
-	nnoremap <silent> <M-j> :call Focus('down' )<CR>
-	nnoremap <silent> <M-L> :winc L<CR>
-	nnoremap <silent> <M-H> :winc H<CR>
-	nnoremap <silent> <M-K> :winc K<CR>
-	nnoremap <silent> <M-J> :winc J<CR>
-	nnoremap <silent> <C-M-l> :10winc ><CR>
-	nnoremap <silent> <C-M-h> :10winc <<CR>
-	nnoremap <silent> <C-M-k> :10winc +<CR>
-	nnoremap <silent> <C-M-j> :10winc -<CR>
-else
+	nnoremap <silent> <Esc>O     :call Move('right')<CR>
+    nnoremap <silent> <Esc>Y     :call Move('left' )<CR>
+	nnoremap <silent> <Esc>I     :call Move('up'   )<CR>
+	nnoremap <silent> <Esc>U     :call Move('down' )<CR>
+	nnoremap <silent> <Esc><C-g> :call Resize('horizontal',  10)<CR>
+	nnoremap <silent> <Esc><C-n> :call Resize('horizontal', -10)<CR>
+	nnoremap <silent> <Esc><C-e> :call Resize('vertical'  ,  10)<CR>
+	nnoremap <silent> <Esc><C-m> :call Resize('vertical'  , -10)<CR>
+elseif has('gui_running') " gvim can see alt key
+	nnoremap <silent> <M-l>   :call Focus('right')<CR>
+    nnoremap <silent> <M-h>   :call Focus('left' )<CR>
+	nnoremap <silent> <M-k>   :call Focus('up'   )<CR>
+	nnoremap <silent> <M-j>   :call Focus('down' )<CR>
+	nnoremap <silent> <M-L>   :call Move('right')<CR>
+	nnoremap <silent> <M-H>   :call Move('left' )<CR>
+	nnoremap <silent> <M-K>   :call Move('up'   )<CR>
+	nnoremap <silent> <M-J>   :call Move('down' )<CR>
+	nnoremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
+	nnoremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
+	nnoremap <silent> <C-M-k> :call Resize('vertical'  ,  10)<CR>
+	nnoremap <silent> <C-M-j> :call Resize('vertical'  , -10)<CR>
+else " alt key is sent as <Esc>
 	nnoremap <silent> <Esc>l :call Focus('right')<CR>
     nnoremap <silent> <Esc>h :call Focus('left' )<CR>
 	nnoremap <silent> <Esc>k :call Focus('up'   )<CR>
 	nnoremap <silent> <Esc>j :call Focus('down' )<CR>
-	nnoremap <silent> <Esc>L :winc L<CR> 
-	nnoremap <silent> <Esc>H :winc H<CR>
-	nnoremap <silent> <Esc>K :winc K<CR>
-	nnoremap <silent> <Esc>J :winc J<CR>
-	nnoremap <silent> <C-l> :10winc ><CR>
-	nnoremap <silent> <C-h> :10winc <<CR>
-	nnoremap <silent> <C-k> :10winc +<CR>
-	nnoremap <silent> <C-j> :10winc -<CR>
+	nnoremap <silent> <Esc>L :call Move('right')<CR> 
+	nnoremap <silent> <Esc>H :call Move('left' )<CR>
+	nnoremap <silent> <Esc>K :call Move('up'   )<CR>
+	nnoremap <silent> <Esc>J :call Move('down' )<CR>
+	nnoremap <silent> <C-l>  :call Resize('horizontal',  10)<CR>
+	nnoremap <silent> <C-h>  :call Resize('horizontal', -10)<CR>
+	nnoremap <silent> <C-k>  :call Resize('vertical'  ,  10)<CR>
+	nnoremap <silent> <C-j>  :call Resize('vertical'  , -10)<CR>
 endif
 
 

@@ -142,6 +142,8 @@ focusWindow() {
         xdotool keyup $srcKey key ctrl+$navKey
     elif isWinActive Code; then
         xdotool keyup $srcKey key ctrl+$navKey
+    elif isActiveWinTitle ^tmux$; then
+        xdotool keyup $srcKey key ctrl+$navKey
     else
 		i3-msg "focus $direction"
     fi
@@ -171,6 +173,9 @@ moveWindow() {
         xdotool keyup $srcKey key $navKey
     elif isWinActive Code; then
         xdotool keyup $srcKey key $navKey
+    elif isActiveWinTitle ^tmux$; then
+        notify-send "tmux $@"
+        xdotool keyup $srcKey key $navKey
     else
 		i3-msg "move $@"
     fi
@@ -197,12 +202,17 @@ resizeWindow() {
 			;;
 	esac
     if isActiveWinTitle VIM$; then
-        xdotool keyup $srcKey type $navKey
+        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
+        xdotool keyup $srcKey key $navKey
     elif isWinActive Code; then
-        xdotool keyup $srcKey type $navKey
+        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
+        xdotool keyup $srcKey key $navKey
+    elif isActiveWinTitle ^tmux$; then
+        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
+        notify-send "tmux $@"
+        xdotool keyup $srcKey key $navKey
     else
 		i3-msg "resize $@"
-		# i3-msg "resize ${@:2}"
     fi
 }
 

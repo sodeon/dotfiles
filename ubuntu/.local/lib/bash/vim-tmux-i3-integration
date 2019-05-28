@@ -1,0 +1,139 @@
+#!/bin/bash -ue
+
+# Resize parameter
+tmp=/tmp/vim-tmux-i3-integration
+
+#------------------------------------------------------------------------------
+# Helpers
+#------------------------------------------------------------------------------
+exists_another_pane_in_direction() {
+    local direction=$1
+    local result=1 #false
+
+    local paneList=$(
+        tmux list-panes -F '#{pane_top} #{pane_left} #{?pane_active,active,} '
+    )
+
+    local paneActive=$(
+        echo "$paneList" | \
+        grep 'active' | \
+        tr -s ' '
+    )
+
+    local paneNoActive=$(
+        echo "$paneList" | \
+        grep -v 'active'
+    )
+
+    local paneActiveTop="$(echo "$paneActive" | cut -d' ' -f1)"
+    local paneActiveLeft="$(echo "$paneActive" | cut -d' ' -f2)"
+
+    while read -r line; do
+        local left="$(echo "$line" | cut -d' ' -f2 | tr -d "[:blank:]" | tr -d "\n")"
+        local top="$(echo "$line" | cut -d' ' -f1)"
+
+        if [ "$top" = '' ] && [ "$left" = '' ]; then
+            break # There is not other window
+        fi
+
+        if [ "$direction" = 'up' ]
+        then
+
+            if [ "$top" -lt "$paneActiveTop" ] && [ "$left" -eq "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'right' ]
+        then
+
+            if [ "$left" -gt "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'down' ]
+        then
+            if [ "$top" -gt "$paneActiveTop" ] && [ "$left" -eq "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'left' ]
+        then
+            if [ "$left" -lt "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+    done <<< "$paneNoActive"
+
+    return "$result"
+}
+
+
+#------------------------------------------------------------------------------
+# Tmux/i3-aware navigation/movement/resize
+#------------------------------------------------------------------------------
+focus() {
+    if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
+        case $1 in
+            left)
+                tmux select-pane -L
+                ;;
+            down)
+                tmux select-pane -D
+                ;;
+            up)
+                tmux select-pane -U
+                ;;
+            right)
+                tmux select-pane -R
+                ;;
+        esac
+    elif [[ $XDG_CURRENT_DESKTOP == 'i3' ]]; then
+        i3-msg -q focus $@
+    fi
+}
+
+move() {
+    if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
+        notify-send "tmux move $@"
+    elif [[ $XDG_CURRENT_DESKTOP == 'i3' ]]; then
+        i3-msg -q move $@
+    fi
+}
+
+resize() {
+    # Size parameter is not passed from VIM. Use tmp file to pass such parameter.
+    # This is to avoid ~/.vimrc having to have i3 size parameter. That is ugly.
+    # The tmp file design is not a queue, but store single parameter only. 
+    # This may create unwanted side effect when system is extremely busy and having multiple unprocessed commands, but this approach is the most stable.
+    if [[ -f $tmp ]]; then
+        read size_delta < $tmp
+    else # default value. If proper configured, should never reach this path.
+        size_delta='10px or 12ppt'
+    fi
+
+    if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
+        notify-send "tmux resize $@"
+    elif [[ $XDG_CURRENT_DESKTOP == 'i3' ]]; then
+        i3-msg -q "resize $@ $size_delta"
+    fi
+}
+
+
+#------------------------------------------------------------------------------
+# Execute commands
+# If no argument is provided, this script can be used as a library
+#------------------------------------------------------------------------------
+# Ignore commands from VIM if i3 is not the window manager.
+# TODO: sanitize input
+[[ $# == 0 ]] || $@
