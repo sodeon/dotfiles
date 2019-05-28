@@ -164,13 +164,17 @@ bindsym $mod+j fullscreen disable, exec autohotkey focusWindow down
 bindsym $mod+k fullscreen disable, exec autohotkey focusWindow up
 bindsym $mod+l fullscreen disable, exec autohotkey focusWindow right
 
-# Move focused window
+# Move focused window (Disable vim/i3/tmux integration. All these have different window movement mechanisms. Behavior after integration is just wierd and inconsistent.)
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
 set_from_resource $floatingDeltaY i3wm.floating.deltaY 64px
-bindsym $mod+Shift+h exec --no-startup-id autohotkey moveWindow left  $floatingDeltaX
-bindsym $mod+Shift+j exec --no-startup-id autohotkey moveWindow down  $floatingDeltaY
-bindsym $mod+Shift+k exec --no-startup-id autohotkey moveWindow up    $floatingDeltaY
-bindsym $mod+Shift+l exec --no-startup-id autohotkey moveWindow right $floatingDeltaX
+bindsym $mod+Shift+h move left  $floatingDeltaX
+bindsym $mod+Shift+j move down  $floatingDeltaY
+bindsym $mod+Shift+k move up    $floatingDeltaY
+bindsym $mod+Shift+l move right $floatingDeltaX
+# bindsym $mod+Shift+h exec --no-startup-id autohotkey moveWindow left  $floatingDeltaX
+# bindsym $mod+Shift+j exec --no-startup-id autohotkey moveWindow down  $floatingDeltaY
+# bindsym $mod+Shift+k exec --no-startup-id autohotkey moveWindow up    $floatingDeltaY
+# bindsym $mod+Shift+l exec --no-startup-id autohotkey moveWindow right $floatingDeltaX
 
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
