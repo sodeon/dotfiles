@@ -15,7 +15,7 @@ color_temperature_feature_id=14
 # Brightness/color temperature control
 is_reading_mode=true
 brightness_step=5
-reading_brightness=5
+reading_brightness=10
 video_brightness=20
 color_temperature_reading=4 # 6500K
 color_temperature_video=5 # 5000K
