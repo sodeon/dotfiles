@@ -290,7 +290,7 @@ au FileType xdefaults       setlocal commentstring=!\ %s
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Window navigation/resizing/movement
-if (has('unix') && ($XDG_CURRENT_DESKTOP == 'i3'))
+if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
 	nnoremap <silent> <Esc><C-o> :call Focus('right')<CR>
     nnoremap <silent> <Esc><C-y> :call Focus('left' )<CR>
 	nnoremap <silent> <Esc><C-i> :call Focus('up'   )<CR>

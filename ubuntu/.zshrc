@@ -1,4 +1,5 @@
-export PATH=$HOME/bin:$HOME/.local/lib/bash:$PATH
+echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bash:$PATH
+echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"

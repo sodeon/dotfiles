@@ -2,8 +2,8 @@
 
 export Black='\033[0;30'
 export DarkGray='\033[1;30m'
-export Red='\033[0;31'
-export LightRed='\033[1;31m'
+export LightRed='\033[0;31'
+export Red='\033[1;31m'
 export Green='\033[0;32'
 export LightGreen='\033[1;32m'
 export Orange='\033[0;33'

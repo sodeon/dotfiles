@@ -30,7 +30,7 @@ fi
 #---------------------------------------------------------------------------------------
 # Andy
 #---------------------------------------------------------------------------------------
-# NOTE: When ssh login, .profile won't be executed. Therefore, doesn't set $PATH here.
+# NOTE: When ssh login, .profile won't be executed.
 if [ -d "$HOME/.local/lib/bash" ] ; then
     PATH="$HOME/.local/lib/bash:$PATH"
 fi
