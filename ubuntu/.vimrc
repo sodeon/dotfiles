@@ -301,8 +301,8 @@ if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
 	nnoremap <silent> <Esc>U     :call Move('down' )<CR>
 	nnoremap <silent> <Esc><C-g> :call Resize('horizontal',  10)<CR>
 	nnoremap <silent> <Esc><C-n> :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <Esc><C-e> :call Resize('vertical'  ,  10)<CR>
-	nnoremap <silent> <Esc><C-m> :call Resize('vertical'  , -10)<CR>
+	nnoremap <silent> <Esc><C-e> :call Resize('vertical'  ,  6 )<CR>
+	nnoremap <silent> <Esc><C-m> :call Resize('vertical'  , -6 )<CR>
 elseif has('gui_running') " gvim can see alt key
 	nnoremap <silent> <M-l>   :call Focus('right')<CR>
     nnoremap <silent> <M-h>   :call Focus('left' )<CR>
@@ -314,8 +314,8 @@ elseif has('gui_running') " gvim can see alt key
 	nnoremap <silent> <M-J>   :call Move('down' )<CR>
 	nnoremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
 	nnoremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <C-M-k> :call Resize('vertical'  ,  10)<CR>
-	nnoremap <silent> <C-M-j> :call Resize('vertical'  , -10)<CR>
+	nnoremap <silent> <C-M-k> :call Resize('vertical'  ,  6 )<CR>
+	nnoremap <silent> <C-M-j> :call Resize('vertical'  , -6 )<CR>
 else " alt key is sent as <Esc>
 	nnoremap <silent> <Esc>l :call Focus('right')<CR>
     nnoremap <silent> <Esc>h :call Focus('left' )<CR>
@@ -327,8 +327,8 @@ else " alt key is sent as <Esc>
 	nnoremap <silent> <Esc>J :call Move('down' )<CR>
 	nnoremap <silent> <C-l>  :call Resize('horizontal',  10)<CR>
 	nnoremap <silent> <C-h>  :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <C-k>  :call Resize('vertical'  ,  10)<CR>
-	nnoremap <silent> <C-j>  :call Resize('vertical'  , -10)<CR>
+	nnoremap <silent> <C-k>  :call Resize('vertical'  ,  6 )<CR>
+	nnoremap <silent> <C-j>  :call Resize('vertical'  , -6 )<CR>
 endif
 
 
