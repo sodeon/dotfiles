@@ -67,6 +67,8 @@ System (Laptop):
         NOTE: If network drive is not always available, recommend not to auto-mount.
               If network drive is not available at the time of access, process hanged to wait timeout.
               Some commands like df implicitly accessed network drives.
+    Power off HDD when idling:
+        Go to gnome-disks' settings to do so. Not enabled by default.
 
 Performance:
     Disable CPU vulnerability mitigations (use at own risk):

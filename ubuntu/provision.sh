@@ -221,6 +221,7 @@ xdg-mime default ranger.desktop inode/directory
 # Enable command line LCD panel backlight control
 sudo usermod -a -G video $USER
 sudo usermod -a -G i2c $USER
+sudo usermod -a -G disk $USER
 
 # Enable Wayland fractional scaling on Ubuntu 19.04: 
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"

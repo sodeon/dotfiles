@@ -1,0 +1,4 @@
+#!/bin/bash -ue
+
+sudo umount /mnt/e
+sudo udisksctl power-off -b /dev/sdb
