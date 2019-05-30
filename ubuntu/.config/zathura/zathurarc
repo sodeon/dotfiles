@@ -10,11 +10,12 @@ set statusbar-v-padding 1
 set page-padding 1
 
 map a adjust_window best-fit
-map s adjust_window width
+map z adjust_window width
 map v scroll half-up
 map c scroll half-down
 map b scroll full-up
 map f scroll full-down
+map d toggle_page_mode
 map D toggle_page_mode
 map r rotate
 map - zoom out
