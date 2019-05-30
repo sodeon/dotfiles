@@ -4,4 +4,11 @@ sort (ordering):
     os: size
     ot: type
 
+Linemode:
+    Ms: sizetime
+
+Folder disk space:
+    Show all folders: dU
+    Show one folder: $get_cumulative_size / "dc"
+
 settings: z (then a menu will arrive for you to choose)

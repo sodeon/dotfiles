@@ -11,6 +11,11 @@ alias t='touch'
 alias v='vim -p' # each file a tab
 alias code='code --disable-gpu'
 
+# Output manipulation
+body() { # Print out first line and pipe the rest to next stage
+    IFS= read -r header; printf '%s\n' "$header"; "$@"
+}
+
 # File discovery
 alias fd='fdfind --hidden --full-path --exclude .git'
 alias ff='fdfind --hidden --full-path --exclude .git --type f'
@@ -60,7 +65,7 @@ alias shutdown='shutdown -h now'
 alias memory='free -m' # In megabytes
 
 alias du='ncdu --exclude /mnt' # do not include ntfs partitions
-alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never" # disk usage in human readable format and partition format
+alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)

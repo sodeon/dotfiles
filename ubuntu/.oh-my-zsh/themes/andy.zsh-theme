@@ -1,5 +1,8 @@
+# NOTE: urxvt has limited emoji support. Thus, does not use emoji for error return prompt.
+
 # If command success, no hint
-local ret_status="%(?::%{$fg_bold[red]%}➜ )"
+local ret_status="%(?::%{$fg_bold[red]%}>_< )"
+# local ret_status="%(?::%{$fg_bold[red]%}➜ )"
 #local ret_status="%(?:%{$FG[247]%}➜ :%{$fg_bold[red]%}➜ )"
 
 #PROMPT='

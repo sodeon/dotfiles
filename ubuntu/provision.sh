@@ -65,6 +65,7 @@ apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
+apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
