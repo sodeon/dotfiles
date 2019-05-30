@@ -11,13 +11,11 @@ alias t='touch'
 alias v='vim -p' # each file a tab
 alias code='code --disable-gpu'
 
+# File discovery
+alias fd='fdfind --hidden --full-path --exclude .git'
+alias ff='fdfind --hidden --full-path --exclude .git --type f'
 
-#-----------------------------------------------------
-# System admin
-#-----------------------------------------------------
-alias ff='fdfind --type f --hidden'
-alias fd='fdfind --type d --hidden'
-
+# Process management
 alias aph='ps v -AH' # aph: all processes in hierarchy format
 alias ap='ps  -aux' # ap: all processes
 

@@ -169,16 +169,16 @@ moveWindow() {
             srcKey=j
 			;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim "; then
-        xdotool keyup $srcKey key $navKey
-    elif isWinActive Code; then
-        xdotool keyup $srcKey key $navKey
+    # if isActiveWinTitle VIM$ || isActiveWinTitle "^vim "; then
+    #     xdotool keyup $srcKey key $navKey
+    # elif isWinActive Code; then
+    #     xdotool keyup $srcKey key $navKey
     # elif isActiveWinTitle ^tmux$; then
     #     notify-send "tmux $@"
     #     xdotool keyup $srcKey key $navKey
-    else
+    # else
 		i3-msg "move $@"
-    fi
+    # fi
 }
 
 resizeWindow() {

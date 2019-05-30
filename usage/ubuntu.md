@@ -15,3 +15,9 @@
 
 ## Utilities
 - `color-picker`: xcolor from https://github.com/Soft/xcolor
+
+## Performance Analysis
+- `htop`: needs no introduction
+- `time`: summarize system usage
+- `fincore`: check if file is cached in memory, usually combined with fdfind/find
+- `nvidia-smi`: NVIDIA graphics card status summary. To continous monitor, `nvidia-smi dmon`
