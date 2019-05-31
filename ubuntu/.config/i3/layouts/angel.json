@@ -24,7 +24,7 @@
                     "border": "none",
                     "swallows": [
                        {
-                       "class": "^Firefox$"
+                       "class": "^Google\\-chrome$"
                        }
                     ],
                     "type": "con"

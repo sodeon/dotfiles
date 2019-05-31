@@ -72,8 +72,9 @@ URxvt.geometry: 120x32
 ! URxvt.internalBorder: 24
 ! URxvt.cursorBlink: true
 ! URxvt.cursorUnderline: false
-URxvt.saveline: 10000
+URxvt.saveLines: 5000
 URxvt.scrollBar: false
+URxvt.scrollstyle:plain
 URxvt.scrollBar_right: false
 URxvt.urgentOnBell: true
 ! color depth: 32 will enable transparency

@@ -7,7 +7,7 @@ alias lr='ls -rtla'
 
 # Most used programs
 alias s='source $*'
-alias t='touch'
+alias t='task'
 alias v='vim -p' # each file a tab
 alias code='code --disable-gpu'
 

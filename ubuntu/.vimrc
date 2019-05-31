@@ -289,6 +289,12 @@ let g:switch_custom_definitions =
 au FileType xdefaults       setlocal commentstring=!\ %s
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
+" Markdown preview (by default, this plugin does not open browser in new window)
+function! g:OpenBrowser(url)
+    silent exe '!google-chrome --new-window ' . a:url
+endfunction
+let g:mkdp_browserfunc = 'g:OpenBrowser'
+
 " Window navigation/resizing/movement
 if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
 	nnoremap <silent> <Esc><C-o> :call Focus('right')<CR>
