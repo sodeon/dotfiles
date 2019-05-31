@@ -61,7 +61,7 @@ deleteWord() {
 }
 
 closeTabOrWindow() {
-    if isWinActive Google-chrome || isWinActive Firefox; then
+    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
         xdotool key ctrl+w
     else
         xdotool key alt+grave
