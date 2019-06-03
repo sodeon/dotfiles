@@ -113,6 +113,7 @@ alias stats='zsh_stats'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
 bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Tab key for default zsh completion
+bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
 
 # fasd
 # eval "$(fasd --init auto)"

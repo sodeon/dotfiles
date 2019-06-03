@@ -191,7 +191,7 @@ bindsym $mod+v split h
 
 # Change container layout (stacked/"deck", tabbed, toggle split)
 bindsym $mod+f layout toggle split
-bindsym $mod+d layout stacked
+bindsym $mod+a layout stacked
 bindsym $mod+t layout tabbed
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt

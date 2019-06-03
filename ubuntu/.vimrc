@@ -342,6 +342,20 @@ endif
 " fzf
 let g:fzf_open_action = 'tab split'
 
+" Z - cd to recent / frequent directories (fasd) https://github.com/clvv/fasd/wiki/Vim-Integration
+command! -nargs=* Z :call Z(<f-args>)
+function! Z(...)
+  let cmd = 'fasd -d -e printf'
+  for arg in a:000
+    let cmd = cmd . ' ' . arg
+  endfor
+  let path = system(cmd)
+  if isdirectory(path)
+    echo path
+    exec 'cd' fnameescape(path)
+  endif
+endfunction
+
 
 "-----------------------------------------------------------------------------
 " Gotchas
