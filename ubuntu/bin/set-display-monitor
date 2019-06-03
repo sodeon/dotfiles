@@ -23,7 +23,7 @@ if xrandr | grep "\<$interface\> connected"; then
     cmd="xrandr --output $interface --mode $resolution --scale $scale"
 	if [ -f ~/.config/hardware/internal-displayrc ]; then
 		source ~/.config/hardware/internal-displayrc
-        if [ -z $interface ]; then
+        if [ ! -z $interface ]; then
 			cmd="$cmd --output $interface --off"
         fi
 	fi
