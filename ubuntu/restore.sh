@@ -5,7 +5,6 @@ source backup-restore-config-spec.sh
 #
 # $HOME directory
 #
-cp .bashrc.zsh ~/
 cp .bash_aliases ~/
 cp .tmux.conf ~/
 cp .vimrc ~/

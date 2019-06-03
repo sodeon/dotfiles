@@ -4,7 +4,7 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 ZSH_THEME="andy"
-#ZSH_THEME="robbyrussell" # default
+# ZSH_THEME="robbyrussell" # default
 
 # Setting this variable when ZSH_THEME=random cause zsh load theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
@@ -34,22 +34,31 @@ ENABLE_CORRECTION="true"
 
 
 #--------------------------------------------------------------------------------------------------------------
-# Zsh (pre-oh-my-zsh) settings
+# Pre-oh-my-zsh settings
 #--------------------------------------------------------------------------------------------------------------
-# add pip executables (used by AWS)
+# Add pip executables (used by AWS)
 export PATH=~/.local/bin:$PATH
 
-# Disable tab not found sound
-unsetopt beep
+# Defualt programs
+export EDITOR='/usr/bin/vim'
+export VIEWER='/usr/bin/vim'
+export PAGER='/usr/bin/less'
+
+unsetopt beep # Disable tab not found sound
+
+# Overwrite cursor style so that vim cursor settings won't bleed to other tmux panes/windows
+# 6: line, no blinking.  5: line, blinking.  2: block, no blinking. 1: block, blinking
+echo -ne "\e[6 q"
+
+stty -ixon # Disable c-s that freeze the terminal (it's a Linux behavior)
+
+setopt +o nomatch # Avoid "'no match found' error when running find with * as part of pattern"
 
 # replace Ubuntu's ls color. This must put here so that oh-my-zsh will source the correct ls colors
 #eval `dircolors ~/.DIR_COLORS`
 #LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
 # bold, yellow
 export GREP_COLOR='1;33'
-
-# Avoid "'no match found' error when running find with * as part of pattern"
-setopt +o nomatch
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -73,8 +82,6 @@ plugins=(
   docker
   #pip
   #supervisor
-
-  # utilities
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -82,13 +89,7 @@ source $ZSH/oh-my-zsh.sh
 #--------------------------------------------------------------------------------------------------------------
 # Plugin settings
 #--------------------------------------------------------------------------------------------------------------
-# pj
 PROJECT_PATHS=($HOME/code)
-
-# syntax highlight
-#ZSH_HIGHLIGHT_STYLES[path]=none
-#ZSH_HIGHLIGHT_STYLES[path]=fg=008
-#ZSH_HIGHLIGHT_STYLES[globbing]=fg=cyan
 
 # Vim navigation keys in menu completion
 zstyle ':completion:*' menu select
@@ -98,22 +99,15 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-alias j='jump'
-
 
 #--------------------------------------------------------------------------------------------------------------
 # Aliases
 #--------------------------------------------------------------------------------------------------------------
+source ~/.bash_aliases
+
+# zsh aliases
+alias j='jump'
 alias stats='zsh_stats'
-
-newAndTouch() {touch $*; code $*          } 
-duDepth()     {du --max-depth=$1 | sort -g}
-alias d='vimdiff'
-alias n='newAndTouch'
-alias dud='duDepth'
-
-# wsl helper
-#source ~/.fzf/bin/util.zsh
 
 # fzf (Fuzzy finder, auto-generated)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -131,16 +125,15 @@ z() {
 }
 alias z='nocorrect z'
 # VIM by fasd
-zv() { # does not support multiple files open yet
+zv() { # does not support opening multiple files
     local target
     target="$(fasd -Rfl "$@" | fzf -1 -0 --no-sort +m)" && vim -p "${target}" || return 1
 }
 alias zv='nocorrect zv'
 # rg by fasd
-# @param   $1        glob pattern passed to fasd
-# @param   ${@:2}    arguments passed to rg
 zr() {
-    fasd -fl $1 | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:2}"
+    [ $# == 1 ] && fasd -fl    | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:1}" \
+                || fasd -fl $1 | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:2}"
 }
 alias zr='nocorrect zr'
 # Fix error: 'permission denied ../../'
@@ -156,38 +149,8 @@ add-zsh-hook preexec _fasd_preexec_fixed
 # Make forward word behavior same as others (e.g. Chrome)
 bindkey '^[[1;5C' emacs-forward-word
 
-# wsl-terminal use tmux automatically
-[[ -z "$TMUX" && -n "$USE_TMUX" ]] && {
-    [[ -n "$ATTACH_ONLY" ]] && {
-        tmux a 2>/dev/null || { cd && exec tmux }
-        exit
-    }
-
-    tmux new-window -c "$PWD" 2>/dev/null && exec tmux a
-    exec tmux
-}
-
-
-#--------------------------------------------------------------------------------------------------------------
-# TODO: SSH connection setup
-# NOTE: Latest update: set XDG_CURRET_DESKTOP=i3 before executing tmux to workaround. Setting self-defined variable will be thrown away by tmux unless explicitly stating.
-# NOTE: Adding environment variable in ~/.ssh/rc won't work. Putting here will have to ask the same question for every tmux pane opening
-#--------------------------------------------------------------------------------------------------------------
-# [[ ! -z "$SSH_CONNECTION" ]] && {
-#     YELLOW='\033[1;33m'
-#     NC='\033[0m'
-#     echo "${YELLOW}Are you using i3 window manager? This helps set up proper keybindings."
-#     printf "(y/N):${NC} "
-#     read answer
-#     if [[ $answer == y ]] || [[ $answer == Y ]] || [[ $answer == yes ]]; then
-#         export SSH_HOST_DESKTOP=i3
-#     fi
-# }
-
-
-#--------------------------------------------------------------------------------------------------------------
-# Bash shared scripts
-#--------------------------------------------------------------------------------------------------------------
-source ~/.bash_aliases
-source ~/.bashrc.zsh # This must be at the last line of .zshrc
-export FZF_COMPLETION_TRIGGER='' # Do not move this to bashrc.zsh. To do this, we also must assign "tab" to bash default completion.
+# fzf
+export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
+export FZF_COMPLETION_TRIGGER=''

@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# Aliases compatible with both bash and zsh
+#------------------------------------------------------------------------------
 # Let alias still works after sudo
 alias sudo='sudo '
 
@@ -9,12 +11,14 @@ alias lr='ls -rtla'
 alias s='source $*'
 alias t='task'
 alias v='vim -p' # each file a tab
+alias d='vimdiff'
+n() { touch $*; code $*; } # new and code
+
+# Disable GPU acceleration for VSCode. It has no real world benefit.
 alias code='code --disable-gpu'
 
 # Output manipulation
-body() { # Print out first line and pipe the rest to next stage
-    IFS= read -r header; printf '%s\n' "$header"; "$@"
-}
+body() { IFS= read -r header; printf '%s\n' "$header"; "$@"; }
 
 # File discovery
 alias fd='fdfind --hidden --full-path --exclude .git'
@@ -35,7 +39,7 @@ alias gdth='git difftool HEAD'
 
 alias gb='git branch'
 
-alias ga='git add .' # stage all modified files
+alias ga='git add'
 alias gc='git commit -v'
 alias gac='git add .; git commit -v' # stage all modified files and commit
 
@@ -44,12 +48,11 @@ alias gm='git merge'
 
 alias gt='git tag'
 
-alias gps='git push' # upload (to upload tags, add --tags)
+alias gps='git push' # to push tags, add --tags
 alias gf='git fetch'
-alias gpl='git pull' # get
+alias gpl='git pull'
 
 alias gl='git log'
-alias gls='git log --stat'
 alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all"
 alias glgv='git log --graph --color --all --decorate --abbrev-commit' # verbose version of git log --graph
 alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
@@ -69,9 +72,6 @@ alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort"
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
-
-# Gnome control center (for use in other window managers)
-# alias settings='env XDG_CURRENT_DESKTOP=GNOME gnome-control-center'
 
 
 #-----------------------------------------------------

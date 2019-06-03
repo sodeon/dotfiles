@@ -242,7 +242,7 @@ Plug 'sodeon/vim-i3-integration'
 " Plug 'majutsushi/tagbar'
 
 " Searching (file, content, but not symbol)
-Plug 'junegunn/fzf' " <C-p>  use <C-t>/<C-v> for new tab/split
+Plug 'sodeon/fzf' " <C-p>  use <C-t>/<C-v> for new tab/split
 Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect whether shift is pressed or not)
 
 " File type plugins
@@ -294,6 +294,7 @@ function! g:OpenBrowser(url)
     silent exe '!google-chrome --new-window ' . a:url
 endfunction
 let g:mkdp_browserfunc = 'g:OpenBrowser'
+let g:mkdp_auto_close = 0 " If auto-close, switching between buffer/split/tab will close preview
 
 " Window navigation/resizing/movement
 if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
@@ -337,6 +338,9 @@ else " alt key is sent as <Esc>
 	nnoremap <silent> <Esc><C-k> :call Resize('vertical'  ,  6 )<CR>
 	nnoremap <silent> <Esc><C-j> :call Resize('vertical'  , -6 )<CR>
 endif
+
+" fzf
+let g:fzf_open_action = 'tab split'
 
 
 "-----------------------------------------------------------------------------
