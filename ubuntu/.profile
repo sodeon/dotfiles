@@ -59,5 +59,5 @@ xrdb $HOME/.Xresources
 # urxvt daemon
 urxvtd -q -o -f
 
-$HOME/.local/lib/bash/set-display-monitor &
+set-display-monitor &
 play-with-mpv &
