@@ -38,7 +38,7 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p /tmp/provision-temp
+mkdir -p /tmp/provision
 
 
 #------------------------------------------------------------------------------
@@ -70,7 +70,6 @@ apt-force install taskwarrior # task management tool
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
-apt-force install google-chrome-stable
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool # key mapping and hotkey helpers
@@ -130,13 +129,13 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
 cd-temp
-apt-force libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
 		  libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
 		  libstartup-notification0-dev libxcb-randr0-dev \
 		  libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
 		  libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
 		  autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
-git clone https://www.github.com/Airblader/i3 i3-gaps
+git clone https://www.github.com/Airblader/i3-gaps i3-gaps
 cd i3-gaps
 autoreconf --force --install
 rm -rf build/ && mkdir -p build && cd build/
@@ -148,7 +147,7 @@ apt-force install i3blocks
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
-sudo install -Dm 0755 ./bin/unclutter /usr/bin/
+sudo install -Dm 0755 ./apps/unclutter /usr/bin/
 
 # Set urxvt as default terminal
 echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
@@ -186,6 +185,7 @@ apt-force purge unattended-upgrades
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
+mkdir -p ~/.config/{i3/layouts,mpv,cmus,Code/User,dotfiles,hardware,Xresources}
 chmod +x ./restore.sh && ./restore.sh
 
 # git
@@ -239,7 +239,6 @@ rm -rf /tmp/provision
 #------------------------------------------------------------------------------
 # What to do next messages
 #------------------------------------------------------------------------------
-echo << EOM
-Read `pwd`/post-provision-note.txt for further information
-Some usages can be found in `pwd`../usage/
-EOM
+figlet "Success"
+echo "Read `pwd`/post-provision-note.txt for further information
+Some usages can be found in `pwd`../usage/"
