@@ -297,20 +297,6 @@ let g:mkdp_browserfunc = 'g:OpenBrowser'
 let g:mkdp_auto_close = 0 " If auto-close, switching between buffer/split/tab will close preview
 
 " Window navigation/resizing/movement
-if has('unix') && ($XDG_CURRENT_DESKTOP == 'i3')
-	nnoremap <silent> <Esc><C-o> :call Focus('right')<CR>
-    nnoremap <silent> <Esc><C-y> :call Focus('left' )<CR>
-	nnoremap <silent> <Esc><C-i> :call Focus('up'   )<CR>
-	nnoremap <silent> <Esc><C-u> :call Focus('down' )<CR>
-	nnoremap <silent> <Esc>O     :call Move('right')<CR>
-    nnoremap <silent> <Esc>Y     :call Move('left' )<CR>
-	nnoremap <silent> <Esc>I     :call Move('up'   )<CR>
-	nnoremap <silent> <Esc>U     :call Move('down' )<CR>
-	nnoremap <silent> <Esc><C-g> :call Resize('horizontal',  10)<CR>
-	nnoremap <silent> <Esc><C-n> :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <Esc><C-e> :call Resize('vertical'  ,  6 )<CR>
-	nnoremap <silent> <Esc><C-m> :call Resize('vertical'  , -6 )<CR>
-endif
 if has('gui_running') " gvim can see alt key
 	nnoremap <silent> <M-l>   :call Focus('right')<CR>
     nnoremap <silent> <M-h>   :call Focus('left' )<CR>
