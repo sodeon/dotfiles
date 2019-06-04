@@ -83,6 +83,7 @@ apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 apt-force install zathura # pdf reader
 apt-force install libreoffice
+apt-force install spectre-meltdown-checker # Check spectre/meltdown vulnerabilities. Performance loss can actually be felt.
 # apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
@@ -198,16 +199,6 @@ sudo systemctl mask apport # Program crash report
 sudo systemctl mask whoopsie # Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
-# gnome desktop environment settings
-if [[ -x gsettings ]]; then
-    # Enable fractional scaling on Ubuntu 19.04
-    gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-    gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
-
-    # Disable password request after resuming from lock screen
-    gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
-fi
-
 # Additional fonts
 cd-temp
 git clone https://github.com/Znuff/consolas-powerline.git
@@ -232,6 +223,25 @@ xdg-mime default ranger.desktop inode/directory
 sudo usermod -a -G video $USER
 sudo usermod -a -G i2c $USER
 sudo usermod -a -G disk $USER
+
+# gnome desktop environment settings
+if [[ -x gsettings ]]; then
+    # Enable fractional scaling on Ubuntu 19.04
+    gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+    gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
+
+    # Disable password request after resuming from lock screen
+    gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
+fi
+
+# GDM (gnome desktop manager)
+if [[ -f /etc/default/grub ]]; then
+    # Disable splash screen and mitigations (default: quiet splash)
+    # TODO: Let user have option to enable/disable vulneribility mitigations
+	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet mitigations=off\"/" /etc/default/grub
+	# sudo sed -i -r "s/^GRUB_CMDLINE_LINUX.*/GRUB_CMDLINE_LINUX=\"console=ttyS0\"/" /etc/default/grub
+    sudo update-grub
+fi
 
 
 #------------------------------------------------------------------------------

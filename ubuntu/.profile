@@ -60,5 +60,4 @@ xrdb $HOME/.Xresources
 urxvtd -q -o -f
 
 set-display-monitor &
-# (sleep 5; set-display-monitor) &
 play-with-mpv &
