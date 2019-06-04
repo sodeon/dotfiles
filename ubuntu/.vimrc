@@ -291,7 +291,7 @@ au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Markdown preview (by default, this plugin does not open browser in new window)
 function! g:OpenBrowser(url)
-    silent exe '!brave-browser --new-window ' . a:url
+    silent exe '!google-chrome --new-window ' . a:url
 endfunction
 let g:mkdp_browserfunc = 'g:OpenBrowser'
 let g:mkdp_auto_close = 0 " If auto-close, switching between buffer/split/tab will close preview

@@ -21,7 +21,7 @@ cp ~/.Xresources .
 shopt -s extglob
 for item in ${direct_backup_configs[@]}; do
     if [[ -d "~/.config/$item" ]]; then
-        cp -rf ~/.config/$item .config
+        cp -rf ~/.config/$item .config/$item/..
     else
         items=(~/.config/$item)
         for sub_item in ${items[@]}; do
