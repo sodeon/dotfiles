@@ -47,14 +47,16 @@ bar {
 		set $bar-inactive-bg-color   #000000
 		set $bar-text-color          #f3f4f5
 		set $bar-inactive-text-color #676e7d
-		set $bar-urgent-bg-color     #e53935
+		# set $bar-urgent-bg-color     #e53935
+		set $bar-urgent-bg-color     #000000
+        set $bar-urgent-text-color   #ff7777
 
         background #000000
         separator #757575
         #                  border                 background             text
         focused_workspace  $bar-bg-color          $bar-bg-color          $bar-text-color
         inactive_workspace $bar-inactive-bg-color $bar-inactive-bg-color $bar-inactive-text-color
-        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-text-color
+        urgent_workspace   $bar-urgent-bg-color   $bar-urgent-bg-color   $bar-urgent-text-color
 	}
 
     strip_workspace_numbers yes
@@ -93,8 +95,8 @@ bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
 bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
 
 # Terminal pageup/pagedown
-# bindsym control+b exec --no-startup-id autohotkey pageup
-# bindsym control+f exec --no-startup-id autohotkey pagedown
+bindsym Prior exec --no-startup-id autohotkey pageup
+bindsym Next  exec --no-startup-id autohotkey pagedown
 
 # Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
@@ -200,9 +202,9 @@ bindsym $mod+z resize set width 99ppt, resize set height 90ppt
 # Minimize
 # bindsym $mod+m resize set width  1ppt, resize set height 10ppt
 
-bindsym F11 fullscreen toggle
+bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 # NOTE: full screen can be used on non-workspace container
-bindsym Shift+F11 focus parent; fullscreen toggle; focus child
+# bindsym Shift+F11 focus parent; fullscreen toggle; focus child
 
 # Floating
 bindsym $mod+Shift+space floating toggle
@@ -216,6 +218,12 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # TODO: mark/unmark window
+
+# Dummy mode that will not grab keys
+bindsym Mod3+a mode " "
+mode " " {
+	bindsym Escape mode "default"
+}
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
 # NOTE: gap adjustment is also here

@@ -48,6 +48,13 @@ isWinExists() {
     return $?
 }
 
+# xdotool with the ability to bypass i3 keygrabbing
+xdotool-forward() {
+    i3-msg 'mode " "'
+    xdotool $@
+    i3-msg 'mode "default"'
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Shortcut implementation
@@ -77,17 +84,17 @@ toggleFloating() {
 
 pageup() {
     if isWinActive URxvt && ! isActiveWinTitle VIM$; then
-		xdotool keyup b key --clearmodifiers shift+Prior
+		xdotool-forward keyup Prior key shift+Prior
     else
-        xdotool keyup b key --clearmodifiers Prior
+        xdotool-forward keyup Prior key Prior
     fi
 }
 
 pagedown() {
     if isWinActive URxvt && ! isActiveWinTitle VIM$; then
-		xdotool keyup f key --clearmodifiers shift+Next
+		xdotool-forward keyup Next key shift+Next
     else
-        xdotool keyup f key --clearmodifiers Next
+        xdotool-forward keyup Next key Next
     fi
 }
 
@@ -122,28 +129,18 @@ focusWindow() {
     direction=$1
 	case $direction in
 		left)
-			navKey=y
-            srcKey=h
-			;;
+			navKey=h;;
 		right)
-			navKey=o
-            srcKey=l
-			;;
+			navKey=l;;
 		up)
-			navKey=i
-            srcKey=k
-			;;
+			navKey=k;;
 		down)
-			navKey=u
-            srcKey=j
-			;;
+			navKey=j;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim "; then
-        xdotool keyup $srcKey key ctrl+$navKey
-    elif isWinActive Code; then
-        xdotool keyup $srcKey key ctrl+$navKey
-    elif isActiveWinTitle ^tmux$; then
-        xdotool keyup $srcKey key ctrl+$navKey
+    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+       || isWinActive Code \
+       || isActiveWinTitle ^tmux$; then
+        xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "focus $direction"
     fi
@@ -153,65 +150,50 @@ moveWindow() {
     direction=$1
 	case $direction in
 		left)
-			navKey=Y
-            srcKey=h
-			;;
+			navKey=h;;
 		right)
-			navKey=O
-            srcKey=l
-			;;
+			navKey=l;;
 		up)
-			navKey=I
-            srcKey=k
-			;;
+			navKey=k;;
 		down)
-			navKey=U
-            srcKey=j
-			;;
+			navKey=j;;
 	esac
-    # if isActiveWinTitle VIM$ || isActiveWinTitle "^vim "; then
-    #     xdotool keyup $srcKey key $navKey
-    # elif isWinActive Code; then
-    #     xdotool keyup $srcKey key $navKey
-    # elif isActiveWinTitle ^tmux$; then
-    #     notify-send "tmux $@"
-    #     xdotool keyup $srcKey key $navKey
-    # else
+    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+       || isWinActive Code \
+       || isActiveWinTitle ^tmux$; then
+        xdotool-forward keyup $navKey key $navKey
+    else
 		i3-msg "move $@"
-    # fi
+    fi
 }
 
 resizeWindow() {
     direction="$1 $2"
 	case $direction in
 		"shrink width")
-			navKey=n
-            srcKey=h
-			;;
+			navKey=h;;
 		"grow width")
-			navKey=g
-            srcKey=l
-			;;
+			navKey=l;;
 		"grow height")
-			navKey=e
-            srcKey=k
-			;;
+			navKey=k;;
 		"shrink height")
-			navKey=m
-            srcKey=j
-			;;
+			navKey=j;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim "; then
+    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+       || isWinActive Code \
+       || isActiveWinTitle ^tmux$; then
         echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
-        xdotool keyup $srcKey key $navKey
-    elif isWinActive Code; then
-        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
-        xdotool keyup $srcKey key $navKey
-    elif isActiveWinTitle ^tmux$; then
-        echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
-        xdotool keyup $srcKey key $navKey
+        xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "resize $@"
+    fi
+}
+
+toggleFullscreen() {
+    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
+        xdotool-forward keyup F11 key F11
+    else
+        i3-msg "fullscreen toggle"
     fi
 }
 
