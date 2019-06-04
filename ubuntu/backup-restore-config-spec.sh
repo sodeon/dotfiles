@@ -3,6 +3,7 @@
 # Files and directories to backup without file name modifications.
 # Support brace expansion and extglob.
 declare -a direct_backup_configs=(
+    htop
     dunst
     rofi
     ranger
