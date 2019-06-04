@@ -1,7 +1,6 @@
 Go to "optional" to install items useful for your system
 Check backup.sh and search for ".example" for config tuning
 
-
 Vim:
     open vim and :PlugInstall
     # copy ~/.vim to /c/Users/Andy
@@ -9,27 +8,10 @@ Vim:
 Tmux:
     (ctrl+e I) to download and install plugins
 
-Github:
-    ssh login:
-        # Add ssh key
-        ssh-keygen -t rsa -b 4096 -C "sodeon@gmail.com"
-        # Start ssh agent
-        ssh-agent -s
-        # Add ssh key to ssh agent
-        ssh-add ~/.ssh/id_rsa
-        # Copy generated public key to clipboard
-        sudo apt install xclip
-        xclip -sel clip < ~/.ssh/id_rsa.pub
-        # Go to github->settings->"SSH and GPG keys"->"New SSH key"
-        # git repo format: git@github.com:username/reponame.git
-
 ssh:
     Ubuntu already has ssh server and related ssh tools setup
     Copy ssh key to Andy desktop
     $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
-
-Programs:
-    Network manager (for WiFi): rofi$ nm-applet
 
 System:
     Auto-mount NTFS drives
