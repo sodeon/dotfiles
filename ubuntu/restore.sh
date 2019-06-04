@@ -67,6 +67,7 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 #
 rm -rf ~/.local/lib/bash
 cp -rf .local ~/
+cp .local/share/ranger/bookmarks ~/.local/share/ranger
 
 #
 # bin directory
