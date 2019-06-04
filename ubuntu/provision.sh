@@ -131,6 +131,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
+apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
 cd-temp
 apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
           libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
@@ -146,7 +147,6 @@ rm -rf build/ && mkdir -p build && cd build/
 make
 sudo make install
 cd-before-temp
-apt-force install i3blocks 
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
@@ -188,7 +188,9 @@ apt-force purge unattended-upgrades
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-mkdir -p ~/.config/{i3/layouts,mpv,cmus,Code/User,dotfiles,hardware,Xresources}
+set +e
+mkdir -p ~/.config/{htop,dunst,rofi,ranger,zathura,mpv,cmus,Code/User,i3/layouts,dotfiles,hardware,Xresources}
+set -e
 chmod +x ./restore.sh && ./restore.sh
 
 # git
@@ -226,7 +228,7 @@ sudo usermod -a -G i2c $USER
 sudo usermod -a -G disk $USER
 
 # gnome desktop environment settings
-if [[ -x gsettings ]]; then
+if which gsettings; then
     # Enable fractional scaling on Ubuntu 19.04
     gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
     gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
@@ -240,7 +242,7 @@ if [[ -f /etc/default/grub ]]; then
     # Disable splash screen and mitigations (default: quiet splash)
     # TODO: Let user have option to enable/disable vulneribility mitigations
 	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet mitigations=off\"/" /etc/default/grub
-	# sudo sed -i -r "s/^GRUB_CMDLINE_LINUX.*/GRUB_CMDLINE_LINUX=\"console=ttyS0\"/" /etc/default/grub
+	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=0/" /etc/default/grub
     sudo update-grub
 fi
 

@@ -44,16 +44,10 @@ System:
         Remove snap packages ("core" cannot be removed): $snap remove
         Remove snap: $apt purge snapd
         Re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator
+    Power off HDD when idling:
+        Go to gnome-disks' settings to do so. Not enabled by default.
 
 System (Desktop):
-    Wake-on-lan: very easy
-        Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
-        Step 2: Trigger suspended system to wakeup (by sending magic packet)
-            $sudo apt install wakeonlan
-            $wakeonlan <mac address> # mac address can be found by "$ip a".
-        Extra step: To debug, monitor if receiving magic packet
-            $sudo apt install ngrep
-            $ngrep '\xff{6}(.{6})\1{15}' -x port 9
 
 System (Laptop):
     Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
@@ -65,16 +59,16 @@ System (Laptop):
         NOTE: If network drive is not always available, recommend not to auto-mount.
               If network drive is not available at the time of access, process hanged to wait timeout.
               Some commands like df implicitly accessed network drives.
-    Power off HDD when idling:
-        Go to gnome-disks' settings to do so. Not enabled by default.
+    Wake-on-lan: very easy
+        Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
+        Step 2: Trigger suspended system to wakeup (by sending magic packet)
+            $sudo apt install wakeonlan
+            $wakeonlan <mac address> # mac address can be found by "$ip a".
+        Extra step: To debug, monitor if receiving magic packet
+            $sudo apt install ngrep
+            $ngrep '\xff{6}(.{6})\1{15}' -x port 9
 
 Performance:
-    Disable CPU vulnerability mitigations (use at own risk):
-        Check vulnerability: $sudo spectre-meltdown-checker
-        File: /etc/default/grub
-        Modify: add "mitigations=off" to kernel parameters
-            GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
-        Run: sudo update-grub
     Enable/disable swap:
         File: /etc/fstab:
         Modify: Comment out swap (following grabbed from Ubuntu 19.04)
@@ -99,3 +93,9 @@ Performance:
                 ReadKMsg=no
             Can still non-archived copy from /var/log/syslog
         - View jornal size: $sudo journalctl --disk-usage
+    Disable CPU vulnerability mitigations (use at own risk):
+        Check vulnerability: $sudo spectre-meltdown-checker
+        File: /etc/default/grub
+        Modify: add "mitigations=off" to kernel parameters
+            GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
+        Run: sudo update-grub
