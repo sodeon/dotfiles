@@ -6,6 +6,7 @@ cd "${0%/*}"
 : ' 
 Install Ubuntu:
     Use "Rufus" to copy image on USB flash drive
+    Disable fast boot in BIOS
     Use flash drive to install Ubuntu afresh
 
 Provision:
