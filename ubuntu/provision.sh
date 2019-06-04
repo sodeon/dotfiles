@@ -5,32 +5,32 @@ cd "${0%/*}"
 #------------------------------------------------------------------------------
 : ' 
 Install Ubuntu:
-	Use "Rufus" to copy image on USB flash drive
-	Use flash drive to install Ubuntu afresh
+    Use "Rufus" to copy image on USB flash drive
+    Use flash drive to install Ubuntu afresh
 
 Provision:
     Install git
-	Get dotfiles and run provision script
-	    mkdir -p ~/code
-	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
-	    cd ./dotfiles/ubuntu && chmod+x ./provision.sh && ./provision.sh
+    Get dotfiles and run provision script
+        mkdir -p ~/code
+        git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
+        cd ./dotfiles/ubuntu && chmod+x ./provision.sh && ./provision.sh
 '
 
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
 apt-force() {
-	sudo apt --assume-yes "$@" 
+    sudo apt --assume-yes "$@" 
 }
 
 cd-temp() {
-	pushd /tmp/provision
+    pushd /tmp/provision
 }
 
 cd-before-temp() {
-	while popd; do 
-		:
-	done
+    while popd; do 
+        :
+    done
 }
 
 
@@ -87,6 +87,7 @@ apt-force install libreoffice
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
+apt-force install dunst # Lightweight notification for i3
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3
 apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
@@ -130,11 +131,11 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 # i3
 cd-temp
 apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
-		  libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
-		  libstartup-notification0-dev libxcb-randr0-dev \
-		  libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
-		  libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-		  autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
+          libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
+          libstartup-notification0-dev libxcb-randr0-dev \
+          libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
+          libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+          autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
 git clone https://www.github.com/Airblader/i3-gaps i3-gaps
 cd i3-gaps
 autoreconf --force --install
@@ -197,8 +198,15 @@ sudo systemctl mask apport # Program crash report
 sudo systemctl mask whoopsie # Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
-# Disable password request after resuming from lock screen
-gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
+# gnome desktop environment settings
+if [[ -x gsettings ]]; then
+    # Enable fractional scaling on Ubuntu 19.04
+    gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+    gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
+
+    # Disable password request after resuming from lock screen
+    gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
+fi
 
 # Additional fonts
 cd-temp
@@ -224,9 +232,6 @@ xdg-mime default ranger.desktop inode/directory
 sudo usermod -a -G video $USER
 sudo usermod -a -G i2c $USER
 sudo usermod -a -G disk $USER
-
-# Enable Wayland fractional scaling on Ubuntu 19.04: 
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
 
 #------------------------------------------------------------------------------

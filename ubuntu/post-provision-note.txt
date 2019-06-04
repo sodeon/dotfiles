@@ -7,9 +7,7 @@ Vim:
     # copy ~/.vim to /c/Users/Andy
 
 Tmux:
-    tmux uses zsh as default may need to reboot in order to take effect
     (ctrl+e I) to download and install plugins
-    # tmux-mem-cpu-load may not load correctly on start up, use <c-e>r to reload tmux.conf
 
 Github:
     ssh login:
@@ -38,9 +36,9 @@ System:
         Run "disks" to find what sda/sdb/.. drives to be mapped
         Modify /etc/fstab:
             For example, add following lines (sda3 mapped to /mnt/c, note the auto/noauto for automount option)
-            /dev/sda3 /mnt/c ntfs uid=1000,auto,user 0  0
+            /dev/sda3 /mnt/c ntfs uid=1000,noauto,x-systemd.automount,user 0  0
             /dev/sda5 /mnt/d ntfs uid=1000,noauto,x-systemd.automount,user 0  0
-            /dev/sdb2 /mnt/e ntfs uid=1000,auto,user 0  0
+            /dev/sdb2 /mnt/e ntfs uid=1000,noauto,x-systemd.automount,user 0  0
     Remove snapd
         Find installed snap packages: $snap list
         Remove snap packages ("core" cannot be removed): $snap remove
