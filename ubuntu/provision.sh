@@ -239,9 +239,8 @@ fi
 
 # GDM (gnome desktop manager)
 if [[ -f /etc/default/grub ]]; then
-    # Disable splash screen and mitigations (default: quiet splash)
-    # TODO: Let user have option to enable/disable vulneribility mitigations
-	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet mitigations=off\"/" /etc/default/grub
+    # Disable splash screen (default: quiet splash)
+	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/" /etc/default/grub
 	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=0/" /etc/default/grub
     sudo update-grub
 fi
