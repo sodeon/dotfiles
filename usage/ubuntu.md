@@ -16,6 +16,7 @@
 
 ## Utilities
 - `color-picker`: xcolor from https://github.com/Soft/xcolor
+- Iso to USB flash: `sudo dd bs=4M if=file-name.iso of=/dev/sdc status=progress`
 
 ## Performance Analysis
 - `htop`: needs no introduction
