@@ -1,4 +1,5 @@
 {
+    "breadcrumbs.enabled": false,
     // "editor.fontFamily": "'Consolas NF', 'Courier New', monospace",
     // "editor.fontSize": 17,
     // "editor.lineHeight": 22,
