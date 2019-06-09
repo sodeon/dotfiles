@@ -230,11 +230,10 @@ Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' " Toggle boolean and can be more
 Plug 'justinmk/vim-sneak' " Motion search (type s plus two char to move cursor to first match, type : to go to next match)
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround' " Change surround characters (
-                          "     type cs'[ to change '' surrounding to [] surrounding
-                          "     likewise, type ds to delete surrounding
-                          "     type ysiw" to add double quote
-                          "     type S in visual mode to add surround
+Plug 'tpope/vim-surround' " Change surround characters:
+                          "     Type cs'[ to change '' surrounding to [] surrounding
+                          "     Likewise, type ds to delete surrounding
+                          "     Type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
 Plug 'sodeon/vim-i3-integration'
 " Plug 'Valloric/YouCompleteMe'
@@ -255,7 +254,6 @@ Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': {-> mkdp#util#ins
 " Plug 'Shougo/vimproc.vim' " Interactive command line
 " Plug 'vim-syntastic/syntastic' " Error highlight in code
 " Plug 'kien/ctrlp.vim' " Yes, ctrl-p
-" Plug 'francoiscabrol/ranger.vim' " Use ranger to replace netrw
 
 call plug#end()
 
@@ -265,8 +263,8 @@ call plug#end()
 "
 " NOTE:
 " Cannot map <C-/>. See https://vimhelp.appspot.com/vim_faq.txt.html#faq-20.5
-" Cannot use <C-e> as it will be hijacked by tmux
-" Cannot use <C-[> as it is extremely slow for unknown reason
+" Cannot use <C-e>: hijacked by tmux
+" Cannot use <C-[>: extremely slow for unknown reason
 "-----------------------------------------------------------------------------
 noremap  <silent> <C-]> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
