@@ -59,5 +59,5 @@ xrdb $HOME/.Xresources
 # urxvt daemon
 urxvtd -q -o -f
 
-set-display-monitor &
+[[ $XDG_CURRENT_DESKTOP == "i3" ]] && (set-display-monitor &) # For gnome desktop environment, use gnome's built-in scaling
 play-with-mpv &

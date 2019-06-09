@@ -155,3 +155,15 @@ export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
 export FZF_COMPLETION_TRIGGER=''
+
+#
+# VI mode
+#
+# bindkey -v # # Enable VI mode
+# function zle-keymap-select zle-line-init { # Normal/insert mode aware cursor shape
+#     if [ "$TERM" = "xterm-256color" ]; then
+#         [ $KEYMAP = vicmd ] && echo -ne "\e[2 q" || echo -ne "\e[6 q"
+#     fi
+# }
+# zle -N zle-keymap-select # Register zle-keymap-select, zle-line-init is registered somewhere else by oh-my-zsh
+# export KEYTIMEOUT=1 # By default, exiting VI mode has 0.4sec delay
