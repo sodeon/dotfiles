@@ -13,8 +13,8 @@ ssh-feedback-listener() {
     [[ -z ${msg-} ]] && return 0
 
     case "$msg" in
-        '^focus ' | '^resize ' | '^move ')
-            i3-msg "$msg"
+        focus* | resize* | move*)
+            i3-msg -q "$msg"
             ;;
         *)
             echo "$msg" | xclip -i -selection clipboard
