@@ -17,7 +17,7 @@ b:6
 b:7
 "autohotkey closeTabOrWindow"
 b:8
-"xdotool key alt+Left" # back
+"xdotool key XF86Back" # back
 b:9
 
 # Volume control

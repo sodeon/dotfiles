@@ -10,12 +10,3 @@ apt-force() {
 apt-force tlp powertop # tlp: power management tool, powertop: power analysis
 sudo powertop  --auto-tune # Reboot afterwards. Do not use suggested settings for SATA link power management and vm write back. tlp will set more optimal settings.
 sudo tlp start
-
-
-# Setup config to ssh ftp to home computer
-sudo mkdir -p /mnt/andy-desktop
-sudo chmod a+rw /mnt/andy-desktop
-mkdir -p ~/.ssh
-touch ~/.ssh/config
-cat .ssh/config >> ~/.ssh/config
-sshfs andy-desktop:/ /mnt/andy-desktop

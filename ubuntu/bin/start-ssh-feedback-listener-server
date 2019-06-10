@@ -1,0 +1,32 @@
+#!/bin/bash -ue
+if [[ -z ${1-} ]]; then
+    port=5556
+else
+    port=$1
+fi
+
+#------------------------------------------------------------------------------
+# Command parser
+#------------------------------------------------------------------------------
+ssh-feedback-listener() {
+    msg=$(cat -)
+    [[ -z ${msg-} ]] && return 0
+
+    case "$msg" in
+        focus* | resize* | move*)
+            i3-msg -q "$msg"
+            ;;
+        *)
+            echo "$msg" | xclip -i -selection clipboard
+            ;;
+    esac
+}
+
+
+#------------------------------------------------------------------------------
+# Listen to ssh feadback port and issue to command parser
+#------------------------------------------------------------------------------
+echo "Listening to port $port..."
+while true; do
+    nc -l $port | ssh-feedback-listener
+done

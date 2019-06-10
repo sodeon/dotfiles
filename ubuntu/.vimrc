@@ -89,7 +89,22 @@ set foldlevel=99
 set selection=inclusive
 
 " Use system clipboard when yanking (link yank register to system clipboard register "+")
+" https://stackoverflow.com/questions/6453595/prevent-vim-from-clearing-the-clipboard-on-exit
 set clipboard=unnamedplus
+if executable("xsel") " By default, VIM will clear clipboard after closing or switched to background
+    function! PreserveClipboard()
+        call system("xsel -ib", getreg('+'))
+    endfunction
+  
+    function! PreserveClipboadAndSuspend()
+        call PreserveClipboard()
+        suspend
+    endfunction
+  
+    autocmd VimLeave * call PreserveClipboard()
+    nnoremap <silent> <c-z> :call PreserveClipboadAndSuspend()<cr>
+    vnoremap <silent> <c-z> :<c-u>call PreserveClipboadAndSuspend()<cr>
+endif
 
 " Directory browsing
 "   Enter - open  
