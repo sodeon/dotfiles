@@ -1,0 +1,19 @@
+#!/bin/bash -ue
+if [[ -z ${1-} ]]; then
+    port=5556
+else
+    port=$1
+fi
+
+# read-first-byte() {
+#     # https://unix.stackexchange.com/questions/33049/how-to-check-if-a-pipe-is-empty-and-run-a-command-on-the-data-if-it-isnt
+#     first_byte=$(dd bs=1 count=1 2>/dev/null | od -t o1 -A n | tr -dc 0-9)
+#     echo $first_byte
+# }
+
+# msg=$(cat -)
+# if [[ -z $msg ]]; then
+#     msg=$(xclip -o -selection clipboard)
+# fi
+
+xclip -o -selection clipboard | nc -q0 localhost $port

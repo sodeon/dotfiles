@@ -3,7 +3,7 @@
 # Aliases compatible with both bash and zsh
 #------------------------------------------------------------------------------
 # Let alias still works after sudo
-alias sd='sudo '
+alias sudo='sudo '
 
 alias lr='ls -rtla'
 
