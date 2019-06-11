@@ -14,9 +14,6 @@ alias v='vim -p' # each file a tab
 alias d='vimdiff'
 n() { touch $*; code $*; } # new and code
 
-# Disable GPU acceleration for VSCode. It has no real world benefit.
-alias code='code --disable-gpu'
-
 # Output manipulation
 body() { IFS= read -r header; printf '%s\n' "$header"; "$@"; }
 
@@ -72,6 +69,9 @@ alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort"
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
+
+# Disable GPU acceleration for VSCode. It has no real world benefit.
+alias code='code --disable-gpu'
 
 
 #-----------------------------------------------------
