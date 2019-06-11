@@ -14,18 +14,6 @@ ssh:
     $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 System:
-    Auto-mount NTFS drives
-        Run "disks" to find what sda/sdb/.. drives to be mapped
-        Modify /etc/fstab:
-            For example, add following lines (sda3 mapped to /mnt/c, note the auto/noauto for automount option)
-            /dev/sda3 /mnt/c ntfs uid=1000,noauto,x-systemd.automount,user 0  0
-            /dev/sda5 /mnt/d ntfs uid=1000,noauto,x-systemd.automount,user 0  0
-            /dev/sdb2 /mnt/e ntfs uid=1000,noauto,x-systemd.automount,user 0  0
-            /dev/sda6 /mnt/old ext4 errors=remount-ro 0 1
-        Or use UUID (to find UUID: $blkid)
-            UUID=A022F03522F011D0                     /mnt/c   ntfs noauto,x-systemd.automount,user 0  0
-            UUID=9dd1ac78-ddad-48a1-9734-b936d7f48f4a /mnt/old ext4 errors=remount-ro 0 1
-            UUID=9E303D55303D361D                     /mnt/e   ntfs noauto,x-systemd.automount,user 0  0
     Remove snapd
         Find installed snap packages: $snap list
         Remove snap packages ("core" cannot be removed): $snap remove
@@ -56,11 +44,6 @@ System (Laptop):
             $ngrep '\xff{6}(.{6})\1{15}' -x port 9
 
 Performance:
-    Enable/disable swap:
-        File: /etc/fstab:
-        Modify: Comment out swap (following grabbed from Ubuntu 19.04)
-            /swapfile                                 none            swap    sw              0       0
-        Run: sudo rm /swapfile
     Disable unused services:
         $sudo systemctl disable {service}
         services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
@@ -80,15 +63,3 @@ Performance:
                 ReadKMsg=no
             Can still non-archived copy from /var/log/syslog
         - View jornal size: $sudo journalctl --disk-usage
-    Disable CPU vulnerability mitigations (use at own risk):
-        Check vulnerability: $sudo spectre-meltdown-checker
-        File: /etc/default/grub
-        Modify: add "mitigations=off" to kernel parameters
-            GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
-        Run: sudo update-grub
-
-NVIDIA Graphics Card:
-    Workaround NVIDIA i2c not working: https://github.com/ddccontrol/ddccontrol/issues/20
-        http://www.ddcutil.com/nvidia/#special-nvidia-driver-settings
-        Add "options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100" in /etc/modprobe.d/nvidia.conf # create this file manually
-

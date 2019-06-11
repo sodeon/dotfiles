@@ -11,7 +11,7 @@ read displayWidth displayHeight <<< $(echo $displayGeometry)
 read width height <<< $(echo $windowGeometry)
 
 # Calculate bottom right position
-let "newX = $displayWidth - $width"
+let "newX = $displayWidth  - $width"
 let "newY = $displayHeight - $height"
 
 # echo screen: $displayWidth $displayHeight

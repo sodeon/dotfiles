@@ -8,6 +8,9 @@ else
     machine=''
 fi
 
+#------------------------------------------------------------------------------
+# dotfiles
+#------------------------------------------------------------------------------
 $path/restore.sh $machine
 
 if [[ -z $machine ]]; then
@@ -15,3 +18,11 @@ if [[ -z $machine ]]; then
 else
     echo "dotfiles restored from $path with '$machine' profile"
 fi
+
+
+#------------------------------------------------------------------------------
+# Private dotfiles
+#------------------------------------------------------------------------------
+path="$HOME/code/private-dotfiles"
+
+[[ -d $path ]] && $path/restore.sh $machine && echo "Private data restored to $path/$machine"

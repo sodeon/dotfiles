@@ -8,6 +8,9 @@ else
     machine=''
 fi
 
+#------------------------------------------------------------------------------
+# dotfiles
+#------------------------------------------------------------------------------
 $path/backup.sh $machine
 
 if [[ -z $machine ]]; then
@@ -15,3 +18,11 @@ if [[ -z $machine ]]; then
 else
     echo "dotfiles backed up to $path with '$machine' suffix for machine dependent config"
 fi
+
+
+#------------------------------------------------------------------------------
+# Private dotfiles
+#------------------------------------------------------------------------------
+path="$HOME/code/private-dotfiles"
+
+[[ -d $path ]] && $path/backup.sh $machine && echo "Private data backed up to $path/$machine"
