@@ -1,5 +1,1 @@
 git blame useful commands
-
-Files not backup:
-    git config
-    ssh login messages (/etc/update-motd.d/99.*)

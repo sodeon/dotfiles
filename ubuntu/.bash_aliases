@@ -30,12 +30,17 @@ alias ap='ps  -aux' # ap: all processes
 
 
 #-----------------------------------------------------
+# Utilities
+#-----------------------------------------------------
+alias escape-space=sed 's/ /\\ /g'
+
+
+#-----------------------------------------------------
 # Git
 #-----------------------------------------------------
 alias gs='git status'
 alias gd='git diff --color --color-moved'
 alias gdt='git difftool'
-alias gdth='git difftool HEAD'
 
 alias gb='git branch'
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# NOTE: This script is not intended to be executed directly. It is sourced by backup.sh/restore.sh
 
 # Files and directories to backup without file name modifications.
 # Support brace expansion and extglob.

@@ -1,6 +1,1 @@
-#!/bin/bash -ue
-
-mntFolder=/mnt/andy-desktop
-
-sudo sshfs -o allow_other andy@192.168.0.102:/ $mntFolder -o IdentityFile=/home/$USER/.ssh/id_rsa
-echo "Drive mounted at $mntFolder"
+hardware/mount-andy-desktop

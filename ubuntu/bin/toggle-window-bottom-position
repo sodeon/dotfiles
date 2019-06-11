@@ -17,7 +17,7 @@ read x y <<< $(windowPosition)
 let newX="$displayWidth  - $width"
 let newY="$displayHeight - $height"
 
-if (( $newX <= $x + $positionDelta && $newX >= $x - $positionDelta )); then
+if (( $x > $positionDelta )); then
     newX=0
 fi
 
