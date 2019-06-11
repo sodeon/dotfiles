@@ -4,7 +4,7 @@
 # Install docker community edition
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
 #------------------------------------------------------------------------------------------
-log_captains "Installing Docker..."
+figlet "Installing Docker..."
 
 # Remove old versions
 log "Remove old version..."
@@ -39,16 +39,17 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-compose
 log "Testing docker installation..."
 sudo docker run hello-world
 
-# Success
-log_success "Docker installation complete"
-
 
 #------------------------------------------------------------------------------------------
 # Post-installation config
 # https://docs.docker.com/install/linux/linux-postinstall/
 #------------------------------------------------------------------------------------------
-log_captains "Configuring docker..."
 log "Allow non-root user to use docker..."
 sudo usermod -aG docker $USER
 
 
+#------------------------------------------------------------------------------------------
+# Success
+#------------------------------------------------------------------------------------------
+figlet Done
+log_success "Docker installation complete"

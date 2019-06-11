@@ -4,7 +4,7 @@ source ~/.local/lib/bash/log.sh
 # Install docker community edition
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
 #------------------------------------------------------------------------------------------
-log_captains "Installing Docker..."
+figlet "Installing Docker..."
 
 # Remove old versions
 log "Remove old version..."
@@ -47,7 +47,7 @@ log_success "Docker installation complete"
 # Post-installation config
 # https://docs.docker.com/install/linux/linux-postinstall/
 #------------------------------------------------------------------------------------------
-log_captains "Configuring docker..."
+figlet "Configuring docker..."
 log "Allow non-root user to use docker..."
 sudo usermod -aG docker $USER
 
@@ -55,7 +55,7 @@ sudo usermod -aG docker $USER
 #------------------------------------------------------------------------------------------
 # Install nvidia-docker
 #------------------------------------------------------------------------------------------
-log_captains "Installing nvidia-docker..."
+figlet "Installing nvidia-docker..."
 
 # Remove old nvidia-docker (1.0)
 log "Remove old nvidia-docker..."
