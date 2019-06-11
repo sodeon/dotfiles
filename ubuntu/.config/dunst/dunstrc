@@ -86,7 +86,7 @@
 
     ### Text ###
 
-    font = Ubuntu 16
+    font = Ubuntu 15
     # font = Monospace 15
 
     # The spacing between lines.  If the height is smaller than the
