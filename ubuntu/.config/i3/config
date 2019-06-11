@@ -436,8 +436,6 @@ exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 exec --no-startup-id activate-hotkeys
 # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
 exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
-# Boost M720 movement speed (TODO: move this to other places)
-exec --no-startup-id setup-logitech-m720 &
 
 
 #--------------------------------------------------------------------------------
