@@ -60,3 +60,4 @@ The order of expansions is: brace expansion; tilde expansion, parameter and vari
 items=(.config/$item) # e.g. $item=*.example. expanded items=(.config/aa.example .config/bb.example)
 
 # Gotcha
+Quotes (both single and double) are not indication of strings like most programming languages. They are used to turn substitution on/off.

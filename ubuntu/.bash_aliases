@@ -36,7 +36,7 @@ alias escape-space=sed 's/ /\\ /g'
 # Git
 #-----------------------------------------------------
 alias gs='git status'
-alias gd='git diff --color --color-moved'
+alias gd='git diff --color'
 alias gdt='git difftool'
 
 alias gb='git branch'
