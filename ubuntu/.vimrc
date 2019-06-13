@@ -72,7 +72,10 @@ set ignorecase
 set wildignorecase " Ignore case in path completion
 
 set ruler
+
+" When file is changed externally, show notifications. This functionality is broken, use vim-autoread plugin instead.
 set autoread
+" autocmd BufEnter,FocusGained <buffer> checktime " Workaround, but not good enough. FocusGained only works in gvim.
 
 " Enable mouse for adjusting pane size
 set ttymouse=xterm2
@@ -195,8 +198,9 @@ noremap P $a<Space><Esc>p
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" Insert line w/o entering insert mode
-nnoremap <CR> o<Esc>
+" Insert line w/o entering insert mode. (Shift+Enter doesn't work in terminal)
+nnoremap <S-Enter> O<Esc>
+nnoremap <CR>      o<Esc>
 
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 nnoremap <F12> :!<Up><CR>
@@ -251,6 +255,7 @@ Plug 'tpope/vim-surround' " Change surround characters:
                           "     Type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
 Plug 'sodeon/vim-i3-integration'
+" Plug 'djoshea/vim-autoread' " vim's built-in autoread does not work. This autoread plugin has performance concerns.
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
 " Plug 'majutsushi/tagbar'
@@ -295,7 +300,9 @@ let g:switch_custom_definitions =
     \   ['enable', 'disable'],
     \   ['Enable', 'Disable'],
     \   ['yes'   , 'no'     ],
-    \   ['on'    , 'off'    ]
+    \   ['on'    , 'off'    ],
+    \   ['and'   , 'or'     ],
+    \   ['||'    , '&&'     ]
     \ ]
 
 " Commentary

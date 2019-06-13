@@ -83,7 +83,6 @@ plugins=(
   sudo
   docker
   #pip
-  #supervisor
 )
 source $ZSH/oh-my-zsh.sh
 

@@ -141,7 +141,7 @@ focusWindow() {
        || isWinActive Code \
        || isActiveWinTitle ^tmux$; then
         xdotool-forward keyup $navKey key $navKey
-    elif isActiveWinTitle ranger && [[ $direction == 'left' || $direction == 'right' ]]; then
+    elif isActiveWinTitle ^ranger && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "focus $direction"

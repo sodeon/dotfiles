@@ -15,6 +15,14 @@
 b:6
 "xdotool key ctrl+Next" # next tab
 b:7
+"xdotool key ctrl+Prior" # move tab to left
+Shift+b:6
+"xdotool key ctrl+Next" # move tab to right
+Shift+b:7
+"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
+control+b:6
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+control+b:7
 "autohotkey closeTabOrWindow"
 b:8
 "xdotool key XF86Back" # back
