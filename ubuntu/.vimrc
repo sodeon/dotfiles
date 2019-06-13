@@ -168,7 +168,6 @@ let &t_SI.="\e[6 q"
 let &t_EI.="\e[2 q"
 let &t_ti.="\e[2 q"
 let &t_te.="\e[6 q"
-" autocmd BufWinLeave * !echo -ne '\e[5 q'
 
 " Cursor line (since cursor block blinking is enough, remove this)
 " se cursorline
