@@ -161,10 +161,10 @@ bindsym $mod+grave kill
 
 # Change focus (with vim integration)
 #    Leave fullscreen to allow focus change without leaving fullscreen first
-bindsym $mod+h fullscreen disable, exec autohotkey focusWindow left
-bindsym $mod+j fullscreen disable, exec autohotkey focusWindow down
-bindsym $mod+k fullscreen disable, exec autohotkey focusWindow up
-bindsym $mod+l fullscreen disable, exec autohotkey focusWindow right
+bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
+bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
+bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
+bindsym $mod+l exec --no-startup-id autohotkey focusWindow right
 
 # Move focused window (Disable vim/i3/tmux integration. All these have different window movement mechanisms. Behavior after integration is just wierd and inconsistent.)
 set_from_resource $floatingDeltaX i3wm.floating.deltaX 64px
@@ -427,7 +427,7 @@ exec i3-msg 'workspace $ws2; exec $term'
 # System config and daemons
 #
 # Black background
-exec xsetroot -solid "#000000"
+exec --no-startup-id xsetroot -solid "#000000"
 # Auto-hide cursor
 exec --no-startup-id unclutter
 # Workaround brightness value cannot be read until several seconds after booting
