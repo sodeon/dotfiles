@@ -267,7 +267,9 @@ Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect 
 " File type plugins
 Plug 'posva/vim-vue',                {'for': 'vue'}
 Plug 'digitaltoad/vim-pug',          {'for': 'vue'}
-Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': {-> mkdp#util#install()}}
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }} " Cannot add {'for': 'markdown'}. 
+                                                                        " With it, PlugInstall must run with a markdown file opened.
+                                                                        " Or post install 'do' will fail.
 
 " Not using, but other like these
 " Plug 'tpope/vim-fugitive' " Git
