@@ -805,5 +805,9 @@
     {
         "key": "ctrl+shift+s",
         "command": "workbench.action.openSettingsJson"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "outline.focus"
     }
 ]

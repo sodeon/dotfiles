@@ -149,8 +149,8 @@ set shiftwidth=4
 set smarttab
 set expandtab
 set autoindent " Always set autoindenting on
+" set cindent " smarter than 'smartindent' but has side effect on non C like programming languages. TODO: Use autocmd to  enable cindent when opening C like languages
 autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
-set smartindent
 
 " Disable newline insertion
 set textwidth=500 wrapmargin=0
@@ -168,7 +168,6 @@ let &t_SI.="\e[6 q"
 let &t_EI.="\e[2 q"
 let &t_ti.="\e[2 q"
 let &t_te.="\e[6 q"
-" autocmd BufWinLeave * !echo -ne '\e[5 q'
 
 " Cursor line (since cursor block blinking is enough, remove this)
 " se cursorline
@@ -185,6 +184,7 @@ set fillchars+=vert:\
 " NOTE: Vim doeesn't recognize hyper key)
 "-----------------------------------------------------------------------------
 nnoremap <silent> q :q<CR>
+nnoremap <silent> Q :qa<CR>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -254,8 +254,9 @@ Plug 'tpope/vim-surround' " Change surround characters:
                           "     Likewise, type ds to delete surrounding
                           "     Type S in visual mode to add surround
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
+Plug 'will133/vim-dirdiff'
+Plug 'thaerkh/vim-workspace' " Provides better session experiences. It behaves like modern IDE. To enable workspace: ':ToggleWorkspace'
 Plug 'sodeon/vim-i3-integration'
-" Plug 'djoshea/vim-autoread' " vim's built-in autoread does not work. This autoread plugin has performance concerns.
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
 " Plug 'majutsushi/tagbar'
@@ -295,6 +296,12 @@ nnoremap <silent> t :Switch<CR>
 
 " let g:sneak#s_next = 1
 map <silent> : <Plug>Sneak_;
+
+" Session management
+let g:workspace_session_name = '.session.vim'
+let g:workspace_session_directory = $HOME.'/.vim/sessions/'
+let g:workspace_persist_undo_history = 0  " Do not keep undo history
+let g:workspace_autosave = 0
 
 " Switcher
 let g:switch_custom_definitions =
