@@ -302,6 +302,7 @@ let g:workspace_session_name = '.session.vim'
 let g:workspace_session_directory = $HOME.'/.vim/sessions/'
 let g:workspace_persist_undo_history = 0  " Do not keep undo history
 let g:workspace_autosave = 0
+let g:workspace_session_disable_on_args = 1 " Only workspace when not opening files (open vim only)
 
 " Switcher
 let g:switch_custom_definitions =

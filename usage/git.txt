@@ -1,3 +1,6 @@
+To merge disjointed branches (e.g. pull from new remote location)
+    $git pull origin master --allow-unrelated-histories
+
 Generate patch (for suckless):
     $git add files-to-be-patched
     $git commit

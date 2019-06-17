@@ -10,7 +10,7 @@ alias lr='ls -rtla'
 # Most used programs
 alias s='source $*'
 alias t='task'
-alias v='vim -p' # each file a tab
+alias v='vim'
 alias d='vimdiff'
 n() { touch $*; code $*; } # new and code
 
