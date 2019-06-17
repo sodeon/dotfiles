@@ -70,7 +70,7 @@ alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h
 alias suspend='systemctl suspend'
 alias shutdown='shutdown -h now'
 
-alias memory='free -m' # In megabytes
+# alias memory='free -m' # In megabytes
 
 alias du='ncdu --exclude /mnt' # do not include ntfs partitions
 alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort" # disk usage in human readable format and partition format

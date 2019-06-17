@@ -1,7 +1,17 @@
 #!/bin/bash -ue
-
 # To list devices: xinput --list --short
 # To get properties of the device: xinput --list-props 11 # 11 is the mouse id
-if xinput --list --short | grep -q "M720.*Mouse"; then
-    xinput --set-prop 'M720 Triathlon Mouse' 'libinput Accel Speed' 0.75
+. log.sh
+
+MOUSE_KEYWORD=M720
+MOUSE_ACCEL=0.8
+
+get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD.*pointer" | awk '{print $6}' | awk -F '=' '{print $2}'; }
+
+mouse_id=`get-mouse-id $MOUSE_KEYWORD`
+if [[ -z $mouse_id ]]; then
+    error "Mouse $MOUSE_KEYWORD cannot be found."
+    exit 1
 fi
+xinput --set-prop $mouse_id 'libinput Accel Speed' $MOUSE_ACCEL
+info "Mouse acceleration profile set to $MOUSE_ACCEL"

@@ -79,7 +79,7 @@ floating_modifier $mod
 # mod3+h/l  : move back/forward a word
 # mod3+j/k  : move back/forward a character
 # mod3+0/4  : navigate to beginning/end of line (like vim shortcuts)
-# mod3+m/n  : history up/down
+# mod3+,/m  : history up/down
 # Binding all Up/Down/Left/Right/Home/End frees hand from moving for typing
 bindsym Mod3+o exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+p exec --no-startup-id autohotkey deleteWord
@@ -90,8 +90,8 @@ bindsym Mod3+j exec --no-startup-id xdotool keyup j key Left
 bindsym Mod3+k exec --no-startup-id xdotool keyup k key Right
 bindsym Mod3+0 exec --no-startup-id xdotool keyup 0 key Home
 bindsym Mod3+4 exec --no-startup-id xdotool keyup 4 key End
-bindsym Mod3+m exec --no-startup-id xdotool keyup m key --clearmodifiers Up
-bindsym Mod3+n exec --no-startup-id xdotool keyup n key --clearmodifiers Down
+bindsym Mod3+m exec --no-startup-id xdotool keyup m key --clearmodifiers Down
+bindsym Mod3+comma exec --no-startup-id xdotool keyup comma key --clearmodifiers Up
 
 # Terminal pageup/pagedown
 bindsym Prior exec --no-startup-id autohotkey pageup
