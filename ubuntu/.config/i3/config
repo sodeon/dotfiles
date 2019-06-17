@@ -258,16 +258,17 @@ mode " Organize Windows " {
 #--------------------------------------------------------------------------------
 # Workspace management
 #--------------------------------------------------------------------------------
-set $ws1  "1: Web"
-set $ws2  "2: Term"
-set $ws3  "3: Code"
+# Add a little spacing around the name for less cluter viewing experiences
+set $ws1  "1: Web "
+set $ws2  "2: Term "
+set $ws3  "3: Code "
 set $ws4  "4"
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
 set $ws8  "8"
 set $ws9  "9"
-set $ws10 "10: File"
+set $ws10 "10: File "
 
 #
 # Switch to workspace
