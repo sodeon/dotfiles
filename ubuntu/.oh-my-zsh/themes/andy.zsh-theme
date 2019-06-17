@@ -1,14 +1,21 @@
 # NOTE: urxvt has limited emoji support. Thus, does not use emoji for error return prompt.
 
 # If command success, no hint
-local ret_status="%(?::%{$fg_bold[red]%}>_< )"
+
+local ret_status="%(?::%{$fg_bold[blue]%}😠 )"
 # local ret_status="%(?::%{$fg_bold[red]%}➜ )"
 #local ret_status="%(?:%{$FG[247]%}➜ :%{$fg_bold[red]%}➜ )"
+
+# Draw line and update line size when terminal resizes
+# https://unix.stackexchange.com/questions/360600/reload-zsh-when-resizing-terminator-window
+# https://superuser.com/questions/845744/how-to-draw-a-line-between-commands-in-zsh-shell
+drawline="${(r:$COLUMNS::─:)}"
+TRAPWINCH() { drawline="${(r:$COLUMNS::─:)}" }
 
 #PROMPT='
 #${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)
 #%{$fg[$CARETCOLOR]%}$%{$reset_color%} '
-PROMPT='
+PROMPT='%{$FG[008]%}${drawline}%{$reset_color%}
 ${ret_status}%{$fg[yellow]%}%~%{$reset_color%}
 %{$fg[$white]%}%{$reset_color%} '
 #╭─${ret_status}%{$fg[yellow]%}%~%{$reset_color%}
