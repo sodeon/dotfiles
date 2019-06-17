@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 cd "$(dirname "$(realpath "$0")")";
-source backup-restore-config-spec.sh
+. backup-restore-config-spec.sh
 
 #
 # $HOME directory

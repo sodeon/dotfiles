@@ -1,5 +1,5 @@
 #!/bin/bash -ue
-source ~/.local/lib/bash/log.sh
+. ~/.local/lib/bash/log.sh
 #------------------------------------------------------------------------------------------
 # Install docker community edition
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
