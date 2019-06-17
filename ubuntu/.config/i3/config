@@ -68,8 +68,6 @@ bar {
 # Modifiers
 #--------------------------------------------------------------------------------
 set $mod Mod1
-set $modWorkspace Mod4
-
 floating_modifier $mod
 
 
@@ -135,13 +133,13 @@ bindsym Pause       exec --no-startup-id xset dpms force off
 bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 
 # Lock/logout
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
 
 # Restart/reload i3 config
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 
-# Left thumb mouse button at the bottom (new tab for web browser)
+# Logitech M720 left thumb mouse button at the bottom (new tab for web browser)
 bindsym $mod+ctrl+Tab exec --no-startup-id xdotool keyup Tab ctrl alt key ctrl+t
 
 #--------------------------------------------------------------------------------
@@ -192,17 +190,13 @@ bindsym $mod+s split v
 # Make window a vertical split container
 bindsym $mod+v split h
 
-# Change container layout (stacked/"deck", tabbed, toggle split)
+# Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
 bindsym $mod+f layout toggle split
 bindsym $mod+a layout stacked
 bindsym $mod+t layout tabbed
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
-# Maximize (could also use full screen mode if one prefer)
-bindsym $mod+z resize set width 99ppt, resize set height 90ppt
-# Minimize
-# bindsym $mod+m resize set width  1ppt, resize set height 10ppt
-
+# Maximize (full screen)
 bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 # NOTE: full screen can be used on non-workspace container
 # bindsym Shift+F11 focus parent; fullscreen toggle; focus child
@@ -219,12 +213,6 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # TODO: mark/unmark window
-
-# Dummy mode that will not grab keys
-bindsym Mod3+a mode " "
-mode " " {
-	bindsym Escape mode "default"
-}
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
 # NOTE: gap adjustment is also here
@@ -255,6 +243,13 @@ mode " Organize Windows " {
 	bindsym $mod+o mode "default"
 	bindsym Escape mode "default"
 }
+
+# Dummy mode that will not grab keys
+bindsym Mod3+a mode " "
+mode " " {
+	bindsym Escape mode "default"
+}
+
 
 #--------------------------------------------------------------------------------
 # Workspace management
@@ -293,27 +288,17 @@ bindsym F2               workspace number $ws2
 bindsym F3               workspace number $ws3
 bindsym F4               workspace number $ws4
 
-# Quake style terminal
-# bindsym Mod3+semicolon    workspace $ws1
-# Most used workspaces
-# bindsym Mod3+apostrophe   workspace $ws2
-# bindsym Mod3+bracketright workspace $ws4
-# bindsym Mod3+bracketleft  workspace $ws7
-
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1 ; workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2 ; workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3 ; workspace number $ws3 
-bindsym $mod+Shift+4 move container to workspace number $ws4 ; workspace number $ws4 
-bindsym $mod+Shift+5 move container to workspace number $ws5 ; workspace number $ws5 
-bindsym $mod+Shift+6 move container to workspace number $ws6 ; workspace number $ws6 
-bindsym $mod+Shift+7 move container to workspace number $ws7 ; workspace number $ws7 
-bindsym $mod+Shift+8 move container to workspace number $ws8 ; workspace number $ws8 
-bindsym $mod+Shift+9 move container to workspace number $ws9 ; workspace number $ws9 
-bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number $ws10
-
-# Re"n"ame workspace (remember to add number prefix to the name. e..g "4: Idea")
-bindsym $mod+Shift+n exec --no-startup-id i3-input -F 'rename workspace to "%s"' -P 'New name: ' -f 'pango:Ubuntu 16'
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 
 #--------------------------------------------------------------------------------
@@ -321,7 +306,7 @@ bindsym $mod+Shift+n exec --no-startup-id i3-input -F 'rename workspace to "%s"'
 #--------------------------------------------------------------------------------
 # Terminal
 set $term urxvtc
-bindsym $mod+Return       exec $term -cd $(xcwd)
+bindsym $mod+Return exec $term -cd $(xcwd)
 # set_from_resource $sshBookmark i3wm.ssh.bookmark
 # bindsym $mod+Shift+Return exec $term -e ssh $sshBookmark
 #bindsym $mod+Return exec i3-sensible-terminal

@@ -208,7 +208,7 @@ nnoremap <Esc>[24~ :!<Up><CR>
 
 " Split resize and movement
 " NOTE: To move split in complext layout, move vertical direction first (jk), then move horizontal direction (hl)
-nnoremap <silent> <C-w>t :Tabmerge left<CR>
+nnoremap <silent> <C-w>t :Tabmerge right<CR>
 " Move split to new tab: <C-w>T
 " Move split <C-w> H/J/K/L (left/bottom/top/right)
 

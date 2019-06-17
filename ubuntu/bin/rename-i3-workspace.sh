@@ -1,0 +1,1 @@
+window-management/rename-i3-workspace.sh
