@@ -84,14 +84,16 @@ floating_modifier $mod
 bindsym Mod3+o      exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+p      exec --no-startup-id autohotkey deleteWord
 bindsym Mod3+u      exec --no-startup-id xdotool keyup u      key ctrl+u
+
 bindsym Mod3+h      exec --no-startup-id xdotool keyup h      key ctrl+Left
 bindsym Mod3+l      exec --no-startup-id xdotool keyup l      key ctrl+Right
-bindsym Mod3+j      exec --no-startup-id xdotool keyup j      key Left
-bindsym Mod3+k      exec --no-startup-id xdotool keyup k      key Right
+bindsym Mod3+j      exec --no-startup-id autohotkey xdotool-forward keyup j key Down
+bindsym Mod3+k      exec --no-startup-id autohotkey xdotool-forward keyup k key Up
+
+bindsym Mod3+m      exec --no-startup-id xdotool keyup m      key Left
+bindsym Mod3+comma  exec --no-startup-id xdotool keyup comma  key Right
 bindsym Mod3+n      exec --no-startup-id xdotool keyup n      key Home
 bindsym Mod3+period exec --no-startup-id xdotool keyup period key End
-bindsym Mod3+m      exec --no-startup-id xdotool keyup m      keyup Mod3 key Down
-bindsym Mod3+comma  exec --no-startup-id xdotool keyup comma  keyup Mod3 key Up
 
 # Terminal pageup/pagedown
 bindsym Prior exec --no-startup-id autohotkey pageup
@@ -99,8 +101,8 @@ bindsym Next  exec --no-startup-id autohotkey pagedown
 
 # Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
-# bindsym Mod3+Down             exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
-# bindsym Mod3+Up               exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Down             exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
+bindsym Mod3+Up               exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
 bindsym Mod3+b                exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
