@@ -12,6 +12,8 @@ alias s='source $*'
 alias t='task'
 alias v='vim'
 alias d='vimdiff'
+tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
+                                      # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code
 
 # Output manipulation

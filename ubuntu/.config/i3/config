@@ -220,6 +220,7 @@ bindsym $mod+c focus child
 # NOTE: gap adjustment is also here
 bindsym $mod+o mode " Organize Windows "
 mode " Organize Windows " {
+    # bindsym $mod+Return exec $term -cd $(xcwd); mode "default"
     bindsym $mod+h fullscreen disable, focus left , mode "default"
     bindsym $mod+j fullscreen disable, focus down , mode "default"
     bindsym $mod+k fullscreen disable, focus up   , mode "default"

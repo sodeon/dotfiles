@@ -54,6 +54,18 @@ endif
 " Change current working directory to the opened file
 command! Cd :cd %:h
 
+" Set VIM as server for outside to send command in
+" Use case: Press ctrl-z to go to zsh and open files (by tabnew bash alias) to edit
+function! Serve(...)
+    if (a:0 == 0)
+        let serverName = "VIM"
+    else
+        let serverName = a:1
+    endif
+    call remote_startserver(serverName)
+endfunction
+command! -nargs=? Serve call Serve()
+
 
 "-----------------------------------------------------------------------------
 " My config 
