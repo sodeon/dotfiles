@@ -8,7 +8,6 @@ alias sd='sudo '
 alias lr='ls -rtla'
 
 # Most used programs
-alias s='source $*'
 alias t='task'
 alias v='vim'
 alias d='vimdiff'
@@ -20,7 +19,7 @@ n() { touch $*; code $*; } # new and code
 body() { IFS= read -r header; printf '%s\n' "$header"; "$@"; }
 
 # File discovery
-alias fd='fdfind --hidden --full-path --exclude .git'
+alias fd='fdfind --hidden --full-path --exclude .git --type d'
 alias ff='fdfind --hidden --full-path --exclude .git --type f'
 
 # Process management
@@ -44,6 +43,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 alias gs='git status'
 alias gd='git diff --color'
 alias gdt='git difftool'
+alias gd^='git diff HEAD^'
 
 alias gb='git branch'
 
@@ -64,6 +64,15 @@ alias gl='git log'
 alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all"
 alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
 # alias gr='git reflog'
+
+
+#-----------------------------------------------------
+# Docker
+#-----------------------------------------------------
+alias dr='docker run -it --rm'
+alias di='docker image'
+alias dc='docker container'
+alias d-c='docker-compose'
 
 
 #-----------------------------------------------------

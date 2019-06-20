@@ -98,6 +98,14 @@ pagedown() {
     fi
 }
 
+scroll() {
+    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+		xdotool keyup $2 key shift+$1
+    else
+        xdotool keyup $2 key $1
+    fi
+}
+
 pause() {
     if isWinExists mpv; then
 		echo cycle pause | socat - ~/.config/mpv/socket

@@ -49,6 +49,64 @@ endif
 
 
 "-----------------------------------------------------------------------------
+" Looks
+"-----------------------------------------------------------------------------
+colorscheme torte
+syntax on
+
+set nowrap
+set number
+hi LineNr guifg=#656565 ctermfg=darkgrey
+" depp grey
+"hi StatusLine ctermbg=8
+set laststatus=0 " Remove status line
+
+set encoding=utf-8
+"set termencoding=utf-8
+setglobal fileencoding=utf-8
+
+" cursor line
+hi CursorLine cterm=NONE guibg=NONE
+hi CursorLineNr ctermfg=grey guifg=grey
+set cursorline
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+set autoindent " Always set autoindenting on
+" set cindent " smarter than 'smartindent' but has side effect on non C like programming languages. TODO: Use autocmd to  enable cindent when opening C like languages
+autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
+
+" Disable newline insertion
+set textwidth=500 wrapmargin=0
+set tw=500
+
+" Editor tabs, TabLineFill ctermbg must uses different color than ctermfg in order to take effect in urxvt
+hi TabLineFill ctermfg=Black    ctermbg=White
+hi TabLine     ctermfg=DarkGrey ctermbg=Black cterm=NONE
+hi TabLineSel  ctermfg=White    ctermbg=DarkGrey
+"hi Title ctermfg=LightBlue ctermbg=Black
+
+" Set block cursor during insert mode
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI.="\e[6 q"
+let &t_EI.="\e[2 q"
+let &t_ti.="\e[2 q"
+let &t_te.="\e[6 q"
+
+" Cursor line (since cursor block blinking is enough, remove this)
+" se cursorline
+" hi CursorLineNr ctermfg=LightGrey
+" hi clear CursorLine
+
+" Invisible Vertical split
+hi VertSplit ctermfg=Black ctermbg=DarkGrey
+set fillchars+=vert:\ 
+
+
+"-----------------------------------------------------------------------------
 " Commands
 "-----------------------------------------------------------------------------
 " Change current working directory to the opened file
@@ -70,8 +128,6 @@ command! -nargs=? Serve call Serve()
 "-----------------------------------------------------------------------------
 " My config 
 "-----------------------------------------------------------------------------
-let mapleader=','
-
 " Disable swap file (.swp), backup file, and *.un~ history file
 set noswapfile
 set nobackup
@@ -134,67 +190,11 @@ command! E  Vexplore
 
 
 "-----------------------------------------------------------------------------
-" Looks
-"-----------------------------------------------------------------------------
-colorscheme torte
-syntax on
-
-set nowrap
-set number
-hi LineNr guifg=#656565 ctermfg=darkgrey
-" depp grey
-"hi StatusLine ctermbg=8
-set laststatus=0 " Remove status line
-
-set encoding=utf-8
-"set termencoding=utf-8
-setglobal fileencoding=utf-8
-
-" cursor line
-hi CursorLine cterm=NONE guibg=NONE
-hi CursorLineNr ctermfg=grey guifg=grey
-set cursorline
-
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set smarttab
-set expandtab
-set autoindent " Always set autoindenting on
-" set cindent " smarter than 'smartindent' but has side effect on non C like programming languages. TODO: Use autocmd to  enable cindent when opening C like languages
-autocmd FileType text setlocal textwidth=500 " Override vimrc_example.vim
-
-" Disable newline insertion
-set textwidth=500 wrapmargin=0
-set tw=500
-
-" Editor tabs, TabLineFill ctermbg must uses different color than ctermfg in order to take effect in urxvt
-hi TabLineFill ctermfg=Black    ctermbg=White
-hi TabLine     ctermfg=DarkGrey ctermbg=Black cterm=NONE
-hi TabLineSel  ctermfg=White    ctermbg=DarkGrey
-"hi Title ctermfg=LightBlue ctermbg=Black
-
-" Set block cursor during insert mode
-" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-let &t_SI.="\e[6 q"
-let &t_EI.="\e[2 q"
-let &t_ti.="\e[2 q"
-let &t_te.="\e[6 q"
-
-" Cursor line (since cursor block blinking is enough, remove this)
-" se cursorline
-" hi CursorLineNr ctermfg=LightGrey
-" hi clear CursorLine
-
-" Invisible Vertical split
-hi VertSplit ctermfg=Black ctermbg=DarkGrey
-set fillchars+=vert:\ 
-
-
-"-----------------------------------------------------------------------------
 " Key bindings
 " NOTE: Vim doeesn't recognize hyper key)
 "-----------------------------------------------------------------------------
+let mapleader=','
+
 nnoremap <silent> q :q<CR>
 nnoremap <silent> Q :qa<CR>
 nnoremap ; :
@@ -205,7 +205,7 @@ vnoremap : ;
 " Copy till line end (like D means delete till line end)
 noremap Y y$
 " Paste at the end of the line
-noremap P $a<Space><Esc>p
+" noremap P $a<Space><Esc>p
 
 " Enable folding with the spacebar
 nnoremap <space> za
@@ -244,6 +244,10 @@ endif
 " Make ctrl+left/right same behavior across all applications
 nnoremap <C-Right> E
 vnoremap <C-Right> E
+
+" Additional copy
+nnoremap <leader>y "py
+nnoremap <leader>p "pp
 
 
 "-----------------------------------------------------------------------------

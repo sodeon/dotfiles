@@ -81,23 +81,19 @@ floating_modifier $mod
 # mod3+n/.  : navigate to beginning/end of line
 # mod3+,/m  : history up/down
 # Binding all Up/Down/Left/Right/Home/End frees hand from moving for typing
-bindsym Mod3+o      exec --no-startup-id xdotool keyup o key BackSpace
-bindsym Mod3+p      exec --no-startup-id autohotkey deleteWord
-bindsym Mod3+u      exec --no-startup-id xdotool keyup u      key ctrl+u
+bindsym Mod3+o       exec --no-startup-id xdotool keyup o key BackSpace
+bindsym Mod3+p       exec --no-startup-id autohotkey deleteWord
+bindsym Mod3+u       exec --no-startup-id xdotool keyup u      key ctrl+u
 
-bindsym Mod3+h      exec --no-startup-id xdotool keyup h      key ctrl+Left
-bindsym Mod3+l      exec --no-startup-id xdotool keyup l      key ctrl+Right
-bindsym Mod3+j      exec --no-startup-id autohotkey xdotool-forward keyup j key Down
-bindsym Mod3+k      exec --no-startup-id autohotkey xdotool-forward keyup k key Up
+bindsym Mod3+h       exec --no-startup-id xdotool keyup h      key ctrl+Left
+bindsym Mod3+l       exec --no-startup-id xdotool keyup l      key ctrl+Right
+bindsym Mod3+j       exec --no-startup-id autohotkey xdotool-forward keyup j key Down
+bindsym Mod3+k       exec --no-startup-id autohotkey xdotool-forward keyup k key Up
 
-bindsym Mod3+m      exec --no-startup-id xdotool keyup m      key Left
-bindsym Mod3+comma  exec --no-startup-id xdotool keyup comma  key Right
-bindsym Mod3+n      exec --no-startup-id xdotool keyup n      key Home
-bindsym Mod3+period exec --no-startup-id xdotool keyup period key End
-
-# Terminal pageup/pagedown
-bindsym Prior exec --no-startup-id autohotkey pageup
-bindsym Next  exec --no-startup-id autohotkey pagedown
+bindsym Mod3+m       exec --no-startup-id xdotool keyup m      key Left
+bindsym Mod3+comma   exec --no-startup-id xdotool keyup comma  key Right
+bindsym Mod3+n       exec --no-startup-id xdotool keyup n      key Home
+bindsym Mod3+period  exec --no-startup-id xdotool keyup period key End
 
 # Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
@@ -216,6 +212,20 @@ bindsym $mod+c focus child
 
 # TODO: mark/unmark window
 
+# Scroll mode and terminal pageup/pagedown
+bindsym Prior exec --no-startup-id autohotkey pageup
+bindsym Next  exec --no-startup-id autohotkey pagedown
+# "g"o to
+bindsym Mod3+g mode " Scroll "
+mode " Scroll " {
+    bindsym j exec --no-startup-id autohotkey scroll Down  j
+    bindsym k exec --no-startup-id autohotkey scroll Up    k
+    bindsym c exec --no-startup-id autohotkey scroll Next  c
+    bindsym v exec --no-startup-id autohotkey scroll Prior v
+	bindsym Escape mode "default"
+}
+
+
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
 # NOTE: gap adjustment is also here
 bindsym $mod+o mode " Organize Windows "
@@ -248,7 +258,7 @@ mode " Organize Windows " {
 }
 
 # Dummy mode that will not grab keys
-bindsym Mod3+a mode " "
+# bindsym Mod3+a mode " "
 mode " " {
 	bindsym Escape mode "default"
 }
