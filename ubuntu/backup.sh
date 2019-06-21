@@ -82,3 +82,8 @@ if [ -d ~/code/sxiv ]; then
 	cp ~/code/sxiv/sxiv.1 apps/sxiv
 	cp ~/code/sxiv/exec/* apps/sxiv/exec
 fi
+
+#
+# VSCode extensions
+#
+code --list-extensions > vscode-extensions.list
