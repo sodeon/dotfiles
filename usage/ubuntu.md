@@ -1,3 +1,6 @@
+## As Root
+- `sudo -i`
+
 ## Process management
 - `pgrep`: find process ID
 - `pkill`: find process and kill it (just like pgrep except killing it)

@@ -73,7 +73,6 @@ alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h
 alias D='docker'
 alias dr='docker run -i -t --rm'
 alias de='docker exec -i -t'
-alias dt='docker top'
 alias di='docker image'
 alias dc='docker container'
 alias dco='docker-compose'

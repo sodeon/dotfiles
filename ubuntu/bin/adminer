@@ -1,0 +1,40 @@
+#!/bin/bash -ue
+#------------------------------------------------------------------------------
+# Configurations
+# TODO: move these config variables to $HOME/.config/adminer/conf.rc
+#------------------------------------------------------------------------------
+# Name of the docker container
+CONTAINER_NAME=adminer
+
+# Host port for connecting to adminer
+PORT=8080
+
+# Color theme
+THEME=mvt
+# THEME=galkaev
+
+# Docker network name to connect to
+NETWORK_NAME=mto_db
+# Database docker service name to connect to (usually defined in docker-compose.yml)
+SERVICE_NAME=mysql
+
+
+#------------------------------------------------------------------------------
+# Start/stop adminer server
+#------------------------------------------------------------------------------
+. log.sh
+
+[[ $# != 1 ]] && error "Error: Must provide either 'start' or 'stop' as arguments" && exit 1
+case $1 in
+    start)
+        docker run --name $CONTAINER_NAME --rm -d -p $PORT:8080 -e ADMINER_DESIGN=$THEME -e ADMINER_DEFAULT_SERVER=$SERVICE_NAME --network $NETWORK_NAME adminer > /dev/null \
+        && info "Done. Visit localhost:$PORT to start using"
+        ;;
+    stop)
+        docker stop $CONTAINER_NAME > /dev/null \
+        && info "Adminer server stopped."
+        ;;
+    *)
+        error "Error: Incorrect argument: must be 'start' or 'stop'" && exit 1
+        ;;
+esac
