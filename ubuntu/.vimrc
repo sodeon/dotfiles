@@ -246,8 +246,10 @@ nnoremap <C-Right> E
 vnoremap <C-Right> E
 
 " Additional copy
-nnoremap <leader>y "py
+nnoremap <leader>y "pyy
 nnoremap <leader>p "pp
+vnoremap <leader>y "py
+vnoremap <leader>p "pp
 
 
 "-----------------------------------------------------------------------------

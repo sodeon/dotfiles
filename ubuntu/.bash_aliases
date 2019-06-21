@@ -40,6 +40,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 #-----------------------------------------------------
 # Git
 #-----------------------------------------------------
+alias g='git'
 alias gs='git status'
 alias gd='git diff --color'
 alias gdt='git difftool'
@@ -69,10 +70,13 @@ alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h
 #-----------------------------------------------------
 # Docker
 #-----------------------------------------------------
-alias dr='docker run -it --rm'
+alias D='docker'
+alias dr='docker run -i -t --rm'
+alias de='docker exec -i -t'
+alias dt='docker top'
 alias di='docker image'
 alias dc='docker container'
-alias d-c='docker-compose'
+alias dco='docker-compose'
 
 
 #-----------------------------------------------------
