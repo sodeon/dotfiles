@@ -6,17 +6,18 @@
 # Name of the docker container
 CONTAINER_NAME=adminer
 
-# Host port for connecting to adminer
-PORT=8080
-
 # Color theme
 THEME=mvt
 # THEME=galkaev
 
-# Docker network name to connect to
-NETWORK_NAME=mto_db
-# Database docker service name to connect to (usually defined in docker-compose.yml)
+# Docker network name to connect to (set as "host" or "network name in docker-compmose.yml)
+NETWORK_NAME=host
+# NETWORK_NAME=mto_db
+# Database docker service name to connect to (only valid if using non-host netowk. Usually defined in docker-compose.yml)
 SERVICE_NAME=mysql
+
+# Host port for connecting to adminer (only valid if using non-host network)
+PORT=8080
 
 
 #------------------------------------------------------------------------------
@@ -27,8 +28,13 @@ SERVICE_NAME=mysql
 [[ $# != 1 ]] && error "Error: Must provide either 'start' or 'stop' as arguments" && exit 1
 case $1 in
     start)
-        docker run --name $CONTAINER_NAME --rm -d -p $PORT:8080 -e ADMINER_DESIGN=$THEME -e ADMINER_DEFAULT_SERVER=$SERVICE_NAME --network $NETWORK_NAME adminer > /dev/null \
-        && info "Done. Visit localhost:$PORT to start using"
+        if [[ $NETWORK_NAME == 'host' ]]; then
+            docker run --name $CONTAINER_NAME --rm -d               -e ADMINER_DESIGN=$THEME                                         --network=$NETWORK_NAME adminer > /dev/null \
+            && info "Done. Visit localhost:$PORT to start using"
+        else
+            docker run --name $CONTAINER_NAME --rm -d -p $PORT:8080 -e ADMINER_DESIGN=$THEME -e ADMINER_DEFAULT_SERVER=$SERVICE_NAME --network $NETWORK_NAME adminer > /dev/null \
+            && info "Done. Visit localhost:$PORT to start using"
+        fi
         ;;
     stop)
         docker stop $CONTAINER_NAME > /dev/null \
