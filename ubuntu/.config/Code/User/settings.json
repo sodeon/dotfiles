@@ -83,6 +83,8 @@
     "vim.sneak": true,
     "vim.easymotion": false,
 
+    "open-in-vim.openMethod": "gvim",
+
     "zenMode.hideTabs": false,
     "zenMode.hideStatusBar": true,
     "zenMode.hideLineNumbers": false,
@@ -102,7 +104,7 @@
 
     "search.useIgnoreFiles": false,
     "search.exclude": {
-        "**/node_modules": true,
+        "**/node_modules*": true,
         "**/bower_components": true,
         "**/public/js/compiled": true,
         "**/public/css/mto.compiled.css": true,
@@ -113,6 +115,15 @@
         "*sw.combined.js*": true,
         "*.map": true,
         "package-lock.json": true,
+        "*.lock": true
+    },
+
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules*/*/**": true,
+        "**/vendor/*/**": true,
+        "*compiled*": true,
         "*.lock": true
     },
 
@@ -198,6 +209,7 @@
 
     "debug.inlineValues": true,
     "debug.internalConsoleOptions": "neverOpen",
+    "debug.openDebug": "neverOpen",
 
     "git.enableSmartCommit": true,
     "gitlens.codeLens.scopes": [

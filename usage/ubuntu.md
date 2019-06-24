@@ -29,3 +29,6 @@
 - `iostat -xtc 4 5`: show CPU/IO stat for 5 times with 4 sec interval between
 - `mpstat -P ALL 4 5`: multi-processor stat show all cores with... (as above)
 - `perf stat -a --sleep 10`: gather CPU insight stat for next 10sec (from linux-tools-generic package). **This tool is very powerful.**
+
+## Chinese input
+- 全形半形切換: ctrl + .

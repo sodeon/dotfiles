@@ -283,11 +283,11 @@
     },
     {
         "key": "alt+left",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.navigateLeft"
     },
     {
         "key": "alt+right",
-        "command": "workbench.action.nextEditor"
+        "command": "workbench.action.navigateRight"
     },
     {
         "key": "ctrl+pageup",
@@ -299,10 +299,6 @@
     },
 
     // Open external editor
-    {
-        "key": "ctrl+shift+o",
-        "command": "extension.open"
-    },
     {
         "key": "ctrl+alt+o",
         "command": "-extension.open"
@@ -700,24 +696,22 @@
         "key": "ctrl+j",
         "command": "-workbench.action.togglePanel"
     },
-    // non-i3
+    // i3 integration
     {
         "key": "alt+h",
-        "command": "workbench.action.focusLeftGroup"
+        "command": "workbench.action.navigateLeft"
     },
     {
         "key": "alt+j",
-        "command": "workbench.action.focusBelowGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
+        "command": "workbench.action.navigateDown"
     },
     {
         "key": "alt+k",
-        "command": "workbench.action.focusAboveGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
+        "command": "workbench.action.navigateUp"
     },
     {
         "key": "alt+l",
-        "command": "workbench.action.focusRightGroup"
+        "command": "workbench.action.navigateRight"
     },
     {
         "key": "ctrl+alt+h",
@@ -751,63 +745,20 @@
         "key": "alt+shift+l",
         "command": "workbench.action.moveEditorToRightGroup",
     },
-    // i3/vscode integration
-    {
-        "key": "ctrl+alt+y",
-        "command": "workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "ctrl+alt+u",
-        "command": "workbench.action.focusBelowGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
-    },
-    {
-        "key": "ctrl+alt+i",
-        "command": "workbench.action.focusAboveGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
-    },
-    {
-        "key": "ctrl+alt+o",
-        "command": "workbench.action.focusRightGroup"
-    },
-    {
-        "key": "ctrl+alt+n",
-        "command": "workbench.action.decreaseViewSize",
-    },
-    {
-        "key": "ctrl+alt+m",
-        "command": "workbench.action.decreaseViewSize",
-    },
-    {
-        "key": "ctrl+alt+e",
-        "command": "workbench.action.increaseViewSize",
-    },
-    {
-        "key": "ctrl+alt+g",
-        "command": "workbench.action.increaseViewSize",
-    },
-    {
-        "key": "alt+shift+y",
-        "command": "workbench.action.moveEditorToLeftGroup",
-    },
-    {
-        "key": "alt+shift+u",
-        "command": "workbench.action.moveEditorToBelowGroup",
-    },
-    {
-        "key": "alt+shift+i",
-        "command": "workbench.action.moveEditorToAboveGroup",
-    },
-    {
-        "key": "alt+shift+o",
-        "command": "workbench.action.moveEditorToRightGroup",
-    },
     {
         "key": "ctrl+shift+s",
         "command": "workbench.action.openSettingsJson"
     },
     {
         "key": "ctrl+shift+o",
-        "command": "outline.focus"
-    }
+        "command": "open-in-vim.open"
+    },
+    {
+        "key": "f5",
+        "command": "workbench.action.debug.start"
+    },
+    {
+        "key": "f11",
+        "command": "-workbench.action.toggleFullScreen"
+    },
 ]

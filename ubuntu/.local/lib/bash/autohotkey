@@ -84,17 +84,17 @@ toggleFloating() {
 
 pageup() {
     if isWinActive URxvt && ! isActiveWinTitle VIM$; then
-		xdotool-forward keyup Prior key shift+Prior
+		xdotool-forward keyup $1 key shift+Prior
     else
-        xdotool-forward keyup Prior key Prior
+        xdotool-forward keyup $1 key Prior
     fi
 }
 
 pagedown() {
     if isWinActive URxvt && ! isActiveWinTitle VIM$; then
-		xdotool-forward keyup Next key shift+Next
+		xdotool-forward keyup $1 key shift+Next
     else
-        xdotool-forward keyup Next key Next
+        xdotool-forward keyup $1 key Next
     fi
 }
 

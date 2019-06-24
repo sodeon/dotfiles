@@ -124,6 +124,9 @@ function! Serve(...)
 endfunction
 command! -nargs=? Serve call Serve()
 
+" Open file in VSCode
+command! OpenInVSCode exe "silent !code --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
+
 
 "-----------------------------------------------------------------------------
 " My config 

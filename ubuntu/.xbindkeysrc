@@ -36,3 +36,10 @@ Super_R
 "amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
 Alt_R
 
+# Pageup/Pagedown (terminal)
+"autohotkey pageup Control_R"
+Mod3+Control_R
+"autohotkey pageup Super_R"
+Mod3+Super_R
+"autohotkey pagedown Alt_R"
+Mod3+Alt_R
