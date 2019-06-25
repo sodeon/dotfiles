@@ -18,7 +18,7 @@
     "editor.scrollbar.horizontal": "hidden",
     // Reduce line number width (undocumented settings. By default, line number column is very wide)
     // https://github.com/Microsoft/vscode/issues/48791
-    "editor.lineNumbersMinChars": 1,
+    // "editor.lineNumbersMinChars": 1,
     "editor.glyphMargin": false,
     "editor.folding": false,
     // End of reduce line nubmer width
@@ -57,19 +57,25 @@
     "vim.normalModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
         {"before": [":"], "after": [";"]},
+        {"before": ["q"], "commands": [":q"]},
         {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
         {"before": ["<C-r>"], "commands": ["redo"]}, // if replacing vim's undo with vscode's, must use vscode's redo
-        {"before": ["q"], "commands": [":q"]},
         {"before": ["Y"], "after": ["y", "$"]},
-        {"before": ["P"], "after": ["$", "a", " ", "<Esc>", "p"]},
+        {"before": ["<leader>", "y"], "after": ["\"", "p", "y", "y"]},
+        {"before": ["<leader>", "p"], "after": ["\"", "p", "p"]},
         {"before": ["<CR>"], "after": ["o", "<Esc>"]},
         {"before": ["<C-w>", "z"], "commands": ["workbench.action.maximizeEditor"]},
         {"before": ["<C-w>", "="], "commands": ["workbench.action.evenEditorWidths"]},
+        {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveActiveEditorGroupRight"]},
+        {"before": ["<C-w>", "H"], "commands": ["workbench.action.moveActiveEditorGroupLeft"]},
+        {"before": ["<C-w>", "K"], "commands": ["workbench.action.moveActiveEditorGroupUp"]},
+        {"before": ["<C-w>", "J"], "commands": ["workbench.action.moveActiveEditorGroupDown"]},
+        {"before": ["g", "l"], "commands": ["workbench.action.moveEditorToRightGroup"]},
+        {"before": ["g", "h"], "commands": ["workbench.action.moveEditorToLeftGroup"]},
+        {"before": ["g", "k"], "commands": ["workbench.action.moveEditorToAboveGroup"]},
+        {"before": ["g", "j"], "commands": ["workbench.action.moveEditorToBelowGroup"]},
         {"before": ["t"], "commands": ["extension.toggleBool"]},
-        {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveEditorToRightGroup"]},
-        {"before": ["<C-w>", "H"], "commands": ["workbench.action.moveEditorToLeftGroup"]},
-        {"before": ["<C-w>", "K"], "commands": ["workbench.action.moveEditorToAboveGroup"]},
-        {"before": ["<C-w>", "J"], "commands": ["workbench.action.moveEditorToBelowGroup"]},
+        {"before": ["g", "a"], "commands": ["wwm.aligncode"]},
     ],
     "vim.insertModeKeyBindingsNonRecursive": [
         {"before": ["<C-j>"], "commands": ["selectNextSuggestion"]},
@@ -78,6 +84,9 @@
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
         {"before": [":"], "after": [";"]},
+        {"before": ["<leader>", "y"], "after": ["\"", "p", "y"]},
+        {"before": ["<leader>", "p"], "after": ["\"", "p", "p"]},
+        {"before": ["g", "a"], "commands": ["wwm.aligncode"]},
     ],
     "vim.surround": true,
     "vim.sneak": true,
@@ -264,6 +273,13 @@
     "extensions.ignoreRecommendations": true,
     "php.validate.enable": false,
     "php.suggest.basic": false,
+
+    "alignment.surroundSpace": {
+        "colon"     : [0, 1],
+        "assignment": [1, 1],
+        "arrow"     : [1, 1],
+        "comment"   : 1
+    },
 
     "powermode.enabled": false,
     "powermode.enableShake": false,

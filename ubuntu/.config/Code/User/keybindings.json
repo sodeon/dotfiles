@@ -172,18 +172,6 @@
     //     "command": "workbench.action.zoomIn"
     // },
     {
-        "key": "ctrl+=",
-        "command": "workbench.action.zoomIn"
-    },
-    // {
-    //     "key": "ctrl+shift+-",
-    //     "command": "workbench.action.zoomOut"
-    // },
-    {
-        "key": "ctrl+-",
-        "command": "workbench.action.zoomOut"
-    },
-    {
         "key": "ctrl+r",
         "command": "-workbench.action.openRecent"
     },
@@ -191,17 +179,13 @@
     // Text editing
     {
         "key": "ctrl+l",
-        "command": "extension.align",
-        "when": "editorTextFocus"
+        "command": "-expandLineSelection",
+        "when": "textInputFocus"
     },
     {
         "key": "ctrl+alt+a",
         "command": "-extension.align",
         "when": "editorTextFocus"
-    },
-    {
-        "key": "ctrl+]",
-        "command": "editor.emmet.action.matchTag"
     },
     {
         "key": "ctrl+shift+]",
@@ -259,11 +243,6 @@
         "when": "editorHasSignatureHelpProvider && editorTextFocus"
     },
     {
-        "key": "ctrl+alt+.",
-        "command": "toggleSuggestionFocus",
-        "when": "editorTextFocus && suggestWidgetVisible"
-    },
-    {
         "key": "ctrl+alt+space",
         "command": "-toggleSuggestionFocus",
         "when": "editorTextFocus && suggestWidgetVisible"
@@ -277,17 +256,14 @@
         "command": "-workbench.action.navigateBack"
     },
     {
-        "key": "shift+right",
-        "command": "editor.action.goToDeclaration",
-        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
-    },
-    {
         "key": "alt+left",
-        "command": "workbench.action.navigateLeft"
+        // "command": "workbench.action.navigateLeft"
+        "command": "extension.vscode-i3-navigate-left",
     },
     {
         "key": "alt+right",
-        "command": "workbench.action.navigateRight"
+        // "command": "workbench.action.navigateRight"
+        "command": "extension.vscode-i3-navigate-right",
     },
     {
         "key": "ctrl+pageup",
@@ -378,10 +354,6 @@
         "command": "-workbench.action.showAllSymbols"
     },
     {
-        "key": "ctrl+k",
-        "command": "workbench.action.toggleCenteredLayout"
-    },
-    {
         "key": "f12",
         "command": "workbench.action.debug.selectandstart"
     },
@@ -450,7 +422,17 @@
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
     {
+        "key": "shift+tab",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
         "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "tab",
         "command": "selectNextSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
@@ -482,31 +464,8 @@
         "command": "-workbench.action.focusLeftGroup"
     },
     {
-        "key": "ctrl+h",
-        "command": "workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "workbench.action.focusBelowGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "workbench.action.focusAboveGroup",
-        "when": "!suggestWidgetVisible && !inFilesPicker && !inQuickOpen"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "workbench.action.focusRightGroup"
-    },
-    {
         "key": "ctrl+k ctrl+right",
         "command": "-workbench.action.focusRightGroup"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "-expandLineSelection",
-        "when": "textInputFocus"
     },
     {
         "key": "ctrl+g shift+b",
@@ -526,11 +485,6 @@
         "key": "ctrl+shift+g b",
         "command": "-gitlens.toggleFileBlame",
         "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
-    },
-    {
-        "key": "ctrl+g s",
-        "command": "gitlens.showQuickRepoStatus",
-        "when": "gitlens:enabled && config.gitlens.keymap == 'chorded'"
     },
     {
         "key": "ctrl+shift+g s",
@@ -653,11 +607,6 @@
         "when": "gitlens:enabled && config.gitlens.keymap == 'chorded'"
     },
     {
-        "key": "ctrl+g -",
-        "command": "gitlens.showLastQuickPick",
-        "when": "gitlens:enabled && config.gitlens.keymap == 'chorded'"
-    },
-    {
         "key": "ctrl+shift+g -",
         "command": "-gitlens.showLastQuickPick",
         "when": "gitlens:enabled && config.gitlens.keymap == 'chorded'"
@@ -699,19 +648,23 @@
     // i3 integration
     {
         "key": "alt+h",
-        "command": "workbench.action.navigateLeft"
+        // "command": "workbench.action.navigateLeft"
+        "command": "extension.vscode-i3-navigate-left",
     },
     {
         "key": "alt+j",
-        "command": "workbench.action.navigateDown"
+        // "command": "workbench.action.navigateDown"
+        "command": "extension.vscode-i3-navigate-down",
     },
     {
         "key": "alt+k",
-        "command": "workbench.action.navigateUp"
+        // "command": "workbench.action.navigateUp"
+        "command": "extension.vscode-i3-navigate-up",
     },
     {
         "key": "alt+l",
-        "command": "workbench.action.navigateRight"
+        // "command": "workbench.action.navigateRight"
+        "command": "extension.vscode-i3-navigate-right",
     },
     {
         "key": "ctrl+alt+h",
@@ -761,4 +714,9 @@
         "key": "f11",
         "command": "-workbench.action.toggleFullScreen"
     },
+    {
+        "key": "tab",
+        "command": "-acceptSelectedSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    }
 ]
