@@ -75,25 +75,31 @@ floating_modifier $mod
 # Hotkeys (all non window/workspace/launcher related)
 #--------------------------------------------------------------------------------
 # Typing assist: delete word/line, Go back/forward word, ...
-# mod3+o/p/u: delete character/word/line
-# mod3+h/l  : move back/forward a word
-# mod3+j/k  : move back/forward a character
-# mod3+n/.  : navigate to beginning/end of line
-# mod3+,/m  : history up/down
 # Binding all Up/Down/Left/Right/Home/End frees hand from moving for typing
+# mod3+p/u/o: delete word/line/character (delete line for terminal and vim only)
+# mod3+h/l  : move back/forward a word
+# mod3+j/k  : up/down
+# mod3+m/,  : left/right
+# mod3+n/.  : home/end
 bindsym Mod3+o       exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+p       exec --no-startup-id autohotkey deleteWord
-bindsym Mod3+u       exec --no-startup-id xdotool keyup u      key ctrl+u
+bindsym Mod3+u       exec --no-startup-id xdotool keyup u key ctrl+u
 
-bindsym Mod3+h       exec --no-startup-id xdotool keyup h      key ctrl+Left
-bindsym Mod3+l       exec --no-startup-id xdotool keyup l      key ctrl+Right
+bindsym Mod3+h       exec --no-startup-id xdotool keyup h key ctrl+Left
+bindsym Mod3+Shift+h exec --no-startup-id xdotool keyup h key ctrl+Left
+bindsym Mod3+l       exec --no-startup-id xdotool keyup l key ctrl+Right
+bindsym Mod3+Shift+l exec --no-startup-id xdotool keyup l key ctrl+Right
 bindsym Mod3+j       exec --no-startup-id autohotkey xdotool-forward keyup j key Down
+bindsym Mod3+Shift+j exec --no-startup-id autohotkey xdotool-forward keyup j key Down
 bindsym Mod3+k       exec --no-startup-id autohotkey xdotool-forward keyup k key Up
+bindsym Mod3+Shift+k exec --no-startup-id autohotkey xdotool-forward keyup k key Up
 
-bindsym Mod3+m       exec --no-startup-id xdotool keyup m      key Left
-bindsym Mod3+comma   exec --no-startup-id xdotool keyup comma  key Right
-bindsym Mod3+n       exec --no-startup-id xdotool keyup n      key Home
-bindsym Mod3+period  exec --no-startup-id xdotool keyup period key End
+bindsym Mod3+m           exec --no-startup-id autohotkey xdotool-forward keyup m      key Left
+bindsym Mod3+Shift+m     exec --no-startup-id autohotkey xdotool-forward keyup m      key Left
+bindsym Mod3+comma       exec --no-startup-id autohotkey xdotool-forward keyup comma  key Right
+bindsym Mod3+Shift+comma exec --no-startup-id autohotkey xdotool-forward keyup comma  key Right
+bindsym Mod3+n           exec --no-startup-id xdotool keyup n      key Home
+bindsym Mod3+period      exec --no-startup-id xdotool keyup period key End
 
 # Brightness/color temperature (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
@@ -107,9 +113,9 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+Shift+k   exec --no-startup-id autohotkey pause 
-bindsym Mod3+Shift+l   exec --no-startup-id autohotkey nextTrack
-bindsym Mod3+Shift+j   exec --no-startup-id autohotkey prevTrack
+bindsym Mod3+space     exec --no-startup-id autohotkey pause 
+bindsym Mod3+Right     exec --no-startup-id autohotkey nextTrack
+bindsym Mod3+Left      exec --no-startup-id autohotkey prevTrack
 bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
 bindsym XF86AudioPause exec --no-startup-id autohotkey pause
 bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
@@ -213,17 +219,17 @@ bindsym $mod+c focus child
 # TODO: mark/unmark window
 
 # Scroll mode and terminal pageup/pagedown
-bindsym Prior exec --no-startup-id autohotkey pageup
-bindsym Next  exec --no-startup-id autohotkey pagedown
+bindsym Prior exec --no-startup-id autohotkey pageup   Prior
+bindsym Next  exec --no-startup-id autohotkey pagedown Next
 # "g"o to
-bindsym Mod3+g mode " Scroll "
-mode " Scroll " {
-    bindsym j exec --no-startup-id autohotkey scroll Down  j
-    bindsym k exec --no-startup-id autohotkey scroll Up    k
-    bindsym c exec --no-startup-id autohotkey scroll Next  c
-    bindsym v exec --no-startup-id autohotkey scroll Prior v
-	bindsym Escape mode "default"
-}
+# bindsym Mod3+g mode " Scroll "
+# mode " Scroll " {
+#     bindsym j exec --no-startup-id autohotkey scroll Down  j
+#     bindsym k exec --no-startup-id autohotkey scroll Up    k
+#     bindsym c exec --no-startup-id autohotkey scroll Next  c
+#     bindsym v exec --no-startup-id autohotkey scroll Prior v
+# 	bindsym Escape mode "default"
+# }
 
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
@@ -271,7 +277,7 @@ mode " " {
 set $ws1  "1: Web "
 set $ws2  "2: Term "
 set $ws3  "3: Code "
-set $ws4  "4"
+set $ws4  "4: Travel "
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
@@ -302,16 +308,21 @@ bindsym F3               workspace number $ws3
 bindsym F4               workspace number $ws4
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1  move container to workspace number $ws1
+bindsym $mod+Shift+2  move container to workspace number $ws2
+bindsym $mod+Shift+3  move container to workspace number $ws3
+bindsym $mod+Shift+4  move container to workspace number $ws4
+bindsym $mod+Shift+5  move container to workspace number $ws5
+bindsym $mod+Shift+6  move container to workspace number $ws6
+bindsym $mod+Shift+7  move container to workspace number $ws7
+bindsym $mod+Shift+8  move container to workspace number $ws8
+bindsym $mod+Shift+9  move container to workspace number $ws9
+bindsym $mod+Shift+0  move container to workspace number $ws10
+
+bindsym $mod+Shift+F1 move container to workspace number $ws1
+bindsym $mod+Shift+F2 move container to workspace number $ws2
+bindsym $mod+Shift+F3 move container to workspace number $ws3
+bindsym $mod+Shift+F4 move container to workspace number $ws4
 
 
 #--------------------------------------------------------------------------------

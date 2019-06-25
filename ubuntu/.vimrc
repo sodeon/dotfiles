@@ -124,6 +124,9 @@ function! Serve(...)
 endfunction
 command! -nargs=? Serve call Serve()
 
+" Open file in VSCode
+command! OpenInVSCode exe "silent !code --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
+
 
 "-----------------------------------------------------------------------------
 " My config 
@@ -260,7 +263,12 @@ vnoremap <leader>p "pp
 filetype off " required
 silent! call plug#begin('~/.vim/plug') " Suppress error for machines not installing git
 
-Plug 'vim-scripts/Align'
+Plug 'vim-scripts/Align' " :AlignCtrl =lp1P1I
+                         "     which means:
+                         "     l fields will be left-justified
+                         "     p1 pad one space before each separator. P1 pad one space after each separator
+                         "     = all separators are equivalent
+                         "     I  preserve and apply the first line's leading white space to all Align'd lines
 Plug 'vim-scripts/VisIncr'
 Plug 'vim-scripts/Tabmerge'
 Plug 'szw/vim-maximizer'
@@ -307,6 +315,9 @@ call plug#end()
 " Cannot use <C-e>: hijacked by tmux
 " Cannot use <C-[>: extremely slow for unknown reason
 "-----------------------------------------------------------------------------
+vnoremap ga :Align 
+nnoremap ga :Align 
+
 noremap  <silent> <C-]> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
 noremap  <silent> <C-w>z :MaximizerToggle<CR>
