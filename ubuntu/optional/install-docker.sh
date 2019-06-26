@@ -13,7 +13,7 @@ sudo apt update
 
 # Install dependency
 log "Install dependency..."
-sudo apt-get install \
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -33,7 +33,7 @@ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    bionic \
    stable"
-sudo apt install docker-ce docker-ce-cli containerd.io docker-compose
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
 
 # Verify installation
 log "Testing docker installation..."
@@ -53,3 +53,4 @@ sudo usermod -aG docker $USER
 #------------------------------------------------------------------------------------------
 figlet Done
 log_success "Docker installation complete"
+warn "Logout and login again for user permission changes to take effect"
