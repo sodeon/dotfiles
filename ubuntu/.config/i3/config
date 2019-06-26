@@ -113,9 +113,6 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+space     exec --no-startup-id autohotkey pause 
-bindsym Mod3+Right     exec --no-startup-id autohotkey nextTrack
-bindsym Mod3+Left      exec --no-startup-id autohotkey prevTrack
 bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
 bindsym XF86AudioPause exec --no-startup-id autohotkey pause
 bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
@@ -163,7 +160,6 @@ bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar
 bindsym $mod+grave kill
 
 # Change focus (with vim integration)
-#    Leave fullscreen to allow focus change without leaving fullscreen first
 bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
 bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
 bindsym $mod+k exec --no-startup-id autohotkey focusWindow up

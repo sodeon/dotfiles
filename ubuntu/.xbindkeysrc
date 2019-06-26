@@ -10,18 +10,18 @@
 # Mod3: Caps_Lock
 # Mod4: Windows
 #---------------------------------------------------------------------------------------------------
-# Mouse button remap
-"xdotool key ctrl+Prior" # prev tab
+# Mouse button remap (add mouseup to prevent apps still receiving click event)
+"xdotool mouseup 6 key ctrl+Prior" # prev tab
 b:6
-"xdotool key ctrl+Next" # next tab
+"xdotool mouseup 7 key ctrl+Next" # next tab
 b:7
-"xdotool key ctrl+Prior" # move tab to left
+"xdotool mouseup 6 key ctrl+Prior" # move tab to left
 Shift+b:6
-"xdotool key ctrl+Next" # move tab to right
+"xdotool mouseup 7 key ctrl+Next" # move tab to right
 Shift+b:7
-"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
+"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks" # volume down
 control+b:6
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks" # volume up
 control+b:7
 "autohotkey closeTabOrWindow"
 b:8
@@ -36,10 +36,12 @@ Super_R
 "amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
 Alt_R
 
-# Pageup/Pagedown (terminal)
-"autohotkey pageup Control_R"
+# Media playback control
+"autohotkey pause"
+Mod3+space
+"autohotkey nextTrack"
 Mod3+Control_R
-"autohotkey pageup Super_R"
+"autohotkey nextTrack"
 Mod3+Super_R
-"autohotkey pagedown Alt_R"
+"autohotkey prevTrack"
 Mod3+Alt_R
