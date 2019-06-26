@@ -45,3 +45,5 @@ Mod3+Control_R
 Mod3+Super_R
 "autohotkey prevTrack"
 Mod3+Alt_R
+"autohotkey pause" 
+Mod3+space

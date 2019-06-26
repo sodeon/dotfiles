@@ -125,8 +125,8 @@ bindsym XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
 
 # Screenshot
-bindsym Print      exec flameshot full   -p $HOME/Pictures
-bindsym ctrl+Print exec flameshot gui    -p $HOME/Pictures
+bindsym Print      exec flameshot full -p $HOME/Pictures
+bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Turn off monitor / suspend
@@ -140,8 +140,18 @@ bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 bindsym $mod+Shift+r restart
 # bindsym $mod+Shift+c reload
 
+#--------------------------------------------------------------------------------
+# Dummy keybidndings/modes (not used directly but used by other apps)
+#--------------------------------------------------------------------------------
 # Logitech M720 left thumb mouse button at the bottom (new tab for web browser)
 bindsym $mod+ctrl+Tab exec --no-startup-id xdotool keyup Tab ctrl alt key ctrl+t
+
+# Dummy mode that will not grab keys
+# bindsym Mod3+a mode " "
+mode " " {
+	bindsym Escape mode "default"
+}
+
 
 #--------------------------------------------------------------------------------
 # App launcher
@@ -172,10 +182,6 @@ bindsym $mod+Shift+h move left  $floatingDeltaX
 bindsym $mod+Shift+j move down  $floatingDeltaY
 bindsym $mod+Shift+k move up    $floatingDeltaY
 bindsym $mod+Shift+l move right $floatingDeltaX
-# bindsym $mod+Shift+h exec --no-startup-id autohotkey moveWindow left  $floatingDeltaX
-# bindsym $mod+Shift+j exec --no-startup-id autohotkey moveWindow down  $floatingDeltaY
-# bindsym $mod+Shift+k exec --no-startup-id autohotkey moveWindow up    $floatingDeltaY
-# bindsym $mod+Shift+l exec --no-startup-id autohotkey moveWindow right $floatingDeltaX
 
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
@@ -197,9 +203,8 @@ bindsym $mod+t layout tabbed
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # Maximize (full screen)
-bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 # NOTE: full screen can be used on non-workspace container
-# bindsym Shift+F11 focus parent; fullscreen toggle; focus child
+bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 
 # Floating
 bindsym $mod+Shift+space floating toggle
@@ -256,12 +261,6 @@ mode " Organize Windows " {
     bindsym k gaps vertical   current minus $vGapStep
 
 	bindsym $mod+o mode "default"
-	bindsym Escape mode "default"
-}
-
-# Dummy mode that will not grab keys
-# bindsym Mod3+a mode " "
-mode " " {
 	bindsym Escape mode "default"
 }
 
@@ -327,8 +326,6 @@ bindsym $mod+Shift+F4 move container to workspace number $ws4
 # Terminal
 set $term urxvtc
 bindsym $mod+Return exec $term -cd $(xcwd)
-# set_from_resource $sshBookmark i3wm.ssh.bookmark
-# bindsym $mod+Shift+Return exec $term -e ssh $sshBookmark
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # Bind application to workspace
@@ -341,9 +338,6 @@ for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="Zathura"             ] border none, focus
-# floating bottom right corner with 25% of screen size
-# for_window [class="mpv"                 ] border none, floating enable, sticky enable
-# no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                            move center
 

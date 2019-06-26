@@ -10,8 +10,10 @@ get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD.*pointer" | awk '{
 
 mouse_id=`get-mouse-id $MOUSE_KEYWORD`
 if [[ -z $mouse_id ]]; then
-    error "Mouse $MOUSE_KEYWORD cannot be found."
+    # error "Mouse $MOUSE_KEYWORD cannot be found."
+    notify-send "Mouse $MOUSE_KEYWORD cannot be found."
     exit 1
 fi
 xinput --set-prop $mouse_id 'libinput Accel Speed' $MOUSE_ACCEL
-info "Mouse acceleration profile set to $MOUSE_ACCEL"
+# info "Mouse acceleration profile set to $MOUSE_ACCEL"
+notify-send -u low "Mouse acceleration profile set to $MOUSE_ACCEL"
