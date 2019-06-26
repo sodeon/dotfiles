@@ -76,6 +76,7 @@
         {"before": ["g", "j"], "commands": ["workbench.action.moveEditorToBelowGroup"]},
         {"before": ["t"], "commands": ["extension.toggleBool"]},
         {"before": ["g", "a"], "commands": ["wwm.aligncode"]},
+        {"before": ["g", "D"], "commands": ["editor.action.peekTypeDefinition"]},
     ],
     "vim.insertModeKeyBindingsNonRecursive": [
         {"before": ["<C-j>"], "commands": ["selectNextSuggestion"]},
