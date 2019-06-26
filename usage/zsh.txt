@@ -1,0 +1,10 @@
+use "r" to duplicate previous command but with substitution options
+
+print out all terminal colors: spectrum_ls
+check number of terminal output colors: tput colors
+
+alt+.: repeat laset command's arguments
+
+!*+tab: repeat laset command's arguments
+calendar: cal (e.g. cal 2017, cal -j (day in year))
+"tail -F FILE" + "reredirect -m FILE PID" + "ctrl-z->bg or &": can be used for single terminal multiplexing

@@ -226,6 +226,7 @@ xdg-mime default ranger.desktop inode/directory
 sudo usermod -a -G video $USER
 sudo usermod -a -G i2c $USER
 sudo usermod -a -G disk $USER
+sudo gpasswd -a $USER input
 
 # gnome desktop environment settings
 if which gsettings; then
