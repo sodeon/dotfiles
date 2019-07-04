@@ -34,3 +34,6 @@ i3wm.ws9.horizontalGap:  412
 !i3wm.ws10.horizontalGap: 0
 
 !i3wm.ws10.verticalGap: 280
+
+! Hardware control when booting
+! i3wm.hardware.bluetoothEnable: false

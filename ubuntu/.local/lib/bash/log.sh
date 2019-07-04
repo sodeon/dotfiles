@@ -153,6 +153,6 @@ log_campfire() {
 #--------------------------------------------------------------------------------------------------
 # General log, error output
 #--------------------------------------------------------------------------------------------------
-info () { echo -e "${LOG_INFO_COLOR}$1${LOG_DEFAULT_COLOR}";  }
-warn () { echo -e "${LOG_WARN_COLOR}$1${LOG_DEFAULT_COLOR}";  }
-error() { echo -e "${LOG_ERROR_COLOR}$1${LOG_DEFAULT_COLOR}"; }
+info () { echo -e "${LOG_INFO_COLOR}$@${LOG_DEFAULT_COLOR}";  }
+warn () { echo -e "${LOG_WARN_COLOR}$@${LOG_DEFAULT_COLOR}";  }
+error() { echo -e "${LOG_ERROR_COLOR}$@${LOG_DEFAULT_COLOR}"; }

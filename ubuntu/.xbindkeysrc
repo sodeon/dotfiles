@@ -10,8 +10,9 @@
 # Mod3: Caps_Lock
 # Mod4: Windows
 #---------------------------------------------------------------------------------------------------
-# Mouse button remap (add mouseup to prevent apps still receiving click event)
-"xdotool mouseup 6 key ctrl+Prior" # prev tab
+# Mouse button remap for Logitech M720
+# TODO: find a way to map these mouse buttons only when M720 is in use. Trackpad two finger scroll is also registered as b:6/b:7
+"xdotool key ctrl+Prior" # prev tab
 b:6
 "xdotool mouseup 7 key ctrl+Next" # next tab
 b:7
@@ -37,8 +38,6 @@ Super_R
 Alt_R
 
 # Media playback control
-"autohotkey pause"
-Mod3+space
 "autohotkey nextTrack"
 Mod3+Control_R
 "autohotkey nextTrack"
