@@ -205,6 +205,7 @@ bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # Maximize (full screen)
 # NOTE: full screen can be used on non-workspace container
 bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
+bindsym Shift+F11 fullscreen toggle
 
 # Floating
 bindsym $mod+Shift+space floating toggle
