@@ -147,8 +147,18 @@ bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
 bindsym Pause       exec --no-startup-id xset dpms force off
 bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 
+
+#--------------------------------------------------------------------------------
+# Dummy keybidndings/modes (not used directly but used by other apps)
+#--------------------------------------------------------------------------------
 # Logitech M720 left thumb mouse button at the bottom (new tab for web browser)
 bindsym $mod+ctrl+Tab exec --no-startup-id xdotool keyup Tab ctrl alt key ctrl+t
+
+# Dummy mode that will not grab keys
+# bindsym Mod3+a mode " "
+mode " " {
+	bindsym Escape mode "default"
+}
 
 
 #--------------------------------------------------------------------------------
@@ -201,9 +211,9 @@ bindsym $mod+t layout tabbed
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # Maximize (full screen)
-bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 # NOTE: full screen can be used on non-workspace container
-# bindsym Shift+F11 focus parent; fullscreen toggle; focus child
+bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
+bindsym Shift+F11 fullscreen toggle
 
 # Floating
 bindsym $mod+Shift+space floating toggle
@@ -251,12 +261,6 @@ mode " Organize Windows " {
     bindsym k gaps vertical   current minus $vGapStep
 
 	bindsym $mod+o mode "default"
-	bindsym Escape mode "default"
-}
-
-# Dummy mode that will not grab keys
-# bindsym Mod3+a mode " "
-mode " " {
 	bindsym Escape mode "default"
 }
 
@@ -322,8 +326,6 @@ bindsym $mod+Shift+F4 move container to workspace number $ws4
 # Terminal
 set $term urxvtc
 bindsym $mod+Return exec $term -cd $(xcwd)
-# set_from_resource $sshBookmark i3wm.ssh.bookmark
-# bindsym $mod+Shift+Return exec $term -e ssh $sshBookmark
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # Bind application to workspace
@@ -336,9 +338,6 @@ for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="Zathura"             ] border none, focus
-# floating bottom right corner with 25% of screen size
-# for_window [class="mpv"                 ] border none, floating enable, sticky enable
-# no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                            move center
 
@@ -438,6 +437,9 @@ exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 exec --no-startup-id activate-hotkeys
 # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
 exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
+# Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
+set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
+exec --no-startup-id [[ $bluetoothEnable == "false" ]] && toggle-bluetooth disable
 
 
 #--------------------------------------------------------------------------------

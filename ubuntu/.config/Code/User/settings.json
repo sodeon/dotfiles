@@ -95,7 +95,7 @@
 
     "open-in-vim.openMethod": "gvim",
 
-    "zenMode.hideTabs": false,
+    "zenMode.hideTabs": true,
     "zenMode.hideStatusBar": true,
     "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,

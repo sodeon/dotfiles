@@ -32,3 +32,6 @@ i3wm.toggleHGap: 240
 !i3wm.ws10.horizontalGap: 256
 
 !i3wm.ws10.verticalGap: 64
+
+! Hardware control when booting
+i3wm.hardware.bluetoothEnable: false

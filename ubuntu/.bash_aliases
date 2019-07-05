@@ -26,7 +26,7 @@ alias ff='fdfind --hidden --full-path --exclude .git --type f'
 alias aph='ps v -AH' # aph: all processes in hierarchy format
 alias ap='ps  -aux' # ap: all processes
 # alias f='fg'
-alias jb='jobs'
+alias jo='jobs'
 
 
 #-----------------------------------------------------
