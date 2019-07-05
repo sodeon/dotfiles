@@ -1,4 +1,5 @@
 #!/bin/bash -ue
 
-sudo umount /mnt/e
-sudo udisksctl power-off -b /dev/sdb
+(sudo umount /mnt/e && sudo udisksctl power-off -b /dev/sdb) \
+    && notify-send -u low "Powered off /dev/sdb" \
+    || notify-send "/dev/sdb power off failed"

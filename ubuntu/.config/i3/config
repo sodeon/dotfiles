@@ -72,9 +72,18 @@ floating_modifier $mod
 
 
 #--------------------------------------------------------------------------------
-# Hotkeys (all non window/workspace/launcher related)
+# Hotkeys (i3 related)
 #--------------------------------------------------------------------------------
-# Typing assist: delete word/line, Go back/forward word, ...
+# Restart i3 config
+bindsym $mod+Shift+r restart
+
+# Lock/logout
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
+
+
+#--------------------------------------------------------------------------------
+# Hotkeys (typing assist: delete word/line, Go back/forward word, ...)
+#--------------------------------------------------------------------------------
 # Binding all Up/Down/Left/Right/Home/End frees hand from moving for typing
 # mod3+p/u/o: delete word/line/character (delete line for terminal and vim only)
 # mod3+h/l  : move back/forward a word
@@ -101,50 +110,56 @@ bindsym Mod3+Shift+comma exec --no-startup-id autohotkey xdotool-forward keyup c
 bindsym Mod3+n           exec --no-startup-id xdotool keyup n      key Home
 bindsym Mod3+period      exec --no-startup-id xdotool keyup period key End
 
-# Brightness/color temperature (Mod3+b: toggle video/reading mode)
-# https://github.com/haikarainen/light
-bindsym Mod3+Down             exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
-bindsym Mod3+Up               exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
-bindsym Mod3+b                exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
+
+#--------------------------------------------------------------------------------
+# Hotkeys (XF86)
+#--------------------------------------------------------------------------------
+# Brightness control
 bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
 
-# Media and volume control
+# Volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym Mod3+space     exec --no-startup-id autohotkey pause 
-bindsym Mod3+Right     exec --no-startup-id autohotkey nextTrack
-bindsym Mod3+Left      exec --no-startup-id autohotkey prevTrack
+
+# Media control
 bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
 bindsym XF86AudioPause exec --no-startup-id autohotkey pause
 bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
 bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
-bindsym Mod3+s         exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
-# Laptop function keys
+# Laptop specific
 bindsym XF86Display        exec --no-startup-id set-display-monitor
 bindsym XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
 
+
+#--------------------------------------------------------------------------------
+# Hotkeys (misc)
+#--------------------------------------------------------------------------------
 # Screenshot
-bindsym Print      exec flameshot full   -p $HOME/Pictures
-bindsym ctrl+Print exec flameshot gui    -p $HOME/Pictures
+bindsym Print      exec flameshot full -p $HOME/Pictures
+bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Turn off monitor / suspend
 bindsym Pause       exec --no-startup-id xset dpms force off
 bindsym Scroll_Lock exec --no-startup-id systemctl suspend
 
-# Lock/logout
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to logout?' -B 'Yes, logout' 'i3-msg exit'"
 
-# Restart/reload i3 config
-bindsym $mod+Shift+r restart
-# bindsym $mod+Shift+c reload
-
+#--------------------------------------------------------------------------------
+# Dummy keybidndings/modes (not used directly but used by other apps)
+#--------------------------------------------------------------------------------
 # Logitech M720 left thumb mouse button at the bottom (new tab for web browser)
 bindsym $mod+ctrl+Tab exec --no-startup-id xdotool keyup Tab ctrl alt key ctrl+t
+
+# Dummy mode that will not grab keys
+# bindsym Mod3+a mode " "
+mode " " {
+	bindsym Escape mode "default"
+}
+
 
 #--------------------------------------------------------------------------------
 # App launcher
@@ -163,7 +178,6 @@ bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar
 bindsym $mod+grave kill
 
 # Change focus (with vim integration)
-#    Leave fullscreen to allow focus change without leaving fullscreen first
 bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
 bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
 bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
@@ -176,10 +190,6 @@ bindsym $mod+Shift+h move left  $floatingDeltaX
 bindsym $mod+Shift+j move down  $floatingDeltaY
 bindsym $mod+Shift+k move up    $floatingDeltaY
 bindsym $mod+Shift+l move right $floatingDeltaX
-# bindsym $mod+Shift+h exec --no-startup-id autohotkey moveWindow left  $floatingDeltaX
-# bindsym $mod+Shift+j exec --no-startup-id autohotkey moveWindow down  $floatingDeltaY
-# bindsym $mod+Shift+k exec --no-startup-id autohotkey moveWindow up    $floatingDeltaY
-# bindsym $mod+Shift+l exec --no-startup-id autohotkey moveWindow right $floatingDeltaX
 
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
@@ -201,9 +211,9 @@ bindsym $mod+t layout tabbed
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 # Maximize (full screen)
-bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
 # NOTE: full screen can be used on non-workspace container
-# bindsym Shift+F11 focus parent; fullscreen toggle; focus child
+bindsym F11 exec --no-startup-id autohotkey toggleFullscreen
+bindsym Shift+F11 fullscreen toggle
 
 # Floating
 bindsym $mod+Shift+space floating toggle
@@ -221,15 +231,6 @@ bindsym $mod+c focus child
 # Scroll mode and terminal pageup/pagedown
 bindsym Prior exec --no-startup-id autohotkey pageup   Prior
 bindsym Next  exec --no-startup-id autohotkey pagedown Next
-# "g"o to
-# bindsym Mod3+g mode " Scroll "
-# mode " Scroll " {
-#     bindsym j exec --no-startup-id autohotkey scroll Down  j
-#     bindsym k exec --no-startup-id autohotkey scroll Up    k
-#     bindsym c exec --no-startup-id autohotkey scroll Next  c
-#     bindsym v exec --no-startup-id autohotkey scroll Prior v
-# 	bindsym Escape mode "default"
-# }
 
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
@@ -263,12 +264,6 @@ mode " Organize Windows " {
 	bindsym Escape mode "default"
 }
 
-# Dummy mode that will not grab keys
-# bindsym Mod3+a mode " "
-mode " " {
-	bindsym Escape mode "default"
-}
-
 
 #--------------------------------------------------------------------------------
 # Workspace management
@@ -277,7 +272,7 @@ mode " " {
 set $ws1  "1: Web "
 set $ws2  "2: Term "
 set $ws3  "3: Code "
-set $ws4  "4: Travel "
+set $ws4  "4:"
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
@@ -331,8 +326,6 @@ bindsym $mod+Shift+F4 move container to workspace number $ws4
 # Terminal
 set $term urxvtc
 bindsym $mod+Return exec $term -cd $(xcwd)
-# set_from_resource $sshBookmark i3wm.ssh.bookmark
-# bindsym $mod+Shift+Return exec $term -e ssh $sshBookmark
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # Bind application to workspace
@@ -345,9 +338,6 @@ for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="Zathura"             ] border none, focus
-# floating bottom right corner with 25% of screen size
-# for_window [class="mpv"                 ] border none, floating enable, sticky enable
-# no_focus [class="mpv"]
 for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                            move center
 
@@ -447,6 +437,9 @@ exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 exec --no-startup-id activate-hotkeys
 # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
 exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
+# Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
+set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
+exec --no-startup-id [[ $bluetoothEnable == "false" ]] && toggle-bluetooth disable
 
 
 #--------------------------------------------------------------------------------

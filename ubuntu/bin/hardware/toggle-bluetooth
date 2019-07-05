@@ -1,4 +1,7 @@
 #!/bin/bash -ue
+. log.sh
+
+command=${1-toggle}
 
 #------------------------------------------------------------------------------
 # Use rfkill to power down bluetooth rx/tx.
@@ -11,11 +14,30 @@ is-bluetooth-enabled() {
 }
 
 disable-bluetooth() {
-    rfkill block   bluetooth; sudo systemctl disable bluetooth.service 2> /dev/null; sudo systemctl stop  bluetooth.service; notify-send "Bluetooth disabled"
+    rfkill block   bluetooth && sudo systemctl disable bluetooth.service 2> /dev/null && sudo systemctl stop  bluetooth.service # && notify-send "Bluetooth disabled"
 }
 
 enable-bluetooth() {
-    rfkill unblock bluetooth; sudo systemctl enable  bluetooth.service 2> /dev/null; sudo systemctl start bluetooth.service; notify-send "Bluetooth enabled"
+    rfkill unblock bluetooth && sudo systemctl enable  bluetooth.service 2> /dev/null && sudo systemctl start bluetooth.service # && notify-send "Bluetooth enabled"
 }
 
-is-bluetooth-enabled && disable-bluetooth || enable-bluetooth
+
+case "$command" in
+    toggle)
+        is-bluetooth-enabled && (disable-bluetooth && notify-send "Bluetooth disabled") || (enable-bluetooth && notify-send "Bluetooth enabled")
+        ;;
+    enable)
+        enable-bluetooth && notify-send -u low "Bluetooth enabled"
+        ;;
+    disable)
+        disable-bluetooth && notify-send -u low "Bluetooth disabled"
+        ;;
+    *)
+        echo
+        info Usage: ${0##*/} [enable/disable/toggle]
+        echo
+        echo If argument is not provided, it will toggle bluetooth between enable/disable.
+        echo
+        notify-send "Invalid command" "Use enable/disable/toggle or no argument (same as toggle)"
+        ;;
+esac

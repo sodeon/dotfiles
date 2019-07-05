@@ -1,6 +1,8 @@
 #!/bin/bash -ue
 
-mntFolder=/mnt/andy-desktop
+mntDst=/mnt/andy-desktop
+mntSrc="andy@192.168.0.102:/"
 
-sudo sshfs -o allow_other andy@192.168.0.102:/ $mntFolder -o IdentityFile=$HOME/.ssh/id_rsa
-echo "Drive mounted at $mntFolder"
+sudo sshfs -o allow_other $mntSrc $mntDst -o IdentityFile=$HOME/.ssh/id_rsa \
+    && notify-send -u low "Drive mounted at $mntDst" \
+    || notify-send        "Drive mount at $mntDst failed"

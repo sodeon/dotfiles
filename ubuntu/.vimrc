@@ -248,7 +248,7 @@ endif
 nnoremap <C-Right> E
 vnoremap <C-Right> E
 
-" Additional copy
+" Copy/paste without using system clipboard (using vim built-in register)
 nnoremap <leader>y "pyy
 nnoremap <leader>p "pp
 vnoremap <leader>y "py
@@ -265,10 +265,10 @@ silent! call plug#begin('~/.vim/plug') " Suppress error for machines not install
 
 Plug 'vim-scripts/Align' " :AlignCtrl =lp1P1I
                          "     which means:
-                         "     l fields will be left-justified
                          "     p1 pad one space before each separator. P1 pad one space after each separator
-                         "     = all separators are equivalent
                          "     I  preserve and apply the first line's leading white space to all Align'd lines
+                         "     l fields will be left-justified
+                         "     = all separators are equivalent
 Plug 'vim-scripts/VisIncr'
 Plug 'vim-scripts/Tabmerge'
 Plug 'szw/vim-maximizer'
@@ -315,8 +315,8 @@ call plug#end()
 " Cannot use <C-e>: hijacked by tmux
 " Cannot use <C-[>: extremely slow for unknown reason
 "-----------------------------------------------------------------------------
-vnoremap ga :Align 
-nnoremap ga :Align 
+noremap ga :Align 
+noremap gA :AlignCtrl 
 
 noremap  <silent> <C-]> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
@@ -346,6 +346,7 @@ let g:switch_custom_definitions =
 
 " Commentary
 au FileType xdefaults       setlocal commentstring=!\ %s
+au FileType markdown        setlocal commentstring=<!--\ %s\ -->
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Markdown preview (by default, this plugin does not open browser in new window)

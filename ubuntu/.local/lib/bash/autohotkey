@@ -199,9 +199,12 @@ resizeWindow() {
     fi
 }
 
+# Use app's built-in fullscreen mode if available
 toggleFullscreen() {
     if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
         xdotool-forward keyup F11 key F11
+    elif isWinActive Code; then # Toggle zen mode for vscode
+        xdotool-forward keyup F11 key ctrl+shift+z
     else
         i3-msg "fullscreen toggle"
     fi
