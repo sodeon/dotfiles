@@ -301,6 +301,10 @@ bindsym F1               workspace number $ws1
 bindsym F2               workspace number $ws2
 bindsym F3               workspace number $ws3
 bindsym F4               workspace number $ws4
+bindsym Shift+F1 exec --no-startup-id autohotkey xdotool-forward keyup F1 key --clearmodifiers F1
+bindsym Shift+F2 exec --no-startup-id autohotkey rename
+bindsym Shift+F3 exec --no-startup-id autohotkey xdotool-forward keyup F3 key --clearmodifiers F3
+bindsym Shift+F4 exec --no-startup-id autohotkey xdotool-forward keyup F4 key --clearmodifiers F4
 
 # Move focused container to workspace
 bindsym $mod+Shift+1  move container to workspace number $ws1

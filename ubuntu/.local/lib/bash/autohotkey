@@ -10,26 +10,28 @@ windowId=
 activeWinId() {
     # cache active window id result
     if [ -z $windowId ]; then
-        windowId=`xdotool getwindowfocus`
+        windowId=`xdotool getactivewindow`
     fi
     result=$?
     echo $windowId
     return $result
 }
 
-activeWinPid() {
-    # cache active window pid result
-    if [ -z $pid ]; then
-        pid=`xdotool getwindowfocus getwindowpid`
-    fi
-    result=$?
-    echo $pid
-    return $result
-}
+# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
+# activeWinPid() {
+#     # cache active window pid result
+#     if [ -z $pid ]; then
+#         pid=`xdotool getactivewindow getwindowpid`
+#     fi
+#     result=$?
+#     echo $pid
+#     return $result
+# }
 
 # @param class name
 isWinActive() {
-    activeWinPid | xargs -i xdotool search --all --pid {} --class $1
+    xprop -id $(xdotool getactivewindow) | grep -q WM_CLASS.*=.*$1
+    # activeWinPid | xargs -i xdotool search --all --pid {} --class $1
     return $?
 }
 
@@ -207,6 +209,14 @@ toggleFullscreen() {
         xdotool-forward keyup F11 key ctrl+shift+z
     else
         i3-msg "fullscreen toggle"
+    fi
+}
+
+rename() {
+    if isActiveWinTitle ^ranger; then # For some reason, ranger always sees the "shift" with F2
+        xdotool-forward keyup F2 key --clearmodifiers a
+    else
+        xdotool-forward keyup F2 key --clearmodifiers F2
     fi
 }
 
