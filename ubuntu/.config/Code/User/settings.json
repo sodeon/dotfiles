@@ -36,7 +36,7 @@
     "workbench.editor.revealIfOpen": true,
     "workbench.editor.showTabs": true,
     "workbench.statusBar.visible": true,
-    "workbench.statusBar.feedback.visible": false,
+    "workbench.tree.renderIndentGuides": "always",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
     "workbench.colorCustomizations": {
@@ -109,8 +109,8 @@
     "window.zoomLevel": 1,
     "window.menuBarVisibility": "hidden",
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
-    "window.enableMenuBarMnemonics": false,
-    // "window.restoreFullscreen": true,
+    "window.enableMenuBarMnemonics": false, // Disable showing menu bar when pressing alt
+    "window.customMenuBarAltFocus": false,
 
     "search.useIgnoreFiles": false,
     "search.exclude": {
@@ -286,4 +286,5 @@
     "powermode.enableShake": false,
     "powermode.enableStatusBarComboTimer": false,
     "powermode.enableStatusBarComboCounter": false,
+    "update.showReleaseNotes": false,
 }
