@@ -21,13 +21,12 @@ enable-bluetooth() {
     rfkill unblock bluetooth && sudo systemctl enable  bluetooth.service 2> /dev/null && sudo systemctl start bluetooth.service # && notify-send "Bluetooth enabled"
 }
 
-
 case "$command" in
     toggle)
         is-bluetooth-enabled && (disable-bluetooth && notify-send "Bluetooth disabled") || (enable-bluetooth && notify-send "Bluetooth enabled")
         ;;
     enable)
-        enable-bluetooth && notify-send -u low "Bluetooth enabled"
+        enable-bluetooth  && notify-send -u low "Bluetooth enabled"
         ;;
     disable)
         disable-bluetooth && notify-send -u low "Bluetooth disabled"

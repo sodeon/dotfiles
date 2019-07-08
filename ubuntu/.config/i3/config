@@ -439,7 +439,7 @@ exec --no-startup-id activate-hotkeys
 exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
-exec --no-startup-id [[ $bluetoothEnable == "false" ]] && toggle-bluetooth disable
+exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
 
 
 #--------------------------------------------------------------------------------
