@@ -1,0 +1,20 @@
+#!/bin/bash
+if [[ ! -f ~/.config/dotfiles/dotfilesrc ]]; then
+    echo "Error: ~/.config/dotfiles/dotfilerc does not exist"
+    exit 1
+fi
+source ~/.config/dotfiles/dotfilesrc
+
+
+#------------------------------------------------------------------------------
+# dotfiles
+#------------------------------------------------------------------------------
+path="$HOME/code/dotfiles/$platform"
+[[ -d $path ]] && $path/backup.sh $machine && echo "dotfiles backed up to $path with '$machine' suffix for machine dependent config"
+
+
+#------------------------------------------------------------------------------
+# Private dotfiles
+#------------------------------------------------------------------------------
+path="$HOME/code/private-dotfiles"
+[[ -d $path ]] && $path/backup.sh "$platform-$machine" && echo "Private data backed up to $path/$platform-$machine"

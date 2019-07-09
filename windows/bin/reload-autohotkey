@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -ue
 
 # Put working directory same as script directory so that script can correctly load relative path scripts
-cd ~/Programs
+cd ~/Programs &> /dev/null
 cmd.exe /C autohotkey.ahk &
-cd -
+cd - &> /dev/null

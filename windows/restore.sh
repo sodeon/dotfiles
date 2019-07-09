@@ -21,10 +21,10 @@ rm -rf ~/.local/lib/bash
 cp -rf .local/lib/bash ~/.local/lib
 rm -rf ~/bin
 cp -rf bin ~/
-tar -xf .marks.tar -C ~
+# tar -xf .marks.tar -C ~
 
 cp ./Programs/autohotkey.ahk   $HOME/Programs
 cp ./Programs/.autohotkeyrc    $HOME/Programs/.autohotkeyrc.example
 cp ./Programs/autohotkey       $HOME/Programs/autohotkey
 
-cp -rf ./Programs/wsl-terminal/* $HOME/Programs/wsl-terminal
+# cp -rf ./Programs/wsl-terminal/* $HOME/Programs/wsl-terminal
