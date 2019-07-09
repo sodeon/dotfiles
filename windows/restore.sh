@@ -1,5 +1,6 @@
 #!/bin/bash -ue
 cd "$(dirname "$(realpath "$0")")";
+WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
 #
 # $HOME directory

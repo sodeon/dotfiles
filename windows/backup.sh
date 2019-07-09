@@ -1,5 +1,5 @@
 #!/bin/bash -ue
-cd "$(dirname "$(realpath "$0")")";
+cd "$(dirname "$(realpath "$0")")"
 
 #
 # $HOME directory
