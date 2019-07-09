@@ -51,6 +51,7 @@ mkdir -p /tmp/provision
 #sudo ln -s /mnt/c /c
 #sudo ln -s /mnt/d /d
 #sudo ln -s /mnt/e /e
+#sudo ln -s /mnt/d/Programs ~
 
 
 #------------------------------------------------------------------------------

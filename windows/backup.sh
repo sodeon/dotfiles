@@ -1,5 +1,6 @@
 #!/bin/bash -ue
 cd "$(dirname "$(realpath "$0")")"
+WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
 #
 # $HOME directory
@@ -15,6 +16,10 @@ cp ~/.zshrc .
 #
 cp -rf ~/.config/ranger .config
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
+
+rm -rf .local/lib/bash
+cp -rf ~/.local/lib/bash .local/lib
+rm -rf ./bin/*
 cp -rf ~/bin .
 tar -zcf .marks.tar -C ~/ .marks # git only accept relative symlink, so use tar to hide symlink
 

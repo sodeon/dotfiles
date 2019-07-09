@@ -17,12 +17,14 @@ cp .zshrc ~/
 #
 cp -rf .config ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
+rm -rf ~/.local/lib/bash
+cp -rf .local/lib/bash ~/.local/lib
+rm -rf ~/bin
 cp -rf bin ~/
 tar -xf .marks.tar -C ~
 
 cp ./Programs/autohotkey.ahk   $HOME/Programs
-# does not copy .autohotkeyrc since desktop/laptop uses different config
-cp ./Programs/autohotkey/*.ahk $HOME/Programs/autohotkey
-cp ./Programs/autohotkey/*.ps1 $HOME/Programs/autohotkey
+cp ./Programs/.autohotkeyrc    $HOME/Programs/.autohotkeyrc.example
+cp ./Programs/autohotkey       $HOME/Programs/autohotkey
 
 cp -rf ./Programs/wsl-terminal/* $HOME/Programs/wsl-terminal

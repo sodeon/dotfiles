@@ -27,12 +27,12 @@ _hideTrayTip() {
 winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
     global CurrentDesktop
 
-    if (CurrentDesktop != dstDesktop)
-        switchDesktopByNumber(dstDesktop)
-
     if WinExist("ahk_exe" exe)
         WinActivate, ahk_exe %exe%
     else {
+        if (CurrentDesktop != dstDesktop)
+            switchDesktopByNumber(dstDesktop)
+
         fullExe := exe
         if (exePath != "")
             fullExe := exePath "\" fullExe
@@ -81,7 +81,7 @@ updateAppHistory() {
 monitorSetting() {
     global monitorSettings, nightLightEnabled
     WinGet, app, ProcessName, A
-    if (app = "mintty.exe" or app = "Code.exe")
+    if (app = terminal or app = editor or app = ide)
         return monitorSettings[3]
     else if (nightLightEnabled)
         return monitorSettings[2]
@@ -90,9 +90,9 @@ monitorSetting() {
 }
 
 updateBrightness() {
-    global monitorSettings, nightLightEnabled
+    global terminal, monitorSettings, nightLightEnabled
     WinGet, app, ProcessName, A
-    if (app = "mintty.exe" or app = "Code.exe")
+    if (app = terminal or app = editor or app = ide)
         brightness := monitorSettings[3].brightness
     else if (nightLightEnabled) ; normal reading mode
         brightness := monitorSettings[2].brightness
@@ -102,12 +102,13 @@ updateBrightness() {
 }
 
 setMonitorDdc(ddc) {
-    Run, ClickMonitorDDC/ClickMonitorDDC_5_1.exe %ddc%,, Hide
+    Run, ClickMonitorDDC/ClickMonitorDDC.exe %ddc%,, Hide
 }
 
 
 setResolution(width, height) {
-    RunWait, ChangeScreenResolution.exe /w=%width% /h=%height% /f=60 /d=0,, Hide
+    ; RunWait, ChangeScreenResolution.exe /w=%width% /h=%height% /f=60 /d=0,, Hide
+    RunWait, nircmd/nircmd.exe setdisplay %width% %height% 32,, Hide
 }
 
 turnOffDisplay() {
