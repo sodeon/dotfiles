@@ -1,39 +1,40 @@
-#!/bin/bash
+#!/bin/bash -ue
+cd "${0%/*}"
 #------------------------------------------------------------------------------
 # Steps to provision a new OS
 #------------------------------------------------------------------------------
 : ' 
 Install Windows:
-	Use "Media Creation Tool" to create Windows image on USB flash drive
-	Use flash drive to install Windows afresh
+    Use "Media Creation Tool" to create Windows image on USB flash drive
+    Use flash drive to install Windows afresh
 
 Config WSL:
-	Enable Windows Subsystem on Linux
-	Download Ubuntu and run it first time (will take some time for intialization)
+    Enable Windows Subsystem on Linux
+    Download Ubuntu and run it first time (will take some time for intialization)
 
 Provision:
     Install git
-	Get dotfiles and run provision script
-	    mkdir -p ~/code
-	    git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
-	    cd ./dotfiles/windows && chmod+x ./provision.sh && ./provision.sh
+    Get dotfiles and run provision script
+        mkdir -p ~/code
+        git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
+        cd ./dotfiles/windows && chmod+x ./provision.sh && ./provision.sh
 '
 
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
 apt-force() {
-	sudo apt --assume-yes "$@" 
+    sudo apt --assume-yes "$@" 
 }
 
 cd-temp() {
-	pushd /tmp/provision
+    pushd /tmp/provision
 }
 
 cd-before-temp() {
-	while popd; do 
-		:
-	done
+    while popd; do 
+        :
+    done
 }
 
 WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
@@ -42,7 +43,7 @@ WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p ~/.provision-temp
+mkdir -p /tmp/provision
 
 
 #------------------------------------------------------------------------------
@@ -119,6 +120,9 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
+set +e
+mkdir -p ~/.config/{htop,ranger,dotfiles}
+set -e
 chmod +x ./restore.sh && ./restore.sh
 
 # git
@@ -128,6 +132,13 @@ git config --global diff.tool vimdiff
 git config --global core.filemode false
 git config --global core.autocrlf false
 git config --global core.eol lf
+
+# Add files icons to ranger
+cd-temp
+git clone https://github.com/alexanderjeurissen/ranger_devicons
+cd ranger_devicons
+make install
+cd-before-temp
 
 
 #------------------------------------------------------------------------------
@@ -140,7 +151,6 @@ rm -rf /tmp/provision
 #------------------------------------------------------------------------------
 # What to do next messages
 #------------------------------------------------------------------------------
-echo << EOM
-Read `pwd`/post-provision-note.txt for further information
-Some usages can be found in `pwd`../usage/
-EOM
+figlet "Success"
+echo "Read `pwd`/post-provision-note.txt for further information
+Some usages can be found in `pwd`../usage/"

@@ -1,53 +1,54 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# Aliases compatible with both bash and zsh
+#------------------------------------------------------------------------------
 # Let alias still works after sudo
-alias sudo='sudo '
+alias sd='sudo '
 
 alias lr='ls -rtla'
 
 # Most used programs
-alias s='source $*'
-alias t='touch'
-alias v='vim -p' # each file a tab
+alias t='task'
+alias v='vim'
+alias d='vimdiff'
+tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
+                                      # It is not possible to create similar alias for "vs" or "sv"
+n() { touch $*; code $*; } # new and code
 
-alias add-quote="sed -e 's/^/\"/' | sed -e 's/$/\"/'"
+# Output manipulation
+body() { IFS= read -r header; printf '%s\n' "$header"; "$@"; }
 
+# File discovery
+alias fd='fdfind --hidden --full-path --exclude .git --type d'
+alias ff='fdfind --hidden --full-path --exclude .git --type f'
 
-#-----------------------------------------------------
-# System admin
-#-----------------------------------------------------
-alias ff='fdfind --type f --hidden'
-alias fd='fdfind --type d --hidden'
-
+# Process management
 alias aph='ps v -AH' # aph: all processes in hierarchy format
 alias ap='ps  -aux' # ap: all processes
+# alias f='fg'
+alias jo='jobs'
 
-# Laravel
-alias artisan='php artisan'
 
-# Docker
-#alias meettheone-restart='docker restart meettheone'
-#alias meettheone-stop='docker stop meettheone'
-#alias meettheone='_() { docker ps -a | grep -i "meettheone.*exit" > /dev/null && docker start meettheone; winpty docker exec -it meettheone bash; }; _'
-
-# Homestead
-#alias meettheone='ssh homestead'
-# alias meettheone='vm; vagrant ssh; cd -'
-#alias meettheone-stop='vm; vagrant halt; cd - > /dev/null'
-#alias meettheone-start='vm; vagrant up; cd - > /dev/null'
-#alias meettheone-reload='vm; vagrant reload --provision; cd - > /dev/null'
-# alias meettheone-restart='meettheone_stop; meettheone_start'
+#-----------------------------------------------------
+# Utilities
+#-----------------------------------------------------
+alias escape-space='sed '"'"'s/ /\\ /g'"'"
+dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will results in $@ forcibly split arguments.
+# alias dirdiff='diff -qr'
 
 
 #-----------------------------------------------------
 # Git
 #-----------------------------------------------------
+alias g='git'
 alias gs='git status'
-alias gd='git diff --color --color-moved'
+alias gd='git diff --color'
 alias gdt='git difftool'
-alias gdth='git difftool HEAD'
+alias gd^='git diff HEAD^'
 
 alias gb='git branch'
 
-alias ga='git add .' # stage all modified files
+alias ga='git add'
 alias gc='git commit -v'
 alias gac='git add .; git commit -v' # stage all modified files and commit
 
@@ -56,37 +57,46 @@ alias gm='git merge'
 
 alias gt='git tag'
 
-alias gps='git push' # upload (to upload tags, add --tags)
+alias gps='git push' # to push tags, add --tags
 alias gf='git fetch'
-alias gpl='git pull' # get
+alias gpl='git pull'
 
 alias gl='git log'
-alias gls='git log --stat'
 alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all"
-alias glgv='git log --graph --color --all --decorate --abbrev-commit' # verbose version of git log --graph
-alias gr='git reflog'
+alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
+# alias gr='git reflog'
+
+
+#-----------------------------------------------------
+# Docker
+#-----------------------------------------------------
+alias D='docker'
+alias dr='docker run -i -t --rm'
+alias de='docker exec -i -t'
+alias di='docker image'
+alias dc='docker container'
+alias dco='docker-compose'
 
 
 #-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
-alias start='cmd.exe /C'
+alias suspend='systemctl suspend'
+alias shutdown='shutdown -h now'
 
-alias memory='WMIC.exe OS get FreePhysicalMemory,FreeVirtualMemory,NumberOfProcesses'
+# alias memory='free -m' # In megabytes
 
-alias du='ncdu'
+alias du='ncdu --exclude /mnt' # do not include ntfs partitions
+alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
 
-alias jo='jobs -l' # show PID
-alias bgr='reredirect -m'
-
-# alias only for WSL (Windows subsystem on Linux)
-#alias npm='/c/Program\ Files/nodejs/node.exe c:/Program\ Files/nodejs/node_modules/npm/bin/npm-cli.js'
-#alias nd='npm run dev   > npm.log 2>npm.log'
-#alias np='npm run prod  > npm.log 2>npm.log'
-#alias nw='npm run watch > npm.log 2>npm.log'
-#alias nl='v /d/Work/code/repo/npm.log'
+# Disable GPU acceleration for VSCode. It has no real world benefit.
+alias code='code --disable-gpu'
 
 
+#-----------------------------------------------------
+# Legacy
+#-----------------------------------------------------
+# alias p='realpath'
