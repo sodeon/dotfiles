@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Graphics card connector used
-interface="HDMI-0"
-i2c_bus=4
+interface="DP-0"
+# interface="HDMI-0"
+i2c_bus=3
+# i2c_bus=4
 
 # Resolution
 resolution="3840x2160"

@@ -1,0 +1,5 @@
+#!/bin/bash -ue
+
+# Check boot options: $efibootmgr
+sudo efibootmgr -n 0 2&1> /dev/null
+reboot
