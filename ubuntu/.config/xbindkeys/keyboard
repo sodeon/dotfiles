@@ -31,10 +31,6 @@ Mod3+Alt_R
 "monitor-control bs && pkill -RTMIN+11 i3blocks"
 Mod3+b
 
-# Media control
+# Media control (nextTrack and prevTrack moved to i3 config to allow xdotool-forward to work)
 "autohotkey pause"
 Mod3+space
-"autohotkey nextTrack"
-Mod3+Right
-"autohotkey prevTrack"
-Mod3+Left

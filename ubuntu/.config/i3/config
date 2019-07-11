@@ -128,6 +128,8 @@ bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
 bindsym XF86AudioPause exec --no-startup-id autohotkey pause
 bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
 bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
+bindsym Mod3+Right     exec --no-startup-id autohotkey nextTrack
+bindsym Mod3+Left      exec --no-startup-id autohotkey prevTrack
 
 # Laptop specific
 bindsym XF86Display        exec --no-startup-id set-display-monitor
@@ -438,7 +440,7 @@ exec --no-startup-id unclutter
 # Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 # If in .profile, it sometimes won't work correctly
-exec --no-startup-id setup-input-devices
+exec --no-startup-id activate-hotkeys
 # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
 exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)

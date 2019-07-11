@@ -3,7 +3,7 @@
 # To get properties of the device: xinput --list-props 11 # 11 is the mouse id
 . log.sh
 
-MOUSE_KEYWORD="ETPS/2.*Touchpad"
+MOUSE_KEYWORD="ETPS/2"
 MOUSE_ACCEL=0.39
 
 quiet=0
@@ -13,7 +13,7 @@ while getopts "q" opt; do
     esac
 done
 
-get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD" | awk '{print $6}' | awk -F '=' '{print $2}'; }
+get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD.*pointer" | awk '{print $6}' | awk -F '=' '{print $2}'; }
 
 mouse_id=`get-mouse-id $MOUSE_KEYWORD`
 if [[ -z $mouse_id ]]; then
