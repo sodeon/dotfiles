@@ -9,6 +9,7 @@ declare -a direct_backup_configs=(
     rofi
     ranger
     zathura
+    xbindkeys
 
     mpv/input.conf
     cmus/{autosave,rc}
