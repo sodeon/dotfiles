@@ -369,7 +369,7 @@ for_window [class="mpv"      ] border pixel 10, floating enable, sticky enable  
 # Gaps (i3-gaps is a fork from i3.  Thus, group related settings)
 #     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
 #--------------------------------------------------------------------------------
-# smart_gaps inverse_outer # When there is only one window, disable gaps
+smart_gaps inverse_outer # When there is only one window, disable gaps
 smart_borders on # Only has border when there are multiple windows
 
 set_from_resource $ws1HGap  i3wm.ws1.horizontalGap  0
