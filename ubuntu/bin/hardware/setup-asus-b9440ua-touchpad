@@ -4,7 +4,7 @@
 . log.sh
 
 MOUSE_KEYWORD="ETPS/2.*Touchpad"
-MOUSE_ACCEL=0.37
+MOUSE_ACCEL=0.39
 
 get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD" | awk '{print $6}' | awk -F '=' '{print $2}'; }
 
