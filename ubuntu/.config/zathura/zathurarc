@@ -1,28 +1,53 @@
-set statusbar-h-padding 1 
-set first-page-column 2
-set recolor-keephue
-set selection-clipboard clipboard
-# set adjust-open width
+#------------------------------------------------------------------------------
+# Settings
+#------------------------------------------------------------------------------
+# c: command line
+# s: status bar
+# h: horizontal scrollbar
+# v: vertical scrollbar
+set guioptions v
 
-set recolor-darkcolor  "#FFFFFF"
-set recolor-lightcolor "#333333"
+set statusbar-h-padding 1 
 set statusbar-v-padding 1
 set page-padding 1
 
-map a adjust_window best-fit
-map z adjust_window width
-map v scroll half-up
-map c scroll half-down
-map b scroll full-up
-map f scroll full-down
+set scroll-page-aware true
+
+# Color
+set recolor-darkcolor  "#FFFFFF"
+set recolor-lightcolor "#333333"
+set recolor-keephue
+
+set selection-clipboard clipboard
+
+
+#------------------------------------------------------------------------------
+# Key bindings
+#------------------------------------------------------------------------------
+map v scroll full-up
+map c scroll full-down
+map b scroll half-up
+map f scroll half-down
 map d toggle_page_mode
-map D toggle_page_mode
 map r rotate
 map - zoom out
 map = zoom in
-# map 0 zoom width
-map 0 zoom best-fit
-map t recolor # recolor: theme
+map 0 adjust_window best-fit
+map z adjust_window width
+map x quit
+# map t recolor # recolor: theme
 
 # map R reload
 # map p print
+
+
+#------------------------------------------------------------------------------
+# Useful default keybindings:
+# https://man.cx/zathura(1)
+#------------------------------------------------------------------------------
+# space: next page
+# Tab: index
+# f: follow links
+# nG: go th nth page
+# ^r: recolor
+# m/': bookmark
