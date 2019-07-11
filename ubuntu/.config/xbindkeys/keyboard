@@ -1,0 +1,40 @@
+#---------------------------------------------------------------------------------------------------
+# NOTE:
+#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
+#     Therefore, add keyup to untrigger the triggering shortcut first
+#
+# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
+# Interactive key: xbindkeys --key
+#                  xbindkeys --multikey
+#
+# Mod3: Caps_Lock
+# Mod4: Windows
+#---------------------------------------------------------------------------------------------------
+# Volume/sound control
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+Control_R
+"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
+Super_R
+"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
+Alt_R
+"switch-sound-output && pkill -RTMIN+10 i3blocks"
+Mod3+s
+
+# Brightness control (Mod3+b: toggle video/reading mode)
+# https://github.com/haikarainen/light
+"monitor-control bu && pkill -RTMIN+11 i3blocks"
+Mod3+Control_R
+"monitor-control bu && pkill -RTMIN+11 i3blocks"
+Mod3+Super_R
+"monitor-control bd && pkill -RTMIN+11 i3blocks"
+Mod3+Alt_R
+"monitor-control bs && pkill -RTMIN+11 i3blocks"
+Mod3+b
+
+# Media control
+"autohotkey pause"
+Mod3+space
+"autohotkey nextTrack"
+Mod3+right
+"autohotkey prevTrack"
+Mod3+left

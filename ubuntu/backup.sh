@@ -11,7 +11,6 @@ cp ~/.vimrc .
 cp ~/.gvimrc .
 cp ~/.zshrc .
 cp ~/.profile .
-cp ~/.xbindkeysrc .
 cp ~/.Xmodmap .
 cp ~/.Xresources .
 
