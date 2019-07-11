@@ -14,7 +14,7 @@ pkill xbindkeys; pkill xcape
 xcape -e "Hyper_L=Escape;Super_L=Super_L|F12"
 
 cat ~/.config/xbindkeys/keyboard > /tmp/xbindkeysrc
-if xinput --list --short | grep "M720.*pointer"; then
+if xinput --list --short | grep -q "M720.*pointer"; then
     cat ~/.config/xbindkeys/logitech-m720 >> /tmp/xbindkeysrc
 fi
 xbindkeys -f /tmp/xbindkeysrc

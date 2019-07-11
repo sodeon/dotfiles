@@ -35,6 +35,6 @@ Mod3+b
 "autohotkey pause"
 Mod3+space
 "autohotkey nextTrack"
-Mod3+right
+Mod3+Right
 "autohotkey prevTrack"
-Mod3+left
+Mod3+Left

@@ -8,7 +8,7 @@ alias sd='sudo '
 alias lr='ls -rtla'
 
 # Most used programs
-alias t='task'
+alias t='touch'
 alias v='vim'
 alias d='vimdiff'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
