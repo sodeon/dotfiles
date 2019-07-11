@@ -6,12 +6,19 @@
 MOUSE_KEYWORD="M720.*pointer"
 MOUSE_ACCEL=0.8
 
+quiet=0
+while getopts "q" opt; do
+    case $opt in
+        q) quiet=1;;
+    esac
+done
+
 get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD" | awk '{print $6}' | awk -F '=' '{print $2}'; }
 
 mouse_id=`get-mouse-id $MOUSE_KEYWORD`
 if [[ -z $mouse_id ]]; then
-    notify-send "\$MOUSE_KEYWORD cannot be found with 'xinput --list --short'"
+    [[ $quiet == 0 ]] && notify-send "\$MOUSE_KEYWORD cannot be found with 'xinput --list --short'"
     exit 1
 fi
 xinput --set-prop $mouse_id 'libinput Accel Speed' $MOUSE_ACCEL
-notify-send -u low "Acceleration profile set to $MOUSE_ACCEL"
+[[ $quiet == 0 ]] && notify-send -u low "Acceleration profile set to $MOUSE_ACCEL"

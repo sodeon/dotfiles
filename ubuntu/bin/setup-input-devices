@@ -19,3 +19,10 @@ if xinput --list --short | grep -q "M720.*pointer"; then
 fi
 xbindkeys -f /tmp/xbindkeysrc
 # xbindkeys -f ~/.xbindkeysrc
+
+
+#
+# Setup mouse/touchpad movement speed
+#
+setup-logitech-m720 -q
+setup-asus-b9440ua-touchpad -q
