@@ -3,8 +3,8 @@
 # To get properties of the device: xinput --list-props 11 # 11 is the mouse id
 . log.sh
 
-MOUSE_KEYWORD="M720.*pointer"
-MOUSE_ACCEL=0.8
+MOUSE_KEYWORD="ETPS/2.*Touchpad"
+MOUSE_ACCEL=0.37
 
 get-mouse-id() { xinput --list --short | grep "$MOUSE_KEYWORD" | awk '{print $6}' | awk -F '=' '{print $2}'; }
 
