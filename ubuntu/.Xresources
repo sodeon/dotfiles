@@ -87,8 +87,9 @@ URxvt.iso14755: false
 !-----------------------------------------------------------------
 ! URxvt keybindings
 !-----------------------------------------------------------------
-! Cannot use hyper as modifier as it can conflict with xbindkeys/i3 like hyper+p
-!URxvt.modifier: hyper
+! Copy Paste (ctrl+shift+c/v)
+URxvt.keysym.Control-C: eval:selection_to_clipboard
+URxvt.keysym.Control-V: eval:paste_clipboard
 
 ! Scroll one line
 URxvt.keysym.Shift-Up: command:\033]720;1\007
@@ -107,25 +108,27 @@ URxvt.keysym.End: \033OF
 !-----------------------------------------------------------------
 ! URxvt plugins
 !-----------------------------------------------------------------
-URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
+URxvt.perl-ext-common: default,matcher,keyboard-select
 
-!! Copy Paste (ctrl+shift+c/v)
-URxvt.copyCommand: xclip -i -selection clipboard
-URxvt.pasteCommand: xclip -o -selection clipboard
-URxvt.keysym.Control-C: perl:clipboard:copy
-URxvt.keysym.Control-V: perl:clipboard:paste
-!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+! Search
+URxvt.searchable-scrollback: C-F
 
-!! Keyboard select (after activating, vim like control and search)
+! Path/URL select
+URxvt.keysym.Control-D: matcher:select
+! URxvt.keysym.Control-d: matcher:list
+URxvt.matcher.button: 1
+URxvt.matcher.pattern.1: ^(~?[\\S]+\/[\\S]+)
+URxvt.matcher.launcher.1: copy
+URxvt.matcher.rend.1: Regular
+
+! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
 URxvt.keysym.Control-S: perl:keyboard-select:activate
 
-!! URL select
-URxvt.keysym.Control-U: perl:url-select:select_next
-URxvt.urlLauncher: google-chrome
-URxvt.underlineURLs: true
-URxvt.urlButton: 1
 
+!-----------------------------------------------------------------
+! URxvt misc
+!-----------------------------------------------------------------
 ! Fix vim in tmux not recognizing default $TERM and causes cursor shape not changeable
 URxvt.termName: xterm-256color
 

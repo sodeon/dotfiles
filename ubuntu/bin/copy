@@ -1,0 +1,3 @@
+#!/bin/bash -ue
+
+printf $@ | xclip -selection clipboard
