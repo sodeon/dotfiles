@@ -14,6 +14,6 @@ sudo mkdir -p /etc/X11/xorg.conf.d && echo "Section \"InputClass\"
     Option \"TappingButtonMap\" \"lrm\"
     Option \"NaturalScrolling\" \"on\"
     Option \"ScrollMethod\" \"twofinger\"
-    Option \"AccelSpeed\" \"0.39\"
+    Option \"AccelSpeed\" \"0.5\"
 EndSection
 " | sudo tee /etc/X11/xorg.conf.d/90-touchpad.conf > /dev/null
