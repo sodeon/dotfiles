@@ -118,7 +118,7 @@ URxvt.keysym.Control-D: matcher:select
 ! URxvt.keysym.Control-d: matcher:list
 URxvt.matcher.button: 1
 URxvt.matcher.pattern.1: ^(~?[\\S]+\/[\\S]+)
-URxvt.matcher.launcher.1: copy
+URxvt.matcher.launcher.1: copy-then-paste
 URxvt.matcher.rend.1: Regular
 
 ! Arbitrary select (after activating, vim like control and search)

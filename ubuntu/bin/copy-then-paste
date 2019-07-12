@@ -1,0 +1,7 @@
+#!/bin/bash -ue
+
+# Copy
+printf $@ | xclip -selection clipboard
+
+# Paste to current input field
+xdotool key control+shift+v key Right key space
