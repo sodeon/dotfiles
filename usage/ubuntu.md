@@ -3,7 +3,7 @@
 
 ## Process management
 - `pgrep`: find process ID
-- `pkill`: find process and kill it (just like pgrep except killing it)
+- `pkill`: find process and kill it
 
 ## Network
 - `nm-applet`: network manager for WIFI connections

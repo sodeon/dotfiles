@@ -5,6 +5,7 @@ Get value: $ddcutil getvcp 10 --bus 4
 
 GeForce 2070:
     HDMI-1: i2c-4
+    DP-0  : i2c-3
 
 BenQ EW3270U:
 Brightness (feature 10)
