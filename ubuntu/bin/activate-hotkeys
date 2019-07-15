@@ -17,16 +17,16 @@ activate-hotkeys() {
     xbindkeys -f /tmp/xbindkeysrc
 }
 
-# setup-mouse-touchpad-movement-speed() {
-#     set +e
-#     setup-logitech-m720 -q
-#     setup-asus-b9440ua-touchpad -q
-#     set -e
-# }
+setup-mouse-scroll-speed() {
+    if xinput --list --short | grep -q "M720.*pointer"; then
+        pgrep imwheel > /dev/null && pkill imwheel
+        imwheel > /dev/null 2>&1
+    fi
+}
 
 
 # 
 # Main
 #
 activate-hotkeys
-# setup-mouse-touchpad-movement-speed
+setup-mouse-scroll-speed

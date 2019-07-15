@@ -274,13 +274,13 @@ mode " Organize Windows " {
 set $ws1  "1: Web "
 set $ws2  "2: Term "
 set $ws3  "3: Code "
-set $ws4  "4:"
+set $ws4  "4: File "
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
 set $ws8  "8"
 set $ws9  "9"
-set $ws10 "10: File "
+set $ws10 "10:"
 
 #
 # Switch to workspace
@@ -288,11 +288,6 @@ set $ws10 "10: File "
 bindsym $mod+Tab         workspace back_and_forth
 bindsym $mod+1           workspace prev
 bindsym $mod+2           workspace next
-# bindsym $mod+1           workspace number $ws1
-# bindsym $mod+2           workspace number $ws2
-# bindsym $mod+3           workspace number $ws3
-# bindsym $mod+4           workspace number $ws4
-bindsym $mod+5           workspace number $ws5
 bindsym $mod+6           workspace number $ws6
 bindsym $mod+7           workspace number $ws7
 bindsym $mod+8           workspace number $ws8
@@ -302,11 +297,14 @@ bindsym $mod+0           workspace number $ws10
 bindsym F1               workspace number $ws1
 bindsym F2               workspace number $ws2
 bindsym F3               workspace number $ws3
-bindsym F4               workspace number $ws4
+bindsym F4               exec --no-startup-id autohotkey F4
+# bindsym F4               workspace number $ws4
+bindsym F5               workspace number $ws5
 bindsym Shift+F1 exec --no-startup-id autohotkey xdotool-forward keyup F1 key --clearmodifiers F1
 bindsym Shift+F2 exec --no-startup-id autohotkey rename
 bindsym Shift+F3 exec --no-startup-id autohotkey xdotool-forward keyup F3 key --clearmodifiers F3
 bindsym Shift+F4 exec --no-startup-id autohotkey xdotool-forward keyup F4 key --clearmodifiers F4
+bindsym Shift+F5 exec --no-startup-id autohotkey xdotool-forward keyup F5 key --clearmodifiers F5
 
 # Move focused container to workspace
 bindsym $mod+Shift+1  move container to workspace number $ws1
@@ -336,7 +334,7 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 
 # Bind application to workspace
 assign [class="Code"                ] $ws3
-assign [              title="ranger"] $ws10
+assign [              title="ranger"] $ws4
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none

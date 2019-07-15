@@ -28,26 +28,35 @@ activeWinId() {
 #     return $result
 # }
 
-# @param class name
+# @param class/title name
+# @param ahk_title
 isWinActive() {
-    xprop -id $(xdotool getactivewindow) | grep -q WM_CLASS.*=.*$1
-    # activeWinPid | xargs -i xdotool search --all --pid {} --class $1
-    return $?
-}
-
-isActiveWinTitle() {
-    title=`xdotool getactivewindow getwindowname`
-    if echo $title | grep -E $1; then
-        return 0
-    else
-        return 1
+    if [[ -z ${2-} ]]; then # class
+        xprop -id $(xdotool getactivewindow) | grep -q WM_CLASS.*=.*$1
+        # activeWinPid | xargs -i xdotool search --all --pid {} --class $1
+        return $?
+    else # title
+        title=`xdotool getactivewindow getwindowname`
+        if echo $title | grep -E $1; then
+            return 0
+        else
+            return 1
+        fi
     fi
 }
 
 # @param class name
-isWinExists() {
+winExist() {
     xdotool search --class $1
     return $?
+}
+
+winActivate() {
+    if [[ -z ${2-} ]]; then
+        xdotool search --class $1 windowactivate
+    else
+        xdotool search --name  $1 windowactivate
+    fi
 }
 
 # xdotool with the ability to bypass i3 keygrabbing
@@ -85,7 +94,7 @@ toggleFloating() {
 }
 
 pageup() {
-    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
 		xdotool-forward keyup $1 key shift+Prior
     else
         xdotool-forward keyup $1 key Prior
@@ -93,7 +102,7 @@ pageup() {
 }
 
 pagedown() {
-    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
 		xdotool-forward keyup $1 key shift+Next
     else
         xdotool-forward keyup $1 key Next
@@ -101,7 +110,7 @@ pagedown() {
 }
 
 scroll() {
-    if isWinActive URxvt && ! isActiveWinTitle VIM$; then
+    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
 		xdotool keyup $2 key shift+$1
     else
         xdotool keyup $2 key $1
@@ -109,7 +118,7 @@ scroll() {
 }
 
 pause() {
-    if isWinExists mpv; then
+    if winExist mpv; then
 		echo cycle pause | socat - ~/.config/mpv/socket
     else
 		cmus-remote -u && pkill -RTMIN+12 i3blocks
@@ -117,7 +126,7 @@ pause() {
 }
 
 nextTrack() {
-    if isWinExists mpv; then
+    if winExist mpv; then
 		echo playlist-next | socat - ~/.config/mpv/socket
     else
 		cmus-remote -n && pkill -RTMIN+12 i3blocks
@@ -125,7 +134,7 @@ nextTrack() {
 }
 
 prevTrack() {
-    if isWinExists mpv; then
+    if winExist mpv; then
 		echo playlist-prev | socat - ~/.config/mpv/socket
     else
 		cmus-remote -r && pkill -RTMIN+12 i3blocks
@@ -147,11 +156,11 @@ focusWindow() {
 		down)
 			navKey=j;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+    if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isActiveWinTitle ^tmux$; then
+       || isWinActive ^tmux$ ahk_title; then
         xdotool-forward keyup $navKey key $navKey
-    elif isActiveWinTitle ^ranger && [[ $direction == 'left' || $direction == 'right' ]]; then
+    elif isWinActive ^ranger ahk_title && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "focus $direction"
@@ -170,9 +179,9 @@ moveWindow() {
 		down)
 			navKey=j;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+    if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isActiveWinTitle ^tmux$; then
+       || isWinActive ^tmux$ ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "move $@"
@@ -191,9 +200,9 @@ resizeWindow() {
 		"shrink height")
 			navKey=j;;
 	esac
-    if isActiveWinTitle VIM$ || isActiveWinTitle "^vim " \
+    if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isActiveWinTitle ^tmux$; then
+       || isWinActive ^tmux$ ahk_title; then
         echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
         xdotool-forward keyup $navKey key $navKey
     else
@@ -213,10 +222,19 @@ toggleFullscreen() {
 }
 
 rename() {
-    if isActiveWinTitle ^ranger; then # For some reason, ranger always sees the "shift" with F2
+    if isWinActive ^ranger ahk_title; then # For some reason, ranger always sees the "shift" with F2
         xdotool-forward keyup F2 key --clearmodifiers a
     else
         xdotool-forward keyup F2 key --clearmodifiers F2
+    fi
+}
+
+# File manager
+F4() {
+    if isWinActive ^ranger ahk_title; then
+        i3-msg "workspace number 4"
+    else
+        winActivate ^ranger$ ahk_title || urxvtc -e ranger $HOME
     fi
 }
 
