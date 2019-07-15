@@ -1,11 +1,13 @@
 sort (ordering):
-    on: natural
-    om: modified time
+    on: default (natural)
     os: size
+    om: modified time
     ot: type
 
 Linemode:
+    Mf: default
     Ms: sizetime
+    Mm: modified time
 
 Folder disk space:
     Show all folders: dU

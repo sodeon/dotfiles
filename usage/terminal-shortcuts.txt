@@ -1,6 +1,4 @@
-caps+u: delete line
-caps+p: delete word
-caps+i: go to the command's name
+See "~/.config/i3/config" and search for "Typing assist" for user-defined keybindings
 alt+. : last argument
 
 ctrl+r: command history

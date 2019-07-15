@@ -4,7 +4,8 @@
 . log.sh
 
 MOUSE_KEYWORD="ETPS/2"
-MOUSE_ACCEL=0.39
+MOUSE_ACCEL=0.5
+# MOUSE_ACCEL=0.39
 
 quiet=0
 while getopts "q" opt; do
