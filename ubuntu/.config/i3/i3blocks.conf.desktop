@@ -37,7 +37,7 @@ markup=none
 # command=ps -o state= -o comm= | grep -iE '^[^TXZ ]+ +(\\s+\\/)?ps$'
 
 [window]
-command=xdotool getactivewindow getwindowname
+command=xdotool getactivewindow getwindowname || echo ""
 color=#aadddd
 interval=once
 signal=13

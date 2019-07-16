@@ -1,0 +1,38 @@
+#!/bin/bash -ue
+
+isActiveWinFloating() {
+    xprop -id $(xdotool getactivewindow) | grep -q "WM_STATE.*STICKY"
+}
+
+isWorkspaceEmpty() {
+    ! xdotool getactivewindow
+}
+
+focusNonFloatingWin() {
+    if isActiveWinFloating; then
+        i3-msg "focus mode_toggle" || true # If there is only floating window, "focus mode_toggle" won't do anything
+    fi
+}
+
+
+
+
+i3-msg -t subscribe -m '[ "window" ]' | \
+while read -r event; do 
+    # Update window title on i3blocks
+    pkill -RTMIN+13 i3blocks
+
+    # If workspace is empty or only floating remaining, go back to previous workspace (for file manager and viewer)
+    # If previous workspace is also empty, go to default (terminal) workspace
+    if echo $event | grep -q '^{"change":"close",'; then
+        focusNonFloatingWin # Try to focus non-floating window. Floating window always get last priority for input focus
+        if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
+            i3-msg "workspace back_and_forth"
+            focusNonFloatingWin # Again, try to focus non-floating window after switching workspace.
+            if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
+                i3-msg "workspace number 2"
+                focusNonFloatingWin # Again, try to focus non-floating window after switching workspace.
+            fi
+        fi
+    fi
+done

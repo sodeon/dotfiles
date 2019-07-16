@@ -10,6 +10,7 @@ declare -a direct_backup_configs=(
     ranger
     zathura
     xbindkeys
+    mpv/scripts
 
     mpv/input.conf
     cmus/{autosave,rc}

@@ -18,36 +18,45 @@ set recolor-darkcolor  "#FFFFFF"
 set recolor-lightcolor "#333333"
 set recolor-keephue
 
-set selection-clipboard clipboard
+set selection-clipboard clipboard # Automatically copy selection to clipboard
 
 
 #------------------------------------------------------------------------------
 # Key bindings
 #------------------------------------------------------------------------------
-map v scroll full-up
-map c scroll full-down
-map b scroll half-up
-map f scroll half-down
-map d toggle_page_mode
-map r rotate
-map - zoom out
-map = zoom in
-map 0 adjust_window best-fit
-map z adjust_window width
-map x quit
-# map t recolor # recolor: theme
+map v     scroll full-up
+map c     scroll full-down
+map <C-b> scroll half-up
+map <C-f> scroll half-down
 
-# map R reload
-# map p print
+map i     toggle_index
+map <C-d> toggle_page_mode
+map -     zoom out
+map =     zoom in
+map 0     adjust_window best-fit
+map z     adjust_window width
+map <C-m> recolor # like VSCode
+map t     recolor # "t"heme
+
+# Follow link is broken on Ubuntu 19.04
+map d     follow
+map D     display_link
+
+map x     quit
+map q     quit
 
 
 #------------------------------------------------------------------------------
 # Useful default keybindings:
 # https://man.cx/zathura(1)
 #------------------------------------------------------------------------------
-# space: next page
 # Tab: index
-# f: follow links
 # nG: go th nth page
-# ^r: recolor
 # m/': bookmark
+
+# Not used default shortcuts
+# space: next page
+# f: follow links
+# r: rotate
+# <C-r>: recolor
+# p: print

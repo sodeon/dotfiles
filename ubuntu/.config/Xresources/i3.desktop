@@ -21,12 +21,13 @@ i3wm.vGapStep: 32
 
 i3wm.ws1.horizontalGap:  424
 i3wm.ws2.horizontalGap:  424
-i3wm.ws3.horizontalGap:  424
-! i3wm.ws4.horizontalGap:  424
+! i3wm.ws3.horizontalGap:  424
+i3wm.ws4.horizontalGap:  424
 i3wm.ws5.horizontalGap:  424
 i3wm.ws6.horizontalGap:  424
 i3wm.ws7.horizontalGap:  424
 i3wm.ws8.horizontalGap:  424
 i3wm.ws9.horizontalGap:  424
-i3wm.ws10.horizontalGap: 424
+! i3wm.ws10.horizontalGap: 424
+
 ! i3wm.ws4.verticalGap: 280

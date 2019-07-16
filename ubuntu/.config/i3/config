@@ -273,14 +273,14 @@ mode " Organize Windows " {
 # Add a little spacing around the name for less cluter viewing experiences
 set $ws1  "1: Web "
 set $ws2  "2: Term "
-set $ws3  "3: Code "
-set $ws4  "4: File "
+set $ws3  "3: File "
+set $ws4  "4: Code "
 set $ws5  "5"
 set $ws6  "6"
 set $ws7  "7"
 set $ws8  "8"
 set $ws9  "9"
-set $ws10 "10:"
+set $ws10 "10: Viewer "
 
 #
 # Switch to workspace
@@ -296,9 +296,8 @@ bindsym $mod+0           workspace number $ws10
 
 bindsym F1               workspace number $ws1
 bindsym F2               workspace number $ws2
-bindsym F3               workspace number $ws3
-bindsym F4               exec --no-startup-id autohotkey F4
-# bindsym F4               workspace number $ws4
+bindsym F3               exec --no-startup-id autohotkey F3
+bindsym F4               workspace number $ws4
 bindsym F5               workspace number $ws5
 bindsym Shift+F1 exec --no-startup-id autohotkey xdotool-forward keyup F1 key --clearmodifiers F1
 bindsym Shift+F2 exec --no-startup-id autohotkey rename
@@ -333,8 +332,10 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # Bind application to workspace
-assign [class="Code"                ] $ws3
-assign [              title="ranger"] $ws4
+assign [              title="ranger"] $ws3
+assign [class="Code"                ] $ws4
+assign [class="Sxiv"                ] $ws10
+assign [class="Zathura"             ] $ws10
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
@@ -342,7 +343,8 @@ for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="Zathura"             ] border none, focus
-for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
+for_window [class="Sxiv"                ] border none, focus,                            fullscreen
+# for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                            move center
 
 
@@ -425,22 +427,30 @@ bindsym $mod+r gaps horizontal current toggle $toggleHGap
 # Startup scripts
 # NOTE: Non-i3 specific commands moved to ~/.profile
 #--------------------------------------------------------------------------------
+#
 # Startup programs
+#
 exec i3-msg 'workspace $ws2; exec $term'
+
 
 #
 # System config and daemons
 #
 # Black background
 exec --no-startup-id xsetroot -solid "#000000"
+# Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
+exec_always --no-startup-id i3-watch-window
+
+
+#
+# Hardware control
+#
 # Auto-hide cursor
 exec --no-startup-id unclutter
 # Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 # If in .profile, it sometimes won't work correctly
 exec --no-startup-id activate-hotkeys
-# Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
-exec_always --no-startup-id i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do pkill -RTMIN+13 i3blocks; done
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable

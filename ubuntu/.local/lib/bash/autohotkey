@@ -230,9 +230,9 @@ rename() {
 }
 
 # File manager
-F4() {
+F3() {
     if isWinActive ^ranger ahk_title; then
-        i3-msg "workspace number 4"
+        i3-msg "workspace number 3"
     else
         winActivate ^ranger$ ahk_title || urxvtc -e ranger $HOME
     fi
