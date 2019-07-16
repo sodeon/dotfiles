@@ -288,6 +288,9 @@ set $ws10 "10: Viewer "
 bindsym $mod+Tab         workspace back_and_forth
 bindsym $mod+1           workspace prev
 bindsym $mod+2           workspace next
+bindsym $mod+3           workspace number $ws3
+bindsym $mod+4           workspace number $ws4
+bindsym $mod+5           workspace number $ws5
 bindsym $mod+6           workspace number $ws6
 bindsym $mod+7           workspace number $ws7
 bindsym $mod+8           workspace number $ws8

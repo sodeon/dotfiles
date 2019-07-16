@@ -16,23 +16,45 @@ try-focus-non-floating() {
     fi
 }
 
+workspace-num() {
+    i3-msg -t get_workspaces | jq ".[] .num" | wc -l
+}
 
-#------------------------------------------------------------------------------
-# Window event handlers
-#------------------------------------------------------------------------------
-win-close-handler() {
-    # If workspace is empty or only floating remaining, go back to previous workspace (for file manager and viewer)
-    # If previous workspace is also empty, go to default (terminal) workspace
+check-and-handle-empty-workspace() {
+    # This script will try to avoid empty workspace. When only floating windows are in the workspace, it is also defined as empty workspace.
+    # When empty workspace is detected, it tries to jump to different workspace as following order: last workspace -> terminal workspace -> any remaining available workspace
     # NOTE: This behavior is designed for only one floating window in use
     try-focus-non-floating # Floating window always get last priority for input focus
     if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
         i3-msg "workspace back_and_forth"
         try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
         if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
-            i3-msg "workspace number 2"
+            i3-msg 'workspace number "2: Term "'
             try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
+            if isWorkspaceEmpty || isActiveWinFloating; then # Even terminal workspace is empty, try to find any non-empty workspace
+                for i in $(seq 1 $(workspace-num)); do
+                    workspace=$(i3-msg -t get_workspaces | jq ".[$((i-1))] .num")
+                    if [[ $(i3-msg -t get_workspaces | jq ".[$((i-1))] .focused") == "false" ]]; then
+                        i3-msg "workspace number $workspace"
+                        try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
+                        break
+                    fi
+                done
+            fi
         fi
     fi
+}
+
+
+#------------------------------------------------------------------------------
+# Window event handlers
+#------------------------------------------------------------------------------
+win-close-handler() {
+    check-and-handle-empty-workspace
+}
+
+win-move-handler() {
+    check-and-handle-empty-workspace
 }
 
 win-enter-fullscreen-handler() {
@@ -51,6 +73,10 @@ while read -r event; do
     if echo $event | grep -q '^{"change":"close",'; then
         win-close-handler
     fi
+
+    # if echo $event | grep -q '^{"change":"move",'; then
+    #     win-move-handler
+    # fi
 
     # if echo $event | grep -q '^{"change":"fullscreen_mode",'; then
     #     if echo $event | grep -q ',"fullscreen_mode":1,'; then
