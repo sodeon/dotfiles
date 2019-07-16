@@ -151,6 +151,8 @@ static const keymap_t keys[] = {
 	{ 0,            XK_minus,         g_zoom,               -1 },
 	{ 0,            XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
 	{ 0,            XK_z,             i_fit_to_win,         SCALE_FIT },
+	{ 0,            XK_i,             g_switch_mode,        None },
+	{ 0,            0xff09,           g_switch_mode,        None }, /* XK_TAB */
     /* End of Andy */
 };
 
