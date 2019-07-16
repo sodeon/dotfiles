@@ -229,6 +229,26 @@ rename() {
     fi
 }
 
+F1() {
+    i3-msg 'workspace number "1: Web "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            google-chrome
+        fi
+    fi
+}
+
+F2() {
+    i3-msg 'workspace number "2: Term "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 2) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            urxvtc
+        fi
+    fi
+}
+
 # File manager
 F3() {
     i3-msg 'workspace number "3: File "'
