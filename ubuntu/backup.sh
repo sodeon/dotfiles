@@ -77,9 +77,10 @@ cp -rf ~/bin .
 # Built binaries
 #
 if [ -d ~/code/sxiv ]; then
-	cp ~/code/sxiv/sxiv   apps/sxiv
-	cp ~/code/sxiv/sxiv.1 apps/sxiv
-	cp ~/code/sxiv/exec/* apps/sxiv/exec
+	cp ~/code/sxiv/sxiv     apps/sxiv
+	cp ~/code/sxiv/config.h apps/sxiv
+	cp ~/code/sxiv/sxiv.1   apps/sxiv
+	cp ~/code/sxiv/exec/*   apps/sxiv/exec
 fi
 
 #
