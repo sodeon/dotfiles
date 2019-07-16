@@ -89,6 +89,7 @@ apt-force install unrar
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # From Ubuntu apt - i3
+apt-force install jq # json parser for i3-msg
 apt-force install dunst # Lightweight notification for i3
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3

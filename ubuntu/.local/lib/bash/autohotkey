@@ -226,12 +226,35 @@ rename() {
     fi
 }
 
+F1() {
+    i3-msg 'workspace number "1: Web "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            google-chrome
+        fi
+    fi
+}
+
+F2() {
+    i3-msg 'workspace number "2: Term "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 2) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            urxvtc
+        fi
+    fi
+}
+
 # File manager
 F3() {
-    if isWinActive ^ranger ahk_title; then
-        i3-msg "workspace number 3"
-    else
-        winActivate ^ranger$ ahk_title || urxvtc -e ranger $HOME
+    i3-msg 'workspace number "3: File "'
+
+    # If workspace 3 has no ranger instance, create one
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 3) .focused' | grep 'true'; then
+        if ! isWinActive ^ranger ahk_title; then
+            urxvtc -e ranger $HOME
+        fi
     fi
 }
 

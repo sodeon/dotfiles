@@ -22,3 +22,7 @@ Submodule:
 
 Windows only:
     Add executable bit: git add --chmod=+x file_name
+
+
+If .gitignore doesn't seem to work after modifying, run this scriot. (https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository)
+    $git rm -r --cached .
