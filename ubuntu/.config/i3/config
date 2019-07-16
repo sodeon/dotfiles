@@ -219,7 +219,7 @@ bindsym Shift+F11 fullscreen toggle
 
 # Floating
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey toggleFloating
+bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey floatingToggled
 
 # Toggle floating window between bottom left and right
 bindsym $mod+slash exec --no-startup-id "toggle-window-bottom-position; i3-msg 'focus mode_toggle'; toggle-window-bottom-position; i3-msg 'focus mode_toggle'"

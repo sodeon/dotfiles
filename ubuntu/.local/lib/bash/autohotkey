@@ -86,7 +86,7 @@ closeTabOrWindow() {
     fi
 }
 
-toggleFloating() {
+floatingToggled() {
     # When mpv got focused (mpv always floating), go to full screen
     if isWinActive mpv; then
         i3-msg fullscreen
