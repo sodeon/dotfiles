@@ -189,7 +189,7 @@ apt-force purge unattended-upgrades
 #------------------------------------------------------------------------------
 # restore dot files
 set +e
-mkdir -p ~/.config/{htop,dunst,rofi,ranger,zathura,xbindkeys,mpv,cmus,Code/User,i3/layouts,dotfiles,hardware,Xresources}
+mkdir -p ~/.config/{htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts,dotfiles,hardware,Xresources}
 set -e
 chmod +x ./restore.sh && ./restore.sh
 

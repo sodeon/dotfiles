@@ -86,5 +86,5 @@ if [ ! -d /usr/share/rofi-emoji/ ]; then
 fi
 sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 if [ -d ~/code/sxiv ]; then
-    cp -rf apps/sxiv ~/code/sxiv
+    cp -rf apps/sxiv ~/code
 fi
