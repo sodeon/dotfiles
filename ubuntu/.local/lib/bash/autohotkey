@@ -53,7 +53,7 @@ isActiveWinFloating() {
 }
 
 isWorkspaceEmpty() {
-    ! xdotool getactivewindow
+    (! xdotool getactivewindow) || isActiveWinFloating
 }
 
 # xdotool with the ability to bypass i3 keygrabbing

@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
-try-focus-non-floating() {
+try-focus-non-floating() { # Floating window will always get last priority for input focus
     if isActiveWinFloating; then
         i3-msg "focus mode_toggle" || true # If there is only floating window, "focus mode_toggle" won't do anything
     fi
@@ -13,27 +13,39 @@ workspace-num() {
     i3-msg -t get_workspaces | jq ".[] .num" | wc -l
 }
 
+is-workspace() {
+    i3-msg -t get_workspaces | jq ".[] | select(.num == $1) .focused" | grep true
+}
+
 check-and-handle-empty-workspace() {
+    # Default workspace: terminal (if all apps are closed, open new terminal automatically)
+    # Normal workspace: web (at the time of writing, same behavior as placeholder workspace)
+    # Placeholder workspace: all except web and terminal (all placeholder workspaces will be destroyed automatically when last app closed)
+
+    # Default workspace handling: re-launch terminal when all apps are closed
+    try-focus-non-floating
+    is-workspace 2 && isWorkspaceEmpty && (urxvtc && return 0 || return 1)
+
     # This script will try to avoid empty workspace. When only floating windows are in the workspace, it is also defined as empty workspace.
-    # When empty workspace is detected, it tries to jump to different workspace as following order: last workspace -> terminal workspace -> any remaining available workspace
+    # When empty workspace is detected, it tries to jump to different workspace as following order: last workspace -> terminal workspace (-> any remaining available workspace, path never reached)
     # NOTE: This behavior is designed for only one floating window in use
-    try-focus-non-floating # Floating window always get last priority for input focus
-    if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
+    if isWorkspaceEmpty; then # Check if workspace is empty
         i3-msg "workspace back_and_forth"
         try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
-        if isWorkspaceEmpty || isActiveWinFloating; then # Check if workspace is empty
+        if isWorkspaceEmpty; then # Check if workspace is empty
             i3-msg 'workspace number "2: Term "'
             try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
-            if isWorkspaceEmpty || isActiveWinFloating; then # Even terminal workspace is empty, try to find any non-empty workspace
-                for i in $(seq 1 $(workspace-num)); do
-                    workspace=$(i3-msg -t get_workspaces | jq ".[$((i-1))] .num")
-                    if [[ $(i3-msg -t get_workspaces | jq ".[$((i-1))] .focused") == "false" ]]; then
-                        i3-msg "workspace number $workspace"
-                        try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
-                        break
-                    fi
-                done
-            fi
+            # Following will never reach as terminal workspace will always have at least one terminal
+            # if isWorkspaceEmpty; then # Even terminal workspace is empty, try to find any non-empty workspace
+            #     for i in $(seq 1 $(workspace-num)); do
+            #         workspace=$(i3-msg -t get_workspaces | jq ".[$((i-1))] .num")
+            #         if [[ $(i3-msg -t get_workspaces | jq ".[$((i-1))] .focused") == "false" ]]; then
+            #             i3-msg "workspace number $workspace"
+            #             try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
+            #             break
+            #         fi
+            #     done
+            # fi
         fi
     fi
 }
