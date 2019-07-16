@@ -1,17 +1,9 @@
 #!/bin/bash
-
-pid=
-windowId=
-
-
 #-----------------------------------------------------------------------------------------------
-# Support library
+# Autohotkey library
 #-----------------------------------------------------------------------------------------------
 activeWinId() {
-    # cache active window id result
-    if [ -z $windowId ]; then
-        windowId=`xdotool getactivewindow`
-    fi
+    windowId=`xdotool getactivewindow`
     result=$?
     echo $windowId
     return $result
@@ -19,10 +11,7 @@ activeWinId() {
 
 # Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
 # activeWinPid() {
-#     # cache active window pid result
-#     if [ -z $pid ]; then
-#         pid=`xdotool getactivewindow getwindowpid`
-#     fi
+#     pid=`xdotool getactivewindow getwindowpid`
 #     result=$?
 #     echo $pid
 #     return $result
@@ -57,6 +46,14 @@ winActivate() {
     else
         xdotool search --name  $1 windowactivate
     fi
+}
+
+isActiveWinFloating() {
+    xprop -id $(xdotool getactivewindow) | grep -q "WM_STATE.*STICKY"
+}
+
+isWorkspaceEmpty() {
+    ! xdotool getactivewindow
 }
 
 # xdotool with the ability to bypass i3 keygrabbing

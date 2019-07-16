@@ -1,15 +1,8 @@
 #!/bin/bash -ue
+. autohotkey
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
-isActiveWinFloating() {
-    xprop -id $(xdotool getactivewindow) | grep -q "WM_STATE.*STICKY"
-}
-
-isWorkspaceEmpty() {
-    ! xdotool getactivewindow
-}
-
 try-focus-non-floating() {
     if isActiveWinFloating; then
         i3-msg "focus mode_toggle" || true # If there is only floating window, "focus mode_toggle" won't do anything
