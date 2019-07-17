@@ -2,10 +2,4 @@
 
 app=$1
 
-name=`xdotool search --name ^$app$`
-
-if [[ -z $name ]]; then
-    urxvtc -name $app -e $app; i3-msg "[instance=\"^$app$\"] scratchpad show, move position center"
-else
-    i3-msg "[instance=\"^$app$\"] scratchpad show"
-fi
+(i3-msg "[instance=\"^$app$\"] scratchpad show") || (urxvtc -name $app -e $app && i3-msg "[instance=\"^$app$\"] scratchpad show, move position center")

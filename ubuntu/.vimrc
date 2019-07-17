@@ -254,6 +254,10 @@ nnoremap <leader>p "pp
 vnoremap <leader>y "py
 vnoremap <leader>p "pp
 
+" Fix ctrl+left/right not working with urxvt+tmux
+map <ESC>[1;5D <C-Left>
+map <ESC>[1;5C <C-Right>
+
 
 "-----------------------------------------------------------------------------
 " vim-plug plugin manager

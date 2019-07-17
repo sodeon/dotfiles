@@ -67,6 +67,9 @@ export GREP_COLOR='1;33'
 plugins=(
   fancy-ctrl-z
 
+  # Enable smart history search when for vi mode binding
+  # history-substring-search
+
   # File system
   pj
   jump
@@ -168,3 +171,5 @@ export FZF_COMPLETION_TRIGGER=''
 # }
 # zle -N zle-keymap-select # Register zle-keymap-select, zle-line-init is registered somewhere else by oh-my-zsh
 # export KEYTIMEOUT=1 # By default, exiting VI mode has 0.4sec delay
+# bindkey '^[[A' history-substring-search-up # vi mode breaks smart history search: https://github.com/robbyrussell/oh-my-zsh/issues/800
+# bindkey '^[[B' history-substring-search-down

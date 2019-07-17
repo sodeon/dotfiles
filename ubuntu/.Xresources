@@ -15,7 +15,6 @@
 ! special
 *.foreground: #ffffff
 *.background: #000000
-!*.cursorColor: #afbfbf
 
 ! black
 *.color0: #000000
@@ -70,8 +69,6 @@ URxvt.lineSpace: 0
 
 URxvt.geometry: 120x32
 ! URxvt.internalBorder: 24
-! URxvt.cursorBlink: true
-! URxvt.cursorUnderline: false
 URxvt.saveLines: 5000
 URxvt.scrollBar: false
 URxvt.scrollstyle:plain
@@ -95,14 +92,9 @@ URxvt.keysym.Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
 
-! Move cursor forward/backward one word
-!URxvt.keysym.Control-Up: \033[1;5A
-!URxvt.keysym.Control-Down: \033[1;5B
+! Move cursor forward/backward one word (this is xterm behavior)
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
-! Emulate xterm Home/End for vim in tmux to work correctly
-URxvt.keysym.Home: \033OH
-URxvt.keysym.End: \033OF
 
 
 !-----------------------------------------------------------------
@@ -124,13 +116,6 @@ URxvt.matcher.rend.1: Regular
 ! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
 URxvt.keysym.Control-S: perl:keyboard-select:activate
-
-
-!-----------------------------------------------------------------
-! URxvt misc
-!-----------------------------------------------------------------
-! Fix vim in tmux not recognizing default $TERM and causes cursor shape not changeable
-URxvt.termName: xterm-256color
 
 
 !-----------------------------------------------------------------

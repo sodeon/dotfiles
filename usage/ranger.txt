@@ -1,16 +1,22 @@
-sort (ordering):
-    on: default (natural)
+sort:
+    oo: modified time
+    oO: default (natural)
+    # on: default (natural)
     os: size
-    om: modified time
+    # om: modified time
     ot: type
 
-Linemode:
-    Mf: default
+Linemode (for simplicity, use MM and Mm only):
+    MM: default
+    Mm: modified time
+    # Mf: default
     Ms: sizetime
     Mm: modified time
 
 Folder disk space:
     Show all folders: dU
     Show one folder: $get_cumulative_size / "dc"
+
+Toggle view mode (miller/multipane): ~
 
 settings: z (then a menu will arrive for you to choose)
