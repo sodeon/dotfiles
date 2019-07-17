@@ -43,7 +43,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 alias g='git'
 alias gs='git status'
 alias gd='git diff --color'
-alias gdt='git difftool'
+# alias gdt='git difftool'
 alias gd^='git diff HEAD^'
 
 alias gb='git branch'

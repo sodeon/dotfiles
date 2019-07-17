@@ -1,5 +1,7 @@
 #!/bin/bash -u
 
 app=$1
+title=${2-$app}
 
-(i3-msg "[instance=\"^$app$\"] scratchpad show") || (urxvtc -name $app -e $app && i3-msg "[instance=\"^$app$\"] scratchpad show, move position center")
+(i3-msg "[instance=\"^$app$\"] scratchpad show") \
+    || (urxvtc -name $app -title "$title" -e $app && i3-msg "[instance=\"^$app$\"] scratchpad show, move position center")

@@ -356,8 +356,8 @@ for_window [class="qBittorrent"         ]              floating enable,         
 # NOTE: Notebook and cmus uses lazy execution (won't execute until first accessing)
 #--------------------------------------------------------------------------------
 # Notebook (tmux)
-bindsym $mod+n exec i3-floating-singleton tmux
-bindsym $mod+m exec i3-floating-singleton cmus
+bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
+bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
 bindsym $mod+Shift+m [class="^mpv"] scratchpad show, fullscreen enable
 # Show all scratchpad not the above tmux
 # bindsym $mod+n [instance="^(?!tmux).*"] scratchpad show
@@ -365,7 +365,7 @@ bindsym $mod+Shift+m [class="^mpv"] scratchpad show, fullscreen enable
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"] border pixel 2 , floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^tmux$"] border pixel 3 , floating enable, resize set $tmuxSize, move scratchpad
 for_window [instance="^cmus$"] border pixel 2 , floating enable, resize set $cmusSize, move scratchpad
 for_window [class="mpv"      ] border pixel 10, floating enable, sticky enable       , move scratchpad, scratchpad show
 
