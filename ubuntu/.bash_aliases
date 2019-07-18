@@ -79,6 +79,13 @@ alias dco='docker-compose'
 
 
 #-----------------------------------------------------
+# Taskwarrior
+#-----------------------------------------------------
+alias T='task'
+alias ta='task add'
+
+
+#-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
 alias suspend='systemctl suspend'

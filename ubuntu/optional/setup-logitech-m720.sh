@@ -8,6 +8,6 @@ sudo mkdir -p /etc/X11/xorg.conf.d && echo "Section \"InputClass\"
     MatchVendor \"Logitech\"
     MatchProduct \"M720\"
     Driver \"libinput\"
-    Option \"AccelSpeed\" \"0.93\"
+    Option \"AccelSpeed\" \"0.97\"
 EndSection
 " | sudo tee /etc/X11/xorg.conf.d/50-logitech-m720.conf > /dev/null
