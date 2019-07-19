@@ -1,7 +1,10 @@
 #!/bin/bash -ue
 
 # Copy
-printf "$1" | sed 's/modified:\s*//' | xclip -selection clipboard
+printf "$1" \
+    | sed 's/^[ ]*//' \
+    | sed 's/modified:\s*//' \
+    | xclip -selection clipboard
 
 # Paste to current input field
 xdotool key control+shift+v key Right key space

@@ -4,7 +4,7 @@
 . log.sh
 
 MOUSE_KEYWORD="M720.*pointer"
-MOUSE_ACCEL=0.93
+MOUSE_ACCEL=0.97
 
 quiet=0
 while getopts "q" opt; do
