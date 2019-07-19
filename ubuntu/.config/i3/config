@@ -335,10 +335,11 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # Bind application to workspace
-assign [              title="ranger"] $ws3
-assign [class="Code"                ] $ws4
-assign [class="Sxiv"                ] $ws10
-assign [class="Zathura"             ] $ws10
+assign [title="ranger"       ] $ws3
+assign [class="Code"         ] $ws4
+assign [class="Sxiv"         ] $ws10
+assign [class="Zathura"      ] $ws10
+assign [title="^LibreOffice "] $ws10 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
@@ -347,6 +348,7 @@ for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none, focus
 for_window [class="Zathura"             ] border none, focus
 for_window [class="Sxiv"                ] border none, focus,                            fullscreen
+for_window [title="^LibreOffice "       ] border none, focus
 # for_window [class="Sxiv"                ] border none, floating enable,                fullscreen
 for_window [class="qBittorrent"         ]              floating enable,                            move center
 
@@ -365,9 +367,9 @@ bindsym $mod+Shift+m [class="^mpv"] scratchpad show, fullscreen enable
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"] border pixel 3 , floating enable, resize set $tmuxSize, move scratchpad
-for_window [instance="^cmus$"] border pixel 2 , floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"      ] border pixel 10, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [instance="^tmux$"   ] border pixel 3 , floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"   ] border pixel 2 , floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv"         ] border pixel 10, floating enable, sticky enable       , move scratchpad, scratchpad show
 
 
 #--------------------------------------------------------------------------------
