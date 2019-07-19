@@ -24,9 +24,8 @@ cp -rf ~/bin .
 # tar -zcf .marks.tar -C ~/ .marks # git only accept relative symlink, so use tar to hide symlink
 
 cp $HOME/Programs/autohotkey.ahk   ./Programs
-cp $HOME/Programs/.autohotkeyrc    ./Programs/.autohotkeyrc.example
+# cp $HOME/Programs/.autohotkeyrc    ./Programs/.autohotkeyrc.example
 cp $HOME/Programs/autohotkey/*.ahk ./Programs/autohotkey
-cp $HOME/Programs/autohotkey/*.ps1 ./Programs/autohotkey
 
-# cp $HOME/Programs/wsl-terminal/etc/wsl-terminal.conf ./Programs/wsl-terminal/etc
-# cp $HOME/Programs/wsl-terminal/etc/minttyrc ./Programs/wsl-terminal/etc
+cp -rf $HOME/Programs/nircmd          ./Programs/
+cp -rf $HOME/Programs/ClickMonitorDDC ./Programs/

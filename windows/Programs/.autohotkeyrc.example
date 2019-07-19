@@ -2,16 +2,8 @@
 ; Modify default config variables or complete re-write
 ;----------------------------------------------------------------------------------------
 ; example: re-write
-; monitorSettings := [{brightness: 20, temperature: "5000K", width: 3840, height: 2160}  ; for full screen video
-;                    ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}  ; for centered reading
-;                    ,{brightness:  9, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
-
-
-; example: modify 
-; Day mode
-; monitorSettings[2] := {brightness: 10, temperature: "6500K", width: 2880, height: 2160}
-; Night mode
-monitorSettings[2] := {brightness: 5, temperature: "5000K", width: 2880, height: 2160}
-
+monitorSettings := [{brightness: 20, temperature: "5000K", width: 1920, height: 1080}  ; for full screen video
+                   ,{brightness: 15, temperature: "5000K", width: 1920, height: 1080}  ; for centered reading
+                   ,{brightness: 15, temperature: "5000K", width: 1920, height: 1080}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
 DesktopCount := 3
