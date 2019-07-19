@@ -24,7 +24,7 @@ cp -rf bin ~/
 # tar -xf .marks.tar -C ~
 
 cp ./Programs/autohotkey.ahk   $HOME/Programs
-cp ./Programs/.autohotkeyrc    $HOME/Programs/.autohotkeyrc.example
-cp ./Programs/autohotkey       $HOME/Programs/autohotkey
+# cp ./Programs/.autohotkeyrc    $HOME/Programs/.autohotkeyrc.example
+cp -rf ./Programs/autohotkey   $HOME/Programs/autohotkey
 
 # cp -rf ./Programs/wsl-terminal/* $HOME/Programs/wsl-terminal

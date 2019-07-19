@@ -123,6 +123,9 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 # restore dot files
 set +e
 mkdir -p ~/.config/{htop,ranger,dotfiles}
+mkdir -p ~/.local/lib/bash
+mkdir -p /mnt/c/Programs/autohotkey
+ln -s /mnt/c/Programs ~/Programs
 set -e
 chmod +x ./restore.sh && ./restore.sh
 
