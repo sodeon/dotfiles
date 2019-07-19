@@ -14,7 +14,7 @@ cp ~/.zshrc .
 #
 # .config directory
 #
-cp -rf ~/.config/ranger .config
+cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 
 rm -rf .local/lib/bash
