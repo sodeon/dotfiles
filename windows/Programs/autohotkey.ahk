@@ -36,7 +36,7 @@ monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 
                    ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
 
 ; Apps
-browser  := "brave.exe"
+browser  := "chrome.exe"
 terminal := "ubuntu.exe"
 editor   := "gvim.exe"
 ide      := "Code.exe"
@@ -78,9 +78,14 @@ NumpadMult:: Send {PrintScreen}
 
 ; Close app
 !`:: 
-    if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor)
-        Send ^d
-    Send !{F4}
+    if WinActive("ahk_exe " . terminal) {
+        showNotification(terminal . " does not support closing by keyboard shortcut")
+        ; While WinActive("ahk_exe " . terminal) {
+        ;     Send ^d
+        ;     Sleep, 30
+        ; }
+    } else
+        Send !{F4}
     return
 
 
@@ -89,7 +94,8 @@ NumpadMult:: Send {PrintScreen}
 ;-------------------------------------------------------------------------------
 ; Function keys Key remap
 $F1:: winActivateExe(browser)
-$F2:: winActivateExe(terminal, "", "", 2)
+; $F2:: winActivateExe(terminal, "", "", 2)
+$F2:: winActivateExe(terminal)
 $F3:: ; file explorer
     if WinExist("ahk_class CabinetWClass") {
         ; Cycle through file explorers
@@ -99,7 +105,7 @@ $F3:: ; file explorer
         else
             WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
     } else {
-        switchDesktopByNumber(3)
+        ; switchDesktopByNumber(3)
         Run, d:\Downloads
     }
     updateAppHistory()
@@ -154,6 +160,12 @@ UpdateAppAndBrightness:
 !3:: switchDesktopByNumber(3)
 !4:: switchDesktopByNumber(4)
 
+; $^w::
+;     if WinActive("ahk_exe " . browser) or WinActive("ahk_exe " . ide) ; ctrl+w to delete one word only works in vim and terminal
+; 		Send ^w
+;     else
+;         Send !{F4}
+;     return
 
 ;-------------------------------------------------------------------------------
 ; Typing assist

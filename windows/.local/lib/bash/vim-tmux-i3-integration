@@ -1,0 +1,222 @@
+#!/bin/bash -ue
+
+# Resize parameter
+tmp=/tmp/vim-tmux-i3-integration
+
+# SSH parameter
+port=5556
+
+#------------------------------------------------------------------------------
+# Helpers
+#------------------------------------------------------------------------------
+# NOTE: This implementation is more complex than needed.
+# #{pane_at_top}/#{pane_at_bottom}/#{pane_at_right}/#{pane_at_left} can determine if there ia another pane in the direction.
+exists_another_pane_in_direction() {
+    local direction=$1
+    local result=1 #false
+
+    local paneList=$(
+        tmux list-panes -F '#{pane_top} #{pane_left} #{?pane_active,active,} '
+    )
+
+    local paneActive=$(
+        echo "$paneList" | \
+        grep 'active' | \
+        tr -s ' '
+    )
+
+    local paneNoActive=$(
+        echo "$paneList" | \
+        grep -v 'active'
+    )
+
+    local paneActiveTop="$(echo "$paneActive" | cut -d' ' -f1)"
+    local paneActiveLeft="$(echo "$paneActive" | cut -d' ' -f2)"
+
+    while read -r line; do
+        local left="$(echo "$line" | cut -d' ' -f2 | tr -d "[:blank:]" | tr -d "\n")"
+        local top="$(echo "$line" | cut -d' ' -f1)"
+
+        if [ "$top" = '' ] && [ "$left" = '' ]; then
+            break # There is not other window
+        fi
+
+        if [ "$direction" = 'up' ]
+        then
+
+            if [ "$top" -lt "$paneActiveTop" ] && [ "$left" -eq "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'right' ]
+        then
+
+            if [ "$left" -gt "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'down' ]
+        then
+            if [ "$top" -gt "$paneActiveTop" ] && [ "$left" -eq "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+
+        if [ "$direction" = 'left' ]
+        then
+            if [ "$left" -lt "$paneActiveLeft" ]
+            then
+                local result=0 #true
+                break
+            fi
+        fi
+    done <<< "$paneNoActive"
+
+    return "$result"
+}
+
+pane-at-right() {
+    layout=($(tmux list-panes -F '#{pane_active} #{pane_at_top} #{pane_at_bottom} #{pane_at_left} #{pane_at_right}' | grep '^1'))
+    [[ ${layout[4]} == 0 ]] && return 1 || return 0
+}
+pane-at-left() {
+    layout=($(tmux list-panes -F '#{pane_active} #{pane_at_top} #{pane_at_bottom} #{pane_at_left} #{pane_at_right}' | grep '^1'))
+    [[ ${layout[3]} == 0 ]] && return 1 || return 0
+}
+pane-at-top() {
+    layout=($(tmux list-panes -F '#{pane_active} #{pane_at_top} #{pane_at_bottom} #{pane_at_left} #{pane_at_right}' | grep '^1'))
+    [[ ${layout[1]} == 0 ]] && return 1 || return 0
+}
+pane-at-bottom() {
+    layout=($(tmux list-panes -F '#{pane_active} #{pane_at_top} #{pane_at_bottom} #{pane_at_left} #{pane_at_right}' | grep '^1'))
+    [[ ${layout[2]} == 0 ]] && return 1 || return 0
+}
+
+pane-can-resize() {
+    case $@ in
+        "grow width" | "shrink width")
+            if pane-at-left && pane-at-right; then
+                return 1
+            else
+                return 0
+            fi
+            ;;
+        "grow height" | "shrink height")
+            if pane-at-top && pane-at-bottom; then
+                return 1
+            else
+                return 0
+            fi
+            ;;
+    esac
+}
+
+#------------------------------------------------------------------------------
+# Tmux/i3-aware navigation/movement/resize
+#------------------------------------------------------------------------------
+focus() {
+    if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
+        case $1 in
+            left)
+                tmux select-pane -L
+                ;;
+            down)
+                tmux select-pane -D
+                ;;
+            up)
+                tmux select-pane -U
+                ;;
+            right)
+                tmux select-pane -R
+                ;;
+        esac
+    elif [[ ${XDG_CURRENT_DESKTOP-} == 'i3' ]]; then
+        i3-msg -q focus $@
+    elif [[ ! -z ${SSH_CLIENT-} ]]; then
+        echo "focus $@" | nc -q0 localhost $port
+    fi
+}
+
+move() {
+    if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
+        notify-send "tmux move $@"
+    elif [[ ${XDG_CURRENT_DESKTOP-} == 'i3' ]]; then
+        i3-msg -q move $@
+    elif [[ ! -z ${SSH_CLIENT-} ]]; then
+        echo "move $@" | nc -q0 localhost $port
+    fi
+}
+
+resize() {
+    # Size parameter is not passed from VIM. Use tmp file to pass such parameter.
+    # This is to avoid ~/.vimrc having to have i3 size parameter. That is ugly.
+    # The tmp file design is not a queue, but store single parameter only. 
+    # This may create unwanted side effect when system is extremely busy and having multiple unprocessed commands, but this approach is the most stable.
+    if [[ -f $tmp ]]; then
+        read size_delta < $tmp
+    else # default value. If proper configured, should never reach this path.
+        size_delta='10px or 12ppt'
+    fi
+
+    if [[ ! -z ${TMUX-} ]] && pane-can-resize $@; then
+        case $@ in
+            "grow width")
+                if pane-at-left; then
+                    tmux resize-pane -R 10
+                elif pane-at-right; then
+                    tmux resize-pane -L 10
+                else
+                    tmux resize-pane -R 10
+                fi
+                ;;
+            "shrink width")
+                if pane-at-left; then
+                    tmux resize-pane -L 10
+                elif pane-at-right; then
+                    tmux resize-pane -R 10
+                else
+                    tmux resize-pane -L 10
+                fi
+                ;;
+            "grow height")
+                if pane-at-top; then
+                    tmux resize-pane -D 6
+                elif pane-at-bottom; then
+                    tmux resize-pane -U 6
+                else
+                    tmux resize-pane -D 6
+                fi
+                ;;
+            "shrink height")
+                if pane-at-top; then
+                    tmux resize-pane -U 6
+                elif pane-at-bottom; then
+                    tmux resize-pane -D 6
+                else
+                    tmux resize-pane -U 6
+                fi
+                ;;
+        esac
+    elif [[ ${XDG_CURRENT_DESKTOP-} == 'i3' ]]; then
+        i3-msg -q "resize $@ $size_delta"
+    elif [[ ! -z ${SSH_CLIENT-} ]]; then
+        echo "resize $@ $size_delta" | nc -q0 localhost $port
+    fi
+}
+
+
+#------------------------------------------------------------------------------
+# Execute commands
+# If no argument is provided, this script can be used as a library
+#------------------------------------------------------------------------------
+# Ignore commands from VIM if i3 is not the window manager.
+# TODO: sanitize input
+[[ $# == 0 ]] || $@

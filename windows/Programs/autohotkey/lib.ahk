@@ -79,7 +79,7 @@ updateAppHistory() {
 
 ; app aware monitor brightness/nightlight settings
 monitorSetting() {
-    global monitorSettings, nightLightEnabled
+    global terminal, editor, ide, monitorSettings, nightLightEnabled
     WinGet, app, ProcessName, A
     if (app = terminal or app = editor or app = ide)
         return monitorSettings[3]
@@ -90,7 +90,7 @@ monitorSetting() {
 }
 
 updateBrightness() {
-    global terminal, monitorSettings, nightLightEnabled
+    global terminal, editor, ide, monitorSettings, nightLightEnabled
     WinGet, app, ProcessName, A
     if (app = terminal or app = editor or app = ide)
         brightness := monitorSettings[3].brightness

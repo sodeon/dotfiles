@@ -1,6 +1,11 @@
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/lib/bash:$PATH
 export ZSH=~/.oh-my-zsh
 
+if [[ -z $TMUX ]]; then
+    tmux attach 2> /dev/null || exec tmux
+    exit
+fi
+
 #export WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
 # S nam of the theme to load. Optionally, if you set this to "random"
@@ -157,14 +162,3 @@ export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
 export FZF_COMPLETION_TRIGGER=''
-
-# wsl-terminal use tmux automatically
-[[ -z "$TMUX" && -n "$USE_TMUX" ]] && {
-    [[ -n "$ATTACH_ONLY" ]] && {
-        tmux a 2>/dev/null || { cd && exec tmux }
-        exit
-    }
-
-    tmux new-window -c "$PWD" 2>/dev/null && exec tmux a
-    exec tmux
-}
