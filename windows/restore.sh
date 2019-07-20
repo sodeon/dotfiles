@@ -7,18 +7,19 @@ sudo cp ./Programs/wsl-init /usr/bin
 #
 # $HOME directory
 #
+cp .zshrc ~/
 cp .bash_aliases ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
 cp .vimrc $WINHOME
 cp .gvimrc $WINHOME
-cp .zshrc ~/
 
 #
 # .config directory
 #
-cp -rf .config ~/
 cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
+cp -rf .config ~/
+
 rm -rf ~/.local/lib/bash
 cp -rf .local/lib/bash ~/.local/lib
 rm -rf ~/bin

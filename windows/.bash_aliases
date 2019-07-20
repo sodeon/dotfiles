@@ -8,7 +8,7 @@ alias sd='sudo '
 alias lr='ls -rtla'
 
 # Most used programs
-alias t='task'
+alias t='touch'
 alias v='vim'
 alias d='vimdiff'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
@@ -43,7 +43,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 alias g='git'
 alias gs='git status'
 alias gd='git diff --color'
-alias gdt='git difftool'
+# alias gdt='git difftool'
 alias gd^='git diff HEAD^'
 
 alias gb='git branch'
@@ -76,6 +76,13 @@ alias de='docker exec -i -t'
 alias di='docker image'
 alias dc='docker container'
 alias dco='docker-compose'
+
+
+#-----------------------------------------------------
+# Taskwarrior
+#-----------------------------------------------------
+alias T='task'
+alias ta='task add'
 
 
 #-----------------------------------------------------

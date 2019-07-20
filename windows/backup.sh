@@ -7,17 +7,17 @@ sudo cp  /usr/bin/wsl-init ./Programs/
 #
 # $HOME directory
 #
+cp ~/.zshrc .
 cp ~/.bash_aliases .
 cp ~/.tmux.conf .
 cp ~/.vimrc .
 cp $WINHOME/.gvimrc .
-cp ~/.zshrc .
 
 #
 # .config directory
 #
-cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
+cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
 
 rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
