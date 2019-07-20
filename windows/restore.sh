@@ -23,7 +23,7 @@ rm -rf ~/bin
 cp -rf bin ~/
 # tar -xf .marks.tar -C ~
 
+set +e
 cp -rf ./Programs/*  $HOME/Programs
+set -e
 cp ./Programs/.autohotkeyrc.example $HOME/Programs/.autohotkeyrc.example
-# cp ./Programs/autohotkey.ahk        $HOME/Programs
-# cp -rf ./Programs/autohotkey        $HOME/Programs/autohotkey
