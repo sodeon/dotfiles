@@ -1,4 +1,5 @@
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/lib/bash:$PATH
+echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bash:$PATH
+echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
 if [[ -z $TMUX ]]; then
@@ -6,9 +7,7 @@ if [[ -z $TMUX ]]; then
     exit
 fi
 
-#export WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
-
-# S nam of the theme to load. Optionally, if you set this to "random"
+# Set name of the theme to load. Optionally, if you set this to "random"
 ZSH_THEME="andy"
 # ZSH_THEME="robbyrussell" # default
 
@@ -62,7 +61,8 @@ setopt +o nomatch # Avoid "'no match found' error when running find with * as pa
 
 # replace Ubuntu's ls color. This must put here so that oh-my-zsh will source the correct ls colors
 #eval `dircolors ~/.DIR_COLORS`
-LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS # win
+# LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS # win
+#LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
 # bold, yellow
 export GREP_COLOR='1;33'
 
@@ -72,6 +72,9 @@ export GREP_COLOR='1;33'
 #--------------------------------------------------------------------------------------------------------------
 plugins=(
   fancy-ctrl-z
+
+  # Enable smart history search when for vi mode binding
+  # history-substring-search
 
   # File system
   pj
@@ -162,3 +165,17 @@ export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
 export FZF_COMPLETION_TRIGGER=''
+
+#
+# VI mode
+#
+# bindkey -v # # Enable VI mode
+# function zle-keymap-select zle-line-init { # Normal/insert mode aware cursor shape
+#     if [ "$TERM" = "xterm-256color" ]; then
+#         [ $KEYMAP = vicmd ] && echo -ne "\e[2 q" || echo -ne "\e[6 q"
+#     fi
+# }
+# zle -N zle-keymap-select # Register zle-keymap-select, zle-line-init is registered somewhere else by oh-my-zsh
+# export KEYTIMEOUT=1 # By default, exiting VI mode has 0.4sec delay
+# bindkey '^[[A' history-substring-search-up # vi mode breaks smart history search: https://github.com/robbyrussell/oh-my-zsh/issues/800
+# bindkey '^[[B' history-substring-search-down
