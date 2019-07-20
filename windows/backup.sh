@@ -2,6 +2,8 @@
 cd "$(dirname "$(realpath "$0")")"
 WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
+sudo cp  /usr/bin/wsl-init ./Programs/
+
 #
 # $HOME directory
 #

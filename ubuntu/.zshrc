@@ -54,9 +54,6 @@ stty -ixon # Disable c-s that freeze the terminal (it's a Linux behavior)
 
 setopt +o nomatch # Avoid "'no match found' error when running find with * as part of pattern"
 
-# replace Ubuntu's ls color. This must put here so that oh-my-zsh will source the correct ls colors
-#eval `dircolors ~/.DIR_COLORS`
-#LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
 # bold, yellow
 export GREP_COLOR='1;33'
 

@@ -95,7 +95,7 @@ NumpadMult:: Send {PrintScreen}
 ; Function keys Key remap
 $F1:: winActivateExe(browser)
 ; $F2:: winActivateExe(terminal, "", "", 2)
-$F2:: winActivateExe(terminal)
+$F2:: winActivateExe(terminal, "", "run source wsl-init")
 $F3:: ; file explorer
     if WinExist("ahk_class CabinetWClass") {
         ; Cycle through file explorers

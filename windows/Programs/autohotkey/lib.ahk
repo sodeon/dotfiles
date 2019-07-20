@@ -36,10 +36,10 @@ winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
         fullExe := exe
         if (exePath != "")
             fullExe := exePath "\" fullExe
-        if (params != "")
-            fullExe .= " " params
+        ; if (params != "")
+        ;     fullExe .= " " params
         fullExe := """" fullExe """" ; enclosing command with quotations
-        Run, %fullExe%
+        Run, %fullExe% %params%
     }
 
     updateAppHistory()
