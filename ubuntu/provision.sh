@@ -1,22 +1,5 @@
 #!/bin/bash -ue
-cd "${0%/*}"
-#------------------------------------------------------------------------------
-# Steps to provision a new OS
-#------------------------------------------------------------------------------
-: ' 
-Install Ubuntu:
-    Use "Rufus" to copy image on USB flash drive
-    Disable fast boot in BIOS
-    Use flash drive to install Ubuntu afresh
-
-Provision:
-    Install git
-    Get dotfiles and run provision script
-        mkdir -p ~/code
-        git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
-        cd ./dotfiles/ubuntu && chmod+x ./provision.sh && ./provision.sh
-'
-
+cd "$(dirname "$(realpath "$0")")";
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
@@ -56,22 +39,22 @@ apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
-apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
+apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
-apt-force install taskwarrior # task management tool
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
+apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool imwheel # key mapping and hotkey helpers
 apt-force install ddcutil # monitor brightness control
@@ -119,7 +102,7 @@ curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_
 sudo dpkg -i ripgrep_11.0.1_amd64.deb
 rm ripgrep_11.0.1_amd64.deb
 
-# vim
+# vim/gvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # tmux
@@ -189,14 +172,23 @@ apt-force purge unattended-upgrades
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-set +e
-mkdir -p ~/.config/{htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts,dotfiles,hardware,Xresources}
-set -e
 chmod +x ./restore.sh && ./restore.sh
 
 # git
 git config --global credential.helper 'cache --timeout=7200'
 git config --global diff.tool vimdiff
+
+# Add files icons to ranger
+cd-temp
+git clone https://github.com/alexanderjeurissen/ranger_devicons
+cd ranger_devicons
+make install
+cd-before-temp
+
+# Use ranger as default file manager (By default, xdg-open is the command to open file/folder with appropriate application)
+# Go to /usr/share/applications and look inside its entries to find the mime types
+# Check current default application: xdg-mime query default inode/directory
+xdg-mime default ranger.desktop inode/directory
 
 # Disable error reporting
 sudo systemctl mask apport # Program crash report
@@ -210,18 +202,6 @@ mkdir -p ~/.fonts
 cp -rf ./consolas-powerline/*.ttf ~/.fonts
 fc-cache -f -v # rebuild font cache
 cd-before-temp
-
-# Add files icons to ranger
-cd-temp
-git clone https://github.com/alexanderjeurissen/ranger_devicons
-cd ranger_devicons
-make install
-cd-before-temp
-
-# Use ranger as default file manager (By default, xdg-open is the command to open file/folder with appropriate application)
-# Go to /usr/share/applications and look inside its entries to find the mime types
-# Check current default application: xdg-mime query default inode/directory
-xdg-mime default ranger.desktop inode/directory
 
 # Enable command line LCD panel backlight control
 sudo usermod -a -G video $USER
