@@ -13,6 +13,7 @@ cp ~/.zshrc .
 cp ~/.profile .
 cp ~/.Xmodmap .
 cp ~/.Xresources .
+cp ~/.xbindkeysrc .
 
 #
 # .config directory

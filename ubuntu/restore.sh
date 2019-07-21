@@ -3,6 +3,14 @@ cd "$(dirname "$(realpath "$0")")"
 . backup-restore-config-spec.sh
 
 #
+# Create directory and links that will be used later
+# Don't put it in provision.sh. This creates dependency on provision.sh and cannot use restore.sh alone
+#
+set +e
+mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts}
+set -e
+
+#
 # $HOME directory
 #
 cp .bash_aliases ~/
@@ -13,6 +21,7 @@ cp .zshrc ~/
 cp .profile ~/
 cp .Xmodmap ~/
 cp .Xresources ~/
+cp .xbindkeysrc ~/
 
 #
 # .config directory
