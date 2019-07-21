@@ -1,11 +1,19 @@
-#!/bin/zsh -ue
-
-# Original code in autohotkey.ahk
+#!/bin/zsh
+#------------------------------------------------------------------------------
+# This script add WSL specific settings for terminal
+# The purpose of this script is to extract WSL specific settings so that Windows and Ubuntu .zshrc/.bashrc can be the same.
+#------------------------------------------------------------------------------
+# OPtion 1: Extract to autohotkey.ahk
 # $F2:: winActivateExe(terminal, "", "run LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' tmux attach 2> /dev/null || LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' tmux")
 
+# Option 2: Extract to dedicated script
+# $F2:: winActivateExe(terminal, "", "run wsl-init")
 export LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' 
 
+# WSL terminal always open with tmux session
 if [[ -z $TMUX ]]; then
+    # At this point, .zshrc is not exected, therefore, $PATH is not set properly. 
+    # vim-tmux-i3-integration is not available for tmux session.
     echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bash:$PATH
     echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
     tmux attach 2> /dev/null || exec tmux
