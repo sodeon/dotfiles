@@ -1,24 +1,5 @@
 #!/bin/bash -ue
-#------------------------------------------------------------------------------
-# Steps to provision a new OS
-#------------------------------------------------------------------------------
-: ' 
-Install Windows:
-    Use "Media Creation Tool" to create Windows image on USB flash drive
-    Use flash drive to install Windows afresh
-
-Config WSL:
-    Enable Windows Subsystem on Linux
-    Download Ubuntu and run it first time (will take some time for intialization)
-
-Provision:
-    Install git
-    Get dotfiles and run provision script
-        mkdir -p ~/code
-        git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
-        cd ./dotfiles/windows && chmod+x ./provision.sh && ./provision.sh
-'
-
+cd "$(dirname "$(realpath "$0")")";
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
@@ -46,15 +27,6 @@ mkdir -p /tmp/provision
 
 
 #------------------------------------------------------------------------------
-# Folders and Aliases
-#------------------------------------------------------------------------------
-#sudo ln -s /mnt/c /c
-#sudo ln -s /mnt/d /d
-#sudo ln -s /mnt/e /e
-#sudo ln -s /mnt/d/Programs ~
-
-
-#------------------------------------------------------------------------------
 # Software installation
 #------------------------------------------------------------------------------
 # System update
@@ -67,18 +39,19 @@ apt-force install git
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment
+apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment, fd-find is only available from Ubuntu 19.04
 #apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
-#apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
+apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
 apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
+apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
 
 apt-force autoremove
 
@@ -103,7 +76,7 @@ curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_
 sudo dpkg -i ripgrep_11.0.1_amd64.deb
 rm ripgrep_11.0.1_amd64.deb
 
-# vim and Windows native gvim
+# vim/gvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo $WINHOME/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -121,21 +94,11 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-set +e
-mkdir -p ~/.config/{htop,ranger,dotfiles}
-mkdir -p ~/.local/lib/bash
-mkdir -p /mnt/c/Programs/autohotkey
-ln -s /mnt/c/Programs ~/Programs
-set -e
 chmod +x ./restore.sh && ./restore.sh
 
 # git
-git config --global credential.helper wincred
+git config --global credential.helper 'cache --timeout=7200'
 git config --global diff.tool vimdiff
-# only unix line end and ignore execution bit
-git config --global core.filemode false
-git config --global core.autocrlf false
-git config --global core.eol lf
 
 # Add files icons to ranger
 cd-temp

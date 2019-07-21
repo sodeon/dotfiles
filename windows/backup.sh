@@ -21,8 +21,10 @@ cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
 
 rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
+
 rm -rf ./bin/*
 cp -rf ~/bin .
+
 # tar -zcf .marks.tar -C ~/ .marks # git only accept relative symlink, so use tar to hide symlink
 
 cp $HOME/Programs/autohotkey.ahk   ./Programs

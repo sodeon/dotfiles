@@ -1,0 +1,29 @@
+#!/bin/bash -ue
+#------------------------------------------------------------------------------
+# Steps to provision a new OS
+#------------------------------------------------------------------------------
+: ' 
+Install Windows:
+    Use "Media Creation Tool" to create Windows image on USB flash drive
+    Use flash drive to install Windows afresh
+
+Config WSL:
+    Enable Windows Subsystem on Linux
+    Download Ubuntu and run it first time (will take some time for intialization)
+
+Provision:
+    Install git
+    Get dotfiles and run provision script
+        mkdir -p ~/code
+        git clone https://github.com/sodeon/dotfiles ~/code/dotfiles
+        cd ./dotfiles/windows && chmod+x ./provision.sh && ./provision.sh
+'
+
+
+#------------------------------------------------------------------------------
+# Folders and Aliases
+#------------------------------------------------------------------------------
+#sudo ln -s /mnt/c /c
+#sudo ln -s /mnt/d /d
+#sudo ln -s /mnt/e /e
+#sudo ln -s /mnt/d/Programs ~
