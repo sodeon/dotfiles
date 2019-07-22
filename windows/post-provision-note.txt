@@ -3,8 +3,7 @@ Vim:
     # copy ~/.vim to /c/Users/Andy
 
 Tmux:
-    tmux uses zsh as default may need to reboot in order to take effect
-    (ctrl+e I) to download and install plugins
+    "ctrl+e I" to download and install plugins
 
 Github:
     ignore linux execution bit: $git config core.filemode false
@@ -30,12 +29,14 @@ ssh:
 
 Programs:
 	KeyTweak (Caps->Esc, RAlt/RCtrl->VolDown/VolUp)
-	Install Chrome -> Login Chrome -> Restore chrome extensions (vimium...)
-	Install Lightshot, Logitech Options, GVim, autohotkey, mpc-hc
-	Install Windows git, SourceTree
+	Lightshot, Logitech Options, gvim, autohotkey, mpc-hc
 
 Config Windows:
-    Config .autohotkeyrc (/d/Work/Programs/)
+    Config .autohotkeyrc, ~/.config/dotfiles/dotfilesrc
 
 System:
     Disable hibernation to free ~6.5GB C:\: $powercfg.exe -h off
+    Disable fast boot (Implementation wise, fast boot is partial suspend: https://www.debian.org/releases/jessie/amd64/ch03s06.html.en):
+            Control Panel -> Power Options -> 
+            Choose what the power buttons do -> Change settings that are currently unavailable -> Turn on fast startup
+            (https://www.windowscentral.com/how-disable-windows-10-fast-startup)

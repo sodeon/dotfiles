@@ -1,0 +1,37 @@
+Measure startup performance: search startup in commands (Example follows)
+    ## Performance Marks
+
+    | What                                                    | Duration | Process          | Info                                     |
+    | ------------------------------------------------------- | -------- | ---------------- | ---------------------------------------- |
+    | start => app.isReady                                    | 43       | [main]           | initial startup: true                    |
+    | nls:start => nls:end                                    | 0        | [main]           | initial startup: true                    |
+    | require(main.bundle.js)                                 | 42       | [main]           | initial startup: true                    |
+    | app.isReady => window.loadUrl()                         | 139      | [main]           | initial startup: true                    |
+    | window.loadUrl() => begin to require(workbench.main.js) | 131      | [main->renderer] | NewWindow                                |
+    | require(workbench.main.js)                              | 235      | [renderer]       | cached data: YES, node_modules took 32ms |
+    | require & init workspace storage                        | 22       | [renderer]       | -                                        |
+    | init workspace service                                  | 25       | [renderer]       | -                                        |
+    | register extensions & spawn extension host              | 311      | [renderer]       | -                                        |
+    | restore viewlet                                         | 33       | [renderer]       | workbench.view.explorer                  |
+    | restore panel                                           | 0        | [renderer]       | -                                        |
+    | restore editors                                         | 103      | [renderer]       | 1: PerfviewInput                         |
+    | overall workbench load                                  | 168      | [renderer]       | -                                        |
+    | workbench ready                                         | 751      | [main->renderer] | -                                        |
+    | extensions registered                                   | 1167     | [renderer]       | -                                        |
+
+    ## Extension Activation Stats
+
+    | Extension                         | Eager | Load Code | Call Activate | Finish Activate | Event               |
+    | --------------------------------- | ----- | --------- | ------------- | --------------- | ------------------- |
+    | vscode.debug-auto-launch          | true  | 1         | 0             | 5               | *                   |
+    | vscode.emmet                      | true  | 11        | 1             | 4               | *                   |
+    | vscode.git                        | true  | 63        | 1             | 22              | *                   |
+    | vscode.merge-conflict             | true  | 2         | 1             | 6               | *                   |
+    | eamodio.gitlens                   | true  | 96        | 0             | 75              | *                   |
+    | formulahendry.auto-close-tag      | true  | 0         | 0             | 6               | *                   |
+    | formulahendry.auto-rename-tag     | true  | 2         | 0             | 6               | *                   |
+    | hoovercj.vscode-settings-cycler   | true  | 2         | 1             | 5               | *                   |
+    | PKief.material-icon-theme         | true  | 11        | 0             | 9               | *                   |
+    | vscodevim.vim                     | true  | 205       | 1             | 141             | *                   |
+    | vscode.extension-editing          | false | 34        | 1             | 8               | onLanguage:markdown |
+    | vscode.markdown-language-features | false | 63        | 3             | 5               | onLanguage:markdown |
