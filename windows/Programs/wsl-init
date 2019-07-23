@@ -16,5 +16,8 @@ if [[ -z $TMUX ]]; then
     # vim-tmux-i3-integration is not available for tmux session.
     echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bash:$PATH
     echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
+
+    export WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r') 2> /dev/null
+
     tmux attach 2> /dev/null || exec tmux
 fi

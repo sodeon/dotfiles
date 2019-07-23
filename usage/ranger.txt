@@ -20,3 +20,17 @@ Folder disk space:
 Toggle view mode (miller/multipane): ~
 
 settings: z (then a menu will arrive for you to choose)
+
+Filter stack (think of it as tag in media library):
+    .. filter_stack show
+    .c filter_stack clear
+    .p filter_stack pop
+
+    .n console filter_stack add name%space
+    .m console filter_stack add mime%space
+    .d filter_stack add type d
+    .f filter_stack add type f
+
+    .| filter_stack add or
+    .& filter_stack add and
+    .! filter_stack add not
