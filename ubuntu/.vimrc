@@ -5,8 +5,6 @@
 set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
 
-set shell=bash
-
 
 "-----------------------------------------------------------------------------
 " Ported from vim_example.vim and defaults.vim in $VIMRUNTIME
