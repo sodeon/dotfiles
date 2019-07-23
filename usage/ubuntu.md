@@ -18,7 +18,7 @@
 - Output: one folder above current folder (the ".." folder)
 
 ## Utilities
-- `color-picker`: xcolor from https://github.com/Soft/xcolor
+- `color-picker`: [xcolor](https://github.com/Soft/xcolor)
 - Iso to USB flash: `sudo dd bs=4M if=file-name.iso of=/dev/sdc status=progress`
 
 ## Performance Analysis
@@ -32,3 +32,17 @@
 
 ## Chinese input
 - 全形半形切換: ctrl + .
+
+## Performance tuning
+[Reference](https://haydenjames.io/linux-performance-almost-always-add-swap-space/)
+```bash
+sudo cat /proc/sys/vm/swappiness # default: 60
+sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
+```
+
+## Find
+[Reference](https://www-howtogeek-com.cdn.ampproject.org/v/s/www.howtogeek.com/425408/how-to-use-all-linuxs-search-commands/amp/?amp_js_v=0.1#referrer=https%3A%2F%2Fwww.google.com&amp_tf=From%20%251%24s&ampshare=https%3A%2F%2Fwww.howtogeek.com%2F425408%2Fhow-to-use-all-linuxs-search-commands%2F)
+- `which -a`: Searches $PATH executable
+- `whereis`: Searches $PATH for executable, man pages, and source code files.
+- `whatis`: Searches the man one-line descriptions.
+- `apropos`: Meaning "related to". Searches the man page with more fidelity than whatis.
