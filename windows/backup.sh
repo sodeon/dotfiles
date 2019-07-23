@@ -2,8 +2,6 @@
 cd "$(dirname "$(realpath "$0")")"
 WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 
-sudo cp  /usr/bin/wsl-init ./Programs/
-
 #
 # $HOME directory
 #
@@ -33,3 +31,5 @@ cp $HOME/Programs/autohotkey/*.ahk ./Programs/autohotkey
 
 cp -rf $HOME/Programs/nircmd          ./Programs/
 cp -rf $HOME/Programs/ClickMonitorDDC ./Programs/
+
+cp $HOME/Programs/wsl-init   ./Programs

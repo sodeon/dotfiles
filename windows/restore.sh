@@ -12,8 +12,6 @@ mkdir -p /mnt/c/Programs/autohotkey
 ln -s /mnt/c/Programs ~/Programs
 set -e
 
-sudo cp ./Programs/wsl-init /usr/bin
-
 #
 # $HOME directory
 #
