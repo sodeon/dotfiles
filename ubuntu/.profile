@@ -61,3 +61,6 @@ urxvtd -q -o -f
 
 [[ $XDG_CURRENT_DESKTOP == "i3" ]] && (set-display-monitor &) # For gnome desktop environment, use gnome's built-in scaling
 play-with-mpv &
+
+# Additional "less" keybindings
+lesskey

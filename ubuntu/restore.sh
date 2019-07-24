@@ -13,15 +13,9 @@ set -e
 #
 # $HOME directory
 #
-cp .bash_aliases ~/
-cp .tmux.conf ~/
-cp .vimrc ~/
-cp .gvimrc ~/
-cp .zshrc ~/
-cp .profile ~/
-cp .Xmodmap ~/
-cp .Xresources ~/
-cp .xbindkeysrc ~/
+for item in ${home_backup_files[@]}; do
+    cp $item ~/
+done
 
 #
 # .config directory

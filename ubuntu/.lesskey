@@ -1,0 +1,5 @@
+#command
+c forw-screen
+v back-screen
+V visual
+;q quit

@@ -11,6 +11,7 @@ alias lr='ls -rtla'
 alias t='touch'
 alias v='vim'
 alias d='vimdiff'
+alias m='man'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
                                       # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code
@@ -64,7 +65,7 @@ alias gpl='git pull'
 alias gl='git log'
 alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all"
 alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
-# alias gr='git reflog'
+alias gr='git reflog'
 
 
 #-----------------------------------------------------

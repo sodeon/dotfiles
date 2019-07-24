@@ -2,8 +2,9 @@
 - `sudo -i`
 
 ## Process management
-- `pgrep`: find process ID
-- `pkill`: find process and kill it
+- `pgrep`: find process ID by name
+  - `-x`: exact match
+- `pkill`: like pgrep but killing processes
 
 ## Network
 - `nm-applet`: network manager for WIFI connections
@@ -42,7 +43,6 @@ sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
 
 ## Find
 [Reference](https://www-howtogeek-com.cdn.ampproject.org/v/s/www.howtogeek.com/425408/how-to-use-all-linuxs-search-commands/amp/?amp_js_v=0.1#referrer=https%3A%2F%2Fwww.google.com&amp_tf=From%20%251%24s&ampshare=https%3A%2F%2Fwww.howtogeek.com%2F425408%2Fhow-to-use-all-linuxs-search-commands%2F)
-- `which -a`: Searches $PATH executable
-- `whereis`: Searches $PATH for executable, man pages, and source code files.
+- **`which -a`**: Searches $PATH executable
+- **`apropos`**: Searches the man page with more fidelity than whatis (Meaning "related to").
 - `whatis`: Searches the man one-line descriptions.
-- `apropos`: Meaning "related to". Searches the man page with more fidelity than whatis.

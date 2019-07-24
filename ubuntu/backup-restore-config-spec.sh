@@ -1,6 +1,20 @@
 #!/bin/bash
 # NOTE: This script is not intended to be executed directly. It is sourced by backup.sh/restore.sh
 
+# Files to backup (no directory) at home directory root
+declare -a home_backup_files=(
+    .bash_aliases
+    .tmux.conf
+    .vimrc
+    .gvimrc
+    .zshrc
+    .profile
+    .Xmodmap
+    .Xresources
+    .xbindkeysrc
+    .lesskey
+)
+
 # Files and directories to backup without file name modifications.
 # Support brace expansion and extglob.
 declare -a direct_backup_configs=(
