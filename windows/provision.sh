@@ -3,12 +3,14 @@ cd "$(dirname "$(realpath "$0")")";
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
+tmp=/tmp/provision
+
 apt-force() {
     sudo apt --assume-yes "$@" 
 }
 
 cd-temp() {
-    pushd /tmp/provision
+    pushd $tmp
 }
 
 cd-before-temp() {
@@ -23,7 +25,7 @@ WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p /tmp/provision
+mkdir -p $tmp
 
 
 #------------------------------------------------------------------------------
@@ -39,8 +41,11 @@ apt-force install git
 apt-force install python-pip
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment, fd-find is only available from Ubuntu 19.04
 #apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
+apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment, fd-find is only available from Ubuntu 19.04
+wget -O $tmp/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
+sudo dpkg -i $tmp/fd.deb
+sudo ln -s /usr/bin/fd /usr/bin/fdfind
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop # system monitor
@@ -112,7 +117,7 @@ cd-before-temp
 # Clean up
 #------------------------------------------------------------------------------
 # remove provision temp folder
-rm -rf /tmp/provision
+rm -rf $tmp
 
 
 #------------------------------------------------------------------------------

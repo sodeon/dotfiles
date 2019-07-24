@@ -3,12 +3,14 @@ cd "$(dirname "$(realpath "$0")")";
 #------------------------------------------------------------------------------
 # Helpers
 #------------------------------------------------------------------------------
+tmp=/tmp/provision
+
 apt-force() {
     sudo apt --assume-yes "$@" 
 }
 
 cd-temp() {
-    pushd /tmp/provision
+    pushd $tmp
 }
 
 cd-before-temp() {
@@ -22,7 +24,7 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-mkdir -p /tmp/provision
+mkdir -p $tmp
 
 
 #------------------------------------------------------------------------------
@@ -232,7 +234,7 @@ fi
 # Clean up
 #------------------------------------------------------------------------------
 # remove provision temp folder
-rm -rf /tmp/provision
+rm -rf $tmp
 
 
 #------------------------------------------------------------------------------
