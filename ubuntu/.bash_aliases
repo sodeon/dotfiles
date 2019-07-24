@@ -43,7 +43,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 #-----------------------------------------------------
 alias g='git'
 alias gs='git status'
-alias gd='git diff --color'
+alias gd='git diff --color' # --name-only: don't show diff content, only show files that differ
 alias gdt='git difftool'
 alias gd^='git diff HEAD^'
 
@@ -51,19 +51,19 @@ alias gb='git branch'
 
 alias ga='git add'
 alias gc='git commit -v'
-alias gac='git add .; git commit -v' # stage all modified files and commit
+alias gac='git add .; git commit -v' # stage all modified files and commit. --amend: update current commit without creating new one
 
 alias gco='git checkout'
 alias gm='git merge'
 
 alias gt='git tag'
 
-alias gps='git push' # to push tags, add --tags
+alias gps='git push' # --tags. --force: force use local copy and ignore conflict, usually coupled with git commit --amend. Only use this on branch that is only owned by only one person.
 alias gf='git fetch'
 alias gpl='git pull'
 
 alias gl='git log'
-alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all"
+alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all" # --stat: show file change summary
 alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
 alias gr='git reflog'
 
