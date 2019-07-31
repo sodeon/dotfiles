@@ -8,6 +8,7 @@ WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 cp ~/.zshrc .
 cp ~/.bash_aliases .
 cp ~/.tmux.conf .
+cp ~/.lesskey .
 cp ~/.vimrc .
 cp $WINHOME/.gvimrc .
 
