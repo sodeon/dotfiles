@@ -21,6 +21,8 @@ static const float zoom_levels[] = {
 	 12.5,  25.0,  50.0,  75.0,
 	100.0, 150.0, 200.0, 250.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0
 };
+static const float FINE_ZOOM_STEP      = 0.05; // 5% zoom step
+static const float VERY_FINE_ZOOM_STEP = 0.025; // 0.25% zoom step
 
 /* default slideshow delay (in sec, overwritten via -S option): */
 enum { SLIDESHOW_DELAY = 5 };
@@ -33,7 +35,7 @@ static const int    GAMMA_RANGE = 32;
 
 /* command i_scroll pans image 1/PAN_FRACTION of screen width/height */
 static const int PAN_FRACTION = 5;
-static const int SMALL_PAN_FRACTION = 20;
+static const int SMALL_PAN_FRACTION = 40;
 
 /* if false, pixelate images at zoom level != 100%,
  * toggled with 'a' key binding
@@ -77,7 +79,7 @@ static const keymap_t keys[] = {
 	{ ControlMask,  XK_Up,            g_scroll_screen,      DIR_UP },
 	{ ControlMask,  XK_l,             g_scroll_screen,      DIR_RIGHT },
 	{ ControlMask,  XK_Right,         g_scroll_screen,      DIR_RIGHT },
-	{ 0,            XK_plus,          g_zoom,               +1 },
+	// { 0,            XK_plus,          g_zoom,               +1 },
 	{ 0,            XK_KP_Add,        g_zoom,               +1 },
 	{ 0,            XK_minus,         g_zoom,               -1 },
 	{ 0,            XK_KP_Subtract,   g_zoom,               -1 },
@@ -134,7 +136,7 @@ static const keymap_t keys[] = {
 	{ 0,            XK_greater,       i_rotate,             DEGREE_90 },
 	{ 0,            XK_question,      i_rotate,             DEGREE_180 },
 	{ 0,            XK_bar,           i_flip,               FLIP_HORIZONTAL },
-	{ 0,            XK_underscore,    i_flip,               FLIP_VERTICAL },
+	// { 0,            XK_underscore,    i_flip,               FLIP_VERTICAL },
 	/* { 0,            XK_a,             i_toggle_antialias,   None }, */
 	{ 0,            XK_A,             i_toggle_alpha,       None },
 	{ 0,            XK_s,             i_slideshow,          None },
@@ -145,11 +147,13 @@ static const keymap_t keys[] = {
 	{ 0,            XK_c,             i_navigate,           +1 },
 	{ 0,            XK_c,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
 	{ 0,            XK_x,             g_quit,               None },
-	{ ControlMask,  XK_equal,         g_zoom,               +1 },
-	{ ControlMask,  XK_minus,         g_zoom,               -1 },
 	{ ControlMask,  XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
-	{ 0,            XK_equal,         g_zoom,               +1 },
+	{ 0,            XK_equal,         g_zoom,               +1 }, // Corase zoom
 	{ 0,            XK_minus,         g_zoom,               -1 },
+	{ 0,            XK_plus,          g_zoom,               +2 }, // Fine zoom
+	{ 0,            XK_underscore,    g_zoom,               -2 },
+	{ ControlMask,  XK_equal,         g_zoom,               +3 }, // Very fine zoom
+	{ ControlMask,  XK_minus,         g_zoom,               -3 },
 	{ 0,            XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
 	{ 0,            XK_z,             i_fit_to_win,         SCALE_FIT },
 	{ 0,            XK_i,             g_switch_mode,        None },
