@@ -226,7 +226,11 @@ fi
 if [[ -f /etc/default/grub ]]; then
     # Disable splash screen (default: quiet splash)
 	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/" /etc/default/grub
+    # Disable grub menu
 	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=0/" /etc/default/grub
+    # GRUB remembeers last selected menu entry
+	sudo sed -i -r "s/^GRUB_DEFAULT.*/GRUB_DEFAULT=saved/" /etc/default/grub
+    grep -P '^\s*GRUB_SAVEDEFAULT=' /etc/default/grub || sudo echo "\nGRUB_SAVEDEFAULT=true" >> /etc/default/grub
     sudo update-grub
 fi
 
