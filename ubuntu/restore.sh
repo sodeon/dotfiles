@@ -73,7 +73,6 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 #
 rm -rf ~/.local/lib/bash
 cp -rf .local ~/
-cp .local/share/ranger/bookmarks ~/.local/share/ranger
 
 #
 # bin directory
@@ -95,3 +94,5 @@ sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 if [ -d ~/code/sxiv ]; then
     cp -rf apps/sxiv ~/code
 fi
+
+sudo cp apps/sxiv/sxiv `which sxiv`
