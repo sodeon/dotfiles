@@ -33,6 +33,7 @@ static const int    GAMMA_RANGE = 32;
 
 /* command i_scroll pans image 1/PAN_FRACTION of screen width/height */
 static const int PAN_FRACTION = 5;
+static const int SMALL_PAN_FRACTION = 20;
 
 /* if false, pixelate images at zoom level != 100%,
  * toggled with 'a' key binding
@@ -120,10 +121,10 @@ static const keymap_t keys[] = {
 	{ 0,            XK_Up,            i_scroll,             DIR_UP },
 	{ 0,            XK_l,             i_scroll,             DIR_RIGHT },
 	{ 0,            XK_Right,         i_scroll,             DIR_RIGHT },
-	{ 0,            XK_H,             i_scroll_to_edge,     DIR_LEFT },
-	{ 0,            XK_J,             i_scroll_to_edge,     DIR_DOWN },
-	{ 0,            XK_K,             i_scroll_to_edge,     DIR_UP },
-	{ 0,            XK_L,             i_scroll_to_edge,     DIR_RIGHT },
+	/* { 0,            XK_H,             i_scroll_to_edge,     DIR_LEFT }, */
+	/* { 0,            XK_J,             i_scroll_to_edge,     DIR_DOWN }, */
+	/* { 0,            XK_K,             i_scroll_to_edge,     DIR_UP }, */
+	/* { 0,            XK_L,             i_scroll_to_edge,     DIR_RIGHT }, */
 	/* { 0,            XK_equal,         i_set_zoom,           100 }, */
 	{ 0,            XK_w,             i_fit_to_win,         SCALE_DOWN },
 	{ 0,            XK_W,             i_fit_to_win,         SCALE_FIT },
@@ -134,7 +135,7 @@ static const keymap_t keys[] = {
 	{ 0,            XK_question,      i_rotate,             DEGREE_180 },
 	{ 0,            XK_bar,           i_flip,               FLIP_HORIZONTAL },
 	{ 0,            XK_underscore,    i_flip,               FLIP_VERTICAL },
-	{ 0,            XK_a,             i_toggle_antialias,   None },
+	/* { 0,            XK_a,             i_toggle_antialias,   None }, */
 	{ 0,            XK_A,             i_toggle_alpha,       None },
 	{ 0,            XK_s,             i_slideshow,          None },
 
@@ -153,6 +154,11 @@ static const keymap_t keys[] = {
 	{ 0,            XK_z,             i_fit_to_win,         SCALE_FIT },
 	{ 0,            XK_i,             g_switch_mode,        None },
 	{ 0,            0xff09,           g_switch_mode,        None }, /* XK_TAB */
+	{ 0,            XK_v,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
+	{ 0,            XK_H,             i_scroll_small,       DIR_LEFT  },
+	{ 0,            XK_J,             i_scroll_small,       DIR_DOWN  },
+	{ 0,            XK_K,             i_scroll_small,       DIR_UP    },
+	{ 0,            XK_L,             i_scroll_small,       DIR_RIGHT },
     /* End of Andy */
 };
 
