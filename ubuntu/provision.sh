@@ -70,6 +70,7 @@ apt-force install mpv socat # video player, socat: socket read/write for remote 
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar
+apt-force install jmtpfs # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 # apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 

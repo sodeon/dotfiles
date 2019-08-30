@@ -8,3 +8,10 @@ alt+.: repeat laset command's arguments
 !*+tab: repeat laset command's arguments
 calendar: cal (e.g. cal 2017, cal -j (day in year))
 "tail -F FILE" + "reredirect -m FILE PID" + "ctrl-z->bg or &": can be used for single terminal multiplexing
+
+Filename Generation (http://zsh.sourceforge.net/Intro/intro_2.html):
+    or       : $ls (ubuntu|windows) # (a|b)
+    recursive: $ls ubuntu/** # **/ or /**. Press tab to expand **
+               $ls **/install*
+    range    : $ls ~/.fasd*<0-9> # <0-9>
+    # exclude  : $ls ubuntu/*~install*  # Cannot test this function successfully
