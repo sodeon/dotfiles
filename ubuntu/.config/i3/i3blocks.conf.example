@@ -29,11 +29,20 @@ separator_block_width=18
 # separator_block_width=15
 markup=none
 
-# [test]
+# [debug]
+# interval=1
+# command=xdotool getactivewindow
 # command=ps -o state= -o comm= >> ~/log; echo "" >> ~/log
 # command=ps -o state= -o comm= | grep -iE '^[R ]+'
 # command=ps -o state= -o comm= | grep -iE '^[^TXZ ]+ +(\\s+\\/)?ps$'
-# interval=1
+
+[window]
+command=xdotool getactivewindow getwindowname || echo ""
+color=#aadddd
+interval=once
+signal=13
+separator=false
+separator_block_width=40
 
 # [music]
 # command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
@@ -58,7 +67,7 @@ separator_block_width=8
 [cpu_usage]
 # label= 🖳  🖵 
 interval=2
-# min_width=CPU:100.0%
+min_width=99.00%
 separator=false
 
 # Memory usage

@@ -86,6 +86,7 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # Binding all Up/Down/Left/Right/Home/End frees hand from moving for typing
 # mod3+p/u/o: delete word/line/character (delete line for terminal and vim only)
+# mod3+i    : modify command line's command
 # mod3+h/l  : move back/forward a word
 # mod3+j/k  : up/down
 # mod3+m/,  : left/right
@@ -93,6 +94,7 @@ bindsym $mod+Shift+r restart
 bindsym Mod3+o       exec --no-startup-id xdotool keyup o key BackSpace
 bindsym Mod3+p       exec --no-startup-id autohotkey deleteWord
 bindsym Mod3+u       exec --no-startup-id xdotool keyup u key ctrl+u
+bindsym Mod3+i       exec --no-startup-id xdotool keyup i key Home key ctrl+Right
 
 bindsym Mod3+h       exec --no-startup-id xdotool keyup h key ctrl+Left
 bindsym Mod3+Shift+h exec --no-startup-id xdotool keyup h key ctrl+Left
@@ -231,8 +233,9 @@ bindsym $mod+c focus child
 # TODO: mark/unmark window
 
 # Scroll mode and terminal pageup/pagedown
-bindsym Prior exec --no-startup-id autohotkey pageup   Prior
-bindsym Next  exec --no-startup-id autohotkey pagedown Next
+# NOTICE: Disable this feature. This feature works but cannot trigger long key press rapid fire.
+# bindsym Prior exec --no-startup-id autohotkey pageup   Prior
+# bindsym Next  exec --no-startup-id autohotkey pagedown Next
 
 
 # Alternate mode for window management (e.g. to jump out of vim/tmux integration)
@@ -324,6 +327,7 @@ bindsym $mod+Shift+F1 move container to workspace number $ws1
 bindsym $mod+Shift+F2 move container to workspace number $ws2
 bindsym $mod+Shift+F3 move container to workspace number $ws3
 bindsym $mod+Shift+F4 move container to workspace number $ws4
+bindsym $mod+Shift+F5 move container to workspace number $ws5
 
 
 #--------------------------------------------------------------------------------
