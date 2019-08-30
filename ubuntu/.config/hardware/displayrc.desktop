@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# If there are multiple high dpi displays, choose any one of them
-hiDpiDisplay=DP-0
-# hiDpiDisplay=HDMI-0
-
-isIntelGpu=false

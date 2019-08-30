@@ -10,6 +10,10 @@ set +e
 mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts}
 set -e
 
+# $HOME/.Xresources will source ~/.config/Xresources/{dpi,i3}. If these files does not exist, ~/.profile will fail executing xrdb command
+[[ ! -f ~/.config/Xresources/dpi ]] && cp .config/Xresources/dpi.example ~/.config/Xresources/dpi
+[[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+
 #
 # $HOME directory
 #
