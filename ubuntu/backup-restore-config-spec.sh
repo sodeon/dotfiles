@@ -13,6 +13,7 @@ declare -a home_backup_files=(
     .Xresources
     .xbindkeysrc
     .lesskey
+    .imwheelrc
 )
 
 # Files and directories to backup without file name modifications.

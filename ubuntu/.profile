@@ -35,23 +35,24 @@ if [ -d "$HOME/.local/lib/bash" ] ; then
     PATH="$HOME/.local/lib/bash:$PATH"
 fi
 
-# HiDPI settings. Only apply theses settings in i3. Gnome has its own dpi scaling method only partially compatible with this one
-if [[ -f ~/.config/hardware/displayrc && $XDG_CURRENT_DESKTOP == "i3" ]]; then
-    source ~/.config/hardware/displayrc
-	if xrandr | grep "\<$hiDpiDisplay\> connected"; then
-		sed -i -e 's/^!Xft.dpi/Xft.dpi/'           $HOME/.config/Xresources/dpi
-		sed -i -e 's/^!Xcursor.size/Xcursor.size/' $HOME/.config/Xresources/dpi
-		sed -i -e 's/^!rofi.dpi/rofi.dpi/'         $HOME/.config/Xresources/dpi
-		export GDK_SCALE=2
-		export GDK_DPI_SCALE=0.5
-		export QT_AUTO_SCREEN_SET_FACTOR=0
-		export QT_SCALE_FACTOR=2
-		export QT_FONT_DPI=96
-	else
-		sed -i -e 's/^Xft.dpi/!&/'      $HOME/.config/Xresources/dpi
-		sed -i -e 's/^Xcursor.size/!&/' $HOME/.config/Xresources/dpi
-		sed -i -e 's/^rofi.dpi/!&/'     $HOME/.config/Xresources/dpi
-	fi
+# HiDPI settings
+# Only apply theses settings in i3. Gnome has its own dpi scaling method only partially compatible with this one
+# TODO: Try to support per-minotor hidpi settings
+sed -i -e 's/^Xft.dpi/!&/'      $HOME/.config/Xresources/dpi
+sed -i -e 's/^Xcursor.size/!&/' $HOME/.config/Xresources/dpi
+sed -i -e 's/^rofi.dpi/!&/'     $HOME/.config/Xresources/dpi
+if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
+    if ([[ -f ~/.config/hardware/external-displayrc ]] && source ~/.config/hardware/external-displayrc && xrandr | grep "\<$interface\> connected" && [[ $is_high_dpi == "true" ]]) || 
+       ([[ -f ~/.config/hardware/internal-displayrc ]] && source ~/.config/hardware/internal-displayrc && xrandr | grep "\<$interface\> connected" && [[ $is_high_dpi == "true" ]]); then
+        sed -i -e 's/^!Xft.dpi/Xft.dpi/'           $HOME/.config/Xresources/dpi
+        sed -i -e 's/^!Xcursor.size/Xcursor.size/' $HOME/.config/Xresources/dpi
+        sed -i -e 's/^!rofi.dpi/rofi.dpi/'         $HOME/.config/Xresources/dpi
+        export GDK_SCALE=2
+        export GDK_DPI_SCALE=0.5
+        export QT_AUTO_SCREEN_SET_FACTOR=0
+        export QT_SCALE_FACTOR=2
+        export QT_FONT_DPI=96
+    fi
 fi
 # NOTE: this duplicate functionalities in /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
 xrdb $HOME/.Xresources

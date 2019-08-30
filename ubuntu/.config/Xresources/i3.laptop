@@ -1,7 +1,4 @@
-! Favorite ssh host
-i3wm.ssh.bookmark: andy-desktop
-
-! Gaps
+! Resize
 !i3wm.resizeX: 10px or 7ppt	
 !i3wm.resizeY: 10px or 7ppt
 
@@ -19,6 +16,8 @@ i3wm.rofi.combi.width: 33
 
 ! Gaps
 i3wm.toggleHGap: 240
+!i3wm.hGapStep: 32
+!i3wm.vGapStep: 32
 
 !i3wm.ws1.horizontalGap:  0
 !i3wm.ws2.horizontalGap:  0
