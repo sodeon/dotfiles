@@ -24,7 +24,19 @@
     // End of reduce line nubmer width
     "editor.cursorBlinking": "solid",
     // Disable light theme (Winter is coming light) italic font face
-    "editor.tokenColorCustomizations": {},
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "comment",
+                    "entity.other.attribute-name"
+                ],
+                "settings": {
+                    "fontStyle": ""
+                }
+            }
+        ]
+    },
 
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
@@ -38,10 +50,14 @@
     "workbench.statusBar.visible": true,
     "workbench.tree.renderIndentGuides": "always",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
+    "workbench.colorTheme": "Winter is Coming (Light)",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#011627",
-        "statusBar.foreground": "#eee"
+        "editorGroup.border": "#fff",
+        "editorIndentGuide.background": "#fff",
+        "editorIndentGuide.activeBackground": "#ccc",
+        "editorLineNumber.foreground": "#aaa",
+        "statusBar.background": "#ddd",
+        "statusBar.foreground": "#666"
     },
 
     "keyboard.dispatch": "keyCode",
