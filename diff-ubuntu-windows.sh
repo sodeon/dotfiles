@@ -14,7 +14,8 @@ diff ./ubuntu/post-provision-note.txt ./windows > ./diff-ubuntu-windows/post-pro
 # diff ./ubuntu/.bash_aliases ./windows > ./diff-ubuntu-windows/.bash_aliases.diff
 # diff ./ubuntu/.zshrc        ./windows > ./diff-ubuntu-windows/.zshrc.diff
 
-tail -n +1 ./diff-ubuntu-windows/.*.diff
-echo
-tail -n +1 ./diff-ubuntu-windows/*.diff
+# tail -n +1 ./diff-ubuntu-windows/.*.diff
+# echo
+# tail -n +1 ./diff-ubuntu-windows/*.diff
 
+ls -alS ./diff-ubuntu-windows
