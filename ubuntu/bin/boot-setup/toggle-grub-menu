@@ -2,7 +2,7 @@
 . log.sh
 
 GRUB_DEFAULT=saved
-GRUB_TIMEOUT=5
+GRUB_TIMEOUT=4
 
 if [[ -x /usr/bin/os-prober ]]; then
     warn "Disabling GRUB boot menu ..."

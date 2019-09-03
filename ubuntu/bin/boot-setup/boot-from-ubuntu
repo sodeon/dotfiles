@@ -1,6 +1,0 @@
-#!/bin/bash
-
-sudo sed -i -re 's/^(\s*GRUB_DEFAULT\s*=\s*)"?[0-9]"?/\10/' /etc/default/grub 
-sudo sed -i -re 's/^(\s*GRUB_TIMEOUT\s*=\s*)"?[0-9]"?/\10/' /etc/default/grub 
-sudo chmod -x /usr/bin/os-prober
-sudo update-grub

@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+sudo msi-rgb 00000000 00000000 00000000 --disable
