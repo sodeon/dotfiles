@@ -1,5 +1,18 @@
 #!/bin/bash -e
 
+Alt+Tab and workspace back and forth are used to switch between views. If a view is empty, it is not a useful view. Therefore, defined as invalid view. Do not switch to invalid view.
+
+Functionality:
+1. Do not Alt+Tab to empty workspace
+2. Workspace "back" and forth will not go to empty workspace
+
+Behavior:
+Handle workspace back and forth (F1,F2,F3,...)
+Handle Alt+Tab
+
+Algorithm:
+
+
 # Current workspace (often used, so use short hand notation)
 cur=2
 

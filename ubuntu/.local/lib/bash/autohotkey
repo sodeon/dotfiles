@@ -231,7 +231,8 @@ F1() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            google-chrome
+            # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+            google-chrome --force-dark-mode
         fi
     fi
 }
