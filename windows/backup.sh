@@ -16,7 +16,7 @@ cp $WINHOME/.gvimrc .
 # .config directory
 #
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
-cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
+cp -rf ~/.config/ranger/{rc.conf,scope.sh,plugins} .config/ranger
 
 rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
