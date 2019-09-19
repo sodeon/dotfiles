@@ -7,7 +7,8 @@ if [ ! -z $1 ]; then
 fi
 
 layoutFolder="$HOME/.config/i3/layouts"
-url="https://m.gm99.com/h5/page/pc?game_id=26"
+url="https://m.gm99.com/h5/page/gamepage?game_id=26#/"
+# url="https://m.gm99.com/h5/page/pc?game_id=26"
 
 i3-msg "append_layout $layoutFolder/angel.json;
         exec google-chrome --new-window $url;

@@ -70,6 +70,7 @@ apt-force install mpv socat # video player, socat: socket read/write for remote 
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar
+apt-force install jmtpfs # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 # apt-force install grub-customizer # boot menu customization
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
@@ -225,7 +226,11 @@ fi
 if [[ -f /etc/default/grub ]]; then
     # Disable splash screen (default: quiet splash)
 	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/" /etc/default/grub
+    # Disable grub menu
 	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=0/" /etc/default/grub
+    # GRUB remembeers last selected menu entry
+	sudo sed -i -r "s/^GRUB_DEFAULT.*/GRUB_DEFAULT=saved/" /etc/default/grub
+    grep -P '^\s*GRUB_SAVEDEFAULT=' /etc/default/grub || sudo echo "\nGRUB_SAVEDEFAULT=true" >> /etc/default/grub
     sudo update-grub
 fi
 

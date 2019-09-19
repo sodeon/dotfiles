@@ -5,8 +5,8 @@
 # Caution: external-displayrc and internal-displayrc both define same set of variables
 
 # Read configuration
-if [ -f ~/.config/hardware/displayrc ]; then
-    source ~/.config/hardware/displayrc
+if [ -f ~/.config/hardware/gpurc ]; then
+    source ~/.config/hardware/gpurc
 else
     exit 1
 fi

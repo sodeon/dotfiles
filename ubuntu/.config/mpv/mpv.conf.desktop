@@ -163,3 +163,10 @@ ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
 # ytdl-format=bestaudio/best # force VP9 video for 60fps
 # [video-audio]
 # vo=gpu
+
+force-seekable=yes
+
+slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
+alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
+
+volume-max=200              # maximum volume in %, everything above 100 results in amplification

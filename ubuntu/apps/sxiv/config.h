@@ -21,6 +21,8 @@ static const float zoom_levels[] = {
 	 12.5,  25.0,  50.0,  75.0,
 	100.0, 150.0, 200.0, 250.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0
 };
+static const float FINE_ZOOM_STEP      = 0.05; // 5% zoom step
+static const float VERY_FINE_ZOOM_STEP = 0.025; // 0.25% zoom step
 
 /* default slideshow delay (in sec, overwritten via -S option): */
 enum { SLIDESHOW_DELAY = 5 };
@@ -33,6 +35,8 @@ static const int    GAMMA_RANGE = 32;
 
 /* command i_scroll pans image 1/PAN_FRACTION of screen width/height */
 static const int PAN_FRACTION = 5;
+static const int FINE_PAN_FRACTION = 20;  // 1/4 of PAN_FRACTION
+static const int VERY_FINE_PAN_FRACTION = 80; // 1/4 of FINE_PANE_FRACTION
 
 /* if false, pixelate images at zoom level != 100%,
  * toggled with 'a' key binding
@@ -62,21 +66,20 @@ static const keymap_t keys[] = {
 	{ 0,            XK_q,             g_quit,               None },
 	{ 0,            XK_Return,        g_switch_mode,        None },
 	{ 0,            XK_f,             g_toggle_fullscreen,  None },
-	{ 0,            XK_b,             g_toggle_bar,         None },
 	{ ControlMask,  XK_x,             g_prefix_external,    None },
 	{ 0,            XK_g,             g_first,              None },
 	{ 0,            XK_G,             g_n_or_last,          None },
 	{ 0,            XK_r,             g_reload_image,       None },
 	{ 0,            XK_D,             g_remove_image,       None },
-	{ ControlMask,  XK_h,             g_scroll_screen,      DIR_LEFT },
+    /* { ControlMask,  XK_h,             g_scroll_screen,      DIR_LEFT }, */
 	{ ControlMask,  XK_Left,          g_scroll_screen,      DIR_LEFT },
-	{ ControlMask,  XK_j,             g_scroll_screen,      DIR_DOWN },
+	/* { ControlMask,  XK_j,             g_scroll_screen,      DIR_DOWN }, */
 	{ ControlMask,  XK_Down,          g_scroll_screen,      DIR_DOWN },
-	{ ControlMask,  XK_k,             g_scroll_screen,      DIR_UP },
+	/* { ControlMask,  XK_k,             g_scroll_screen,      DIR_UP }, */
 	{ ControlMask,  XK_Up,            g_scroll_screen,      DIR_UP },
-	{ ControlMask,  XK_l,             g_scroll_screen,      DIR_RIGHT },
+	/* { ControlMask,  XK_l,             g_scroll_screen,      DIR_RIGHT }, */
 	{ ControlMask,  XK_Right,         g_scroll_screen,      DIR_RIGHT },
-	{ 0,            XK_plus,          g_zoom,               +1 },
+	// { 0,            XK_plus,          g_zoom,               +1 },
 	{ 0,            XK_KP_Add,        g_zoom,               +1 },
 	{ 0,            XK_minus,         g_zoom,               -1 },
 	{ 0,            XK_KP_Subtract,   g_zoom,               -1 },
@@ -120,10 +123,10 @@ static const keymap_t keys[] = {
 	{ 0,            XK_Up,            i_scroll,             DIR_UP },
 	{ 0,            XK_l,             i_scroll,             DIR_RIGHT },
 	{ 0,            XK_Right,         i_scroll,             DIR_RIGHT },
-	{ 0,            XK_H,             i_scroll_to_edge,     DIR_LEFT },
-	{ 0,            XK_J,             i_scroll_to_edge,     DIR_DOWN },
-	{ 0,            XK_K,             i_scroll_to_edge,     DIR_UP },
-	{ 0,            XK_L,             i_scroll_to_edge,     DIR_RIGHT },
+	/* { 0,            XK_H,             i_scroll_to_edge,     DIR_LEFT }, */
+	/* { 0,            XK_J,             i_scroll_to_edge,     DIR_DOWN }, */
+	/* { 0,            XK_K,             i_scroll_to_edge,     DIR_UP }, */
+	/* { 0,            XK_L,             i_scroll_to_edge,     DIR_RIGHT }, */
 	/* { 0,            XK_equal,         i_set_zoom,           100 }, */
 	{ 0,            XK_w,             i_fit_to_win,         SCALE_DOWN },
 	{ 0,            XK_W,             i_fit_to_win,         SCALE_FIT },
@@ -133,26 +136,39 @@ static const keymap_t keys[] = {
 	{ 0,            XK_greater,       i_rotate,             DEGREE_90 },
 	{ 0,            XK_question,      i_rotate,             DEGREE_180 },
 	{ 0,            XK_bar,           i_flip,               FLIP_HORIZONTAL },
-	{ 0,            XK_underscore,    i_flip,               FLIP_VERTICAL },
-	{ 0,            XK_a,             i_toggle_antialias,   None },
+	// { 0,            XK_underscore,    i_flip,               FLIP_VERTICAL },
+	/* { 0,            XK_a,             i_toggle_antialias,   None }, */
 	{ 0,            XK_A,             i_toggle_alpha,       None },
 	{ 0,            XK_s,             i_slideshow,          None },
 
     /* Andy */
-	{ 0,            XK_v,             i_navigate,           -1 },
-	{ 0,            XK_v,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
-	{ 0,            XK_c,             i_navigate,           +1 },
-	{ 0,            XK_c,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
 	{ 0,            XK_x,             g_quit,               None },
-	{ ControlMask,  XK_equal,         g_zoom,               +1 },
-	{ ControlMask,  XK_minus,         g_zoom,               -1 },
-	{ ControlMask,  XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
-	{ 0,            XK_equal,         g_zoom,               +1 },
-	{ 0,            XK_minus,         g_zoom,               -1 },
-	{ 0,            XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
-	{ 0,            XK_z,             i_fit_to_win,         SCALE_FIT },
 	{ 0,            XK_i,             g_switch_mode,        None },
 	{ 0,            0xff09,           g_switch_mode,        None }, /* XK_TAB */
+	{ 0,            XK_b,             g_toggle_bar,         None },
+    // navigation
+	{ 0,            XK_v,             i_navigate,           -1 },
+	{ 0,            XK_c,             i_navigate,           +1 },
+    // image zoom
+	{ 0,            XK_z,             i_fit_to_win,         SCALE_FIT   },
+	{ 0,            XK_Z,             i_fit_to_win,         SCALE_WIDTH },
+	{ ControlMask,  XK_z,             i_fit_to_win,         SCALE_HEIGHT },
+	{ 0,            XK_BackSpace,     i_set_zoom,           100 }, /* XK_0 has no effect */
+	{ 0,            XK_equal,         g_zoom,               +1 }, // Corase zoom
+	{ 0,            XK_minus,         g_zoom,               -1 },
+	{ 0,            XK_plus,          g_zoom,               +2 }, // Fine zoom
+	{ 0,            XK_underscore,    g_zoom,               -2 },
+	{ ControlMask,  XK_equal,         g_zoom,               +3 }, // Very fine zoom
+	{ ControlMask,  XK_minus,         g_zoom,               -3 },
+    // image pane
+	{ 0,            XK_H,             i_fine_scroll,        DIR_LEFT  },
+	{ 0,            XK_J,             i_fine_scroll,        DIR_DOWN  },
+	{ 0,            XK_K,             i_fine_scroll,        DIR_UP    },
+	{ 0,            XK_L,             i_fine_scroll,        DIR_RIGHT },
+	{ ControlMask,  XK_h,             i_very_fine_scroll,   DIR_LEFT  },
+	{ ControlMask,  XK_j,             i_very_fine_scroll,   DIR_DOWN  },
+	{ ControlMask,  XK_k,             i_very_fine_scroll,   DIR_UP    },
+	{ ControlMask,  XK_l,             i_very_fine_scroll,   DIR_RIGHT },
     /* End of Andy */
 };
 

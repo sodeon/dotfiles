@@ -60,8 +60,6 @@ cp -rf ~/.local/lib/bash .local/lib
 cp -rf ~/.local/share/applications/*.desktop .local/share/applications
 rm .local/share/applications/thann.play-with-mpv.desktop
 
-cp ~/.local/share/ranger/bookmarks .local/share/ranger
-
 #
 # bin directory
 #

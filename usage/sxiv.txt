@@ -1,6 +1,0 @@
-z: fit screen (zoom)
-<c-+> / +: zoom in
-<c--> / -: zoom out
-<c+0> / 0 / backspace: reset zoom
-
-Enter: toggle thumbnail views

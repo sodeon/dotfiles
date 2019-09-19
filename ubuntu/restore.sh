@@ -10,6 +10,10 @@ set +e
 mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts}
 set -e
 
+# $HOME/.Xresources will source ~/.config/Xresources/{dpi,i3}. If these files does not exist, ~/.profile will fail executing xrdb command
+[[ ! -f ~/.config/Xresources/dpi ]] && cp .config/Xresources/dpi.example ~/.config/Xresources/dpi
+[[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+
 #
 # $HOME directory
 #
@@ -69,7 +73,6 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 #
 rm -rf ~/.local/lib/bash
 cp -rf .local ~/
-cp .local/share/ranger/bookmarks ~/.local/share/ranger
 
 #
 # bin directory
@@ -91,3 +94,5 @@ sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 if [ -d ~/code/sxiv ]; then
     cp -rf apps/sxiv ~/code
 fi
+
+sudo cp apps/sxiv/sxiv `which sxiv`

@@ -1,6 +1,14 @@
 Go to "optional" to install items useful for your system
 Check backup.sh and search for ".example" for config tuning
 
+Config:
+    ~/.config/dotfiles
+        dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
+    ~/.config/hardware
+        gpurc/external-displayrc/internal-displayrc: display resolution, hidpi settings, brightness and color temperatures
+    ~/.config/Xresources
+        i3: config i3 settings
+
 Vim:
     open vim and :PlugInstall
     # copy ~/.vim to /c/Users/Andy

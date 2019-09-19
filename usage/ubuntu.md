@@ -44,5 +44,6 @@ sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
 ## Find
 [Reference](https://www-howtogeek-com.cdn.ampproject.org/v/s/www.howtogeek.com/425408/how-to-use-all-linuxs-search-commands/amp/?amp_js_v=0.1#referrer=https%3A%2F%2Fwww.google.com&amp_tf=From%20%251%24s&ampshare=https%3A%2F%2Fwww.howtogeek.com%2F425408%2Fhow-to-use-all-linuxs-search-commands%2F)
 - **`which -a`**: Searches $PATH executable
+- **`whereis`**: Searches $PATH for executable, source and man
 - **`apropos`**: Searches the man page with more fidelity than whatis (Meaning "related to").
 - `whatis`: Searches the man one-line descriptions.

@@ -1,25 +1,12 @@
-sort:
-    oo: modified time
-    oO: default (natural)
-    # on: default (natural)
-    os: size
-    # om: modified time
-    ot: type
-
-Linemode (for simplicity, use MM and Mm only):
-    MM: default
-    Mm: modified time
-    # Mf: default
-    Ms: sizetime
-    Mm: modified time
-
-Folder disk space:
-    Show all folders: dU
-    Show one folder: $get_cumulative_size / "dc"
-
 Toggle view mode (miller/multipane): ~
 
-settings: z (then a menu will arrive for you to choose)
+Settings: z (then a menu will arrive for you to choose)
+    Useful setting toggles:
+    zi: toggle image preview and EXIF
+    zl: toggle file modification time visibility
+    zo: toggle sorting between modification time and filename
+    zz: short cut for "zl + zo"
+    zt: toggle tree view
 
 Filter stack (think of it as tag in media library):
     .. filter_stack show
@@ -34,3 +21,10 @@ Filter stack (think of it as tag in media library):
     .| filter_stack add or
     .& filter_stack add and
     .! filter_stack add not
+
+Spawn terminal (useful when executing ranger from shortcut directly):
+    :terminal
+
+Folder disk space:
+    Show all folders: dU
+    Show one folder: $get_cumulative_size / "dc"

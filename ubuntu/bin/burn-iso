@@ -1,0 +1,32 @@
+#!/bin/bash -ue
+. log.sh
+
+usage() {
+    echo "
+Usage  : $0 [iso-file-name] [device-name]
+Example: $0 ubuntu-19.04.iso /dev/sdd
+    "
+}
+
+if [[ $# != 2 ]]; then
+    usage
+    error "Abort: Does not input two arguments"
+    exit 1
+fi
+
+if [[ ! -f $1 ]]; then
+    usage
+    error "Abort: ISO file ($1) does not exist"
+    exit 1
+fi
+
+if [[ ! -b $2 ]]; then
+    usage
+    error "Abort: $2 is not a block device"
+    exit 1
+fi
+
+echo "Burning $1 to $2"
+echo "It can take a few minutes"
+dd bs=4M if=$1 of=$2 status=progress
+figlet Success
