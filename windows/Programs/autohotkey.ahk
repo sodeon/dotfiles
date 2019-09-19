@@ -66,15 +66,15 @@ Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
 ; Pause/ScrollLock
 Pause:: turnOffDisplay()
-; ScrollLock::
+ScrollLock:: suspend()
 
 ; Numpad
 NumpadAdd:: Send {Esc}
 Numpad2::  Send {Volume_Down}
 Numpad3::  Send {Volume_Up}
-NumpadSub:: turnOffDisplay()
-NumpadMult:: Send {PrintScreen}
-^NumpadMult:: Send ^{PrintScreen}
+NumpadSub:: turnOffDisplay() ; Mirror Pause key function
+NumpadMult:: suspend() ; Mirror ScrollLock key function
+NumpadDiv:: Send {PrintScreen} ; Mirror PrintScreen function
 
 ; Close app
 !`:: 
@@ -93,11 +93,25 @@ NumpadMult:: Send {PrintScreen}
 ; App/workspace switching
 ;-------------------------------------------------------------------------------
 ; Function keys Key remap
-$F1:: winActivateExe(browser)
+; $F1:: winActivateExe(browser)
 ; $F2:: winActivateExe(terminal, "", "", 2)
-$F2:: winActivateExe(terminal, "", "run source wsl-init")
+; $F2:: winActivateExe(terminal, "", "run source wsl-init")
+$F1:: 
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send {F1}
+    else
+        winActivateExe(browser)
+    return
+$F2:: 
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send {F2}
+    else
+        winActivateExe(terminal, "", "run source wsl-init")
+    return
 $F3:: ; file explorer
-    if WinExist("ahk_class CabinetWClass") {
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send {F3}
+    else if WinExist("ahk_class CabinetWClass") {
         ; Cycle through file explorers
         GroupAdd, explorers, ahk_class CabinetWClass ;You have to make a new group for each application, don't use the same one for all of them!
         if WinActive("ahk_exe explorer.exe")
@@ -106,7 +120,8 @@ $F3:: ; file explorer
             WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
     } else {
         ; switchDesktopByNumber(3)
-        Run, d:\Downloads
+        ; Run, d:\Downloads
+        Run, explorer.exe
     }
     updateAppHistory()
     updateBrightness()
@@ -114,9 +129,27 @@ $F3:: ; file explorer
 $F4:: switchDesktopByNumber(4)
 $F5:: winActivateLast()
 
-+F1:: Send {F1}
-+F2:: Send {F2}
-+F3:: Send {F3}
+; +F1:: Send {F1}
+; +F2:: Send {F2}
+; +F3:: Send {F3}
++F1::
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send +{F1}
+    else
+        Send {F1}
+    return
++F2::
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send +{F2}
+    else
+        Send {F2}
+    return
++F3::
+    if WinActive("ahk_exe SC2_x64.exe")
+        Send +{F3}
+    else
+        Send {F3}
+    return
 +F4:: Send {F4}
 +F5:: Send {F5}
 
@@ -152,8 +185,8 @@ UpdateAppAndBrightness:
     return
 
 ; Remove built-in keyboard shortcuts for switching virtual desktop
-^#Right::
-^#Left:: return
+; ^#Right::
+; ^#Left:: return
 
 !1:: switchDesktopByNumber(1)
 !2:: switchDesktopByNumber(2)
@@ -254,7 +287,7 @@ NumpadDot::
 ;-------------------------------------------------------------------------------
 Numpad7:: Send f
 
-Esc & Left::
+Esc & Left:: Send {Media_Prev}
 Numpad4::
 	SetTitleMatchMode, 2 ; partial match window title
     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
@@ -263,7 +296,7 @@ Numpad4::
 		Send {Media_Prev}
 	return
 
-Esc & Space::
+Esc & Space:: Send {Media_Play_Pause}
 Numpad5::
 	SetTitleMatchMode, 2 ; partial match window title
     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
@@ -272,7 +305,7 @@ Numpad5::
 		Send {Media_Play_Pause}
 	return
 
-Esc & Right::
+Esc & Right:: Send {Media_Next}
 Numpad6::
 	SetTitleMatchMode, 2 ; partial match window title
     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")

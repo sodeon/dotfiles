@@ -115,6 +115,11 @@ turnOffDisplay() {
     Run, nircmd/nircmd.exe monitor off,, Hide
 }
 
+suspend() {
+    Run, nircmd/nircmd.exe standby,, Hide
+}
+
+
 
 ;-------------------------------------------------------------------------------
 ; Virtual Desktop

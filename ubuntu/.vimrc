@@ -160,9 +160,13 @@ set foldlevel=99
 " By default, selection in vim will add one white space after the word
 set selection=inclusive
 
-" Use system clipboard when yanking (link yank register to system clipboard register "+")
+" Use system clipboard when yanking (link yank register to system clipboard register "+" on Linux or "*" on Windows)
+if has('win32')
+    set clipboard=unnamed
+else
+    set clipboard=unnamedplus
+endif
 " https://stackoverflow.com/questions/6453595/prevent-vim-from-clearing-the-clipboard-on-exit
-set clipboard=unnamedplus
 if executable("xsel") " By default, VIM will clear clipboard after closing or switched to background
     function! PreserveClipboard()
         call system("xsel -ib", getreg('+'))
@@ -230,7 +234,7 @@ nnoremap <silent> <C-w>t :Tabmerge right<CR>
 "       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
 if has('gui_running')
 	nnoremap          <M-q> gT
-	nnoremap          <M-e> gt
+	nnoremap          <M-w> gt
 	nnoremap <silent> <M-e> :q<CR>
     nnoremap <silent> <M-S-q> :-tabmove<CR>
     nnoremap <silent> <M-S-w> :+tabmove<CR>
