@@ -1,5 +1,0 @@
-#!/bin/bash -ue
-# NOTE: Script is incomplete.
-#       This script doesn't solve the incorrect USB sound volume after booting into Windows then reboot to Ubuntu.
-#       Therefore disable this script's executable bit to hide this script from system.
-sudo usb_modeswitch -v 0x29f3 -p 0x322b --reset-usb
