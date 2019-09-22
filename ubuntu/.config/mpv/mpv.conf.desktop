@@ -150,23 +150,40 @@ alang=en,cht
 #[eye-cancer]
 #sharpen=5
 
-# Allow outside script to control mpv
-input-ipc-server=~~/socket
-
-# Youtube download settings
-ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
-
-# log-file=~/log
-#
 # [audio-only]
 # vo=null
 # ytdl-format=bestaudio/best # force VP9 video for 60fps
 # [video-audio]
 # vo=gpu
 
+
+#------------------------------------------------------------------------------
+# Personal customizations
+# https://mpv.io/manual/master/
+#------------------------------------------------------------------------------
+# Allow outside script to control mpv
+input-ipc-server=~~/socket
+
+# Youtube download settings
+ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
+
 force-seekable=yes
 
 slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
 alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
 
+sub-font-size=40
+sub-margin-y=70
+
 volume-max=200              # maximum volume in %, everything above 100 results in amplification
+
+osd-font-size=32
+osd-on-seek=msg-bar
+osd-bar-align-y=0.783
+osd-bar-w=55
+osd-bar-h=2
+osd-border-size=1
+osd-align-x=center
+osd-align-y=bottom
+
+# log-file=~/log
