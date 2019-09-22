@@ -122,6 +122,14 @@ URxvt.keysym.Control-S: perl:keyboard-select:activate
 
 
 !-----------------------------------------------------------------
+! Sxiv (background: for both text and image background color)
+!-----------------------------------------------------------------
+Sxiv.foreground: #aaaaaa
+Sxiv.background: #000000
+Sxiv.font: xft:Consolas NF:style=Book:size=14
+
+
+!-----------------------------------------------------------------
 ! i3
 !-----------------------------------------------------------------
 #include ".config/Xresources/i3"
