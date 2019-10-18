@@ -57,7 +57,9 @@ cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
 
-cp -rf ~/.local/share/applications/*.desktop .local/share/applications
+shopt -s extglob
+cp -rf ~/.local/share/applications/!(wine*).desktop .local/share/applications
+shopt -u extglob
 rm .local/share/applications/thann.play-with-mpv.desktop
 
 #
