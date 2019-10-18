@@ -1,9 +1,9 @@
 {
 	"name": "Vimium C",
-	"@time": "9/12/2019, 3:34:34 PM",
-	"time": 1568273674448,
+	"@time": "10/7/2019, 10:03:37 AM",
+	"time": 1570413817821,
 	"environment": {
-		"extension": "1.77.0",
+		"extension": "1.78.0",
 		"platform": "linux",
 		"chrome": 77
 	},
@@ -45,12 +45,18 @@
 		"map <c-b> scrollPageUp",
 		"map c scrollPageDown",
 		"map v scrollPageUp",
+		"map C scrollDown",
+		"map V scrollUp",
 		"map A goPrevious",
 		"map S goNext",
 		"map e moveTabToNextWindow",
 		"map E moveTabToNewWindow",
 		"map ' Marks.activate",
 		"map gv enterVisualMode",
+		"",
+		"# Links",
+		"# map h Vomnibar.activateHistoryInNewTab",
+		"map H Vomnibar.activateUrlInNewTab url=\"chrome://history/syncedTabs\"",
 		"",
 		"# vim default key map compatibility",
 		""
