@@ -9,20 +9,11 @@ activeWinId() {
     return $result
 }
 
-# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
-# activeWinPid() {
-#     pid=`xdotool getactivewindow getwindowpid`
-#     result=$?
-#     echo $pid
-#     return $result
-# }
-
 # @param class/title name
 # @param ahk_title
 isWinActive() {
     if [[ -z ${2-} ]]; then # class
         xprop -id $(xdotool getactivewindow) | grep -q WM_CLASS.*=.*$1
-        # activeWinPid | xargs -i xdotool search --all --pid {} --class $1
         return $?
     else # title
         title=`xdotool getactivewindow getwindowname`
@@ -83,26 +74,30 @@ closeTabOrWindow() {
     fi
 }
 
-floatingToggled() {
-    # When mpv got focused (mpv always floating), go to full screen
-    if isWinActive mpv; then
-        i3-msg fullscreen
-    fi
-}
+# floatingToggled() {
+#     # When mpv got focused (mpv always floating), go to full screen
+#     if isWinActive mpv; then
+#         i3-msg fullscreen
+#     fi
+# }
 
 pageup() {
-    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
-		xdotool-forward keyup $1 key shift+Prior
+    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+        xdotool keyup $1 key ctrl+b
+    # elif isWinActive URxvt; then
+		# xdotool keyup $1 key shift+Prior
     else
-        xdotool-forward keyup $1 key Prior
+        xdotool keyup $1 key Prior
     fi
 }
 
 pagedown() {
-    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
-		xdotool-forward keyup $1 key shift+Next
+    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+        xdotool keyup $1 key ctrl+f
+    # elif isWinActive URxvt; then
+		# xdotool keyup $1 key shift+Next
     else
-        xdotool-forward keyup $1 key Next
+        xdotool keyup $1 key Next
     fi
 }
 
@@ -155,7 +150,7 @@ focusWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^Notebook$ ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     elif isWinActive ^ranger ahk_title && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey
@@ -178,7 +173,7 @@ moveWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^Notebook$ ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     else
 		i3-msg "move $@"
@@ -199,7 +194,7 @@ resizeWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^Notebook$ ahk_title; then
         echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
         xdotool-forward keyup $navKey key $navKey
     else
@@ -209,20 +204,13 @@ resizeWindow() {
 
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
-    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
-        xdotool-forward keyup F11 key F11
-    elif isWinActive Code; then # Toggle zen mode for vscode
-        xdotool-forward keyup F11 key ctrl+shift+z
+    # if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
+    #     xdotool keyup f Alt key F11
+    # elif isWinActive Code; then # Toggle zen mode for vscode
+    if isWinActive Code; then # Toggle zen mode for vscode
+        xdotool keyup f Alt key ctrl+shift+z
     else
         i3-msg "fullscreen toggle"
-    fi
-}
-
-rename() {
-    if isWinActive ^ranger ahk_title; then # For some reason, ranger always sees the "shift" with F2
-        xdotool-forward keyup F2 key --clearmodifiers a
-    else
-        xdotool-forward keyup F2 key --clearmodifiers F2
     fi
 }
 
@@ -259,9 +247,29 @@ F3() {
     fi
 }
 
+# Lutris (Linux gaming)
+F10() {
+    i3-msg 'workspace number "10: G "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
+        if ! isWinActive Lutris; then
+            lutris
+        fi
+    fi
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Execute
 # TODO: Input validation
 #-----------------------------------------------------------------------------------------------
 [[ $# == 0 ]] || $@
+
+
+# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
+# activeWinPid() {
+#     pid=`xdotool getactivewindow getwindowpid`
+#     result=$?
+#     echo $pid
+#     return $result
+# }

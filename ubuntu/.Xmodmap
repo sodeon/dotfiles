@@ -2,8 +2,64 @@
 !-------------------------------------------------------------------
 ! Override default modifier
 !-------------------------------------------------------------------
-! Assing caps lock to Hyper modifier
+! Remap right alt, right control and right menu to volume control
+! Remember to remove alt/control to modifier groups so that key will correctly "rapid fire" when long pressed.
+keycode 108 = XF86AudioLowerVolume
+keycode 105 = XF86AudioRaiseVolume
+keycode 134 = XF86AudioRaiseVolume
+keycode 135 = XF86AudioRaiseVolume
+remove mod1    = XF86AudioLowerVolume
+remove control = XF86AudioRaiseVolume
+remove mod4    = XF86AudioRaiseVolume
+
+! Assign caps lock to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
 clear Lock
-keycode 66 = Hyper_L
-remove mod4 = Hyper_L
-add mod3 = Hyper_L
+keycode 203 = Alt_R
+keycode 66 = Mode_switch
+remove mod5 = Mode_switch
+add mod5 = Mode_switch
+
+! Typing assist
+! o      : backspace
+! h/l/j/k: left/right/up/down (like vim)
+! 0/4    : home/end (like vim)
+! m/,    : pagedown/pageup
+keycode 32 = o O BackSpace
+keycode 43 = h H Left
+keycode 44 = j J Down
+keycode 45 = k K Up
+keycode 46 = l L Right
+keycode 19 = 0 parenright Home
+keycode 13 = 4 dollar End
+keycode 58 = m M Next
+keycode 59 = comma less Prior
+
+! Numpad (TODO: use keycode instead)
+! keysym KP_Multiply = XF86AudioRaiseVolume
+! keysym KP_Subtract = XF86AudioLowerVolume
+
+
+!-------------------------------------------------------------------
+! Unify layouts between different types of keyboards (typical, laptop, and etc)
+!-------------------------------------------------------------------
+! On full size keyboard, swap right windows and right control. This makes full size and laptop layouts the same.
+! remove control = Control_R
+! keycode 134 = Control_R
+! remove mod4 = Control_R
+! add control = Control_R
+! keycode 105 = Super_R
+! add mod4 = Super_R
+
+! Some keyboards has dedicated Menu key between right alt and right control. Map it to right control for consistency
+! keycode 135 = Control_R
+! add control = Control_R
+
+
+!-------------------------------------------------------------------
+! Legacy
+!-------------------------------------------------------------------
+! Assing caps lock to Hyper modifier
+! clear Lock
+! keycode 66 = Hyper_L
+! remove mod4 = Hyper_L
+! add mod3 = Hyper_L

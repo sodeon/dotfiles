@@ -9,32 +9,48 @@
 #
 # Mod3: Caps_Lock
 # Mod4: Windows
+# Mod5: Mode_switch (Wrong!!! xbindkeys does not recognize Mode_switch whatsoever. Use i3 keysym binding instead)
 #---------------------------------------------------------------------------------------------------
-# Volume/sound control
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-Control_R
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-Super_R
-# "amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-# Menu
-"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
-Alt_R
-"switch-sound-output && pkill -RTMIN+10 i3blocks"
-Mod3+s
+# Suspend / turn off monitor
+"systemctl suspend"
+Pause
+"xset dpms force off"
+Scroll_Lock+Release
+
+# Sound device control
+# "switch-sound-output && pkill -RTMIN+10 i3blocks"
+# Mod3+s
 
 # Brightness control (Mod3+b: toggle video/reading mode)
 # https://github.com/haikarainen/light
-"monitor-control bu && pkill -RTMIN+11 i3blocks"
-Mod3+Control_R
-"monitor-control bu && pkill -RTMIN+11 i3blocks"
-Mod3+Super_R
 # "monitor-control bu && pkill -RTMIN+11 i3blocks"
-# Mod3+Menu
-"monitor-control bd && pkill -RTMIN+11 i3blocks"
-Mod3+Alt_R
-"monitor-control bs && pkill -RTMIN+11 i3blocks"
-Mod3+b
+# Mod3+Control_R
+# "monitor-control bd && pkill -RTMIN+11 i3blocks"
+# Mod3+Alt_R
+# "monitor-control bs && pkill -RTMIN+11 i3blocks"
+# Mod3+b
 
-# Media control (nextTrack and prevTrack moved to i3 config to allow xdotool-forward to work)
-"autohotkey pause"
-Mod3+space
+# Media control
+# "autohotkey pause"
+# Mod3+space
+# "autohotkey pause"
+# Mod3+Mod1+space
+# "autohotkey nextTrack"
+# Mod3+Mod1+Control_R
+# "autohotkey prevTrack"
+# Mod3+Mod1+Alt_R
+
+
+#---------------------------------------------------------------------------------------------------
+# Numpad
+#---------------------------------------------------------------------------------------------------
+# Volume/sound control
+# "xdotool keyup KP_Subtract key XF86AudioRaiseVolume"
+# KP_Subtract
+# "xdotool keyup KP_Multiply key XF86AudioLowerVolume"
+# KP_Multiply
+
+# Brightness control (Mod3+b: toggle video/reading mode)
+"monitor-control bs && pkill -RTMIN+11 i3blocks"
+KP_Divide
+

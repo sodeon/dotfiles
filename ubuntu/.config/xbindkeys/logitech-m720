@@ -27,3 +27,6 @@ control+b:7
 b:8
 "xdotool key XF86Back" # back
 b:9
+# "xdotool keyup Tab ctrl alt key ctrl+t" # left buttom thumb button
+"solaar config M720 pointer_speed 511" # left buttom thumb button
+Alt+Control+Tab

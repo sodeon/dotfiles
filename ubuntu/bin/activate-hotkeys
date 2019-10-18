@@ -1,26 +1,42 @@
 #!/bin/bash -ue
 
+inputs=`xinput --list --short`
+
 activate-hotkeys() {
     # Kill residual xcape/xbindkeys processes
     pgrep xbindkeys > /dev/null && pkill xbindkeys
     pgrep xcape     > /dev/null && pkill xcape
 
-    # Modifiers
+    # Modifiers and mode_switch layer
     xmodmap ~/.Xmodmap
-    xcape -e "Hyper_L=Escape;Super_L=Super_L|F12"
 
-    # Keybindings
-    cat ~/.config/xbindkeys/keyboard > /tmp/xbindkeysrc
-    if xinput --list --short | grep -q "M720.*pointer"; then
-        cat ~/.config/xbindkeys/logitech-m720 >> /tmp/xbindkeysrc
+    # Dual-purpose modifiers
+    xcapeTyping="Mode_switch=Escape;Shift_R=Super_L|space" # Caps Lock: escape. Right shift: toggle input method
+    xcapeLauncher="Super_L=Super_L|F12" # Left Window: app launcher / window switcher / calculator
+    xcapeAppSwitcher="Alt_L=Alt_L|Tab" # Alt = Alt+Tab
+    if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
+        xcape -t 160 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeLauncher"
+    else
+        xcape -t 160 -e "$xcapeTyping;$xcapeAppSwitcher"
     fi
+
+    # Keyboard keybindings
+    cat ~/.config/xbindkeys/keyboard >  /tmp/xbindkeysrc
+    echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
+
+    # Mouse keybindings
+    echo "$inputs" | grep -q "M720.*pointer"            && cat ~/.config/xbindkeys/logitech-m720  >> /tmp/xbindkeysrc
+    echo "$inputs" | grep -q "Razer Basilisk.*pointer"  && cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc
+    
     xbindkeys -f /tmp/xbindkeysrc
 }
 
 setup-mouse-scroll-speed() {
-    if xinput --list --short | grep -q "M720.*pointer"; then
+    if echo "$inputs" | grep -q \
+       -e "M720.*pointer" \
+       -e "Razer.*pointer"; then
         pgrep imwheel > /dev/null && pkill imwheel
-        imwheel > /dev/null 2>&1
+        imwheel -b "4 5" > /dev/null 2>&1 # Restrict imwheel to only affect scroll wheel. If unrestricted, thumb buttons will not work anymore
     fi
 }
 
