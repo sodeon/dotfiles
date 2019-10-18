@@ -1,0 +1,26 @@
+#---------------------------------------------------------------------------------------------------
+# NOTE:
+#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
+#     Therefore, add keyup to untrigger the triggering shortcut first
+#
+# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
+# Interactive key: xbindkeys --key
+#                  xbindkeys --multikey
+#
+# Mod3: Caps_Lock
+# Mod4: Windows
+#---------------------------------------------------------------------------------------------------
+"autohotkey closeTabOrWindow"
+b:8
+"xdotool mouseup 9 key ctrl+t" # new tab
+b:9
+
+# Workspace switcher (using Rofi. -monitor -3: open rofi at mouse position)
+"i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+Mod4+Tab
+
+# Hypershift scroll
+"autohotkey pagedown XF86TouchpadOff"
+XF86TouchpadOff # F22 in Razer Synapse
+"autohotkey pageup XF86TouchpadOn"
+XF86TouchpadOn # F23 in Razer Synapse

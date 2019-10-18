@@ -1,0 +1,11 @@
+# Keyboard's upper right 4 keys
+"systemctl suspend"
+Mod4+XF86TouchpadToggle
+"xset dpms force off"
+Control+Mod4+XF86TouchpadToggle
+"xdotool keyup Alt Super XF86TouchpadToggle key Print"
+Mod1+Mod4+XF86TouchpadToggle
+"xdotool keyup Control Alt Super XF86TouchpadToggle key ctrl+Print"
+Control+Mod1+Mod4+XF86TouchpadToggle exec flameshot gui  -p $HOME/Pictures
+# ""
+# Shift+Mod4+XF86TouchpadToggle
