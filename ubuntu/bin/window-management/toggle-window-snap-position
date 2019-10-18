@@ -2,7 +2,7 @@
 # Description: Move window position to bottom right. If it is already at bottom right, move to bottom left.
 
 # Using xdotool to set position may have a little drift. Delta is used to for position detection tolerance
-positionDelta=64
+# positionDelta=64
 
 # Get window/display geometry
 displayGeometry() { echo `xdotool getdisplaygeometry`; }
@@ -17,8 +17,8 @@ read x y <<< $(windowPosition)
 let newX="$displayWidth  - $width"
 let newY="$displayHeight - $height"
 
-if (( $x > $positionDelta )); then
-    newX=0
-fi
+# Use center of mass to determine if the window is snapped to left or right.
+[[ `expr $x + $width  / 2` -ge `expr $displayWidth  / 2` ]] && newX=0
+[[ `expr $y + $height / 2` -le `expr $displayHeight / 2` ]] && newY=0
 
 xdotool getactivewindow windowmove $newX $newY

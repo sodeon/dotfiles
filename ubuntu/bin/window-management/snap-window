@@ -1,0 +1,43 @@
+#!/bin/bash -ue
+
+direction=${1-}
+
+# Get window/display geometry
+displayGeometry() { echo `xdotool getdisplaygeometry`; }
+windowPosition()  { echo `xdotool getactivewindow getwindowgeometry | grep Position | sed -r 's/^\s*Position:\s*//' | sed -r 's/ \(.*$//' | sed -r 's/,/ /'`; }
+windowGeometry()  { echo `xdotool getactivewindow getwindowgeometry | grep Geometry | sed -r 's/^\s*Geometry:\s*//' | sed -r 's/x/ /'`; }
+
+read displayWidth displayHeight <<< $(displayGeometry)
+read width height <<< $(windowGeometry)
+read x y <<< $(windowPosition)
+
+# Calculate bottom right coordinate
+let newX="$displayWidth  - $width"
+let newY="$displayHeight - $height"
+
+# Original behavior for up/dow/left/right snap is changing snap direction coordinate only.
+# However, there is a bug in xdotool that changing window position does not account for window border width (https://github.com/jordansissel/xdotool/issues/115).
+# Current snap direction behavior will always snap to a particular corner.
+case $direction in
+    "left")
+        newX=0
+        [[ `expr $y + $height / 2` -le `expr $displayHeight / 2` ]] && newY=0
+        ;;
+    "down")
+        [[ `expr $x + $width  / 2` -le `expr $displayWidth  / 2` ]] && newX=0
+        ;;
+    "up")
+        [[ `expr $x + $width  / 2` -le `expr $displayWidth  / 2` ]] && newX=0
+        newY=0
+        ;;
+    "right")
+        [[ `expr $y + $height / 2` -le `expr $displayHeight / 2` ]] && newY=0
+        ;;
+    "")
+        # If no direction is provided, snap to nearest corner. Use center of mass to determine which corner to snap.
+        [[ `expr $x + $width  / 2` -le `expr $displayWidth  / 2` ]] && newX=0
+        [[ `expr $y + $height / 2` -le `expr $displayHeight / 2` ]] && newY=0
+        ;;
+esac
+
+xdotool getactivewindow windowmove $newX $newY
