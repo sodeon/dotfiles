@@ -16,6 +16,7 @@ set wildmenu " display completion matches in a status line
 
 set ttimeout " time out for key codes
 set ttimeoutlen=0 " wait up to 0ms after Esc for special key (default: 100ms)
+set timeoutlen=0 " Eliminate delay when <Esc>+key is mapped in insert mode
 
 packadd! matchit
 
@@ -360,31 +361,55 @@ let g:mkdp_auto_close = 0 " If auto-close, switching between buffer/split/tab wi
 
 " Window navigation/resizing/movement
 if has('gui_running') " gvim can see alt key
-	nnoremap <silent> <M-l>   :call Focus('right')<CR>
-    nnoremap <silent> <M-h>   :call Focus('left' )<CR>
-	nnoremap <silent> <M-k>   :call Focus('up'   )<CR>
-	nnoremap <silent> <M-j>   :call Focus('down' )<CR>
-	nnoremap <silent> <M-L>   :call Move('right')<CR>
-	nnoremap <silent> <M-H>   :call Move('left' )<CR>
-	nnoremap <silent> <M-K>   :call Move('up'   )<CR>
-	nnoremap <silent> <M-J>   :call Move('down' )<CR>
-	nnoremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
-	nnoremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <C-M-k> :call Resize('vertical'  ,  6 )<CR>
-	nnoremap <silent> <C-M-j> :call Resize('vertical'  , -6 )<CR>
+	noremap <silent> <M-l>   :call Focus('right')<CR>
+    noremap <silent> <M-h>   :call Focus('left' )<CR>
+	noremap <silent> <M-k>   :call Focus('up'   )<CR>
+	noremap <silent> <M-j>   :call Focus('down' )<CR>
+	noremap <silent> <M-L>   :call Move('right')<CR>
+	noremap <silent> <M-H>   :call Move('left' )<CR>
+	noremap <silent> <M-K>   :call Move('up'   )<CR>
+	noremap <silent> <M-J>   :call Move('down' )<CR>
+	noremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
+	noremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
+	noremap <silent> <C-M-k> :call Resize('vertical'  ,  6 )<CR>
+	noremap <silent> <C-M-j> :call Resize('vertical'  , -6 )<CR>
+	inoremap <silent> <M-l>   <Esc>:call Focus('right')<CR>a
+    inoremap <silent> <M-h>   <Esc>:call Focus('left' )<CR>a
+	inoremap <silent> <M-k>   <Esc>:call Focus('up'   )<CR>a
+	inoremap <silent> <M-j>   <Esc>:call Focus('down' )<CR>a
+	inoremap <silent> <M-L>   <Esc>:call Move('right')<CR>
+	inoremap <silent> <M-H>   <Esc>:call Move('left' )<CR>
+	inoremap <silent> <M-K>   <Esc>:call Move('up'   )<CR>
+	inoremap <silent> <M-J>   <Esc>:call Move('down' )<CR>
+	inoremap <silent> <C-M-l> <Esc>:call Resize('horizontal',  10)<CR>a
+	inoremap <silent> <C-M-h> <Esc>:call Resize('horizontal', -10)<CR>a
+	inoremap <silent> <C-M-k> <Esc>:call Resize('vertical'  ,  6 )<CR>a
+	inoremap <silent> <C-M-j> <Esc>:call Resize('vertical'  , -6 )<CR>a
 else " alt key is sent as <Esc>
-	nnoremap <silent> <Esc>l     :call Focus('right')<CR>
-    nnoremap <silent> <Esc>h     :call Focus('left' )<CR>
-	nnoremap <silent> <Esc>k     :call Focus('up'   )<CR>
-	nnoremap <silent> <Esc>j     :call Focus('down' )<CR>
-	nnoremap <silent> <Esc>L     :call Move('right')<CR> 
-	nnoremap <silent> <Esc>H     :call Move('left' )<CR>
-	nnoremap <silent> <Esc>K     :call Move('up'   )<CR>
-	nnoremap <silent> <Esc>J     :call Move('down' )<CR>
-	nnoremap <silent> <Esc><C-l> :call Resize('horizontal',  10)<CR>
-	nnoremap <silent> <Esc><C-h> :call Resize('horizontal', -10)<CR>
-	nnoremap <silent> <Esc><C-k> :call Resize('vertical'  ,  6 )<CR>
-	nnoremap <silent> <Esc><C-j> :call Resize('vertical'  , -6 )<CR>
+	noremap <silent> <Esc>l     :call Focus('right')<CR>
+    noremap <silent> <Esc>h     :call Focus('left' )<CR>
+	noremap <silent> <Esc>k     :call Focus('up'   )<CR>
+	noremap <silent> <Esc>j     :call Focus('down' )<CR>
+	noremap <silent> <Esc>L     :call Move('right')<CR> 
+	noremap <silent> <Esc>H     :call Move('left' )<CR>
+	noremap <silent> <Esc>K     :call Move('up'   )<CR>
+	noremap <silent> <Esc>J     :call Move('down' )<CR>
+	noremap <silent> <Esc><C-l> :call Resize('horizontal',  10)<CR>
+	noremap <silent> <Esc><C-h> :call Resize('horizontal', -10)<CR>
+	noremap <silent> <Esc><C-k> :call Resize('vertical'  ,  6 )<CR>
+	noremap <silent> <Esc><C-j> :call Resize('vertical'  , -6 )<CR>
+	inoremap <silent> <Esc>l     <Esc>:call Focus('right')<CR>a
+    inoremap <silent> <Esc>h     <Esc>:call Focus('left' )<CR>a
+	inoremap <silent> <Esc>k     <Esc>:call Focus('up'   )<CR>a
+	inoremap <silent> <Esc>j     <Esc>:call Focus('down' )<CR>a
+	inoremap <silent> <Esc>L     <Esc>:call Move('right')<CR>
+	inoremap <silent> <Esc>H     <Esc>:call Move('left' )<CR>
+	inoremap <silent> <Esc>K     <Esc>:call Move('up'   )<CR>
+	inoremap <silent> <Esc>J     <Esc>:call Move('down' )<CR>
+	inoremap <silent> <Esc><C-l> <Esc>:call Resize('horizontal',  10)<CR>a
+	inoremap <silent> <Esc><C-h> <Esc>:call Resize('horizontal', -10)<CR>a
+	inoremap <silent> <Esc><C-k> <Esc>:call Resize('vertical'  ,  6 )<CR>a
+	inoremap <silent> <Esc><C-j> <Esc>:call Resize('vertical'  , -6 )<CR>a
 endif
 
 " fzf
