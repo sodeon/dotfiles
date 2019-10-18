@@ -30,7 +30,7 @@ map <C-b> scroll half-up
 map <C-f> scroll half-down
 
 map i     toggle_index
-map <C-d> toggle_page_mode
+map d     toggle_page_mode
 map -     zoom out
 map =     zoom in
 map 0     adjust_window best-fit
@@ -39,8 +39,8 @@ map <C-m> recolor # like VSCode
 map t     recolor # "t"heme
 
 # Follow link is broken on Ubuntu 19.04
-map d     follow
-map D     display_link
+map D     follow
+map <C-d> display_link
 
 map x     quit
 map q     quit
