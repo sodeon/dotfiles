@@ -150,6 +150,8 @@ add-zsh-hook preexec _fasd_preexec_fixed
 #--------------------------------------------------------------------------------------------------------------
 # Make forward word behavior same as others (e.g. Chrome)
 bindkey '^[[1;5C' emacs-forward-word
+# ctrl+backspace to delete word
+bindkey -M emacs '^H' backward-kill-word
 
 # fzf
 export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
