@@ -1,6 +1,6 @@
 ! Resize
-i3wm.resizeX: 10px or 7ppt	
-i3wm.resizeY: 10px or 7ppt
+i3wm.resizeX: 100px or 7ppt	
+i3wm.resizeY: 100px or 7ppt
 
 ! Floating window movement width
 i3wm.floating.deltaX: 96px
@@ -8,7 +8,7 @@ i3wm.floating.deltaY: 96px
 
 ! Pre-defined app size
 i3wm.cmus.size: 40 ppt 55 ppt
-i3wm.tmux.size: 60 ppt 60 ppt
+i3wm.tmux.size: 40 ppt 40 ppt
 
 ! Rofi
 i3wm.rofi.combi.width: 20
@@ -27,7 +27,7 @@ i3wm.ws5.horizontalGap:  424
 i3wm.ws6.horizontalGap:  424
 i3wm.ws7.horizontalGap:  424
 i3wm.ws8.horizontalGap:  424
-i3wm.ws9.horizontalGap:  424
-! i3wm.ws10.horizontalGap: 424
+! i3wm.ws9.horizontalGap:  424
+i3wm.ws10.horizontalGap: 424
 
 !i3wm.ws10.verticalGap: 280
