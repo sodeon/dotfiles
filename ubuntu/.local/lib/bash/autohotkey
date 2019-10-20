@@ -60,17 +60,26 @@ xdotool-forward() {
 #-----------------------------------------------------------------------------------------------
 deleteWord() {
 	if isWinActive URxvt; then
-		xdotool keyup p keyup control key ctrl+w
+        xte 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
 	else
-		xdotool keyup p key ctrl+BackSpace
+        xte 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
+	fi
+}
+
+deleteLine() {
+	if isWinActive URxvt; then
+        xte 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
+	else
+        # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
+        xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
 	fi
 }
 
 closeTabOrWindow() {
     if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
-        xdotool key ctrl+w
+        xte 'keydown Control_L' 'key w' 'keyup Control_L'
     else
-        xdotool key alt+grave
+        xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
     fi
 }
 

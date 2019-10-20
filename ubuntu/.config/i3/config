@@ -86,7 +86,7 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # $caps+p/u: delete word/line (delete line only functional for terminal and vim)
 bindsym $caps+p exec --no-startup-id autohotkey deleteWord
-bindsym $caps+u exec --no-startup-id xdotool keyup u key ctrl+u
+bindsym $caps+u exec --no-startup-id autohotkey deleteLine
 
 # $caps+n/.: move back/forward a word
 # There is a bug in xdotool that Mode_switch+n will results in ctrl+h (ctrl+left then left inverse to h from xmodmap settings)

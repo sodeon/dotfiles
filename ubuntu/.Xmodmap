@@ -20,10 +20,11 @@ remove mod5 = Mode_switch
 add mod5 = Mode_switch
 
 ! Typing assist
-! o      : backspace
+! o/i    : backspace/del
 ! h/l/j/k: left/right/up/down (like vim)
 ! 0/4    : home/end (like vim)
 ! m/,    : pagedown/pageup
+keycode 31 = i I Delete
 keycode 32 = o O BackSpace
 keycode 43 = h H Left
 keycode 44 = j J Down
