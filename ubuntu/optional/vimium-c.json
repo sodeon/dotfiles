@@ -1,9 +1,9 @@
 {
 	"name": "Vimium C",
-	"@time": "10/7/2019, 10:03:37 AM",
-	"time": 1570413817821,
+	"@time": "10/21/2019, 10:15:49 PM",
+	"time": 1571667349302,
 	"environment": {
-		"extension": "1.78.0",
+		"extension": "1.78.3",
 		"platform": "linux",
 		"chrome": 77
 	},
@@ -14,7 +14,7 @@
 		},
 		{
 			"pattern": "^https://www.twitch.tv/*",
-			"passKeys": "<c-f> f "
+			"passKeys": "<c-f> f j k l m "
 		}
 	],
 	"focusNewTabContent": false,
