@@ -65,6 +65,14 @@ switchDesktopAndUpdateApp(targetDesktop) {
 	updateBrightness()
 }
 
+closeApp() {
+    global terminal
+    if WinActive("ahk_exe " . terminal)
+        showNotification(terminal . " does not support closing by keyboard shortcut")
+    else
+        SendInput !{F4}
+}
+
 
 ;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
@@ -205,13 +213,13 @@ switchDesktopByNumber(targetDesktop) {
    }
    ; Go right until we reach the desktop we want
    while(CurrentDesktop < targetDesktop) {
-       Send ^#{Right}
+       SendInput ^#{Right}
        CurrentDesktop++
        OutputDebug, [right] target: %targetDesktop% current: %CurrentDesktop%
    }
    ; Go left until we reach the desktop we want
    while(CurrentDesktop > targetDesktop) {
-       Send ^#{Left}
+       SendInput ^#{Left}
        CurrentDesktop--
        OutputDebug, [left] target: %targetDesktop% current: %CurrentDesktop%
    }
