@@ -91,8 +91,8 @@ URxvt.keysym.Control-V: eval:paste_clipboard
 ! Scroll one line
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
-URxvt.keysym.Prior: perl:scroll-page:pageup
-URxvt.keysym.Next: perl:scroll-page:pagedown
+! URxvt.keysym.Prior: perl:scroll-page:pageup
+! URxvt.keysym.Next: perl:scroll-page:pagedown
 
 ! Move cursor forward/backward one word (this is xterm behavior)
 URxvt.keysym.Control-Right: \033[1;5C
@@ -102,7 +102,8 @@ URxvt.keysym.Control-Left: \033[1;5D
 !-----------------------------------------------------------------
 ! URxvt plugins
 !-----------------------------------------------------------------
-URxvt.perl-ext-common: default,matcher,keyboard-select,scroll-page
+! URxvt.perl-ext-common: default,matcher,keyboard-select,scroll-page
+URxvt.perl-ext-common: default,matcher,keyboard-select
 
 ! Search
 URxvt.searchable-scrollback: C-F
