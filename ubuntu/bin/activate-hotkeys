@@ -11,9 +11,17 @@ activate-hotkeys() {
     xmodmap ~/.Xmodmap
 
     # Dual-purpose modifiers
-    xcapeTyping="Mode_switch=Escape;Shift_R=Super_L|space" # Caps Lock: escape. Right shift: toggle input method
-    xcapeLauncher="Super_L=Super_L|F12" # Left Window: app launcher / window switcher / calculator
-    xcapeAppSwitcher="Alt_L=Alt_L|Tab" # Alt = Alt+Tab
+    # Caps lock   : Esc
+    # Left alt    : alt+tab
+    # Left ctrl   : ctrl+z
+    # Left Windows: app launcher
+    # Right alt   : volume down
+    # Right ctrl  : volume up
+    # Right shift : Windows+space (toggle input method)
+    xcapeTyping="Control_L=Escape;Control_R=Super_L|space;Super_R=Super_L|space"
+    xcapeLauncher="Super_L=Super_L|F12;Mode_switch=Control_L|z"
+    xcapeVolume="Alt_R=XF86AudioLowerVolume;Super_R=XF86AudioRaiseVolume;Control_R=XF86AudioRaiseVolume"
+    xcapeAppSwitcher="Alt_L=Alt_L|Tab"
     if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
         xcape -t 160 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeLauncher"
     else

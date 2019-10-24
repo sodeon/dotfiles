@@ -67,7 +67,7 @@ bar {
 # Modifiers
 #--------------------------------------------------------------------------------
 set $mod Mod1
-set $caps Mode_switch
+set $mode Mode_switch
 floating_modifier $mod
 
 
@@ -84,36 +84,26 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # Typing assist
 #--------------------------------------------------------------------------------
-# $caps+p/u: delete word/line (delete line only functional for terminal and vim)
-bindsym $caps+p exec --no-startup-id autohotkey deleteWord
-bindsym $caps+u exec --no-startup-id autohotkey deleteLine
+# $mode+p/u: delete word/line (delete line only functional for terminal and vim)
+bindsym $mode+p exec --no-startup-id autohotkey deleteWord
+bindsym $mode+u exec --no-startup-id autohotkey deleteLine
 
-# $caps+n/.: move back/forward a word
+# $mode+n/.: move back/forward a word
 # There is a bug in xdotool that Mode_switch+n will results in ctrl+h (ctrl+left then left inverse to h from xmodmap settings)
-bindsym $caps+n            exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $caps+Shift+n      exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $caps+period       exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
-bindsym $caps+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
+bindsym $mode+n            exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
+bindsym $mode+Shift+n      exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
+bindsym $mode+period       exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
+bindsym $mode+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
+
+# Clipboard/Redo/Undo
+# bindsym $mode+x exec --no-startup-id xte 'keyup x' 'keydown Control_L' 'key x' 'keyup Control_L'
+# bindsym $mode+c exec --no-startup-id xte 'keyup c' 'keydown Control_L' 'key c' 'keyup Control_L'
+# bindsym $mode+v exec --no-startup-id xte 'keyup v' 'keydown Control_L' 'key v' 'keyup Control_L'
+# bindsym $mode+z exec --no-startup-id xte 'keyup z' 'keydown Control_L' 'key z' 'keyup Control_L'
 
 
 #--------------------------------------------------------------------------------
-# Monitor/media/sound_device control
-# Ideally, this could be put in xbindkeys config so that it can be used in different window managers. However, xbindkeys does not recognize Mode_switch.
-#--------------------------------------------------------------------------------
-bindsym $caps+XF86AudioLowerVolume exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
-bindsym $caps+XF86AudioRaiseVolume exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
-bindsym $caps+b                    exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
-
-# bindsym $caps+space      exec --no-startup-id autohotkey pause
-bindsym $mod+$caps+space exec --no-startup-id autohotkey pause
-bindsym $mod+$caps+Right exec --no-startup-id autohotkey nextTrack
-bindsym $mod+$caps+Left  exec --no-startup-id autohotkey prevTrack
-
-bindsym $caps+s exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
-
-
-#--------------------------------------------------------------------------------
-# PrintScreen and XF86 keys
+# PrintScreen and XF86 keys (volume, monitor brightness and media control)
 #--------------------------------------------------------------------------------
 # Screenshot
 bindsym Print      exec flameshot full -p $HOME/Pictures
@@ -123,17 +113,26 @@ bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
 # Monitor brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+1          exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+2          exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+grave      exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
 
 # Media
-bindsym XF86AudioPlay  exec --no-startup-id autohotkey pause
-bindsym XF86AudioPause exec --no-startup-id autohotkey pause
-bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
-bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
+bindsym XF86AudioPlay    exec --no-startup-id autohotkey pause
+bindsym XF86AudioPause   exec --no-startup-id autohotkey pause
+bindsym XF86AudioNext    exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPrev    exec --no-startup-id autohotkey prevTrack
+bindsym $mod+$mode+space exec --no-startup-id autohotkey pause
+bindsym $mod+$mode+Right exec --no-startup-id autohotkey nextTrack
+bindsym $mod+$mode+Left  exec --no-startup-id autohotkey prevTrack
 
 # Volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
+bindsym $mode+1              exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
+bindsym $mode+2              exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
+bindsym $mode+grave          exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
 # Laptop
 bindsym           XF86Display        exec --no-startup-id set-display-monitor
@@ -174,10 +173,10 @@ bindsym $mod+Shift+l move right $floatingDeltaX
 # Resize window
 set_from_resource $resizeX i3wm.resizeX 10px or 7ppt
 set_from_resource $resizeY i3wm.resizeY 10px or 7ppt
-bindsym $mod+control+h exec --no-startup-id autohotkey resizeWindow shrink width  $resizeX
-bindsym $mod+control+k exec --no-startup-id autohotkey resizeWindow grow   height $resizeY
-bindsym $mod+control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
-bindsym $mod+control+l exec --no-startup-id autohotkey resizeWindow grow   width  $resizeX
+bindsym $mod+Control+h exec --no-startup-id autohotkey resizeWindow shrink width  $resizeX
+bindsym $mod+Control+k exec --no-startup-id autohotkey resizeWindow grow   height $resizeY
+bindsym $mod+Control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow   width  $resizeX
 
 # Make window a horizontal split container
 # bindsym $mod+s split v

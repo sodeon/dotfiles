@@ -13,9 +13,9 @@
 #---------------------------------------------------------------------------------------------------
 # Suspend / turn off monitor
 "systemctl suspend"
-Pause
+Shift+Pause+Release
 "xset dpms force off"
-Scroll_Lock+Release
+Pause
 
 # Sound device control
 # "switch-sound-output && pkill -RTMIN+10 i3blocks"
