@@ -3,7 +3,7 @@
 # Graphics card connector used
 interface="DP-0"
 # interface="HDMI-0"
-i2c_bus=6
+i2c_bus=7
 # i2c_bus=4
 
 # Resolution
@@ -16,9 +16,9 @@ brightness_feature_id=10
 color_temperature_feature_id=14
 
 # Brightness/color temperature control
-is_reading_mode=true
+is_reading_mode=false
 brightness_step=5
-reading_brightness=5
+reading_brightness=0
 video_brightness=20
 color_temperature_reading=4 # 6500K
 color_temperature_video=5 # 5000K
