@@ -93,8 +93,8 @@ closeTabOrWindow() {
 pageup() {
     if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
         xdotool keyup $1 key ctrl+b
-    # elif isWinActive URxvt; then
-		# xdotool keyup $1 key shift+Prior
+    elif isWinActive URxvt; then
+		xdotool keyup $1 key shift+Prior
     else
         xdotool keyup $1 key Prior
     fi
@@ -103,8 +103,8 @@ pageup() {
 pagedown() {
     if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
         xdotool keyup $1 key ctrl+f
-    # elif isWinActive URxvt; then
-		# xdotool keyup $1 key shift+Next
+    elif isWinActive URxvt; then
+		xdotool keyup $1 key shift+Next
     else
         xdotool keyup $1 key Next
     fi
