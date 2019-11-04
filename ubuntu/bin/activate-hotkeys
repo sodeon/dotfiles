@@ -15,17 +15,15 @@ activate-hotkeys() {
     # Left alt    : alt+tab
     # Left ctrl   : ctrl+z
     # Left Windows: app launcher
-    # Right alt   : volume down
-    # Right ctrl  : volume up
-    # Right shift : Windows+space (toggle input method)
-    xcapeTyping="Control_L=Escape;Control_R=Super_L|space;Super_R=Super_L|space"
-    xcapeLauncher="Super_L=Super_L|F12;Mode_switch=Control_L|z"
-    xcapeVolume="Alt_R=XF86AudioLowerVolume;Super_R=XF86AudioRaiseVolume;Control_R=XF86AudioRaiseVolume"
-    xcapeAppSwitcher="Alt_L=Alt_L|Tab"
+    # Right alt   : Windows+space (toggle input method)
+    xcapeTyping="Control_L=Escape;Alt_R=Super_L|space"
+    xcapeLauncher="Super_L=Super_L|F12"
+    xcapeAppSwitcher="Alt_L=Alt_L|Tab;Mode_switch=Control_L|z"
+    xcapeMouse="Hyper_L=XF86Launch7"
     if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
-        xcape -t 160 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeLauncher"
+        xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse;$xcapeLauncher"
     else
-        xcape -t 160 -e "$xcapeTyping;$xcapeAppSwitcher"
+        xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse"
     fi
 
     # Keyboard keybindings
@@ -33,17 +31,16 @@ activate-hotkeys() {
     echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
 
     # Mouse keybindings
-    echo "$inputs" | grep -q "M720.*pointer"            && cat ~/.config/xbindkeys/logitech-m720  >> /tmp/xbindkeysrc
-    echo "$inputs" | grep -q "Razer Basilisk.*pointer"  && cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc
+    echo "$inputs" | grep -q "Razer Basilisk.*pointer" && \
+        ([ -f /tmp/mouse-alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
     
     xbindkeys -f /tmp/xbindkeysrc
 }
 
 setup-mouse-scroll-speed() {
+    pgrep imwheel > /dev/null && pkill imwheel
     if echo "$inputs" | grep -q \
-       -e "M720.*pointer" \
        -e "Razer.*pointer"; then
-        pgrep imwheel > /dev/null && pkill imwheel
         imwheel -b "4 5" > /dev/null 2>&1 # Restrict imwheel to only affect scroll wheel. If unrestricted, thumb buttons will not work anymore
     fi
 }
@@ -52,5 +49,5 @@ setup-mouse-scroll-speed() {
 # 
 # Main
 #
+# [ ! -f /tmp/mouse-alt ] && setup-mouse-scroll-speed # When xbindkeys binds mouse buttons, imwheel won't work. Also vice versa.
 activate-hotkeys
-setup-mouse-scroll-speed

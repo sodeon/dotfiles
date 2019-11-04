@@ -1,6 +1,5 @@
-! Reload: Xmodmap ~/.Xmodmap
 !-------------------------------------------------------------------
-! Override default modifier
+! Reload: Xmodmap ~/.Xmodmap
 !-------------------------------------------------------------------
 ! Assign Ctrl to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
 keycode 37 = Mode_switch
@@ -15,18 +14,21 @@ add control = Control_L
 ! Typing assist
 ! o/d    : backspace/del
 ! h/l/j/k: left/right/up/down (like vim)
-! 0/4    : home/end (like vim)
 ! m/,    : pagedown/pageup
+! f/b    : pagedown/pageup (like vim)
+! 0/4    : home/end (like vim)
 keycode 32 = o O BackSpace
 keycode 40 = d D Delete
 keycode 43 = h H Left
 keycode 44 = j J Down
 keycode 45 = k K Up
 keycode 46 = l L Right
-keycode 19 = 0 parenright Home
-keycode 13 = 4 dollar End
+keycode 58 = m M Next
+keycode 59 = comma less Prior
 keycode 41 = f F Next
 keycode 56 = b B Prior
+keycode 19 = 0 parenright Home
+keycode 13 = 4 dollar End
 
 ! Numpad (TODO: use keycode instead)
 ! keysym KP_Multiply = XF86AudioRaiseVolume
@@ -34,26 +36,18 @@ keycode 56 = b B Prior
 
 
 !-------------------------------------------------------------------
-! Unify layouts between different types of keyboards (typical, laptop, and etc)
+! Mouse button layers
 !-------------------------------------------------------------------
-! Swap Control_R and Super_R. This makes full size keyboard has the same layout as laptop's.
-! remove control = Control_R
-! keycode 134 = Control_R
-! remove mod4 = Control_R
-! add control = Control_R
-! keycode 105 = Super_R
-! remove control = Super_R
-! add mod4 = Super_R
-
-! Some keyboards has dedicated Menu key between right alt and right control. Map it to right control for consistency
-! keycode 135 = Control_R
-! add control = Control_R
+keycode 194 = Hyper_L
+remove mod4 = Hyper_L
+add mod3 = Hyper_L
+keycode 198 = XF86Launch7
 
 
 !-------------------------------------------------------------------
 ! Legacy
 !-------------------------------------------------------------------
-! Assign caps lock to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
+! Assign caps lock to Mode_switch and map non-existent key for Alt_R
 ! clear Lock
 ! keycode 203 = Alt_R
 ! keycode 66 = Mode_switch
@@ -75,3 +69,16 @@ keycode 56 = b B Prior
 ! remove mod1    = XF86AudioLowerVolume
 ! remove control = XF86AudioRaiseVolume
 ! remove mod4    = XF86AudioRaiseVolume
+
+! Swap Control_R and Super_R. This makes full size keyboard has the same layout as laptop's.
+! remove control = Control_R
+! keycode 134 = Control_R
+! remove mod4 = Control_R
+! add control = Control_R
+! keycode 105 = Super_R
+! remove control = Super_R
+! add mod4 = Super_R
+
+! Some keyboards has dedicated Menu key between right alt and right control. Map it to right control for consistency
+! keycode 135 = Control_R
+! add control = Control_R

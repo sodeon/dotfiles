@@ -99,7 +99,6 @@ bindsym $mode+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Cont
 # bindsym $mode+x exec --no-startup-id xte 'keyup x' 'keydown Control_L' 'key x' 'keyup Control_L'
 # bindsym $mode+c exec --no-startup-id xte 'keyup c' 'keydown Control_L' 'key c' 'keyup Control_L'
 # bindsym $mode+v exec --no-startup-id xte 'keyup v' 'keydown Control_L' 'key v' 'keyup Control_L'
-# bindsym $mode+z exec --no-startup-id xte 'keyup z' 'keydown Control_L' 'key z' 'keyup Control_L'
 
 
 #--------------------------------------------------------------------------------
@@ -125,6 +124,7 @@ bindsym XF86AudioPrev    exec --no-startup-id autohotkey prevTrack
 bindsym $mod+$mode+space exec --no-startup-id autohotkey pause
 bindsym $mod+$mode+Right exec --no-startup-id autohotkey nextTrack
 bindsym $mod+$mode+Left  exec --no-startup-id autohotkey prevTrack
+# bindsym $mod+$mode+Next [class="^mpv"] exec --no-startup-id autohotkey mediaPlayerFullscreen
 
 # Volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
@@ -229,16 +229,16 @@ set $ws10 "10: G "
 
 # Switch to workspace
 bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+1   exec --no-startup-id autohotkey F1 
-bindsym $mod+2   exec --no-startup-id autohotkey F2
-bindsym $mod+3   exec --no-startup-id autohotkey F3
+bindsym $mod+1   exec autohotkey F1 
+bindsym $mod+2   exec autohotkey F2
+bindsym $mod+3   exec autohotkey F3
 bindsym $mod+4   workspace number $ws4
 bindsym $mod+5   workspace number $ws5
 bindsym $mod+6   workspace number $ws6
 bindsym $mod+7   workspace number $ws7
 bindsym $mod+8   workspace number $ws8
 bindsym $mod+9   workspace number $ws9
-bindsym $mod+0   exec --no-startup-id autohotkey F10
+bindsym $mod+0   exec autohotkey F10
 
 # Move focused container to workspace
 bindsym $mod+Shift+1  move container to workspace number $ws1
@@ -251,6 +251,10 @@ bindsym $mod+Shift+7  move container to workspace number $ws7
 bindsym $mod+Shift+8  move container to workspace number $ws8
 bindsym $mod+Shift+9  move container to workspace number $ws9
 bindsym $mod+Shift+0  move container to workspace number $ws10
+
+# Scratchpad
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+comma scratchpad show
 
 
 #--------------------------------------------------------------------------------

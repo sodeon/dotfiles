@@ -1,35 +1,38 @@
 #---------------------------------------------------------------------------------------------------
-# NOTE:
-#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
-#     Therefore, add keyup to untrigger the triggering shortcut first
+# Alternative mouse layer:
+# 1. Enhance navigation
+# 2. Hardware control (volume, brightness...)
 #
-# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
-# Interactive key: xbindkeys --key
-#                  xbindkeys --multikey
-#
-# Mod3: Caps_Lock
-# Mod4: Windows
+# When in alternate mode, try to avoid adding new functionalities to with hypershift. 
+# It is cumbersome to press hypershift, then hypershift+button.
 #---------------------------------------------------------------------------------------------------
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
-# Next/prev tab
-"xdotool key control+Prior"
-Mod3+b:1
-"xdotool key control+Next"
-Mod3+b:3
+# Zoom
+"xdotool key control+minus"
+b:1
+"xdotool key control+equal"
+b:3
 
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Half page up/down
-"xte 'mouseup 4'; autohotkey pageup"
+# Page up/down
+"xte 'mouseup 4' 'key Prior'"
+b:4
+"xte 'mouseup 5' 'key Next'"
+b:5
+
+# Voume (only place where hypershift is binded)
+"xte 'mouseup 4'; amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
 Mod3+b:4
-"xte 'mouseup 5'; autohotkey pagedown"
+"xte 'mouseup 5'; amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
 Mod3+b:5
 
-"xte 'mouseup 2' 'key Escape'"
-Mod3+b:2
+# Home
+"xte 'key Home'; autohotkey toggleMouseMode"
+b:2
 
 
 #---------------------------------------------------------------------------------------------------
@@ -40,34 +43,25 @@ Mod3+b:2
 #---------------------------------------------------------------------------------------------------
 "autohotkey toggleMouseMode"
 XF86Launch7
-# Mod3+XF86Launch7 is logically unreacheable
 
-# Forward/back
-"xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
+# Brightness mode
+"autohotkey toggleMouseMode; monitor-control bs && pkill -RTMIN+11 i3blocks"
 XF86Launch8
-"xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-Mod3+XF86Launch8
 
-"xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
+# Workspace switcher
+"autohotkey toggleMouseMode; i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
 XF86Launch9
-# Mod3+XF86Launch9 is impossible to press
 
 
 #---------------------------------------------------------------------------------------------------
 # Buttons after scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Close/new tab
-"autohotkey closeTabOrWindow"
+# Page down
+"xte 'keydown Next'"
 b:8
-"xdotool mouseup 8 key ctrl+t"
-Mod3+b:8
+"xte 'keyup Next'"
+b:8+Release
 
-# Right/left
-"xte 'keydown Right'"
+# End
+"xte 'key End'; autohotkey toggleMouseMode"
 b:9
-"xte 'keyup Right'"
-b:9+Release
-"xte 'keydown Left'"
-Mod3+b:9
-"xte 'keyup Left'"
-Mod3+b:9+Release
