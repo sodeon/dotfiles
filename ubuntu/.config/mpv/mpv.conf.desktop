@@ -86,7 +86,6 @@ tscale=oversample
 # Specify default audio device. You can list devices with: --audio-device=help
 # The option takes the device string (the stuff between the '...').
 # audio-device=alsa/default
-audio-device=alsa
 
 # Do not filter audio to keep pitch when changing playback speed.
 #audio-pitch-correction=no
