@@ -66,7 +66,7 @@ showNotification("Autohotkey loaded")
 ;-------------------------------------------------------------------------------
 ; Basic
 ;-------------------------------------------------------------------------------
-Esc:: SendInput {Esc} ; if absent, standalone Esc cannot be used. Don't know why
+$Esc:: SendInput {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
 !`:: closeApp()
 
@@ -142,25 +142,26 @@ UpdateAppAndBrightness:
 ;-------------------------------------------------------------------------------
 ; Typing assist
 ;-------------------------------------------------------------------------------
-Esc & k:: SendInput {Up}
-Esc & j:: SendInput {Down}
-Esc & h:: SendInput {Left}
-Esc & l:: SendInput {Right}
+F5 & k:: SendInput {Up}
+F5 & j:: SendInput {Down}
+F5 & h:: SendInput {Left}
+F5 & l:: SendInput {Right}
+F5 & n:: SendInput ^{Left}
+F5 & .:: SendInput ^{Right}
 
-Esc & 0:: SendInput {Home}
-Esc & 4:: SendInput {End}
-Esc & n:: SendInput ^{Left}
-Esc & .:: SendInput ^{Right}
-Esc & m:: SendInput {PgDn}
-Esc & ,:: SendInput {PgUp}
+F5 & 0:: SendInput {Home}
+F5 & 4:: SendInput {End}
 
-Esc & p:: ; delete one word
+F5 & f:: SendInput {PgDn}
+F5 & b:: SendInput {PgUp}
+
+F5 & p:: ; delete one word
     if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
 		SendInput ^w
     else
         SendInput ^{Backspace}
     return
-Esc & u::
+F5 & u:: ; delete whole line
     if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
         SendInput ^u
     else {
@@ -168,8 +169,8 @@ Esc & u::
         SendInput {End}^+{Backspace}
     }
     return
-Esc & o:: SendInput {Backspace}
-Esc & i:: SendInput {Del}
+F5 & o:: SendInput {Backspace}
+F5 & i:: SendInput {Del}
 
 
 ;-------------------------------------------------------------------------------
@@ -177,7 +178,7 @@ Esc & i:: SendInput {Del}
 ;-------------------------------------------------------------------------------
 ; Brightness
 ; Numpad9::
-Esc & Volume_Up::
+F5 & Volume_Up::
     setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness >= 100)
@@ -195,7 +196,7 @@ Esc & Volume_Up::
     return
 
 ; Numpad8::
-Esc & Volume_Down::
+F5 & Volume_Down::
     setting := monitorSetting()
 	brightness := setting.brightness
     if (brightness <= 0)
@@ -214,7 +215,7 @@ Esc & Volume_Down::
 
 ; Brightness and night light
 ; Numpad0::
-Esc & b::
+F5 & d:: ; "d"isplay mode
     nightLightEnabled := !nightLightEnabled
     temperature := monitorSetting().temperature
     brightness  := monitorSetting().brightness
@@ -224,7 +225,7 @@ Esc & b::
 
 ; Resolution
 ; NumpadDot::
-Esc & r::
+F5 & r::
     if (A_ScreenWidth = monitorSettings[1].width)
         setResolution(monitorSettings[2].width, monitorSettings[2].height)
     else
@@ -235,9 +236,9 @@ Esc & r::
 ;-------------------------------------------------------------------------------
 ; Multimedia
 ;-------------------------------------------------------------------------------
-Esc & Left::  SendInput {Media_Prev}
-Esc & Right:: SendInput {Media_Next}
-Esc & Space:: SendInput {Media_Play_Pause}
+; F5 & !j:: SendInput {Media_Prev}
+; F5 & !l:: SendInput {Media_Next}
+; F5 & !k:: SendInput {Media_Play_Pause}
 
 
 ;-------------------------------------------------------------------------------
@@ -276,20 +277,28 @@ F23::
 ; Dual mode keys (like Linux's xcape)
 ; https://autohotkey.com/board/topic/103174-dual-function-control-key/
 ;-------------------------------------------------------------------------------
-; RShift: Toggle input method
-$RShift::SendInput {RShift down}
-$RShift Up::
-    if (A_PriorKey = "RShift") {
-        SendInput {RShift Up}#{Space}
-        SetTimer, LShift, 150 ; There is a delay for Windows to trigger input method. Use set timer to wait for that trigger to complete.
-    } else
-        SendInput {RShift Up}
+; CapsLock: Esc
+$LControl::SendInput {LCtrl down}
+$LControl Up::
+    if (A_PriorKey = "LControl")
+        SendInput {LControl Up}{Esc}
+    else
+        SendInput {LControl Up}
     return
 
-LShift:
-    SendInput {LShift}
-    SetTimer,, off
-    return
+; RShift: Toggle input method
+; $RShift::SendInput {RShift down}
+; $RShift Up::
+;     if (A_PriorKey = "RShift") {
+;         SendInput {RShift Up}#{Space}
+;         SetTimer, LShift, 150 ; There is a delay for Windows to trigger input method. Use set timer to wait for that trigger to complete.
+;     } else
+;         SendInput {RShift Up}
+;     return
+;     LShift:
+;         SendInput {LShift}
+;         SetTimer,, off
+;         return
 
 ; LAlt: Alt+Tab
 $LAlt::SendInput {LAlt down}
