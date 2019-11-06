@@ -38,9 +38,8 @@ Mod3+b:2
 #   XF86Launch8 (F17): Forward
 #   XF86Launch9 (F18): DPI trigger
 #---------------------------------------------------------------------------------------------------
-"autohotkey toggleMouseMode"
+"activate-hotkeys toggle-mouse-mode"
 XF86Launch7
-# Mod3+XF86Launch7 is logically unreacheable
 
 # Forward/back
 "xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
@@ -50,7 +49,6 @@ Mod3+XF86Launch8
 
 "xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
 XF86Launch9
-# Mod3+XF86Launch9 is impossible to press
 
 
 #---------------------------------------------------------------------------------------------------

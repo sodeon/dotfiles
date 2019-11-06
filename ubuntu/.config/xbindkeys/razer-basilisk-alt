@@ -14,6 +14,12 @@ b:1
 "xdotool key control+equal"
 b:3
 
+# Move tab
+"xdotool key control+shift+Prior"
+Mod3+b:1
+"xdotool key control+shift+Next"
+Mod3+b:3
+
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
@@ -31,7 +37,7 @@ Mod3+b:4
 Mod3+b:5
 
 # Home
-"xte 'key Home'; autohotkey toggleMouseMode"
+"xte 'key Home'; activate-hotkeys toggle-mouse-mode"
 b:2
 
 
@@ -41,15 +47,15 @@ b:2
 #   XF86Launch8 (F17): Forward
 #   XF86Launch9 (F18): DPI trigger
 #---------------------------------------------------------------------------------------------------
-"autohotkey toggleMouseMode"
+"activate-hotkeys toggle-mouse-mode"
 XF86Launch7
 
 # Brightness mode
-"autohotkey toggleMouseMode; monitor-control bs && pkill -RTMIN+11 i3blocks"
+"activate-hotkeys toggle-mouse-mode; monitor-control bs && pkill -RTMIN+11 i3blocks"
 XF86Launch8
 
 # Workspace switcher
-"autohotkey toggleMouseMode; i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+"activate-hotkeys toggle-mouse-mode; i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
 XF86Launch9
 
 
@@ -63,5 +69,5 @@ b:8
 b:8+Release
 
 # End
-"xte 'key End'; autohotkey toggleMouseMode"
+"xte 'key End'; activate-hotkeys toggle-mouse-mode"
 b:9

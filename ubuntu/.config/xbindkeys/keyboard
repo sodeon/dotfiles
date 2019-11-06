@@ -17,28 +17,9 @@ Shift+Pause+Release
 "xset dpms force off"
 Pause
 
-# Sound device control
-# "switch-sound-output && pkill -RTMIN+10 i3blocks"
-# Mod3+s
-
-# Brightness control (Mod3+b: toggle video/reading mode)
-# https://github.com/haikarainen/light
-# "monitor-control bu && pkill -RTMIN+11 i3blocks"
-# Mod3+Control_R
-# "monitor-control bd && pkill -RTMIN+11 i3blocks"
-# Mod3+Alt_R
-# "monitor-control bs && pkill -RTMIN+11 i3blocks"
-# Mod3+b
-
-# Media control
-# "autohotkey pause"
-# Mod3+space
-# "autohotkey pause"
-# Mod3+Mod1+space
-# "autohotkey nextTrack"
-# Mod3+Mod1+Control_R
-# "autohotkey prevTrack"
-# Mod3+Mod1+Alt_R
+# Activate mode_switch layer without pressing mode_switch. Useful for 60% keyboard
+"activate-hotkeys toggle-keyboard-mode"
+XF86Launch2
 
 
 #---------------------------------------------------------------------------------------------------
@@ -51,6 +32,5 @@ Pause
 # KP_Multiply
 
 # Brightness control (Mod3+b: toggle video/reading mode)
-"monitor-control bs && pkill -RTMIN+11 i3blocks"
-KP_Divide
-
+# "monitor-control bs && pkill -RTMIN+11 i3blocks"
+# KP_Divide

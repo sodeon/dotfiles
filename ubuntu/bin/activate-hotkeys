@@ -2,52 +2,108 @@
 
 inputs=`xinput --list --short`
 
-activate-hotkeys() {
-    # Kill residual xcape/xbindkeys processes
-    pgrep xbindkeys > /dev/null && pkill xbindkeys
-    pgrep xcape     > /dev/null && pkill xcape
+mouse_alt="/tmp/mouse-alt"
+keyboard_alt="/tmp/keyboard-alt"
 
+load-keyboard-layout() {
     # Modifiers and mode_switch layer
-    xmodmap ~/.Xmodmap
+    [ -f $keyboard_alt ] && xmodmap ~/.Xmodmap-alt || xmodmap ~/.Xmodmap
+    xmodmap -e 'remove control = Mode_switch'
+    xmodmap -e 'add mod5 = Mode_switch'
+}
 
+bind-dualkeys() {
     # Dual-purpose modifiers
-    # Caps lock   : Esc
-    # Left alt    : alt+tab
-    # Left ctrl   : ctrl+z
-    # Left Windows: app launcher
-    # Right alt   : Windows+space (toggle input method)
-    xcapeTyping="Control_L=Escape;Alt_R=Super_L|space"
+    # Caps lock    : Esc
+    # Left alt     : alt+tab
+    # Left Windows : App launcher
+    # Left ctrl    : Toggle keyboard layer
+    # Right ctrl   : Toggle keyboard layer
+    # Right Windows: Send terminal command to background or undo in text processing
+    # Right alt    : Toggle input method
+    xcapeTyping="Alt_R=Super_L|space;Mode_switch=XF86Launch2;Control_R=XF86Launch2;Super_R=Control_L|z"
+    if [ -f $keyboard_alt ]; then
+        xcapeTyping="$xcapeTyping;Control_L=XF86Launch2"
+    else
+        xcapeTyping="$xcapeTyping;Control_L=Escape"
+    fi
     xcapeLauncher="Super_L=Super_L|F12"
-    xcapeAppSwitcher="Alt_L=Alt_L|Tab;Mode_switch=Control_L|z"
+    xcapeAppSwitcher="Alt_L=Alt_L|Tab"
     xcapeMouse="Hyper_L=XF86Launch7"
+
+    pgrep xcape > /dev/null && pkill xcape
     if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
         xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse;$xcapeLauncher"
     else
         xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse"
     fi
+}
 
+bind-hotkeys() {
     # Keyboard keybindings
     cat ~/.config/xbindkeys/keyboard >  /tmp/xbindkeysrc
     echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
 
     # Mouse keybindings
     echo "$inputs" | grep -q "Razer Basilisk.*pointer" && \
-        ([ -f /tmp/mouse-alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
+        ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
     
+    pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
     xbindkeys -f /tmp/xbindkeysrc
 }
 
-setup-mouse-scroll-speed() {
+set-mouse-scroll-speed() {
     pgrep imwheel > /dev/null && pkill imwheel
+
     if echo "$inputs" | grep -q \
        -e "Razer.*pointer"; then
         imwheel -b "4 5" > /dev/null 2>&1 # Restrict imwheel to only affect scroll wheel. If unrestricted, thumb buttons will not work anymore
     fi
 }
 
+# Remove all alt mode and rebind hotkeys
+init() {
+    [ -f $mouse_alt    ] && rm $mouse_alt    && notify-send.sh --close=10
+    [ -f $keyboard_alt ] && rm $keyboard_alt && notify-send.sh --close=11
+    load-keyboard-layout
+    bind-dualkeys
+    bind-hotkeys
+}
+
+toggle-mouse-mode() {
+    if [ -f $mouse_alt ]; then
+        rm $mouse_alt
+        notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+    else
+        touch $mouse_alt
+        notify-send.sh -t 0 -r 10 -u critical Alt Mouse
+    fi
+
+    # set-mouse-scroll-speed # When xbindkeys binds mouse buttons, imwheel won't work. Also vice versa.
+    bind-hotkeys
+}
+
+toggle-keyboard-mode() {
+    if [ -f $keyboard_alt ]; then
+        rm $keyboard_alt
+        notify-send.sh --close=11 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+    else
+        touch $keyboard_alt
+        notify-send.sh -t 0 -r 11 -u critical Alt Keyboard
+    fi
+
+    # Currently, alt mode only's functionality is allowing mode_switch layer to be used without pressing mode_switch. Not reloading xbindkeys to improve performance
+    load-keyboard-layout
+    bind-dualkeys
+    # bind-hotkeys
+}
+
 
 # 
 # Main
 #
-# [ ! -f /tmp/mouse-alt ] && setup-mouse-scroll-speed # When xbindkeys binds mouse buttons, imwheel won't work. Also vice versa.
-activate-hotkeys
+if [ $# == 0 ]; then
+    init
+else
+    $@
+fi
