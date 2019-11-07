@@ -130,30 +130,43 @@ NumpadMult:: SendInput {Volume_Down}
 UpdateAppAndBrightness:
     if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
         return
-    SetTimer, UpdateAppAndBrightness, OFF
+    SetTimer,, off
     updateAppHistory()
     updateBrightness()
     return
-
-!l::
-!h:: SendInput !{Tab}
 
 
 ;-------------------------------------------------------------------------------
 ; Typing assist
 ;-------------------------------------------------------------------------------
-F5 & k:: SendInput {Up}
-F5 & j:: SendInput {Down}
+F5 & k::
+    if !GetKeyState("Alt") 
+        SendInput {Up}
+    else
+        SendInput {Media_Play_Pause}
+    return
+F5 & j::
+    if !GetKeyState("Alt") 
+        SendInput {Down}
+    else
+        SendInput {Media_Prev}
+    return
 F5 & h:: SendInput {Left}
-F5 & l:: SendInput {Right}
+F5 & l::
+    if !GetKeyState("Alt") 
+        SendInput {Right}
+    else
+        SendInput {Media_Next}
+    return
+
 F5 & n:: SendInput ^{Left}
 F5 & .:: SendInput ^{Right}
 
-F5 & 0:: SendInput {Home}
-F5 & 4:: SendInput {End}
+F5 & m:: SendInput {PgDn}
+F5 & ,:: SendInput {PgUp}
 
-F5 & f:: SendInput {PgDn}
-F5 & b:: SendInput {PgUp}
+F5 & [:: SendInput {Home}
+F5 & ]:: SendInput {End}
 
 F5 & p:: ; delete one word
     if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
@@ -170,75 +183,46 @@ F5 & u:: ; delete whole line
     }
     return
 F5 & o:: SendInput {Backspace}
-F5 & i:: SendInput {Del}
+F5 & d:: SendInput {Del}
 
 
 ;-------------------------------------------------------------------------------
 ; Monitor control (brightness, night light, resolution)
 ;-------------------------------------------------------------------------------
 ; Brightness
-; Numpad9::
-F5 & Volume_Up::
-    setting := monitorSetting()
-	brightness := setting.brightness
-    if (brightness >= 100)
-        return
-    else if (brightness < 2)
-        delta := 2 - brightness
-    else if (brightness < 5)
-        delta := 5 - brightness
+; Numpad8::
+F5 & 1::
+    if !GetKeyState("Alt")
+        SendInput {Volume_Down}
     else
-        delta := 5
-    brightness += delta
-    setMonitorDdc("b " . brightness)
-    setting.brightness := brightness
-    showNotification("Brightness: " . brightness)
+        decreaseBrightness()
     return
 
-; Numpad8::
-F5 & Volume_Down::
-    setting := monitorSetting()
-	brightness := setting.brightness
-    if (brightness <= 0)
-        return
-    else if (brightness <= 2)
-        delta := brightness
-    else if (brightness <= 5)
-        delta := brightness - 2
+; Numpad9::
+F5 & 2::
+    if !GetKeyState("Alt")
+        SendInput {Volume_Up}
     else
-        delta := 5
-    brightness -= delta
-    setMonitorDdc("b " . brightness)
-    setting.brightness := brightness
-    showNotification("Brightness: " . brightness)
+        increaseBrightness()
     return
 
 ; Brightness and night light
 ; Numpad0::
-F5 & d:: ; "d"isplay mode
-    nightLightEnabled := !nightLightEnabled
-    temperature := monitorSetting().temperature
-    brightness  := monitorSetting().brightness
-    setMonitorDdc("b " . brightness . " p " . temperature)
-    showNotification("Brightness: " . brightness, (nightLightEnabled ? "Reading mode" : "Video mode"))
+F5 & `:: ; "d"isplay mode
+    if !GetKeyState("Alt")
+        SendInput {Volume_Mute}
+    else
+        toggleBrightnessMode()
     return
 
 ; Resolution
 ; NumpadDot::
-F5 & r::
+!r::
     if (A_ScreenWidth = monitorSettings[1].width)
         setResolution(monitorSettings[2].width, monitorSettings[2].height)
     else
         setResolution(monitorSettings[1].width, monitorSettings[1].height)
     return
-
-
-;-------------------------------------------------------------------------------
-; Multimedia
-;-------------------------------------------------------------------------------
-; F5 & !j:: SendInput {Media_Prev}
-; F5 & !l:: SendInput {Media_Next}
-; F5 & !k:: SendInput {Media_Play_Pause}
 
 
 ;-------------------------------------------------------------------------------
@@ -278,7 +262,7 @@ F23::
 ; https://autohotkey.com/board/topic/103174-dual-function-control-key/
 ;-------------------------------------------------------------------------------
 ; CapsLock: Esc
-$LControl::SendInput {LCtrl down}
+$LControl:: SendInput {LCtrl down}
 $LControl Up::
     if (A_PriorKey = "LControl")
         SendInput {LControl Up}{Esc}
@@ -286,28 +270,31 @@ $LControl Up::
         SendInput {LControl Up}
     return
 
-; RShift: Toggle input method
-; $RShift::SendInput {RShift down}
-; $RShift Up::
-;     if (A_PriorKey = "RShift") {
-;         SendInput {RShift Up}#{Space}
-;         SetTimer, LShift, 150 ; There is a delay for Windows to trigger input method. Use set timer to wait for that trigger to complete.
-;     } else
-;         SendInput {RShift Up}
-;     return
-;     LShift:
-;         SendInput {LShift}
-;         SetTimer,, off
-;         return
-
 ; LAlt: Alt+Tab
-$LAlt::SendInput {LAlt down}
+$LAlt:: SendInput {LAlt down}
 $LAlt Up::
     if (A_PriorKey = "LAlt")
         SendInput {Tab}{LAlt Up}
     else
         SendInput {LAlt Up}
     return
+
+; RAlt: Toggle input method
+$RAlt:: SendInput {RAlt down}
+$RAlt Up::
+    if (A_PriorKey = "RAlt") {
+        SendInput {RAlt Up}#{Space}
+        SetTimer, LShift, 150 ; There is a delay for Windows to trigger input method. Use set timer to wait for that trigger to complete.
+    } else
+        SendInput {RAlt Up}
+    return
+    LShift:
+        SendInput {LShift}
+        SetTimer,, off
+        return
+
+; RWin: Send command to background (does not implement dual-key for RWin since RWin is not present in most laptops, hence not using it)
+$RWin:: SendInput ^z
 
 
 ;-------------------------------------------------------------------------------

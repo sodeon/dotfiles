@@ -119,6 +119,55 @@ setResolution(width, height) {
     RunWait, nircmd/nircmd.exe setdisplay %width% %height% 32,, Hide
 }
 
+increaseBrightness() {
+    global monitorSetting, nightLightEnabled
+    setting := monitorSetting()
+    brightness := setting.brightness
+    if (brightness >= 100)
+        return
+    else if (brightness < 2)
+        delta := 2 - brightness
+    else if (brightness < 5)
+        delta := 5 - brightness
+    else
+        delta := 5
+    brightness += delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
+}
+
+decreaseBrightness() {
+    global monitorSetting, nightLightEnabled
+    setting := monitorSetting()
+    brightness := setting.brightness
+    if (brightness <= 0)
+        return
+    else if (brightness <= 2)
+        delta := brightness
+    else if (brightness <= 5)
+        delta := brightness - 2
+    else
+        delta := 5
+    brightness -= delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
+}
+
+toggleBrightnessMode() {
+    global monitorSetting, nightLightEnabled
+    nightLightEnabled := !nightLightEnabled
+    temperature := monitorSetting().temperature
+    brightness  := monitorSetting().brightness
+    setMonitorDdc("b " . brightness . " p " . temperature)
+    showNotification("Brightness: " . brightness, (nightLightEnabled ? "Reading mode" : "Video mode"))
+}
+
+
+;-------------------------------------------------------------------------------
+; Power management
+;-------------------------------------------------------------------------------
 turnOffDisplay() {
     Run, nircmd/nircmd.exe monitor off,, Hide
 }
