@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ue
 
 source ~/.config/hardware/external-displayrc
 rc="$HOME/.config/hardware/external-displayrc"
@@ -25,7 +25,16 @@ fi
 
 case "$1" in
     b)
-		ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' 
+        # When booting up, reading DDC information may fail sometimes on NVIDIA cards.
+        # TODO: Add retry limit
+        while true; do
+            output=`ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' | tail -1`
+            if [[ $output == ?(-)+([0-9]) ]]; then
+                echo $output
+                exit 0
+            fi
+            sleep 2
+        done
         ;;
     bu)
         let brightness="$brightness + $brightness_step"
@@ -34,6 +43,7 @@ case "$1" in
         fi
 		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
         sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        echo $brightness
         ;;
     bd)
         let brightness="$brightness - $brightness_step"
@@ -42,6 +52,7 @@ case "$1" in
         fi
 		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
         sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        echo $brightness
         ;;
     bs)
         if [ $mode = "reading" ]; then
@@ -52,6 +63,6 @@ case "$1" in
 		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
 		ddcutil setvcp $color_temperature_feature_id $temperature --bus $i2c_bus
         sed -i s/is_reading_mode=.*/is_reading_mode="$isReadingMode"/ $rc
+        echo $brightness
         ;;
 esac
-
