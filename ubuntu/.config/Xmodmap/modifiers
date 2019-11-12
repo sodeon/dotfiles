@@ -1,0 +1,55 @@
+!-------------------------------------------------------------------
+! Modifiers
+!-------------------------------------------------------------------
+! Assign CapsLock to Ctrl
+clear Lock
+keycode 66 = Control_L
+add control = Control_L
+
+! Assign left Ctrl to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
+!   Remove mode_switch from control has no effect. This result in "add mod5 = Mode_switch" error for assigning a key to more than one mod group (Error of failed request:  BadValue (integer parameter out of range for operation))
+!   To workaround, execute group change in separate shell command from activate-hotkeys
+keycode 37 = Mode_switch
+! remove control = Mode_switch
+! add mod5 = Mode_switch
+
+! Mouse button layers
+keycode 194 = Hyper_L
+remove mod4 = Hyper_L
+add mod3 = Hyper_L
+keycode 197 = XF86Launch7
+
+keycode 192 = NoSymbol
+keycode 195 = XF86Launch5
+add mod5 = XF86Launch5
+keycode 198 = XF86Launch8
+
+
+!-------------------------------------------------------------------
+! Legacy
+!-------------------------------------------------------------------
+! Assign caps lock to Mode_switch and map non-existent key for Alt_R
+! clear Lock
+! keycode 203 = Alt_R
+! keycode 66 = Mode_switch
+! remove mod5 = Mode_switch
+! add mod5 = Mode_switch
+
+! Assing caps lock to Hyper modifier
+! clear Lock
+! keycode 66 = Hyper_L
+! remove mod4 = Hyper_L
+! add mod3 = Hyper_L
+
+! Swap Control_R and Super_R. This makes full size keyboard has the same layout as laptop's.
+! remove control = Control_R
+! keycode 134 = Control_R
+! remove mod4 = Control_R
+! add control = Control_R
+! keycode 105 = Super_R
+! remove control = Super_R
+! add mod4 = Super_R
+
+! Some keyboards has dedicated Menu key between right alt and right control. Map it to right control for consistency
+! keycode 135 = Control_R
+! add control = Control_R

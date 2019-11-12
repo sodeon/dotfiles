@@ -1,36 +1,18 @@
-#---------------------------------------------------------------------------------------------------
-# NOTE:
-#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
-#     Therefore, add keyup to untrigger the triggering shortcut first
-#
-# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
-# Interactive key: xbindkeys --key
-#                  xbindkeys --multikey
-#
-# Mod3: Caps_Lock
-# Mod4: Windows
-# Mod5: Mode_switch (Wrong!!! xbindkeys does not recognize Mode_switch whatsoever. Use i3 keysym binding instead)
-#---------------------------------------------------------------------------------------------------
 # Suspend / turn off monitor
 "systemctl suspend"
 Shift+Pause+Release
 "xset dpms force off"
-Pause
+Pause+Release
+
+# "systemctl suspend"
+# Mod1+Shift+BackSpace+Release
+# "xset dpms force off"
+# Mod1+BackSpace+Release
 
 # Activate mode_switch layer without pressing mode_switch. Useful for 60% keyboard
-"activate-hotkeys toggle-keyboard-mode"
+"activate-hotkeys toggle-keyboard-alt"
 XF86Launch2
 
-
-#---------------------------------------------------------------------------------------------------
-# Numpad
-#---------------------------------------------------------------------------------------------------
-# Volume/sound control
-# "xdotool keyup KP_Subtract key XF86AudioRaiseVolume"
-# KP_Subtract
-# "xdotool keyup KP_Multiply key XF86AudioLowerVolume"
-# KP_Multiply
-
-# Brightness control (Mod3+b: toggle video/reading mode)
-# "monitor-control bs && pkill -RTMIN+11 i3blocks"
-# KP_Divide
+# Activate mode_switch layer without pressing mode_switch. Useful for 60% keyboard
+"activate-hotkeys toggle-keyboard-alt2"
+XF86Launch3

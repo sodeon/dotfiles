@@ -1,0 +1,25 @@
+!-------------------------------------------------------------------
+! Right hand only mode
+!-------------------------------------------------------------------
+! p/l/;/'/Return
+! keycode 33 = Up    Up
+! keycode 46 = Left  Left
+! keycode 47 = Down  Down
+! keycode 48 = Right Right
+! keycode 36 = Right Right
+
+keycode 22 = Prior Prior
+keycode 51 = Next  Next
+
+keycode 21 = Home Home
+keycode 35 = End  End
+
+! [/;/'/Return
+keycode 34 = Up    Up
+keycode 47 = Left  Left
+keycode 48 = Down  Down
+keycode 36 = Right Right
+
+! o/[
+! keycode 32 = End   End
+! keycode 34 = Home  Home

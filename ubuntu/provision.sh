@@ -58,7 +58,7 @@ apt-force install linux-tools-generic linux-tools-common # Performance counter (
 apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
-apt-force install xbindkeys xautomation xcape xdotool imwheel # key mapping and hotkey helpers
+apt-force install xbindkeys xautomation xcape xdotool imwheel evtest # key mapping and hotkey helpers
 apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods

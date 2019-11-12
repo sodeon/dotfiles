@@ -24,6 +24,7 @@ declare -a direct_backup_configs=(
     rofi
     ranger
     zathura
+    Xmodmap
     xbindkeys
     mpv/scripts
 

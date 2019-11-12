@@ -5,13 +5,6 @@ inputs=`xinput --list --short`
 mouse_alt="/tmp/mouse-alt"
 keyboard_alt="/tmp/keyboard-alt"
 
-load-keyboard-layout() {
-    # Modifiers and mode_switch layer
-    [ -f $keyboard_alt ] && xmodmap ~/.Xmodmap-alt || xmodmap ~/.Xmodmap
-    xmodmap -e 'remove control = Mode_switch'
-    xmodmap -e 'add mod5 = Mode_switch'
-}
-
 bind-dualkeys() {
     # Dual-purpose modifiers
     # Caps lock    : Esc
@@ -21,15 +14,11 @@ bind-dualkeys() {
     # Right ctrl   : Toggle keyboard layer
     # Right Windows: Send terminal command to background or undo in text processing
     # Right alt    : Toggle input method
-    xcapeTyping="Alt_R=Super_L|space;Mode_switch=XF86Launch2;Control_R=XF86Launch2;Super_R=Control_L|z"
-    if [ -f $keyboard_alt ]; then
-        xcapeTyping="$xcapeTyping;Control_L=XF86Launch2"
-    else
-        xcapeTyping="$xcapeTyping;Control_L=Escape"
-    fi
+    xcapeTyping="Alt_R=Super_L|space;Mode_switch=XF86Launch2;Control_R=XF86Launch3;Super_R=Control_L|z"
+    xcapeTyping="$xcapeTyping;Control_L=Escape"
     xcapeLauncher="Super_L=Super_L|F12"
     xcapeAppSwitcher="Alt_L=Alt_L|Tab"
-    xcapeMouse="Hyper_L=XF86Launch7"
+    xcapeMouse="Hyper_L=XF86Launch7;XF86Launch5=XF86Launch8"
 
     pgrep xcape > /dev/null && pkill xcape
     if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
@@ -63,16 +52,21 @@ set-mouse-scroll-speed() {
 
 # Remove all alt mode and rebind hotkeys
 init() {
-    [ -f $mouse_alt    ] && rm $mouse_alt    && notify-send.sh --close=10
-    [ -f $keyboard_alt ] && rm $keyboard_alt && notify-send.sh --close=11
-    load-keyboard-layout
+    [ -f  $mouse_alt      ] && rm  $mouse_alt      && notify-send.sh --close=10
+    [ -f  $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
+    [ -f "$keyboard_alt"2 ] && rm "$keyboard_alt"2 && notify-send.sh --close=11
+    xmodmap ~/.config/Xmodmap/modifiers
+    xmodmap -e 'remove control = Mode_switch'
+    xmodmap -e 'add mod5 = Mode_switch'
+    xmodmap ~/.Xmodmap
     bind-dualkeys
     bind-hotkeys
 }
 
-toggle-mouse-mode() {
-    if [ -f $mouse_alt ]; then
-        rm $mouse_alt
+mouse-mode() {
+    mode=$1
+    if [ $mode = "normal" ]; then
+        [ -f $mouse_alt ] && rm $mouse_alt
         notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
     else
         touch $mouse_alt
@@ -83,19 +77,32 @@ toggle-mouse-mode() {
     bind-hotkeys
 }
 
-toggle-keyboard-mode() {
+toggle-mouse-mode() { [ -f $mouse_alt ] && mouse-mode normal || mouse-mode alternate; }
+
+toggle-keyboard-alt() {
+    [ -f "$keyboard_alt"2 ] && rm "$keyboard_alt"2
     if [ -f $keyboard_alt ]; then
         rm $keyboard_alt
-        notify-send.sh --close=11 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+        xmodmap ~/.Xmodmap
+        notify-send.sh --close=11
     else
         touch $keyboard_alt
+        xmodmap ~/.config/Xmodmap/alt
         notify-send.sh -t 0 -r 11 -u critical Alt Keyboard
     fi
+}
 
-    # Currently, alt mode only's functionality is allowing mode_switch layer to be used without pressing mode_switch. Not reloading xbindkeys to improve performance
-    load-keyboard-layout
-    bind-dualkeys
-    # bind-hotkeys
+toggle-keyboard-alt2() {
+    [ -f $keyboard_alt ] && rm $keyboard_alt
+    if [ -f "$keyboard_alt"2 ]; then
+        rm "$keyboard_alt"2
+        xmodmap ~/.Xmodmap
+        notify-send.sh --close=11
+    else
+        touch "$keyboard_alt"2
+        xmodmap ~/.config/Xmodmap/alt2
+        notify-send.sh -t 0 -r 11 -u critical Alt2 Keyboard
+    fi
 }
 
 

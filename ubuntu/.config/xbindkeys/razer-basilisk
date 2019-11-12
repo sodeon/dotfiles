@@ -1,14 +1,8 @@
 #---------------------------------------------------------------------------------------------------
-# NOTE:
-#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
-#     Therefore, add keyup to untrigger the triggering shortcut first
-#
-# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
-# Interactive key: xbindkeys --key
-#                  xbindkeys --multikey
-#
-# Mod3: Caps_Lock
-# Mod4: Windows
+# Hotkey rule:
+# Mod5     : Hardware control (volume, brightness)
+# Mod3     : shifted version  of non-mod function
+# Mod3+Mod5: shifted version2 of non-mod function with less used fequency than mod3
 #---------------------------------------------------------------------------------------------------
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
@@ -17,6 +11,18 @@
 Mod3+b:1
 "xdotool key control+Next"
 Mod3+b:3
+
+# Move tab
+"xdotool key --clearmodifiers control+shift+Prior"
+Mod3+Mod5+b:1
+"xdotool key --clearmodifiers control+shift+Next"
+Mod3+Mod5+b:3
+
+# Brightness
+"monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
+Mod5+b:1
+"monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
+Mod5+b:3
 
 
 #---------------------------------------------------------------------------------------------------
@@ -28,25 +34,39 @@ Mod3+b:4
 "xte 'mouseup 5'; autohotkey pagedown"
 Mod3+b:5
 
+# Home/End
+"xte 'key Home'"
+Mod3+Mod5+b:4
+"xte 'key End'"
+Mod3+Mod5+b:5
+
+# Volume (only place where hypershift is binded)
+"xte 'mouseup 4'; amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume"
+Mod5+b:4
+"xte 'mouseup 5'; amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume"
+Mod5+b:5
+
 "xte 'mouseup 2' 'key Escape'"
 Mod3+b:2
+# Switch sound device
+"switch-sound-output && pkill -RTMIN+10 i3blocks"
+Mod5+b:2
 
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
-#   XF86Launch7 (F16): Back
-#   XF86Launch8 (F17): Forward
-#   XF86Launch9 (F18): DPI trigger
+#   XF86Launch7 (F16): Factory default to "Back"
+#   XF86Launch8 (F17): Factory default to "Forward"
+#   XF86Launch9 (F18): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
 "activate-hotkeys toggle-mouse-mode"
 XF86Launch7
 
-# Forward/back
+# Back
 "xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
 XF86Launch8
-"xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-Mod3+XF86Launch8
 
+# Switch to last workspace
 "xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
 XF86Launch9
 
@@ -54,11 +74,16 @@ XF86Launch9
 #---------------------------------------------------------------------------------------------------
 # Buttons after scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Close/new tab
+# Close/new/detach tab
 "autohotkey closeTabOrWindow"
 b:8
 "xdotool mouseup 8 key ctrl+t"
 Mod3+b:8
+"xte 'keydown Shift_L' 'key e' 'keyup Shift_L'"
+Mod3+Mod5+b:8
+# Brightness mode
+"monitor-control bs | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
+Mod5+b:8
 
 # Right/left
 "xte 'keydown Right'"

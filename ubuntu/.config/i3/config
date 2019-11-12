@@ -95,10 +95,8 @@ bindsym $mode+Shift+n      exec --no-startup-id xte 'keyup n' 'keydown Control_L
 bindsym $mode+period       exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
 bindsym $mode+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
 
-# Clipboard/Redo/Undo
-# bindsym $mode+x exec --no-startup-id xte 'keyup x' 'keydown Control_L' 'key x' 'keyup Control_L'
-# bindsym $mode+c exec --no-startup-id xte 'keyup c' 'keydown Control_L' 'key c' 'keyup Control_L'
-# bindsym $mode+v exec --no-startup-id xte 'keyup v' 'keydown Control_L' 'key v' 'keyup Control_L'
+# Shift focus from omnibar (e.g. Chrome)
+bindsym $mode+Tab exec --no-startup-id xte 'keyup Tab' 'keydown Shift_L' 'key F6' 'keyup Shift_L'
 
 
 #--------------------------------------------------------------------------------
@@ -110,11 +108,11 @@ bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print exec flameshot screen -p $HOME/Pictures # only produces white images
 
 # Monitor brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+1          exec --no-startup-id monitor-control bd && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+2          exec --no-startup-id monitor-control bu && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+grave      exec --no-startup-id monitor-control bs && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+F1         exec --no-startup-id monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+F2         exec --no-startup-id monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
+bindsym $mod+$mode+grave      exec --no-startup-id monitor-control bs | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
 
 # Media
 bindsym XF86AudioPlay    exec --no-startup-id autohotkey pause
@@ -127,11 +125,11 @@ bindsym $mod+$mode+Left  exec --no-startup-id autohotkey prevTrack
 # bindsym $mod+$mode+Next [class="^mpv"] exec --no-startup-id autohotkey mediaPlayerFullscreen
 
 # Volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks
-bindsym $mode+1              exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks
-bindsym $mode+2              exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+bindsym $mode+F1             exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+bindsym $mode+F2             exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
 bindsym $mode+grave          exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
 # Laptop

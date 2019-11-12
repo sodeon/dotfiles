@@ -1,0 +1,17 @@
+#---------------------------------------------------------------------------------------------------
+# NOTE:
+#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
+#     Therefore, add keyup to untrigger the triggering shortcut first
+#
+#     Send to background ("&") in the middle for multiple commands does not work and syntax error for bash/sh (zsh is okay, but xbindkeys uses sh).
+#     If you want two commands running asynchronously like Mod3+b:4 in alt mode, repeat binding for each async command.
+#
+# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
+# Interactive key: xbindkeys --key
+#                  xbindkeys --multikey
+# Show all keys: xmodmap -pke
+#
+# Mod3: Caps_Lock
+# Mod4: Windows
+# Mod5: Mode_switch (Wrong!!! xbindkeys does not recognize Mode_switch whatsoever. Use i3 keysym binding instead)
+#---------------------------------------------------------------------------------------------------
