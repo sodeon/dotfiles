@@ -216,11 +216,12 @@ toggleFullscreen() {
     # if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
     #     xdotool keyup f Alt key F11
     # elif isWinActive Code; then # Toggle zen mode for vscode
-    if isWinActive Code; then # Toggle zen mode for vscode
-        xdotool keyup f Alt key ctrl+shift+z
-    else
-        i3-msg "fullscreen toggle"
-    fi
+    # if isWinActive Code; then # Toggle zen mode for vscode
+    #     xdotool keyup f Alt key ctrl+shift+z
+    # else
+    #     i3-msg "fullscreen toggle"
+    # fi
+    i3-msg "fullscreen toggle"
 }
 
 mediaPlayerFullscreen() {
