@@ -24,6 +24,8 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
+# rm -rf ~/.oh-mh-zsh ~/.fzf ~/.tmux
+rm -rf $tmp
 mkdir -p $tmp
 
 
@@ -214,7 +216,7 @@ sudo gpasswd -a $USER input
 
 # gnome desktop environment settings
 if which gsettings; then
-    # Enable fractional scaling on Ubuntu 19.04
+    # Enable fractional scaling on Ubuntu 19.04/19.10
     gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
     gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
 
@@ -230,7 +232,7 @@ if [[ -f /etc/default/grub ]]; then
 	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=0/" /etc/default/grub
     # GRUB remembeers last selected menu entry
 	sudo sed -i -r "s/^GRUB_DEFAULT.*/GRUB_DEFAULT=saved/" /etc/default/grub
-    grep -P '^\s*GRUB_SAVEDEFAULT=' /etc/default/grub || sudo echo "\nGRUB_SAVEDEFAULT=true" >> /etc/default/grub
+    sudo grep -P '^\s*GRUB_SAVEDEFAULT=' /etc/default/grub || sudo echo "\nGRUB_SAVEDEFAULT=true" >> /etc/default/grub
     sudo update-grub
 fi
 
