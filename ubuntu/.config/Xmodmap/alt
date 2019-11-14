@@ -1,37 +1,19 @@
 !-------------------------------------------------------------------
-! Mirror mode_switch layer in normal mode
-!     For keycode 58, if Next is not duplicated, shift+Next won't have any effect. However, shift+Prior does not suffer from this.
+! Right hand only mode (key arrangment same as TKL right hand side if possible)
 !-------------------------------------------------------------------
-keycode 32 = BackSpace BackSpace
-keycode 40 = Delete    Delete
+! Direction: [/;/'/Return 
+!   Ideally, use shift/alt/super/ctrl for direction key. 
+!   However, Ducky One 2 Mini does not allow alt/ctrl to be remapped
+keycode 34 = Up    Up
+keycode 47 = Left  Left
+keycode 48 = Down  Down
+keycode 36 = Right Right
 
-keycode 43 = Left  Left  h
-keycode 44 = Down  Down  j
-keycode 45 = Up    Up    k
-keycode 46 = Right Right l
-
-keycode 58 = Next  Next
-keycode 59 = Prior Prior
-keycode 34 = Home  Home
-keycode 35 = End   End
-
-! vim's next/prior
-keycode 41 = Next  Next
-keycode 56 = Prior Prior
-
-! Function keys
-keycode 10 = F1
-keycode 11 = F2
-keycode 12 = F3
-keycode 13 = F4
-keycode 14 = F5
-keycode 15 = F6
-keycode 16 = F7
-keycode 17 = F8
-keycode 18 = F9
-keycode 19 = F10
-keycode 20 = F11
-keycode 21 = F12
+! pageup/pagedown/home/end: backspace/\/=/]
+keycode 22 = Prior Prior
+keycode 51 = Next  Next
+keycode 21 = Home Home
+keycode 35 = End  End
 
 
 !-------------------------------------------------------------------
@@ -44,5 +26,24 @@ keycode 39 = Down  Down
 keycode 40 = Right Right
 
 ! pageup/pagedown/home/end (For home/end, use "gg" "G" and no need for new bindings)
-keycode 54 = Next  Next  c
-keycode 55 = Prior Prior v
+! keycode 54 = Next  Next  c
+! keycode 55 = Prior Prior v
+
+! vim's next/prior
+keycode 41 = Next  Next
+keycode 56 = Prior Prior
+
+
+!-------------------------------------------------------------------
+! Legacy
+!-------------------------------------------------------------------
+! Direction: p/l/;/'/Return
+! keycode 33 = Up    Up
+! keycode 46 = Left  Left
+! keycode 47 = Down  Down
+! keycode 48 = Right Right
+! keycode 36 = Right Right
+
+! pageup/pagedown/home/end: o/[
+! keycode 32 = End   End
+! keycode 34 = Home  Home

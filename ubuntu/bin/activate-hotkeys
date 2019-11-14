@@ -10,12 +10,12 @@ bind-dualkeys() {
     # Caps lock    : Esc
     # Left alt     : alt+tab
     # Left Windows : App launcher
-    # Left ctrl    : Toggle keyboard layer
+    # Left ctrl    : No binding due to frequent usage to prevent accidental trigger
     # Right ctrl   : Toggle keyboard layer
-    # Right Windows: Send terminal command to background or undo in text processing
+    # Right Windows: No binding due to no such key on most laptops
     # Right alt    : Toggle input method
-    xcapeTyping="Alt_R=Super_L|space;Mode_switch=XF86Launch2;Control_R=XF86Launch3;Super_R=Control_L|z"
-    xcapeTyping="$xcapeTyping;Control_L=Escape"
+    xcapeTyping="Alt_R=Super_L|space;Control_L=Escape;Control_R=XF86Launch2"
+    # [ -f $keyboard_alt ] && xcapeTyping="$xcapeTyping;Mode_switch=XF86Launch2"
     xcapeLauncher="Super_L=Super_L|F12"
     xcapeAppSwitcher="Alt_L=Alt_L|Tab"
     xcapeMouse="Hyper_L=XF86Launch7;XF86Launch5=XF86Launch8"
@@ -84,26 +84,29 @@ toggle-keyboard-alt() {
     if [ -f $keyboard_alt ]; then
         rm $keyboard_alt
         xmodmap ~/.Xmodmap
+        # bind-dualkeys
         notify-send.sh --close=11
     else
         touch $keyboard_alt
         xmodmap ~/.config/Xmodmap/alt
-        notify-send.sh -t 0 -r 11 -u critical Alt Keyboard
+        # bind-dualkeys
+        notify-send.sh -t 0 -r 11 -u critical Nav Keyboard # Alternate layer is only used for easier navigation
+        # notify-send.sh -t 0 -r 11 -u critical Alt Keyboard
     fi
 }
 
-toggle-keyboard-alt2() {
-    [ -f $keyboard_alt ] && rm $keyboard_alt
-    if [ -f "$keyboard_alt"2 ]; then
-        rm "$keyboard_alt"2
-        xmodmap ~/.Xmodmap
-        notify-send.sh --close=11
-    else
-        touch "$keyboard_alt"2
-        xmodmap ~/.config/Xmodmap/alt2
-        notify-send.sh -t 0 -r 11 -u critical Alt2 Keyboard
-    fi
-}
+# toggle-keyboard-alt2() {
+#     [ -f $keyboard_alt ] && rm $keyboard_alt
+#     if [ -f "$keyboard_alt"2 ]; then
+#         rm "$keyboard_alt"2
+#         xmodmap ~/.Xmodmap
+#         notify-send.sh --close=11
+#     else
+#         touch "$keyboard_alt"2
+#         xmodmap ~/.config/Xmodmap/alt2
+#         # notify-send.sh -t 0 -r 11 -u critical Alt2 Keyboard
+#     fi
+# }
 
 
 # 

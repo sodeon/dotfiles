@@ -95,8 +95,8 @@ bindsym $mode+Shift+n      exec --no-startup-id xte 'keyup n' 'keydown Control_L
 bindsym $mode+period       exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
 bindsym $mode+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
 
-# Shift focus from omnibar (e.g. Chrome)
-bindsym $mode+Tab exec --no-startup-id xte 'keyup Tab' 'keydown Shift_L' 'key F6' 'keyup Shift_L'
+# Toggle alternate keyboard layer
+bindsym $mode+Tab exec --no-startup-id activate-hotkeys toggle-keyboard-alt
 
 
 #--------------------------------------------------------------------------------

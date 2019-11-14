@@ -1,25 +1,34 @@
 !-------------------------------------------------------------------
-! Right hand only mode
+! Mirror mode_switch layer in normal mode
+!     For keycode 58, if Next is not duplicated, shift+Next won't have any effect. However, shift+Prior does not suffer from this.
 !-------------------------------------------------------------------
-! p/l/;/'/Return
-! keycode 33 = Up    Up
-! keycode 46 = Left  Left
-! keycode 47 = Down  Down
-! keycode 48 = Right Right
-! keycode 36 = Right Right
+keycode 32 = BackSpace BackSpace
+keycode 40 = Delete    Delete
 
-keycode 22 = Prior Prior
-keycode 51 = Next  Next
+keycode 43 = Left  Left  h
+keycode 44 = Down  Down  j
+keycode 45 = Up    Up    k
+keycode 46 = Right Right l
 
-keycode 21 = Home Home
-keycode 35 = End  End
+keycode 58 = Next  Next
+keycode 59 = Prior Prior
+keycode 34 = Home  Home
+keycode 35 = End   End
 
-! [/;/'/Return
-keycode 34 = Up    Up
-keycode 47 = Left  Left
-keycode 48 = Down  Down
-keycode 36 = Right Right
+! vim's next/prior
+keycode 41 = Next  Next
+keycode 56 = Prior Prior
 
-! o/[
-! keycode 32 = End   End
-! keycode 34 = Home  Home
+
+!-------------------------------------------------------------------
+! Left hand only mode
+!-------------------------------------------------------------------
+! Direction
+keycode 25 = Up    Up
+keycode 38 = Left  Left
+keycode 39 = Down  Down
+keycode 40 = Right Right
+
+! pageup/pagedown/home/end (For home/end, use "gg" "G" and no need for new bindings)
+keycode 54 = Next  Next  c
+keycode 55 = Prior Prior v
