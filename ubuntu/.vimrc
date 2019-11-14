@@ -326,8 +326,9 @@ noremap  <silent> <C-p> :FZF<CR>
 noremap  <silent> <C-w>z :MaximizerToggle<CR>
 nnoremap <silent> t :Switch<CR>
 
-" let g:sneak#s_next = 1
-map <silent> : <Plug>Sneak_;
+let g:sneak#s_next = 1
+" map <silent> f <Plug>Sneak_;
+" map <silent> F <Plug>Sneak_,
 
 " Session management
 let g:workspace_session_name = '.session.vim'
