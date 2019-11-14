@@ -18,8 +18,8 @@ Tmux:
 
 ssh:
     Ubuntu already has ssh server and related ssh tools setup
-    Copy ssh key to Andy desktop
-    $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
+    Copy ssh key to remote machine
+    e.g. $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 System:
     Remove snapd
@@ -29,6 +29,12 @@ System:
         Re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator
     Power off HDD when idling:
         Go to gnome-disks' settings to do so. Not enabled by default.
+    Optional settings:
+        Input method:
+            Set system input method preference to fcitx
+            Add input method from fcitx configuration
+            Adjust input method trigger shortcut
+        Adjust time display format (if not set, it is based on location set during installation)
 
 System (Desktop):
 
