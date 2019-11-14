@@ -70,6 +70,10 @@ $Esc:: SendInput {Esc} ; if absent, standalone Esc cannot be used. Don't know wh
 
 !`:: closeApp()
 
+; Reload autohotkey
+!+r:: Run, cmd.exe /C autohotkey.ahk,, Hide
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; For TKL layout
 Pause:: turnOffDisplay()
@@ -137,8 +141,9 @@ UpdateAppAndBrightness:
 
 
 ;-------------------------------------------------------------------------------
-; Typing assist
+; mode_switch layer
 ;-------------------------------------------------------------------------------
+; Typing assist
 F5 & k::
     if !GetKeyState("Alt") 
         SendInput {Up}
@@ -162,12 +167,15 @@ F5 & l::
 F5 & n:: SendInput ^{Left}
 F5 & .:: SendInput ^{Right}
 
-F5 & m:: SendInput {PgDn}
-F5 & ,:: SendInput {PgUp}
+F5 & m:: pagedown()
+F5 & ,:: pageup()
+F5 & f:: pagedown()
+F5 & b:: pageup()
 
 F5 & [:: SendInput {Home}
 F5 & ]:: SendInput {End}
 
+F5 & o:: SendInput {Backspace}
 F5 & p:: ; delete one word
     if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
 		SendInput ^w
@@ -182,8 +190,21 @@ F5 & u:: ; delete whole line
         SendInput {End}^+{Backspace}
     }
     return
-F5 & o:: SendInput {Backspace}
 F5 & d:: SendInput {Del}
+
+; Function keys
+; F5 & 1:: SendInput {F1} ; Conflict with volume/brightness adjustments
+; F5 & 2:: SendInput {F2} ; Conflict with volume/brightness adjustments
+F5 & 3:: SendInput {F3}
+F5 & 4:: SendInput {F4}
+F5 & 5:: SendInput {F5}
+F5 & 6:: SendInput {F6}
+F5 & 7:: SendInput {F7}
+F5 & 8:: SendInput {F8}
+F5 & 9:: SendInput {F9}
+F5 & 0:: SendInput {F10}
+F5 & -:: SendInput {F11}
+F5 & =:: SendInput {F12}
 
 
 ;-------------------------------------------------------------------------------
@@ -292,9 +313,6 @@ $RAlt Up::
         SendInput {LShift}
         SetTimer,, off
         return
-
-; RWin: Send command to background (does not implement dual-key for RWin since RWin is not present in most laptops, hence not using it)
-$RWin:: SendInput ^z
 
 
 ;-------------------------------------------------------------------------------
