@@ -65,6 +65,157 @@ switchDesktopAndUpdateApp(targetDesktop) {
 	updateBrightness()
 }
 
+closeApp() {
+    global terminal
+    if WinActive("ahk_exe " . terminal)
+        showNotification(terminal . " does not support closing by keyboard shortcut")
+    else
+        SendInput !{F4}
+}
+
+
+;-------------------------------------------------------------------------------
+; Window snapping
+; https://gist.github.com/AWMooreCO/1ef708055a11862ca9dc
+;-------------------------------------------------------------------------------
+/**
+ * SnapActiveWindow resizes and moves (snaps) the active window to a given position.
+ * @param {string} winPlaceVertical   The vertical placement of the active window.
+ *                                    Expecting "bottom" or "middle", otherwise assumes
+ *                                    "top" placement.
+ * @param {string} winPlaceHorizontal The horizontal placement of the active window.
+ *                                    Expecting "left" or "right", otherwise assumes
+ *                                    window should span the "full" width of the monitor.
+ * @param {string} winSizeHeight      The height of the active window in relation to
+ *                                    the active monitor's height. Expecting "half" size,
+ *                                    otherwise will resize window to a "third".
+ */
+; SnapActiveWindow(winPlaceVertical, winPlaceHorizontal, winSizeHeight, activeMon := 0) {
+;     WinGet activeWin, ID, A
+; 	SysGet, MonitorCount, MonitorCount
+; 	
+;     if (!activeMon) {
+; 		activeMon := GetMonitorIndexFromWindow(activeWin)
+; 	} else if (activeMon > MonitorCount) {
+; 		activeMon := 1
+; 	}
+; 	
+;     SysGet, MonitorWorkArea, MonitorWorkArea, %activeMon%
+; 	
+;     if (winSizeHeight == "full") {
+;         height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)
+;     } else if (winSizeHeight == "half") {
+;         height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)/2
+;     } else if (winSizeHeight == "third") {
+;         height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)/3
+;     } else {
+; 		height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)
+; 	}
+;     if (winPlaceHorizontal == "left") {
+;         posX  := MonitorWorkAreaLeft
+;         width := (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
+;     } else if (winPlaceHorizontal == "right") {
+;         posX  := MonitorWorkAreaLeft + (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
+;         width := (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
+;     } else {
+;         posX  := MonitorWorkAreaLeft
+;         width := MonitorWorkAreaRight - MonitorWorkAreaLeft
+;     }
+;     if (winPlaceVertical == "bottom") {
+;         posY := MonitorWorkAreaBottom - height
+;     } else if (winPlaceVertical == "middle") {
+;         posY := MonitorWorkAreaTop + height
+;     } else {
+;         posY := MonitorWorkAreaTop
+;     }
+; 	
+; 	; Rounding
+; 	posX := floor(posX)
+; 	posY := floor(posY)
+; 	width := floor(width)
+; 	height := floor(height)
+; 	
+; 	; Borders (Windows 10)
+; 	SysGet, BorderX, 32
+; 	SysGet, BorderY, 33
+; 	if (BorderX) {
+; 		posX := posX - BorderX
+; 		width := width + (BorderX * 2)
+; 	}
+; 	if (BorderY) {
+; 		height := height + BorderY
+; 	}
+; 	
+; 	; If window is already there move to same spot on next monitor
+; 	WinGetPos, curPosX, curPosY, curWidth, curHeight, A
+; 	if ((posX = curPosX) && (posY = curPosY) && (width = curWidth) && (height = curHeight)) {
+; 		activeMon := activeMon + 1
+; 		SnapActiveWindow(winPlaceVertical, winPlaceHorizontal, winSizeHeight, activeMon)
+; 	} else {
+; 		WinMove,A,,%posX%,%posY%,%width%,%height%
+; 	}
+; }
+
+/**
+ * GetMonitorIndexFromWindow retrieves the HWND (unique ID) of a given window.
+ * @param {Uint} windowHandle
+ * @author shinywong
+ * @link http://www.autohotkey.com/board/topic/69464-how-to-determine-a-window-is-in-which-monitor/?p=440355
+ */
+; GetMonitorIndexFromWindow(windowHandle) {
+;     ; Starts with 1.
+;     monitorIndex := 1
+;     VarSetCapacity(monitorInfo, 40)
+;     NumPut(40, monitorInfo)
+;     if (monitorHandle := DllCall("MonitorFromWindow", "uint", windowHandle, "uint", 0x2))
+;         && DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) {
+;         monitorLeft   := NumGet(monitorInfo,  4, "Int")
+;         monitorTop    := NumGet(monitorInfo,  8, "Int")
+;         monitorRight  := NumGet(monitorInfo, 12, "Int")
+;         monitorBottom := NumGet(monitorInfo, 16, "Int")
+;         workLeft      := NumGet(monitorInfo, 20, "Int")
+;         workTop       := NumGet(monitorInfo, 24, "Int")
+;         workRight     := NumGet(monitorInfo, 28, "Int")
+;         workBottom    := NumGet(monitorInfo, 32, "Int")
+;         isPrimary     := NumGet(monitorInfo, 36, "Int") & 1
+;         SysGet, monitorCount, MonitorCount
+;         Loop, %monitorCount% {
+;             SysGet, tempMon, Monitor, %A_Index%
+;             ; Compare location to determine the monitor index.
+;             if ((monitorLeft = tempMonLeft) and (monitorTop = tempMonTop)
+;                 and (monitorRight = tempMonRight) and (monitorBottom = tempMonBottom)) {
+;                 monitorIndex := A_Index
+;                 break
+;             }
+;         }
+;     }
+;     return %monitorIndex%
+; }
+
+
+;-------------------------------------------------------------------------------
+; mode_switch keyboard layer
+;-------------------------------------------------------------------------------
+pageup() {
+    If GetKeyState("Shift")
+        SendInput +{PgUp}
+    Else If GetKeyState("Ctrl")
+        SendInput ^{PgUp}
+    Else
+        SendInput {PgUp}
+    return
+}
+
+pagedown() {
+    If GetKeyState("Shift")
+        SendInput +{PgDn}
+    Else If GetKeyState("Ctrl")
+        SendInput ^{PgDn}
+    Else
+        SendInput {PgDn}
+    return
+}
+
 
 ;-------------------------------------------------------------------------------
 ; Brightness, night light, resolution
@@ -111,9 +262,63 @@ setResolution(width, height) {
     RunWait, nircmd/nircmd.exe setdisplay %width% %height% 32,, Hide
 }
 
+increaseBrightness() {
+    global monitorSetting, nightLightEnabled
+    setting := monitorSetting()
+    brightness := setting.brightness
+    if (brightness >= 100)
+        return
+    else if (brightness < 2)
+        delta := 2 - brightness
+    else if (brightness < 5)
+        delta := 5 - brightness
+    else
+        delta := 5
+    brightness += delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
+}
+
+decreaseBrightness() {
+    global monitorSetting, nightLightEnabled
+    setting := monitorSetting()
+    brightness := setting.brightness
+    if (brightness <= 0)
+        return
+    else if (brightness <= 2)
+        delta := brightness
+    else if (brightness <= 5)
+        delta := brightness - 2
+    else
+        delta := 5
+    brightness -= delta
+    setMonitorDdc("b " . brightness)
+    setting.brightness := brightness
+    showNotification("Brightness: " . brightness)
+}
+
+toggleBrightnessMode() {
+    global monitorSetting, nightLightEnabled
+    nightLightEnabled := !nightLightEnabled
+    temperature := monitorSetting().temperature
+    brightness  := monitorSetting().brightness
+    setMonitorDdc("b " . brightness . " p " . temperature)
+    showNotification("Brightness: " . brightness, (nightLightEnabled ? "Reading mode" : "Video mode"))
+}
+
+
+;-------------------------------------------------------------------------------
+; Power management
+;-------------------------------------------------------------------------------
 turnOffDisplay() {
     Run, nircmd/nircmd.exe monitor off,, Hide
 }
+
+suspend() {
+    Run, nircmd/nircmd.exe standby,, Hide
+}
+
 
 
 ;-------------------------------------------------------------------------------
@@ -200,13 +405,13 @@ switchDesktopByNumber(targetDesktop) {
    }
    ; Go right until we reach the desktop we want
    while(CurrentDesktop < targetDesktop) {
-       Send ^#{Right}
+       SendInput ^#{Right}
        CurrentDesktop++
        OutputDebug, [right] target: %targetDesktop% current: %CurrentDesktop%
    }
    ; Go left until we reach the desktop we want
    while(CurrentDesktop > targetDesktop) {
-       Send ^#{Left}
+       SendInput ^#{Left}
        CurrentDesktop--
        OutputDebug, [left] target: %targetDesktop% current: %CurrentDesktop%
    }

@@ -17,6 +17,7 @@ set -e
 #
 cp .zshrc ~/
 cp .bash_aliases ~/
+cp .lesskey ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
 cp .vimrc $WINHOME

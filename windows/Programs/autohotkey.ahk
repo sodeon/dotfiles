@@ -1,6 +1,9 @@
 ;-------------------------------------------------------------------------------
-; Note
-;-------------------------------------------------------------------------------
+; Use "KeyTweak" to bind:
+; 1. caps lock to esc.
+; 2. Right alt/control/menu to volume control
+;
+; Note:
 ; NOT free form language
 ; Breaking into multi-line has restrictions
 ; string concat using "." must have space before and after
@@ -12,21 +15,23 @@
 ; +: shift
 ; *: (wildcard) even if other modifiers are pressed, ignore them
 ; ~: send also original key
+; $: do not re-route back
 
 ; Rules:
 ; All hotkeys has "Esc + X" pattern
 ; Numpad is mapped to monitor and media control
-; F1~F5 are used for app switching
-
-
 ;-------------------------------------------------------------------------------
-; Preprocessor and configs (some used by libraries)
+; Preprocessor, configs and library (config can be used by library)
 ;-------------------------------------------------------------------------------
 #SingleInstance force
 
+; Improve performance: https://www.autohotkey.com/boards/viewtopic.php?t=6413
+SendMode Input
+#NoEnv ; https://www.autohotkey.com/docs/commands/_NoEnv.htm 
+; #KeyHistory 0 ; https://www.autohotkey.com/docs/commands/KeyHistory.htm  Dual key will use key histroy
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Default settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; nightLightEnabled control brightness and color temperature of video/reading mode
 nightLightEnabled := true
 
@@ -43,14 +48,13 @@ ide      := "Code.exe"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Load resource file to override default settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #Include *i .autohotkeyrc
 
-
-;-------------------------------------------------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Library
-;-------------------------------------------------------------------------------
 #Include autohotkey/lib.ahk
+; #Include autohotkey/dual.ahk
+; #Include autohotkey/dual-defaults.ahk
 
 
 ;-------------------------------------------------------------------------------
@@ -62,41 +66,51 @@ showNotification("Autohotkey loaded")
 ;-------------------------------------------------------------------------------
 ; Basic
 ;-------------------------------------------------------------------------------
-Esc:: Send {Esc} ; if absent, standalone Esc cannot be used. Don't know why
+$Esc:: SendInput {Esc} ; if absent, standalone Esc cannot be used. Don't know why
 
-; Pause/ScrollLock
+!`:: closeApp()
+
+; Reload autohotkey
+!+r:: Run, cmd.exe /C autohotkey.ahk,, Hide
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For TKL layout
 Pause:: turnOffDisplay()
-; ScrollLock::
++Pause:: suspend()
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For Microsoft Designer Keyboard 
+; 4 upper right keys
+#F21:: turnOffDisplay()
+^#F21:: suspend()
+!#F21:: SendInput {PrintScreen}
+^!#F21:: SendInput ^{PrintScreen}
+; +#F21:: SendInput d
 
 ; Numpad
-NumpadAdd:: Send {Esc}
-Numpad2::  Send {Volume_Down}
-Numpad3::  Send {Volume_Up}
-NumpadSub:: turnOffDisplay()
-NumpadMult:: Send {PrintScreen}
-^NumpadMult:: Send ^{PrintScreen}
-
-; Close app
-!`:: 
-    if WinActive("ahk_exe " . terminal) {
-        showNotification(terminal . " does not support closing by keyboard shortcut")
-        ; While WinActive("ahk_exe " . terminal) {
-        ;     Send ^d
-        ;     Sleep, 30
-        ; }
-    } else
-        Send !{F4}
-    return
+NumpadAdd:: SendInput {Esc}
+NumpadSub:: SendInput {Volume_Up}
+NumpadMult:: SendInput {Volume_Down}
+; NumpadDiv:: 
 
 
 ;-------------------------------------------------------------------------------
 ; App/workspace switching
 ;-------------------------------------------------------------------------------
-; Function keys Key remap
-$F1:: winActivateExe(browser)
-; $F2:: winActivateExe(terminal, "", "", 2)
-$F2:: winActivateExe(terminal, "", "run source wsl-init")
-$F3:: ; file explorer
+!1:: 
+    if WinActive("ahk_exe " . browser)
+        SendInput !{Tab}
+    else
+        winActivateExe(browser)
+    return
+!2:: 
+    if WinActive("ahk_exe " . terminal)
+        SendInput !{Tab}
+    else
+        winActivateExe(terminal, "", "run source wsl-init")
+    return
+!3:: ; file explorer 
     if WinExist("ahk_class CabinetWClass") {
         ; Cycle through file explorers
         GroupAdd, explorers, ahk_class CabinetWClass ;You have to make a new group for each application, don't use the same one for all of them!
@@ -105,39 +119,13 @@ $F3:: ; file explorer
         else
             WinActivate ahk_class CabinetWClass ;you have to use WinActivatebottom if you didn't create a window group.
     } else {
-        ; switchDesktopByNumber(3)
-        Run, d:\Downloads
+        ; Run, d:\Downloads
+        Run, explorer.exe
     }
     updateAppHistory()
     updateBrightness()
     return
-$F4:: switchDesktopByNumber(4)
-$F5:: winActivateLast()
-
-+F1:: Send {F1}
-+F2:: Send {F2}
-+F3:: Send {F3}
-+F4:: Send {F4}
-+F5:: Send {F5}
-
-; Quake-like trigger for WSL Terminal
-; Esc & '::
-;     if WinActive("ahk_exe " . terminal)
-; 		switchDesktopAndUpdateApp(1)
-;     else
-;         winActivateExe(terminal, "", "", 2)
-; 	return
-
-; Browser/VSCode toggle (not used anymore)
-; Esc & `;:: ; "`" as escape character for semicolon
-;     if (CurrentDesktop = 1) ; only toggle when current virtual desktop is 1
-;         if WinActive("ahk_exe " . browser) and WinExist("ahk_exe Code.exe")
-; 			winActivateExe("Code.exe", "C:\Users\Andy\AppData\Local\Programs\Microsoft VS Code")
-;         else
-; 			winActivateExe(browser)
-;     else
-;         switchDesktopAndUpdateApp(1)
-;     return
+; !4:: switchDesktopByNumber(4)
 
 ; Alt+Tab brightness adjustment based on app
 ~!Tab::
@@ -146,102 +134,111 @@ $F5:: winActivateLast()
 UpdateAppAndBrightness:
     if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
         return
-    SetTimer, UpdateAppAndBrightness, OFF
+    SetTimer,, off
     updateAppHistory()
     updateBrightness()
     return
 
-; Remove built-in keyboard shortcuts for switching virtual desktop
-^#Right::
-^#Left:: return
 
-!1:: switchDesktopByNumber(1)
-!2:: switchDesktopByNumber(2)
-!3:: switchDesktopByNumber(3)
-!4:: switchDesktopByNumber(4)
-
-; $^w::
-;     if WinActive("ahk_exe " . browser) or WinActive("ahk_exe " . ide) ; ctrl+w to delete one word only works in vim and terminal
-; 		Send ^w
-;     else
-;         Send !{F4}
-;     return
-
+;-------------------------------------------------------------------------------
+; mode_switch layer
 ;-------------------------------------------------------------------------------
 ; Typing assist
-;-------------------------------------------------------------------------------
-Esc & k:: Send {Up}
-Esc & j:: Send {Down}
-Esc & h:: Send ^{Left}
-Esc & l:: Send ^{Right}
-
-Esc & m:: Send {Left}
-Esc & ,:: Send {Right}
-Esc & n:: Send {Home}
-Esc & .:: Send {End}
-
-Esc & p:: ; delete one word
-    if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
-		Send ^w
+F5 & k::
+    if !GetKeyState("Alt") 
+        SendInput {Up}
     else
-        Send ^{Backspace}
+        SendInput {Media_Play_Pause}
     return
-Esc & u:: Send ^u
-Esc & o:: Send {Backspace}
+F5 & j::
+    if !GetKeyState("Alt") 
+        SendInput {Down}
+    else
+        SendInput {Media_Prev}
+    return
+F5 & h:: SendInput {Left}
+F5 & l::
+    if !GetKeyState("Alt") 
+        SendInput {Right}
+    else
+        SendInput {Media_Next}
+    return
+
+F5 & n:: SendInput ^{Left}
+F5 & .:: SendInput ^{Right}
+
+F5 & m:: pagedown()
+F5 & ,:: pageup()
+F5 & f:: pagedown()
+F5 & b:: pageup()
+
+F5 & [:: SendInput {Home}
+F5 & ]:: SendInput {End}
+
+F5 & o:: SendInput {Backspace}
+F5 & p:: ; delete one word
+    if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
+		SendInput ^w
+    else
+        SendInput ^{Backspace}
+    return
+F5 & u:: ; delete whole line
+    if WinActive("ahk_exe " . terminal) or WinActive("ahk_exe " . editor) ; ctrl+w to delete one word only works in vim and terminal
+        SendInput ^u
+    else {
+        ; Does not work on all applications
+        SendInput {End}^+{Backspace}
+    }
+    return
+F5 & d:: SendInput {Del}
+
+; Function keys
+; F5 & 1:: SendInput {F1} ; Conflict with volume/brightness adjustments
+; F5 & 2:: SendInput {F2} ; Conflict with volume/brightness adjustments
+F5 & 3:: SendInput {F3}
+F5 & 4:: SendInput {F4}
+F5 & 5:: SendInput {F5}
+F5 & 6:: SendInput {F6}
+F5 & 7:: SendInput {F7}
+F5 & 8:: SendInput {F8}
+F5 & 9:: SendInput {F9}
+F5 & 0:: SendInput {F10}
+F5 & -:: SendInput {F11}
+F5 & =:: SendInput {F12}
 
 
 ;-------------------------------------------------------------------------------
 ; Monitor control (brightness, night light, resolution)
 ;-------------------------------------------------------------------------------
 ; Brightness
-Esc & Volume_Up::
-Numpad9::
-    setting := monitorSetting()
-	brightness := setting.brightness
-    if (brightness >= 100)
-        return
-    else if (brightness < 2)
-        delta := 2 - brightness
-    else if (brightness < 5)
-        delta := 5 - brightness
+; Numpad8::
+F5 & 1::
+    if !GetKeyState("Alt")
+        SendInput {Volume_Down}
     else
-        delta := 5
-    brightness += delta
-    setMonitorDdc("b " . brightness)
-    setting.brightness := brightness
-    showNotification("Brightness: " . brightness)
+        decreaseBrightness()
     return
-Esc & Volume_Down::
-Numpad8::
-    setting := monitorSetting()
-	brightness := setting.brightness
-    if (brightness <= 0)
-        return
-    else if (brightness <= 2)
-        delta := brightness
-    else if (brightness <= 5)
-        delta := brightness - 2
+
+; Numpad9::
+F5 & 2::
+    if !GetKeyState("Alt")
+        SendInput {Volume_Up}
     else
-        delta := 5
-    brightness -= delta
-    setMonitorDdc("b " . brightness)
-    setting.brightness := brightness
-    showNotification("Brightness: " . brightness)
+        increaseBrightness()
     return
 
 ; Brightness and night light
-Esc & b::
-Numpad0::
-    nightLightEnabled := !nightLightEnabled
-    temperature := monitorSetting().temperature
-    brightness  := monitorSetting().brightness
-    setMonitorDdc("b " . brightness . " p " . temperature)
-    showNotification("Brightness: " . brightness, (nightLightEnabled ? "Reading mode" : "Video mode"))
+; Numpad0::
+F5 & `:: ; "d"isplay mode
+    if !GetKeyState("Alt")
+        SendInput {Volume_Mute}
+    else
+        toggleBrightnessMode()
     return
 
 ; Resolution
-Esc & r::
-NumpadDot::
+; NumpadDot::
+!r::
     if (A_ScreenWidth = monitorSettings[1].width)
         setResolution(monitorSettings[2].width, monitorSettings[2].height)
     else
@@ -250,39 +247,107 @@ NumpadDot::
 
 
 ;-------------------------------------------------------------------------------
-; Multimedia
+; Mouse proxies (not directly be used, but used by mouse key bindings)
 ;-------------------------------------------------------------------------------
-Numpad7:: Send f
-
-Esc & Left::
-Numpad4::
-	SetTitleMatchMode, 2 ; partial match window title
-    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
-		Send j 
+; Razer Basilisk
+Xbutton1:: ; Close tab/window
+    if WinActive("ahk_exe " . browser)
+        SendInput ^w
     else
-		Send {Media_Prev}
-	return
+        closeApp()
+    return
 
-Esc & Space::
-Numpad5::
-	SetTitleMatchMode, 2 ; partial match window title
-    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
-		Send k 
+Xbutton2:: ; New tab/window
+    if WinActive("ahk_exe explorer.exe")
+        Run, explorer.exe
     else
-		Send {Media_Play_Pause}
-	return
+        SendInput ^t
+    return
 
-Esc & Right::
-Numpad6::
-	SetTitleMatchMode, 2 ; partial match window title
-    if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
-		Send l 
+F22::
+    if WinActive("ahk_exe " . browser) or WinActive("ahk_exe " . terminal)
+        SendInput ^b
     else
-		Send {Media_Next}
-	return
+        SendInput {PgUp}
+    return
+F23::
+    if WinActive("ahk_exe " . browser) or WinActive("ahk_exe " . terminal)
+        SendInput ^f
+    else
+        SendInput {PgDn}
+    return
 
 
 ;-------------------------------------------------------------------------------
-; Forders (not actually used, only as a proxy by Logitech Option)
+; Dual mode keys (like Linux's xcape)
+; https://autohotkey.com/board/topic/103174-dual-function-control-key/
 ;-------------------------------------------------------------------------------
-#!d::  Run, d:\Downloads ; does not remove due to Logitech Option binding which cannot bind Esc
+; CapsLock: Esc
+$LControl:: SendInput {LCtrl down}
+$LControl Up::
+    if (A_PriorKey = "LControl")
+        SendInput {LControl Up}{Esc}
+    else
+        SendInput {LControl Up}
+    return
+
+; LAlt: Alt+Tab
+$LAlt:: SendInput {LAlt down}
+$LAlt Up::
+    if (A_PriorKey = "LAlt")
+        SendInput {Tab}{LAlt Up}
+    else
+        SendInput {LAlt Up}
+    return
+
+; RAlt: Toggle input method
+$RAlt:: SendInput {RAlt down}
+$RAlt Up::
+    if (A_PriorKey = "RAlt") {
+        SendInput {RAlt Up}#{Space}
+        SetTimer, LShift, 150 ; There is a delay for Windows to trigger input method. Use set timer to wait for that trigger to complete.
+    } else
+        SendInput {RAlt Up}
+    return
+    LShift:
+        SendInput {LShift}
+        SetTimer,, off
+        return
+
+
+;-------------------------------------------------------------------------------
+; Legacy
+;-------------------------------------------------------------------------------
+; Quake-like trigger for WSL Terminal
+; Esc & '::
+;     if WinActive("ahk_exe " . terminal)
+; 		switchDesktopAndUpdateApp(1)
+;     else
+;         winActivateExe(terminal, "", "", 2)
+; 	return
+
+; Numpad7:: Send f
+
+; Numpad4::
+; 	SetTitleMatchMode, 2 ; partial match window title
+;     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
+; 		Send j 
+;     else
+; 		Send {Media_Prev}
+; 	return
+
+; Numpad5::
+; 	SetTitleMatchMode, 2 ; partial match window title
+;     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
+; 		Send k 
+;     else
+; 		Send {Media_Play_Pause}
+; 	return
+
+; Numpad6::
+; 	SetTitleMatchMode, 2 ; partial match window title
+;     if WinActive("ahk_exe mpc-hc64.exe") or WinActive("YouTube")
+; 		Send l 
+;     else
+; 		Send {Media_Next}
+; 	return

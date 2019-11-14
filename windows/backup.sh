@@ -8,6 +8,7 @@ WINHOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%") | tr -d '\r')
 cp ~/.zshrc .
 cp ~/.bash_aliases .
 cp ~/.tmux.conf .
+cp ~/.lesskey .
 cp ~/.vimrc .
 cp $WINHOME/.gvimrc .
 
@@ -15,7 +16,7 @@ cp $WINHOME/.gvimrc .
 # .config directory
 #
 cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
-cp -rf ~/.config/ranger/{bookmarks,rc.conf,scope.sh,plugins} .config/ranger
+cp -rf ~/.config/ranger/{rc.conf,scope.sh,plugins} .config/ranger
 
 rm -rf .local/lib/bash
 cp -rf ~/.local/lib/bash .local/lib
