@@ -57,7 +57,7 @@ apt-force install linux-tools-generic linux-tools-common # Performance counter (
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
-apt-force install rxvt-unicode xsel # xsel: system clipboard for urxvt
+apt-force install rxvt-unicode xsel xclip # xsel/xclip: system clipboard for urxvt
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xcape xdotool imwheel evtest # key mapping and hotkey helpers
