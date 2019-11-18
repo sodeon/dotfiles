@@ -277,6 +277,27 @@ F23::
         SendInput {PgDn}
     return
 
+$F17 Up:: SendInput !{Left}
+
+; Holding back button
+F17 & WheelDown:: SendInput {Volume_Down}
+F17 & WheelUp::   SendInput {Volume_Up}
+F17 & MButton::   SendInput {Volume_Mute}
+
+F17 & LButton:: decreaseBrightness()
+F17 & RButton:: increaseBrightness()
+F17 & XButton1:: toggleBrightnessMode()
+
+; Holding back button + hypershift
+F17 & F22:: SendInput {Home}
+F17 & F23:: SendInput {End}
+
+F17 & PgDn:: SendInput W ; Move tab right
+F17 & PgUp:: SendInput Q ; Move tab left
+
+F17 & XButton2:: SendInput ^r ; Reload
+F17 & Esc::  SendInput E ; Detach webpage
+
 
 ;-------------------------------------------------------------------------------
 ; Dual mode keys (like Linux's xcape)
