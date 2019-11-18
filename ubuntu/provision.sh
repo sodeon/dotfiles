@@ -95,12 +95,18 @@ sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
 chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
 chmod -w ~/.oh-my-zsh/plugins/calc
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+cd-temp
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+cp -rf zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+cd-before-temp
 
 # fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+cd-temp
+git clone --depth 1 https://github.com/junegunn/fzf.git
+cp -rf fzf ~/.fzf
 yes | ~/.fzf/install
+cd-before-temp
 
 # ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb
@@ -111,7 +117,10 @@ rm ripgrep_11.0.1_amd64.deb
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # tmux
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+cd-temp
+git clone https://github.com/tmux-plugins/tpm
+cp -rf tpm ~/.tmux/plugins/tpm
+cd-before-temp
 
 #
 # Bash library
