@@ -36,9 +36,8 @@ SendMode Input
 nightLightEnabled := true
 
 ; brightness has memory effect, temperature/width/height are fixed. The code design preserve the flexibility for all to have memory effect though
-monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 2160}  ; for full screen video
-                   ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}  ; for centered reading
-                   ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}] ; for centered reading using dark theme apps (e.g. terminal/vscode)
+monitorSettings := [{brightness: 20, temperature: "6500K", width: 3840, height: 2160}  ; for multimedia (video, photos)
+                   ,{brightness:  5, temperature: "5000K", width: 2880, height: 2160}] ; for reading, browsing
 
 ; Apps
 browser  := "chrome.exe"
@@ -128,16 +127,20 @@ NumpadMult:: SendInput {Volume_Down}
 ; !4:: switchDesktopByNumber(4)
 
 ; Alt+Tab brightness adjustment based on app
-~!Tab::
-    SetTimer, UpdateAppAndBrightness, 100
-    return
-UpdateAppAndBrightness:
-    if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
-        return
-    SetTimer,, off
-    updateAppHistory()
-    updateBrightness()
-    return
+; ~!Tab::
+;     SetTimer, UpdateAppAndBrightness, 100
+;     return
+; UpdateAppAndBrightness:
+;     if (GetKeyState("Alt")) ; if alt is not released, alt+tab operation is still ongoing
+;         return
+;     SetTimer,, off
+;     updateAppHistory()
+;     updateBrightness()
+;     return
+
+; Switch between workspace using hjkl
+$^#h:: SendInput ^#{Left}
+$^#l:: SendInput ^#{Right}
 
 
 ;-------------------------------------------------------------------------------
@@ -164,8 +167,8 @@ F5 & l::
         SendInput {Media_Next}
     return
 
-F5 & n:: SendInput ^{Left}
-F5 & .:: SendInput ^{Right}
+F5 & e:: SendInput ^{Left}
+F5 & r:: SendInput ^{Right}
 
 F5 & m:: pagedown()
 F5 & ,:: pageup()
@@ -282,11 +285,10 @@ $F17 Up:: SendInput !{Left}
 ; Holding back button
 F17 & WheelDown:: SendInput {Volume_Down}
 F17 & WheelUp::   SendInput {Volume_Up}
-F17 & MButton::   SendInput {Volume_Mute}
 
 F17 & LButton:: decreaseBrightness()
 F17 & RButton:: increaseBrightness()
-F17 & XButton1:: toggleBrightnessMode()
+F17 & MButton:: toggleBrightnessMode()
 
 ; Holding back button + hypershift
 F17 & F22:: SendInput {Home}

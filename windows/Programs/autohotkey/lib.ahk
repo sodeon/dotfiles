@@ -48,16 +48,16 @@ winActivateExe(exe, exePath = "", params = "", dstDesktop = 1) {
 }
 
 ; Activate the last window, including virtual desktop
-winActivateLast() {
-    global PreviousApp
-
-    ; WinActivate will take care virtual desktop number
-    WinActivate, ahk_id %PreviousApp%
-
-    updateAppHistory()
-    updateBrightness()
-    return
-}
+; winActivateLast() {
+;     global PreviousApp
+; 
+;     ; WinActivate will take care virtual desktop number
+;     WinActivate, ahk_id %PreviousApp%
+; 
+;     updateAppHistory()
+;     updateBrightness()
+;     return
+; }
 
 switchDesktopAndUpdateApp(targetDesktop) {
     switchDesktopByNumber(targetDesktop)
@@ -221,35 +221,39 @@ pagedown() {
 ; Brightness, night light, resolution
 ;-------------------------------------------------------------------------------
 updateAppHistory() {
-    global CurrentApp, PreviousApp
-    temp := CurrentApp ; if the same window is triggered twice, don't register it as PreviousApp
-    WinGet, CurrentApp, ID, A ; get current active window ID
-    if (temp != CurrentApp)
-        PreviousApp := temp
+    ; global CurrentApp, PreviousApp
+    ; temp := CurrentApp ; if the same window is triggered twice, don't register it as PreviousApp
+    ; WinGet, CurrentApp, ID, A ; get current active window ID
+    ; if (temp != CurrentApp)
+    ;     PreviousApp := temp
 }
 
 ; app aware monitor brightness/nightlight settings
 monitorSetting() {
     global terminal, editor, ide, monitorSettings, nightLightEnabled
     WinGet, app, ProcessName, A
-    if (app = terminal or app = editor or app = ide)
-        return monitorSettings[3]
-    else if (nightLightEnabled)
+    if (nightLightEnabled)
         return monitorSettings[2]
-    else
+    else 
         return monitorSettings[1]
+    ; if (app = terminal or app = editor or app = ide)
+    ;     return monitorSettings[3]
+    ; else if (nightLightEnabled)
+    ;     return monitorSettings[2]
+    ; else
+    ;     return monitorSettings[1]
 }
 
 updateBrightness() {
-    global terminal, editor, ide, monitorSettings, nightLightEnabled
-    WinGet, app, ProcessName, A
-    if (app = terminal or app = editor or app = ide)
-        brightness := monitorSettings[3].brightness
-    else if (nightLightEnabled) ; normal reading mode
-        brightness := monitorSettings[2].brightness
-    else ; video mode
-        brightness := monitorSettings[1].brightness
-    setMonitorDdc("b " . brightness)
+    ; global terminal, editor, ide, monitorSettings, nightLightEnabled
+    ; WinGet, app, ProcessName, A
+    ; if (app = terminal or app = editor or app = ide)
+    ;     brightness := monitorSettings[3].brightness
+    ; else if (nightLightEnabled) ; normal reading mode
+    ;     brightness := monitorSettings[2].brightness
+    ; else ; video mode
+    ;     brightness := monitorSettings[1].brightness
+    ; setMonitorDdc("b " . brightness)
 }
 
 setMonitorDdc(ddc) {
@@ -327,8 +331,8 @@ suspend() {
 ; Globals
 DesktopCount    := 4 ; Windows starts with 2 desktops at boot
 CurrentDesktop  := 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
-CurrentApp      := "" ; always update to date active window process ID
-PreviousApp     := "" ; last active window process ID different from current one
+; CurrentApp      := "" ; always update to date active window process ID
+; PreviousApp     := "" ; last active window process ID different from current one
 
 ;
 ; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.
