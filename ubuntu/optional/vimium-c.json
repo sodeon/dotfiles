@@ -1,30 +1,34 @@
 {
 	"name": "Vimium C",
-	"@time": "10/21/2019, 10:15:49 PM",
-	"time": 1571667349302,
+	"@time": "11/21/2019, 12:12:17 PM",
+	"time": 1574309537766,
 	"environment": {
-		"extension": "1.78.3",
+		"extension": "1.78.7",
 		"platform": "linux",
-		"chrome": 77
+		"chrome": 78
 	},
 	"exclusionRules": [
 		{
-			"pattern": "^https://www.youtube.com/watch*",
-			"passKeys": "0 1 2 3 4 5 6 7 8 9 < < > > j k l m "
+			"passKeys": "0 1 2 3 4 5 6 7 8 9 < < > > f j k l m ",
+			"pattern": "^https://www.youtube.com/watch*"
 		},
 		{
-			"pattern": "^https://www.twitch.tv/*",
-			"passKeys": "<c-f> f j k l m "
+			"passKeys": "f j k l m ",
+			"pattern": "^https://www.twitch.tv/*"
 		}
 	],
 	"focusNewTabContent": false,
 	"grabBackFocus": true,
 	"keyMappings": [
 		"# default keymaps that will never be used",
+		"unmap J",
+		"unmap K",
+		"unmap L",
 		"",
 		"# Navigation",
 		"unmap f",
 		"unmap F",
+		"unmap b",
 		"map d LinkHints.activateMode",
 		"map D LinkHints.activateModeToOpenInNewTab",
 		"map <c-d> LinkHints.activateModeWithQueue",
@@ -45,6 +49,8 @@
 		"map <c-b> scrollPageUp",
 		"map c scrollPageDown",
 		"map v scrollPageUp",
+		"map f scrollFullPageDown",
+		"map b scrollFullPageUp",
 		"map C scrollDown",
 		"map V scrollUp",
 		"map A goPrevious",
@@ -87,5 +93,6 @@
 	"showActionIcon": false,
 	"showAdvancedCommands": true,
 	"showAdvancedOptions": true,
-	"smoothScroll": false
+	"smoothScroll": false,
+	"vimSync": true
 }
