@@ -50,7 +50,7 @@ alias gd^='git diff HEAD^'
 alias gb='git branch'
 
 alias ga='git add'
-alias gc='git commit -v'
+alias gci='git commit -v'
 alias gac='git add .; git commit -v' # stage all modified files and commit. --amend: update current commit without creating new one
 
 alias gco='git checkout'
