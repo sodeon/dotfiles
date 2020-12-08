@@ -14,7 +14,7 @@ bind-dualkeys() {
     # Right ctrl   : Toggle keyboard layer
     # Right Windows: No binding due to no such key on most laptops
     # Right alt    : Toggle input method
-    xcapeTyping="Alt_R=Super_L|space;Control_L=Escape;Control_R=XF86Launch2"
+    xcapeTyping="Alt_R=Super_L|space;Mode_switch=Escape;Control_R=XF86Launch2"
     # [ -f $keyboard_alt ] && xcapeTyping="$xcapeTyping;Mode_switch=XF86Launch2"
     xcapeLauncher="Super_L=Super_L|F12"
     xcapeAppSwitcher="Alt_L=Alt_L|Tab"
