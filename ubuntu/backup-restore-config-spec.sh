@@ -27,6 +27,7 @@ declare -a direct_backup_configs=(
     Xmodmap
     xbindkeys
     mpv/scripts
+    sxiv
 
     mpv/input.conf
     cmus/{autosave,rc}
