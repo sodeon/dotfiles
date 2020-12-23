@@ -31,12 +31,21 @@ case "$command" in
     disable)
         disable-bluetooth && notify-send -u low "Bluetooth disabled"
         ;;
+    device)
+        mac=$2
+        # TODO: Error check MAC address
+        if bluetoothctl info $mac | grep -q 'Connected: yes'; then
+            bluetoothctl disconnect $mac && notify-send -u low "Disconnected" "$mac" || notify-send -u normal "Disconnection Failed" "$mac"
+        else
+            bluetoothctl connect    $mac && notify-send -u low "Connected"    "$mac" || notify-send -u normal "Connection Failed"    "$mac"
+        fi
+        ;;
     *)
         echo
-        info Usage: ${0##*/} [enable/disable/toggle]
+        info Usage: ${0##*/} [enable/disable/toggle/device]
         echo
         echo If argument is not provided, it will toggle bluetooth between enable/disable.
         echo
-        notify-send "Invalid command" "Use enable/disable/toggle or no argument (same as toggle)"
+        notify-send "Invalid command" "Use enable/disable/toggle/device or no argument (same as toggle)"
         ;;
 esac
