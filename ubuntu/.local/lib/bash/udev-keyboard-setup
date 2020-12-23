@@ -1,0 +1,6 @@
+#!/bin/bash -ue
+logger "Setting up keyboard layout and dualkeys..."
+export DISPLAY=:0.0
+export XDG_CURRENT_DESKTOP=i3
+sudo -u andy /home/andy/bin/activate-hotkeys swap-esc-grave
+logger "Keyboard layout and dualkeys setup complete."

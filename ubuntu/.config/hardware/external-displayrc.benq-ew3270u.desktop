@@ -9,25 +9,25 @@
 interface="DP-0"
 # interface="HDMI-0"
 i2c_bus=7
+# i2c_bus=4
 
 # Resolution
-resolution="1920x1080"
-scale="1x1" # 2/1.25=1.6 => scale 125%
-refresh_rate=120
-is_high_dpi=false
+resolution="3840x2160"
+scale="1.6x1.6" # 2/1.25=1.6 => scale 125%
+refresh_rate=60
+is_high_dpi=true
 
 # Monitor spec
 brightness_feature_id=10
 color_temperature_feature_id=14
 contrast_feature_id=12
 
-# Brightness/color/contrast temperature control
+# Brightness/color temperature control
 is_reading_mode=true
 brightness_step=5
-contrast_step=5
-reading_brightness=0
+reading_brightness=10
 video_brightness=20
-color_temperature_reading=0xb # User1
-color_temperature_video=5 # 6500K
-reading_contrast=35
+color_temperature_reading=4 # 6500K
+color_temperature_video=5 # 5000K
+reading_contrast=50
 video_contrast=50

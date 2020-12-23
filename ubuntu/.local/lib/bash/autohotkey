@@ -1,5 +1,11 @@
 #!/bin/bash
 #-----------------------------------------------------------------------------------------------
+# Parameters
+#-----------------------------------------------------------------------------------------------
+notificationTimeout=1400
+
+
+#-----------------------------------------------------------------------------------------------
 # Autohotkey library
 #-----------------------------------------------------------------------------------------------
 activeWinId() {
@@ -67,7 +73,8 @@ deleteWord() {
 }
 
 deleteLine() {
-	if isWinActive URxvt; then
+	if isWinActive URxvt \
+       || isWinActive Code; then
         xte 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
 	else
         # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
@@ -76,7 +83,7 @@ deleteLine() {
 }
 
 closeTabOrWindow() {
-    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
+    if isWinActive Google-chrome || isWinActive Firefox; then
         xte 'keydown Control_L' 'key w' 'keyup Control_L'
     else
         xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
@@ -118,28 +125,50 @@ scroll() {
     fi
 }
 
-pause() {
-    if winExist mpv; then
-		echo cycle pause | socat - ~/.config/mpv/socket
-    else
-		cmus-remote -u && pkill -RTMIN+12 i3blocks
+play() { # Play if there is any paused media
+    if cmus-remote -Q | grep -q "status paused"; then # Ubuntu cmus is not compiled with mpris support
+		cmus-remote -p && pkill -RTMIN+12 i3blocks
+    elif mpris2controller Status | grep -q "Paused"; then
+        mpris2controller PlayPause
     fi
+}
+
+pause() { # Pause if there is any playing media
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
+		cmus-remote -U && pkill -RTMIN+12 i3blocks
+    elif mpris2controller Status | grep -q "Playing"; then
+        mpris2controller PlayPause
+    fi
+}
+
+playPause() { # Play, pause toggle
+    if cmus-remote -Q | grep -q -e "status playing" -e "status paused"; then # Ubuntu cmus is not compiled with mpris support
+		cmus-remote -u && pkill -RTMIN+12 i3blocks
+    elif mpris2controller Status | grep -q -e "Playing" -e "Paused"; then
+        mpris2controller PlayPause
+    fi
+
+    # echo cycle pause | socat - ~/.config/mpv/socket
 }
 
 nextTrack() {
-    if winExist mpv; then
-		echo playlist-next | socat - ~/.config/mpv/socket
-    else
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -n && pkill -RTMIN+12 i3blocks
+    else
+        mpris2controller Next
     fi
+
+    # echo playlist-next | socat - ~/.config/mpv/socket
 }
 
 prevTrack() {
-    if winExist mpv; then
-		echo playlist-prev | socat - ~/.config/mpv/socket
-    else
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -r && pkill -RTMIN+12 i3blocks
+    else
+        mpris2controller Previous
     fi
+
+    # echo playlist-prev | socat - ~/.config/mpv/socket
 }
 
 #
@@ -213,15 +242,14 @@ resizeWindow() {
 
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
-    # if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
-    #     xdotool keyup f Alt key F11
-    # elif isWinActive Code; then # Toggle zen mode for vscode
-    # if isWinActive Code; then # Toggle zen mode for vscode
-    #     xdotool keyup f Alt key ctrl+shift+z
-    # else
-    #     i3-msg "fullscreen toggle"
-    # fi
-    i3-msg "fullscreen toggle"
+    if (isWinActive Google-chrome || isWinActive Firefox) && (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
+        xte 'key f'
+    elif isWinActive Code; then # Toggle zen mode for vscode
+        xdotool key ctrl+shift+z
+    else
+        i3-msg "fullscreen toggle"
+    fi
+    #i3-msg "fullscreen toggle"
 }
 
 mediaPlayerFullscreen() {
@@ -230,13 +258,18 @@ mediaPlayerFullscreen() {
     # i3-msg '[class="^mpv"] scratchpad show' && sleep 1.5 && i3-msg '[class="^mpv"] fullscreen'
 }
 
+workspacePicker() {
+    i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi
+}
+
 F1() {
     i3-msg 'workspace number "1: Web "'
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
             # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
-            google-chrome --force-dark-mode
+            # --force-device-scale-factor to reduce the tab/address-bar size
+            google-chrome --force-dark-mode --force-device-scale-factor=0.84
         fi
     fi
 }
@@ -264,15 +297,15 @@ F3() {
 }
 
 # Lutris (Linux gaming)
-F10() {
-    i3-msg 'workspace number "10: G "'
-
-    if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
-        if ! isWinActive Lutris; then
-            lutris
-        fi
-    fi
-}
+#F10() {
+#    i3-msg 'workspace number "10: G "'
+#
+#    if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
+#        if ! isWinActive Lutris; then
+#            lutris
+#        fi
+#    fi
+#}
 
 toggleMouseMode() {
     file='/tmp/mouse-alt'
@@ -285,6 +318,40 @@ toggleMouseMode() {
     fi
 
     activate-hotkeys
+}
+
+
+#-----------------------------------------------------------------------------------------------
+# Hardware control
+#-----------------------------------------------------------------------------------------------
+volume() {
+    if [ $1 = "up" ]; then
+        amixer -D pulse set Master 3%+
+    elif [ $1 = "down" ]; then
+        amixer -D pulse set Master 3%-
+    elif [ $1 = "toggle" ]; then
+        amixer -D pulse set Master toggle
+    fi
+    notify-send.sh -t $notificationTimeout -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+    pkill -RTMIN+10 i3blocks
+}
+
+brightness() {
+    if [ $1 = "up" ]; then
+        monitor-control bu | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "down" ]; then
+        monitor-control bd | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "toggle" ]; then
+        monitor-control bs | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    else
+        monitor-control b  | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    fi
+} 
+
+closeNotifications() {
+    # notify-send.sh --close=10 # Mouse Mode
+    notify-send.sh --close=21 # Volume
+    notify-send.sh --close=22 # Brightness
 }
 
 

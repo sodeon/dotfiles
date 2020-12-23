@@ -1,0 +1,4 @@
+keycode 105 = Right Right
+keycode 134 = Left  Left
+! remove control = Right
+! remove mod4    = Left

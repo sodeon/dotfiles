@@ -41,7 +41,7 @@ popup_during_fullscreen leave_fullscreen
 # Bottom bar
 bar {
 	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-	font pango:Ubuntu 13
+	font pango:Ubuntu 11
 	colors {
 		set $bar-bg-color            #2f343f
 		set $bar-inactive-bg-color   #000000
@@ -84,62 +84,83 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # Typing assist
 #--------------------------------------------------------------------------------
-# $mode+p/u: delete word/line (delete line only functional for terminal and vim)
+# Delete word/line (delete line only functional for terminal and vim)
 bindsym $mode+p exec --no-startup-id autohotkey deleteWord
 bindsym $mode+u exec --no-startup-id autohotkey deleteLine
 
-# $mode+n/.: move back/forward a word
-# There is a bug in xdotool that Mode_switch+n will results in ctrl+h (ctrl+left then left inverse to h from xmodmap settings)
-bindsym $mode+n            exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $mode+Shift+n      exec --no-startup-id xte 'keyup n' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $mode+period       exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
-bindsym $mode+Shift+period exec --no-startup-id xte 'keyup period' 'keydown Control_L' 'key Right' 'keyup Control_L'
+# Move back/forward a word
+bindsym $mode+r       exec --no-startup-id xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
+bindsym $mode+Shift+r exec --no-startup-id xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
+bindsym $mode+t       exec --no-startup-id xte 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
+bindsym $mode+Shift+t exec --no-startup-id xte 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
 
-# Toggle alternate keyboard layer
-bindsym $mode+Tab exec --no-startup-id activate-hotkeys toggle-keyboard-alt
+# Caps lock (original caps lock is used for dual purpose of ctrl and escape)
+bindsym $mode+Tab exec --no-startup-id xte 'keyup Tab' 'key Caps_Lock'
+# bindsym $mode+Tab exec --no-startup-id activate-hotkeys toggle-keyboard-alt
 
+# Toggle keyboard layer (useful for 60% keyboards in for single hand usage)
+bindsym $mod+backslash exec --no-startup-id activate-hotkeys toggle-keyboard-alt
 
 #--------------------------------------------------------------------------------
 # PrintScreen and XF86 keys (volume, monitor brightness and media control)
 #--------------------------------------------------------------------------------
 # Screenshot
-bindsym Print      exec flameshot full -p $HOME/Pictures
-bindsym ctrl+Print exec flameshot gui  -p $HOME/Pictures
-# bindsym Shift+Print exec flameshot screen -p $HOME/Pictures # only produces white images
+bindsym Print       exec flameshot full -p $HOME/Pictures
+bindsym ctrl+Print  exec flameshot gui  -p $HOME/Pictures
+# bindsym Shift+Print  exec flameshot screen -p $HOME/Pictures # only produces white images
+bindsym $mode+Print      exec flameshot full -p $HOME/Pictures
+bindsym ctrl+$mode+Print exec flameshot gui  -p $HOME/Pictures
 
 # Monitor brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
-bindsym XF86MonBrightnessUp   exec --no-startup-id monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+F1         exec --no-startup-id monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+F2         exec --no-startup-id monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
-bindsym $mod+$mode+grave      exec --no-startup-id monitor-control bs | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks
+bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up
+bindsym XF86MonBrightnessDown      exec --no-startup-id autohotkey brightness down
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+bindsym $mode+Shift+f              exec --no-startup-id autohotkey brightness up
+bindsym $mode+Shift+v              exec --no-startup-id autohotkey brightness down
+bindsym $mode+Shift+g              exec --no-startup-id autohotkey brightness toggle
 
-# Media
-bindsym XF86AudioPlay    exec --no-startup-id autohotkey pause
-bindsym XF86AudioPause   exec --no-startup-id autohotkey pause
-bindsym XF86AudioNext    exec --no-startup-id autohotkey nextTrack
-bindsym XF86AudioPrev    exec --no-startup-id autohotkey prevTrack
-bindsym $mod+$mode+space exec --no-startup-id autohotkey pause
-bindsym $mod+$mode+Right exec --no-startup-id autohotkey nextTrack
-bindsym $mod+$mode+Left  exec --no-startup-id autohotkey prevTrack
-# bindsym $mod+$mode+Next [class="^mpv"] exec --no-startup-id autohotkey mediaPlayerFullscreen
+# Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
+bindsym XF86AudioPlay  exec --no-startup-id autohotkey playPause
+bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
+# bindsym XF86AudioPause exec --no-startup-id autohotkey pause
+bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
+bindsym $mode+space    exec --no-startup-id autohotkey playPause
 
 # Volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
-bindsym XF86AudioMute        exec --no-startup-id amixer -D pulse set Master toggle && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
-bindsym $mode+F1             exec --no-startup-id amixer -D pulse set Master 5%-    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
-bindsym $mode+F2             exec --no-startup-id amixer -D pulse set Master 5%+    && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
-bindsym $mode+grave          exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+bindsym XF86AudioMute        exec --no-startup-id autohotkey volume toggle
+bindsym $mode+f              exec --no-startup-id autohotkey volume up
+bindsym $mode+v              exec --no-startup-id autohotkey volume down
+# bindsym $mode+b              exec --no-startup-id autohotkey volume toggle
+bindsym $mode+g              exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
-# Laptop
+# Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
+# Use keycode to avoid conflict with layer1 activated by pressing $mode
+bindcode $mode+114     exec --no-startup-id autohotkey nextTrack
+bindcode $mode+113     exec --no-startup-id autohotkey prevTrack
+bindcode $mode+105     exec --no-startup-id autohotkey nextTrack
+bindcode $mode+134     exec --no-startup-id autohotkey prevTrack
+bindcode $mode+111     exec --no-startup-id autohotkey volume up
+bindcode $mode+116     exec --no-startup-id autohotkey volume down
+
+# Hardware toggle
+# Quick connect a specified bluetooth device
+set_from_resource $mac i3wm.hardware.bluetoothQuickConnectMac
+bindsym $mode+b        exec --no-startup-id toggle-bluetooth device $mac
+# bindsym $mode+Shift+b  exec --no-startup-id toggle-bluetooth device $mac
+
+# Laptop (toggle-bluetooth does not work as the script contains "sudo" commands)
 bindsym           XF86Display        exec --no-startup-id set-display-monitor
 bindsym --release XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym           XF86TouchpadToggle exec --no-startup-id toggle-touchpad
+# bindsym           XF86Bluetooth      exec --no-startup-id toggle-bluetooth
 
 
 #--------------------------------------------------------------------------------
-# App launcher
+# App launcher and workspace picker
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
 set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
@@ -147,12 +168,15 @@ set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
 #     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
 bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
 
+bindsym mod4+Tab exec autohotkey workspacePicker
+
 
 #--------------------------------------------------------------------------------
 # Window management
 #--------------------------------------------------------------------------------
 # Kill focused window
-bindsym $mod+grave kill
+bindsym $mod+grave  kill
+bindsym $mod+Escape kill
 
 # Change focus (with vim integration)
 bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
@@ -182,7 +206,8 @@ bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow   width
 # bindsym $mod+v split h
 
 # Full screen (maximize)
-bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
+bindsym $mod+f exec --no-startup-id i3-msg "fullscreen toggle"
+#bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
 # Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
 bindsym $mod+a layout toggle split
 bindsym $mod+s layout stacked
@@ -196,19 +221,25 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey floatingToggled
 
 # Snap floating window position
-bindsym Mod4+h exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
-bindsym Mod4+j exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
-bindsym Mod4+k exec --no-startup-id "snap-window up   ; i3-msg 'focus mode_toggle'; snap-window up   ; i3-msg 'focus mode_toggle'"
-bindsym Mod4+l exec --no-startup-id "snap-window right; i3-msg 'focus mode_toggle'; snap-window right; i3-msg 'focus mode_toggle'"
+bindsym Mod4+h     exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+j     exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+k     exec --no-startup-id "snap-window up   ; i3-msg 'focus mode_toggle'; snap-window up   ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+l     exec --no-startup-id "snap-window right; i3-msg 'focus mode_toggle'; snap-window right; i3-msg 'focus mode_toggle'"
+bindsym Mod4+Left  exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+Down  exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+Up    exec --no-startup-id "snap-window up   ; i3-msg 'focus mode_toggle'; snap-window up   ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+Right exec --no-startup-id "snap-window right; i3-msg 'focus mode_toggle'; snap-window right; i3-msg 'focus mode_toggle'"
 # Legacy: Toggle floating window between bottom left and right (use snap floating window function instead)
 # bindsym Mod4+slash exec --no-startup-id "toggle-window-snap-position; i3-msg 'focus mode_toggle'; toggle-window-snap-position; i3-msg 'focus mode_toggle'"
 
 # parent/child
-bindsym $mod+p focus parent
-bindsym $mod+c focus child
+# bindsym $mod+p focus parent
+# bindsym $mod+c focus child
 
 # TODO: mark/unmark window
 
+# Notifications ("cancel" notification badges)
+bindsym $mode+c exec --no-startup-id autohotkey closeNotifications
 
 #--------------------------------------------------------------------------------
 # Workspace management
@@ -223,7 +254,8 @@ set $ws6  "6: 6 "
 set $ws7  "7: 7 "
 set $ws8  "8: 8 "
 set $ws9  "9: Viewer "
-set $ws10 "10: G "
+set $ws10 "10: 10 "
+# set $ws10 "10: G "
 
 # Switch to workspace
 bindsym $mod+Tab workspace back_and_forth
@@ -236,7 +268,8 @@ bindsym $mod+6   workspace number $ws6
 bindsym $mod+7   workspace number $ws7
 bindsym $mod+8   workspace number $ws8
 bindsym $mod+9   workspace number $ws9
-bindsym $mod+0   exec autohotkey F10
+bindsym $mod+0   workspace number $ws10
+# bindsym $mod+0   exec autohotkey F10
 
 # Move focused container to workspace
 bindsym $mod+Shift+1  move container to workspace number $ws1
@@ -251,8 +284,9 @@ bindsym $mod+Shift+9  move container to workspace number $ws9
 bindsym $mod+Shift+0  move container to workspace number $ws10
 
 # Scratchpad
-bindsym $mod+Shift+s move scratchpad
-bindsym $mod+comma scratchpad show
+# bindsym $mod+Shift+s move scratchpad
+bindsym $mod+Shift+slash move scratchpad
+bindsym $mod+slash       scratchpad show
 
 
 #--------------------------------------------------------------------------------
@@ -268,8 +302,8 @@ assign [class="Code"         ] $ws4
 assign [class="Sxiv"         ] $ws9
 assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
-assign [class="Lutris"       ] $ws10
-assign [class="Steam"        ] $ws10
+# assign [class="Lutris"       ] $ws10
+# assign [class="Steam"        ] $ws10
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
@@ -279,8 +313,8 @@ for_window [class="Code"                ] border none,    focus
 for_window [class="Zathura"             ] border none,    focus
 for_window [class="Sxiv"                ] border none,    focus, fullscreen
 for_window [title="^LibreOffice "       ] border none,    focus
-for_window [class="Lutris"              ] border none,    focus
-for_window [class="Steam"               ] border none,    focus
+# for_window [class="Lutris"              ] border none,    focus
+# for_window [class="Steam"               ] border none,    focus
 for_window [class="qBittorrent"         ]                        floating enable, move center
 
 
@@ -291,13 +325,12 @@ for_window [class="qBittorrent"         ]                        floating enable
 bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
 bindsym $mod+Shift+m [class="^mpv"] scratchpad show
-# bindsym $mod+Shift+m [class="^mpv"] scratchpad show, fullscreen enable
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
 for_window [instance="^tmux$"] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
 for_window [instance="^cmus$"] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"      ] border pixel 8, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [class="mpv"      ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
 
 
 #--------------------------------------------------------------------------------
@@ -357,10 +390,10 @@ bindsym $mod+r gaps horizontal current toggle $toggleHGap
 
 set_from_resource $hGapStep i3wm.horizontalGapStep 32
 set_from_resource $vGapStep i3wm.verticalGapStep   32
-bindsym $mod+control+shift+h gaps horizontal current plus  $hGapStep
-bindsym $mod+control+shift+l gaps horizontal current minus $hGapStep
-bindsym $mod+control+shift+j gaps vertical   current plus  $vGapStep
-bindsym $mod+control+shift+k gaps vertical   current minus $vGapStep
+bindsym $mod+Control+Shift+h gaps horizontal current plus  $hGapStep
+bindsym $mod+Control+Shift+l gaps horizontal current minus $hGapStep
+bindsym $mod+Control+Shift+j gaps vertical   current plus  $vGapStep
+bindsym $mod+Control+Shift+k gaps vertical   current minus $vGapStep
 
 
 #--------------------------------------------------------------------------------
@@ -401,3 +434,4 @@ exec --no-startup-id activate-hotkeys
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
+exec --no-startup-id [ $bluetoothEnable = "true"  ] && blueman-applet

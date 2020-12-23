@@ -25,8 +25,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3blocks/$BLOCK_NAME
-separator_block_width=18
-# separator_block_width=15
+separator_block_width=12
 markup=none
 
 # [debug]
@@ -42,7 +41,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=40
+separator_block_width=20
 
 # [music]
 # command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
@@ -58,7 +57,7 @@ separator_block_width=40
 interval=persist
 command= echo 🖳
 separator=false
-separator_block_width=8
+separator_block_width=5
 
 # CPU usage
 #
@@ -69,13 +68,14 @@ separator_block_width=8
 interval=2
 min_width=99.00%
 separator=false
+separator_block_width=1
 
 # Memory usage
 #
 [memory]
 interval=5
 separator=false
-separator_block_width=40
+separator_block_width=12
 
 
 # Network
@@ -85,7 +85,7 @@ separator_block_width=40
 interval=5
 color=#888888
 separator=false
-separator_block_width=25
+separator_block_width=12
 
 # Brightness
 #
@@ -96,7 +96,6 @@ command=tail -2 /tmp/brightness || monitor-control b
 interval=once
 signal=11
 separator=false
-separator_block_width=18
 
 # Volume indicator
 #
@@ -110,7 +109,7 @@ command=pulsemixer --get-volume | sed -r 's/\s+.*$//'
 interval=once
 signal=10
 separator=false
-separator_block_width=25
+separator_block_width=12
 #[volume]
 #label=♪
 #instance=Master

@@ -1,17 +1,24 @@
 !-------------------------------------------------------------------
 ! Modifiers
 !-------------------------------------------------------------------
-! Assign CapsLock to Ctrl
+! Assign caps lock to Mode_switch and map non-existent key for Alt_R
 clear Lock
 keycode 66 = Mode_switch
-! add control = Control_L
+add mod5 = Mode_switch
+keycode 217 = Caps_Lock
 
-! Assign left Ctrl to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
-!   Remove mode_switch from control has no effect. This result in "add mod5 = Mode_switch" error for assigning a key to more than one mod group (Error of failed request:  BadValue (integer parameter out of range for operation))
-!   To workaround, execute group change in separate shell command from activate-hotkeys
+! ! Assign CapsLock to Ctrl
+! clear Lock
+! keycode 66 = Control_L
+! add control = Control_L
+! keycode 217 = Caps_Lock
+
+! ! Assign left Ctrl to Mode_switch and map Alt_Gr (normal Mode_switch) to Alt_R
+! !   Remove mode_switch from control has no effect. This result in "add mod5 = Mode_switch" error for assigning a key to more than one mod group (Error of failed request:  BadValue (integer parameter out of range for operation))
+! !   To workaround, execute group change in separate shell command from activate-hotkeys
 ! keycode 37 = Mode_switch
-! remove control = Mode_switch
-! add mod5 = Mode_switch
+! ! remove control = Mode_switch
+! ! add mod5 = Mode_switch
 
 ! Mouse button layers
 keycode 194 = Hyper_L
@@ -22,6 +29,9 @@ keycode 197 = XF86Launch7
 keycode 192 = NoSymbol
 keycode 195 = XF86Launch5
 add mod5 = XF86Launch5
+
+keycode 191 = XF86Launch6
+keycode 192 = XF86Launch4
 keycode 198 = XF86Launch8
 
 
