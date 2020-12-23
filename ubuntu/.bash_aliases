@@ -8,6 +8,7 @@ alias sd='sudo '
 alias lr='ls -rtla'
 
 # Most used programs
+alias o='xdg-open'
 alias t='touch'
 alias v='vim'
 alias d='vimdiff'
@@ -37,6 +38,9 @@ alias escape-space='sed '"'"'s/ /\\ /g'"'"
 dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will results in $@ forcibly split arguments.
 # alias dirdiff='diff -qr'
 
+alias mount-android="jmtpfs /mnt/phone; cd /mnt/phone"
+alias umount-android="fusermount -u /mnt/phone"
+
 
 #-----------------------------------------------------
 # Git
@@ -50,7 +54,7 @@ alias gd^='git diff HEAD^'
 alias gb='git branch'
 
 alias ga='git add'
-alias gci='git commit -v'
+alias gc='git commit -v'
 alias gac='git add .; git commit -v' # stage all modified files and commit. --amend: update current commit without creating new one
 
 alias gco='git checkout'
