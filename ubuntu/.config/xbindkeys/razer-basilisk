@@ -7,22 +7,40 @@
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
 # Next/prev tab
-"xdotool key control+Prior"
+# "xdotool key control+Prior" # For some reason, it stops to work after some software update
+"xte 'keydown Control_L' 'key Prior' 'keyup Control_L'"
 Mod3+b:1
-"xdotool key control+Next"
+# "xdotool key control+Next"
+"xte 'keydown Control_L' 'key Next' 'keyup Control_L'"
 Mod3+b:3
 
 # Move tab
-"xdotool key --clearmodifiers control+shift+Prior"
+# "xdotool key --clearmodifiers control+shift+Prior"
+"xte 'keyup Hyper_L' 'keyup XF86Launch5' 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' 'keydown Hyper_L' 'keydown XF86Launch5'"
 Mod3+Mod5+b:1
-"xdotool key --clearmodifiers control+shift+Next"
+# "xdotool key --clearmodifiers control+shift+Next"
+"xte 'keyup Hyper_L' 'keyup XF86Launch5' 'keydown Control_L' 'keydown Shift_L' 'key Next'  'keyup Shift_L' 'keyup Control_L' 'keydown Hyper_L' 'keydown XF86Launch5'"
 Mod3+Mod5+b:3
 
 # Brightness
-"monitor-control bd | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
+"autohotkey brightness down"
 Mod5+b:1
-"monitor-control bu | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
+"autohotkey brightness up"
 Mod5+b:3
+
+#c:191
+"xte 'keyup XF86Launch6'; autohotkey toggleFullscreen"
+XF86Launch6
+
+#c:192
+"xte 'keyup XF86Launch4' 'key e'"
+XF86Launch4
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+XF86Launch4
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod5+XF86Launch4
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+Mod5+XF86Launch4
 
 
 #---------------------------------------------------------------------------------------------------
@@ -41,16 +59,18 @@ Mod3+Mod5+b:4
 Mod3+Mod5+b:5
 
 # Volume (only place where hypershift is binded)
-"xte 'mouseup 4'; amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume"
+"xte 'mouseup 4'; autohotkey volume up"
 Mod5+b:4
-"xte 'mouseup 5'; amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks && notify-send.sh -t 2400 -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume"
+"xte 'mouseup 5'; autohotkey volume down"
 Mod5+b:5
 
+# Escape (marked for legacy due to not using)
 "xte 'mouseup 2' 'key Escape'"
 Mod3+b:2
-# Switch sound device
-"switch-sound-output && pkill -RTMIN+10 i3blocks"
-Mod5+b:2
+
+# Brightness mode
+"autohotkey brightness toggle"
+Mod5+b:8
 
 
 #---------------------------------------------------------------------------------------------------
@@ -70,20 +90,25 @@ XF86Launch8
 "xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
 XF86Launch9
 
+# Workspace picker
+"autohotkey workspacePicker"
+c:193
+
 
 #---------------------------------------------------------------------------------------------------
-# Buttons after scroll wheel
+# Buttons under scroll wheel
 #---------------------------------------------------------------------------------------------------
 # Close/new/detach tab
 "autohotkey closeTabOrWindow"
 b:8
 "xdotool mouseup 8 key ctrl+t"
 Mod3+b:8
-"xte 'keydown Shift_L' 'key e' 'keyup Shift_L'"
+"xte 'keyup XF86Launch5' 'keydown Control_L' 'key r' 'keyup Control_L'" # Reload web page
 Mod3+Mod5+b:8
-# Brightness mode
-"monitor-control bs | xargs -i notify-send.sh -t 2400 -r 22 -u low {} Brightness && pkill -RTMIN+11 i3blocks"
-Mod5+b:8
+
+# Switch sound device
+"switch-sound-output && pkill -RTMIN+10 i3blocks"
+Mod5+b:2
 
 # Right/left
 "xte 'keydown Right'"
@@ -94,3 +119,4 @@ b:9+Release
 Mod3+b:9
 "xte 'keyup Left'"
 Mod3+b:9+Release
+

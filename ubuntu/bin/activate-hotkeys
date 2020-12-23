@@ -10,31 +10,34 @@ bind-dualkeys() {
     # Caps lock    : Esc
     # Left alt     : alt+tab
     # Left Windows : App launcher
-    # Left ctrl    : No binding due to frequent usage to prevent accidental trigger
-    # Right ctrl   : Toggle keyboard layer
+    # Left ctrl    : Send terminal command to background (ctrl-z)
     # Right Windows: No binding due to no such key on most laptops
     # Right alt    : Toggle input method
-    xcapeTyping="Alt_R=Super_L|space;Mode_switch=Escape;Control_R=XF86Launch2"
-    # [ -f $keyboard_alt ] && xcapeTyping="$xcapeTyping;Mode_switch=XF86Launch2"
+    # Right ctrl   : No binding due to usually no such key for 65% keyboard non typical location for this key
+    xcapeTyping="Mode_switch=Escape;Control_L=Control_L|z;Alt_R=Super_L|space"
+    # xcapeTyping="$xcapeTyping;Ctrl_R=XF86Launch2" # Toggle keyboard layer
+    # [ -f $keyboard_alt ] && xcapeTyping="$xcapeTyping;Mode_switch=XF86Launch2" # Use esc (caps_lock) to toggle back to default keyboard layer
     xcapeLauncher="Super_L=Super_L|F12"
     xcapeAppSwitcher="Alt_L=Alt_L|Tab"
+    # xcapeNavigation="Super_R=Left;Control_R=Right" # Useful for 60% keyboard
     xcapeMouse="Hyper_L=XF86Launch7;XF86Launch5=XF86Launch8"
 
     pgrep xcape > /dev/null && pkill xcape
-    if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
-        xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse;$xcapeLauncher"
+    if [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP == "i3" ]]; then
+        xcape -t 170 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse;$xcapeLauncher"
     else
-        xcape -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse"
+        xcape -t 170 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse"
     fi
 }
 
 bind-hotkeys() {
     # Keyboard keybindings
     cat ~/.config/xbindkeys/keyboard >  /tmp/xbindkeysrc
-    echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
+    # echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
 
     # Mouse keybindings
-    echo "$inputs" | grep -q "Razer Basilisk.*pointer" && \
+    echo "$inputs" | grep -q -e "Razer Basilisk.*pointer" \
+                             -e "Logitech USB Receiver" && \
         ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
     
     pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
@@ -45,22 +48,49 @@ set-mouse-scroll-speed() {
     pgrep imwheel > /dev/null && pkill imwheel
 
     if echo "$inputs" | grep -q \
-       -e "Razer.*pointer"; then
+       -e "Razer.*pointer" \
+       -e "Logitech USB Receiver"; then
         imwheel -b "4 5" > /dev/null 2>&1 # Restrict imwheel to only affect scroll wheel. If unrestricted, thumb buttons will not work anymore
     fi
 }
 
+swap-esc-grave()              { xmodmap ~/.config/Xmodmap/swap-esc-grave;              }
+default-esc-grave()           { xmodmap ~/.config/Xmodmap/default-esc-grave;           }
+right-ctrl-os-as-right-left() { xmodmap ~/.config/Xmodmap/right-ctrl-os-as-right-left; }
+default-right-ctrl-os()       { xmodmap ~/.config/Xmodmap/default-right-ctrl-os;       }
+
 # Remove all alt mode and rebind hotkeys
 init() {
+    # Keyboard and mouse goes to default layer
     [ -f  $mouse_alt      ] && rm  $mouse_alt      && notify-send.sh --close=10
     [ -f  $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
-    [ -f "$keyboard_alt"2 ] && rm "$keyboard_alt"2 && notify-send.sh --close=11
+
+    # Common key assignments
     xmodmap ~/.config/Xmodmap/modifiers
     xmodmap -e 'remove control = Mode_switch'
     xmodmap -e 'add mod5 = Mode_switch'
     xmodmap ~/.Xmodmap
+
+    # Grave esc swap
+    if echo "$inputs" | grep -q -e "SN TECH" -e "EK820" -e "SONiX USB DEVICE Keyboard"; then # Dareu EK820 and Rapoo V860-61
+        swap-esc-grave
+    else
+        default-esc-grave
+    fi
+
+    # Right ctrl/os to right/left
+    if echo "$inputs" | grep -q "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
+        right-ctrl-os-as-right-left
+        xmodmap -e 'remove control = Right'
+        xmodmap -e 'remove mod4    = Left'
+    else
+        default-right-ctrl-os
+        xmodmap -e 'add control = Control_R'
+        xmodmap -e 'add mod4    = Super_R'
+    fi
+
     bind-dualkeys
-    bind-hotkeys
+    [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP == "i3" ]] && bind-hotkeys # Disable xbindkeys: Both Ubuntu 19.4 and 19.10 has compatibility issues with xbindkeys.
 }
 
 mouse-mode() {
@@ -80,33 +110,16 @@ mouse-mode() {
 toggle-mouse-mode() { [ -f $mouse_alt ] && mouse-mode normal || mouse-mode alternate; }
 
 toggle-keyboard-alt() {
-    [ -f "$keyboard_alt"2 ] && rm "$keyboard_alt"2
-    if [ -f $keyboard_alt ]; then
+    if [ -f $keyboard_alt ]; then # Default layer
         rm $keyboard_alt
         xmodmap ~/.Xmodmap
-        # bind-dualkeys
         notify-send.sh --close=11
-    else
+    else # Alternate layer (layer1)
         touch $keyboard_alt
-        xmodmap ~/.config/Xmodmap/alt
-        # bind-dualkeys
-        notify-send.sh -t 0 -r 11 -u critical Nav Keyboard # Alternate layer is only used for easier navigation
-        # notify-send.sh -t 0 -r 11 -u critical Alt Keyboard
+        xmodmap ~/.config/Xmodmap/layer1
+        notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
     fi
 }
-
-# toggle-keyboard-alt2() {
-#     [ -f $keyboard_alt ] && rm $keyboard_alt
-#     if [ -f "$keyboard_alt"2 ]; then
-#         rm "$keyboard_alt"2
-#         xmodmap ~/.Xmodmap
-#         notify-send.sh --close=11
-#     else
-#         touch "$keyboard_alt"2
-#         xmodmap ~/.config/Xmodmap/alt2
-#         # notify-send.sh -t 0 -r 11 -u critical Alt2 Keyboard
-#     fi
-# }
 
 
 # 
