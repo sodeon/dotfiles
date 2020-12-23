@@ -15,8 +15,10 @@ set showcmd	" display incomplete commands
 set wildmenu " display completion matches in a status line
 
 set ttimeout " time out for key codes
-set ttimeoutlen=0 " wait up to 0ms after Esc for special key (default: 100ms)
-set timeoutlen=0 " Eliminate delay when <Esc>+key is mapped in insert mode
+set ttimeoutlen=0 " Insert mode esc timeout. Wait up to 0ms after Esc for special key (default: 100ms)
+set timeoutlen=0 " Visual mode esc timeout
+" autocmd InsertEnter * set timeoutlen=0    " Eliminate delay when <Esc>+key is mapped in insert mode
+" autocmd InsertLeave * set timeoutlen=1000 " Restore timeoutlen to enable custom chord keybindings
 
 packadd! matchit
 
@@ -204,9 +206,14 @@ let mapleader=','
 nnoremap <silent> q :q<CR>
 nnoremap <silent> Q :qa<CR>
 nnoremap ; :
-nnoremap : ;
 vnoremap ; :
-vnoremap : ;
+" nnoremap : ;
+" vnoremap : ;
+
+" For 40% keyboard, enter doubled as command prompt invoke
+nnoremap <CR> :
+vnoremap <CR> :
+nnoremap : o<Esc>
 
 " Copy till line end (like D means delete till line end)
 noremap Y y$
@@ -216,17 +223,16 @@ noremap Y y$
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" Insert line w/o entering insert mode. (Shift+Enter doesn't work in terminal)
-nnoremap <S-Enter> O<Esc>
-nnoremap <CR>      o<Esc>
-
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 nnoremap <F12> :!<Up><CR>
 nnoremap <Esc>[24~ :!<Up><CR>
 
 " Split resize and movement
 " NOTE: To move split in complext layout, move vertical direction first (jk), then move horizontal direction (hl)
-nnoremap <silent> <C-w>t :Tabmerge right<CR>
+" <C-w>e: detach tab to right split
+" <C-w>t: attach split to tab
+nnoremap <C-w>e :Tabmerge left<CR><C-w>l
+nnoremap <C-w>t <C-w>T
 " Move split to new tab: <C-w>T
 " Move split <C-w> H/J/K/L (left/bottom/top/right)
 
@@ -325,7 +331,9 @@ call plug#end()
 noremap ga :Align 
 noremap gA :AlignCtrl 
 
-noremap  <silent> <C-]> :Commentary<CR>
+" <C-_> is the same as <C-/>
+noremap  <silent> <C-_> :Commentary<CR>
+noremap  <silent> <C-/> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
 noremap  <silent> <C-w>z :MaximizerToggle<CR>
 nnoremap <silent> t :Switch<CR>
@@ -355,6 +363,8 @@ let g:switch_custom_definitions =
 " Commentary
 au FileType xdefaults       setlocal commentstring=!\ %s
 au FileType markdown        setlocal commentstring=<!--\ %s\ -->
+au FileType cpp             setlocal commentstring=//\ %s
+au FileType c               setlocal commentstring=//\ %s
 au BufNewFile,BufRead *.txt setlocal commentstring=#\ %s
 
 " Markdown preview (by default, this plugin does not open browser in new window)
@@ -395,7 +405,7 @@ else " alt key is sent as <Esc>
     noremap <silent> <Esc>h     :call Focus('left' )<CR>
 	noremap <silent> <Esc>k     :call Focus('up'   )<CR>
 	noremap <silent> <Esc>j     :call Focus('down' )<CR>
-	noremap <silent> <Esc>L     :call Move('right')<CR> 
+	noremap <silent> <Esc>L     :call Move('right')<CR>
 	noremap <silent> <Esc>H     :call Move('left' )<CR>
 	noremap <silent> <Esc>K     :call Move('up'   )<CR>
 	noremap <silent> <Esc>J     :call Move('down' )<CR>
