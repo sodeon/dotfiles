@@ -24,19 +24,7 @@
     // End of reduce line nubmer width
     "editor.cursorBlinking": "solid",
     // Disable light theme (Winter is coming light) italic font face
-    "editor.tokenColorCustomizations": {
-        "textMateRules": [
-            {
-                "scope": [
-                    "comment",
-                    "entity.other.attribute-name"
-                ],
-                "settings": {
-                    "fontStyle": ""
-                }
-            }
-        ]
-    },
+    "editor.tokenColorCustomizations": {},
 
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
@@ -50,46 +38,43 @@
     "workbench.statusBar.visible": true,
     "workbench.tree.renderIndentGuides": "always",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Winter is Coming (Light)",
+    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
     "workbench.colorCustomizations": {
-        "editorGroup.border": "#fff",
-        "editorIndentGuide.background": "#fff",
-        "editorIndentGuide.activeBackground": "#ccc",
-        "editorLineNumber.foreground": "#aaa",
-        "statusBar.background": "#ddd",
-        "statusBar.foreground": "#666"
+        "statusBar.background": "#011627",
+        "statusBar.foreground": "#eee"
     },
 
     "keyboard.dispatch": "keyCode",
 
     "vim.leader": ",",
-    "vim.useSystemClipboard": true,
+    "vim.useSystemClipboard": false,
     "vim.useCtrlKeys": true,
     "vim.textwidth": 120,
     "vim.hlsearch": true,
     "vim.history": 200,
     "vim.foldfix": false,
     "vim.showcmd": false,
+    // "vim.statusBarColorControl": false,
     "vim.normalModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
         {"before": [":"], "after": [";"]},
         {"before": ["q"], "commands": [":q"]},
-        {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
-        {"before": ["<C-r>"], "commands": ["redo"]}, // if replacing vim's undo with vscode's, must use vscode's redo
+        // {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
+        // {"before": ["<C-r>"], "commands": ["redo"]}, // if replacing vim's undo with vscode's, must use vscode's redo
         {"before": ["Y"], "after": ["y", "$"]},
         {"before": ["<leader>", "y"], "after": ["\"", "p", "y", "y"]},
         {"before": ["<leader>", "p"], "after": ["\"", "p", "p"]},
         {"before": ["<CR>"], "after": ["o", "<Esc>"]},
         {"before": ["<C-w>", "z"], "commands": ["workbench.action.maximizeEditor"]},
         {"before": ["<C-w>", "="], "commands": ["workbench.action.evenEditorWidths"]},
-        {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveActiveEditorGroupRight"]},
-        {"before": ["<C-w>", "H"], "commands": ["workbench.action.moveActiveEditorGroupLeft"]},
-        {"before": ["<C-w>", "K"], "commands": ["workbench.action.moveActiveEditorGroupUp"]},
-        {"before": ["<C-w>", "J"], "commands": ["workbench.action.moveActiveEditorGroupDown"]},
-        {"before": ["g", "l"], "commands": ["workbench.action.moveEditorToRightGroup"]},
-        {"before": ["g", "h"], "commands": ["workbench.action.moveEditorToLeftGroup"]},
-        {"before": ["g", "k"], "commands": ["workbench.action.moveEditorToAboveGroup"]},
-        {"before": ["g", "j"], "commands": ["workbench.action.moveEditorToBelowGroup"]},
+        {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveEditorToRightGroup"]},
+        {"before": ["<C-w>", "H"], "commands": ["workbench.action.moveEditorToLeftGroup"]},
+        {"before": ["<C-w>", "K"], "commands": ["workbench.action.moveEditorToAboveGroup"]},
+        {"before": ["<C-w>", "J"], "commands": ["workbench.action.moveEditorToBelowGroup"]},
+        {"before": ["g", "l"], "commands": ["workbench.action.moveActiveEditorGroupRight"]},
+        {"before": ["g", "h"], "commands": ["workbench.action.moveActiveEditorGroupLeft"]},
+        {"before": ["g", "k"], "commands": ["workbench.action.moveActiveEditorGroupUp"]},
+        {"before": ["g", "j"], "commands": ["workbench.action.moveActiveEditorGroupDown"]},
         {"before": ["t"], "commands": ["extension.toggleBool"]},
         {"before": ["g", "a"], "commands": ["wwm.aligncode"]},
         {"before": ["g", "D"], "commands": ["editor.action.peekTypeDefinition"]},
@@ -108,6 +93,7 @@
     "vim.surround": true,
     "vim.sneak": true,
     "vim.easymotion": false,
+    "vim.camelCaseMotion.enable": true,
 
     "open-in-vim.openMethod": "gvim",
 

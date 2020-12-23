@@ -1,20 +1,36 @@
 {
 	"name": "Vimium C",
-	"@time": "11/21/2019, 12:12:17 PM",
-	"time": 1574309537766,
+	"@time": "12/16/2020, 8:36:56 PM",
+	"time": 1608122216600,
 	"environment": {
-		"extension": "1.78.7",
+		"extension": "1.87.2",
 		"platform": "linux",
-		"chrome": 78
+		"chrome": 87
 	},
 	"exclusionRules": [
 		{
-			"passKeys": "0 1 2 3 4 5 6 7 8 9 < < > > f j k l m ",
+			"passKeys": "0 1 2 3 4 5 6 7 8 9 < > f j k l m ",
 			"pattern": "^https://www.youtube.com/watch*"
 		},
 		{
-			"passKeys": "f j k l m ",
+			"passKeys": "< > f j k l m ",
 			"pattern": "^https://www.twitch.tv/*"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https://config.qmk.fm/*"
+		},
+		{
+			"passKeys": "+ - < > f j k l m w ",
+			"pattern": "^https://www\\.bilibili\\.com/vide/*"
+		},
+		{
+			"passKeys": "' A H O Q S T W a d e g h j k l m o q r s t w x ",
+			"pattern": "^https://monkeytype.com/"
+		},
+		{
+			"passKeys": "f j k l s ",
+			"pattern": "^https://www.netflix.com/watch/*"
 		}
 	],
 	"focusNewTabContent": false,
@@ -24,11 +40,16 @@
 		"unmap J",
 		"unmap K",
 		"unmap L",
+		"unmap p",
+		"unmap i",
+		"unmap <a-t>",
+		"unmap <a-p>",
 		"",
 		"# Navigation",
 		"unmap f",
 		"unmap F",
 		"unmap b",
+		"map I enterInsertMode",
 		"map d LinkHints.activateMode",
 		"map D LinkHints.activateModeToOpenInNewTab",
 		"map <c-d> LinkHints.activateModeWithQueue",
