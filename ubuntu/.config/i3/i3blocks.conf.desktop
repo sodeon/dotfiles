@@ -92,7 +92,7 @@ separator_block_width=25
 [brightness]
 label=☀
 color=#66ff66
-command=tail -1 /tmp/brightness || monitor-control b
+command=tail -2 /tmp/brightness || monitor-control b
 interval=once
 signal=11
 separator=false

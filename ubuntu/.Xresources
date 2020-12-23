@@ -53,16 +53,16 @@
 ! xterm
 !-----------------------------------------------------------------
 XTerm*faceName: Consolas NF
-XTerm*faceSize: 16
+XTerm*faceSize: 14
 
 
 !-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
-URxvt.font: xft:Consolas NF:style=Book:size=16
-URxvt.boldFont: xft:Consolas NF:style=Bold:size=16
-URxvt.italicFont: xft:Consolas NF:style=Italic:size=16
-URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=16
+URxvt.font: xft:Consolas NF:style=Book:size=14
+URxvt.boldFont: xft:Consolas NF:style=Bold:size=14
+URxvt.italicFont: xft:Consolas NF:style=Italic:size=14
+URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
