@@ -1,0 +1,13 @@
+#!/bin/bash -ue
+srcDir=$1
+dstDir=$2
+
+# rsync backup: https://unix.stackexchange.com/questions/203846/how-to-sync-two-folders-with-command-line-tools
+#   -a       : preserve attributes (no use for NTFS)
+#   -u       : skip files that are newer on receiver
+#   --delete : remove files only exists on receiver
+#   --exclude: exclude directory/file
+syncCmd='rsync -a --info=progress2' #--exclude=.nosync --exclude-from=.nosync.list
+
+mkdir -p "$dstDir"
+$syncCmd "$srcDir" "$dstDir" 

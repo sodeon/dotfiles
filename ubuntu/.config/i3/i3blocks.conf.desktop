@@ -92,7 +92,7 @@ separator_block_width=12
 [brightness]
 label=☀
 color=#66ff66
-command=tail -2 /tmp/brightness || monitor-control b
+command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 interval=once
 signal=11
 separator=false
@@ -105,7 +105,7 @@ separator=false
 [audio]
 label=♪
 color=#66ff66
-command=pulsemixer --get-volume | sed -r 's/\s+.*$//'
+command=[ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
 interval=once
 signal=10
 separator=false

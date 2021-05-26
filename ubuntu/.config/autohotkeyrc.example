@@ -1,0 +1,15 @@
+#!/bin/bash -ue
+notificationTimeout=1400
+rofiStyles="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+headsetMac="94:DB:56:AE:BE:C5"
+chromeArgs="--force-dark-mode --force-device-scale-factor=0.84" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+
+
+#------------------------------------------------------------------------------
+# rofi menu entries
+#------------------------------------------------------------------------------
+f4Entries=("Visual Studio Code")
+f10Entries=("lutris") # "ppsspp" "moonlight", "desmune"
+powerEntries=("Display Standby" "Suspend" "Reboot" "Shutdown")
+wolEntries=("nas" "tv")
+bluetoothEntries=("Headset Conn/Disconn" "Power On/Off")

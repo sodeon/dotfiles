@@ -1,8 +1,28 @@
-#!/bin/bash -ue
+#!/bin/bash -u
 
-mntDst=/mnt/andy-desktop
-mntSrc="andy@192.168.0.102:/"
+# Host
+mntMedia=/mnt/e
+mntRoot=/mnt/andy-desktop
 
-sudo sshfs -o allow_other $mntSrc $mntDst -o IdentityFile=$HOME/.ssh/id_rsa \
-    && notify-send -u low "Drive mounted at $mntDst" \
-    || notify-send        "Drive mount at $mntDst failed"
+# Remote
+dst=andy@192.168.0.102
+dstMedia=/mnt/e
+dstMediaWin=/E:/
+
+# SSH params
+identity=$HOME/.ssh/id_rsa
+# sshOptions="-o allow_other -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o debug "
+sshOptions="-o allow_other -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+    
+# SSHFS commands
+sudo sshfs $dst:/ $mntRoot -o IdentityFile=$identity $sshOptions \
+    && notify-send -u low      "Drive mounted at $mntRoot" \
+    || notify-send -u critical "Drive mount at $mntRoot failed"
+
+if sudo sshfs $dst:$dstMedia $mntMedia -o IdentityFile=$identity $sshOptions; then
+    notify-send -u low      "Drive mounted at $mntMedia"
+elif sudo sshfs $dst:$dstMediaWin $mntMedia -o IdentityFile=$identity $sshOptions; then
+    notify-send -u low      "Drive mounted at $mntMedia"
+else
+    notify-send -u critical "Drive mount at $mntMedia failed"
+fi

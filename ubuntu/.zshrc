@@ -80,7 +80,8 @@ plugins=(
 
   # Command helpers
   # NOTE: When adding new helper, remember to re-run $compinit and check ~/.zcompdump to see if the changes applied
-  sudo
+  # sudo
+  sd # sd uses sd to replace sudo. sd allows alias to be recognized using sudo
   docker
   #pip
 )
@@ -108,41 +109,13 @@ source ~/.bash_aliases
 
 # zsh aliases
 alias j='jump'
-alias stats='zsh_stats'
+# alias stats='zsh_stats'
 
 # fzf (Fuzzy finder, auto-generated)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
-bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Tab key for default zsh completion
-bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
-
-# fasd
-# eval "$(fasd --init auto)"
-# eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install posix-alias posix-hook)"
-eval "$(fasd --init zsh-hook posix-hook)"
-# Change directory by fasd
-z() {
-    local target
-    target="$(fasd -Rdl "$@" | fzf -1 -0 --no-sort +m)" && cd "${target}" || return 1
-}
-alias z='nocorrect z'
-# VIM by fasd
-zv() { # does not support opening multiple files
-    local target
-    target="$(fasd -Rfl "$@" | fzf -1 -0 --no-sort +m)" && vim -p "${target}" || return 1
-}
-alias zv='nocorrect zv'
-# rg by fasd
-zr() {
-    [ $# == 1 ] && fasd -fl    | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:1}" \
-                || fasd -fl $1 | sed -e 's/^/"/' | sed -e 's/$/"/' | xargs rg "${@:2}"
-}
-alias zr='nocorrect zr'
-# Fix error: 'permission denied ../../'
-_fasd_preexec_fixed() {
-  [[ -n $functions[fasd] ]] && unset -f fasd
-}
-add-zsh-hook preexec _fasd_preexec_fixed
+bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
+# bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -150,8 +123,9 @@ add-zsh-hook preexec _fasd_preexec_fixed
 #--------------------------------------------------------------------------------------------------------------
 # Make forward word behavior same as others (e.g. Chrome)
 bindkey '^[[1;5C' emacs-forward-word
-# ctrl+backspace to delete word
-bindkey -M emacs '^H' backward-kill-word
+# ctrl+backspace/delete to delete word
+bindkey -M emacs '^H'    backward-kill-word
+bindkey -M emacs '^[[3^' kill-word
 
 # fzf
 export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
@@ -159,16 +133,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
 export FZF_COMPLETION_TRIGGER=''
 
-#
-# VI mode
-#
-# bindkey -v # # Enable VI mode
-# function zle-keymap-select zle-line-init { # Normal/insert mode aware cursor shape
-#     if [ "$TERM" = "xterm-256color" ]; then
-#         [ $KEYMAP = vicmd ] && echo -ne "\e[2 q" || echo -ne "\e[6 q"
-#     fi
-# }
-# zle -N zle-keymap-select # Register zle-keymap-select, zle-line-init is registered somewhere else by oh-my-zsh
-# export KEYTIMEOUT=1 # By default, exiting VI mode has 0.4sec delay
-# bindkey '^[[A' history-substring-search-up # vi mode breaks smart history search: https://github.com/robbyrussell/oh-my-zsh/issues/800
-# bindkey '^[[B' history-substring-search-down
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br

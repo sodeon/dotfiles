@@ -1,0 +1,17 @@
+#!/bin/bash
+rofiStyles="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+
+simple-rofi() {
+    local title=$1; shift
+    local width=$1; shift
+    local entries=($@)
+
+    rofiEntries=""
+    for entry in "${entries[@]}"; do
+        [ -z $rofiEntries ] \
+            && rofiEntries="$entry" \
+            || rofiEntries="$rofiEntries\n$entry"
+    done
+    selection=`echo -e "$rofiEntries" | rofi -p $title -i -width -$width $rofiStyles`
+    echo $selection
+}

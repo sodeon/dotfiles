@@ -9,4 +9,8 @@
         Right click -> Start
 
 ## Free Disk Space
-    Cleanup WinSxS folder (which will grow in size gradually): dism.exe /online /Cleanup-Image /StartComponentCleanup
+    Cleanup WinSxS folder (which will grow in size gradually): $dism.exe /online /Cleanup-Image /StartComponentCleanup
+    Compress operating system (viable for WinToGo): $compact.exe /CompactOS:always # "/CompactOS:query" to check "/CompactOS:never" to undo
+
+## Debloat
+    https://github.com/ChrisTitusTech/win10script

@@ -1,0 +1,15 @@
+#!/bin/bash -ue
+
+is-iscsi-connected() {
+    which iscsiadm > /dev/null \
+        && sudo iscsiadm -m session 2&>/dev/null
+}
+
+disconnect-iscsi() {
+    is-iscsi-connected \
+        && sudo iscsiadm -m node -U all
+}
+
+disconnect-iscsi \
+    && /usr/sbin/reboot \
+    || /usr/sbin/reboot

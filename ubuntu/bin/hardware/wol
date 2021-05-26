@@ -1,0 +1,31 @@
+#!/bin/bash -ue
+print-usage() {
+    echo "Usage: $0 [mac/machine_name]"
+    echo ""
+    echo "Config file: $HOME/.config/hardware/macs "
+    echo ""
+    echo "Argument:"
+    echo "    If no argument is provided, \$wol_default defined in config file is used."
+    echo "    Otherwise, provide mac address or machine name."
+    echo "    Machine's mac address will be looked up from config file."
+    exit
+}
+
+# MAC table
+declare -A macs
+declare -A ips
+source $HOME/.config/hardware/macs
+
+# Mac address from argument parsing
+if [ $# -eq 0 ]; then # no argument, get default
+    mac=${macs[$wol_default]}
+elif [ $1 == "-h" ] || [ $1 == "--help" ]; then # print help
+    print-usage
+elif echo $1 | grep -q '.*:.*:.*:.*:.*:.*'; then # real mac address
+    mac=$1
+else # machine name alias
+    mac=${macs[$1]}
+    ip=${ips[$1]-} # Add "-" to let ip be empty string if entry does not exist
+fi
+
+[ -z ${ip-} ] && wakeonlan $mac || wakeonlan -i $ip $mac

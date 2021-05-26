@@ -1,5 +1,6 @@
 #ifdef _WINDOW_CONFIG
 
+
 /* default window dimensions (overwritten via -g option): */
 enum {
 	WIN_WIDTH  = 800,
@@ -13,6 +14,8 @@ enum {
 
 #endif
 #ifdef _IMAGE_CONFIG
+
+// #define BAR_AFFECT_IMAGE_FIT
 
 /* levels (in percent) to use when zooming via '-' and '+':
  * (first/last value is used as min/max zoom level)
@@ -79,9 +82,7 @@ static const keymap_t keys[] = {
 	{ ControlMask,  XK_Up,            g_scroll_screen,      DIR_UP },
 	/* { ControlMask,  XK_l,             g_scroll_screen,      DIR_RIGHT }, */
 	{ ControlMask,  XK_Right,         g_scroll_screen,      DIR_RIGHT },
-	// { 0,            XK_plus,          g_zoom,               +1 },
 	{ 0,            XK_KP_Add,        g_zoom,               +1 },
-	{ 0,            XK_minus,         g_zoom,               -1 },
 	{ 0,            XK_KP_Subtract,   g_zoom,               -1 },
 	{ 0,            XK_m,             g_toggle_image_mark,  None },
 	{ 0,            XK_M,             g_mark_range,         None },
@@ -176,8 +177,8 @@ static const keymap_t keys[] = {
 static const button_t buttons[] = {
 	/* modifiers    button            function              argument */
 	{ 0,            1,                i_cursor_navigate,    None },
-	{ 0,            2,                i_drag,               DRAG_ABSOLUTE },
-	{ 0,            3,                g_switch_mode,        None },
+	{ 0,            2,                g_switch_mode,        None },
+	{ 0,            3,                i_drag,               DRAG_RELATIVE },
 	{ 0,            4,                g_zoom,               +1 },
 	{ 0,            5,                g_zoom,               -1 },
 };

@@ -1,60 +1,14 @@
-#
-# Example mpv configuration file
-#
-# Warning:
-#
-# The commented example options usually do _not_ set the default values. Call
-# mpv with --list-options to see the default values for most options. There is
-# no builtin or example mpv.conf with all the defaults.
-#
-#
-# Configuration files are read system-wide from /usr/local/etc/mpv.conf
-# and per-user from ~/.config/mpv/mpv.conf, where per-user settings override
-# system-wide settings, all of which are overridden by the command line.
-#
-# Configuration file settings and the command line options use the same
-# underlying mechanisms. Most options can be put into the configuration file
-# by dropping the preceding '--'. See the man page for a complete list of
-# options.
-#
-# Lines starting with '#' are comments and are ignored.
-#
-# See the CONFIGURATION FILES section in the man page
-# for a detailed description of the syntax.
-#
-# Profiles should be placed at the bottom of the configuration file to ensure
-# that settings wanted as defaults are not restricted to specific profiles.
+#include=/path/to/the/file/you/want/to/include
 
 ##################
-# video settings #
+# Video settings #
 ##################
-
-# Start in fullscreen mode by default.
-fs=yes
-
-# force starting with centered window
-#geometry=50%:50%
+fs=yes # Start in fullscreen mode
 geometry=100%:100% # bottom right corner
-
-# don't allow a new window to have a size larger than 90% of the screen size
-#autofit-larger=90%x90%
-
-# Do not close the window on exit.
-#keep-open=yes
-
-# Do not wait with showing the video window until it has loaded. (This will
-# resize the window once video is loaded. Also always shows a window with
-# audio.)
-#force-window=immediate
-
-# Disable the On Screen Controller (OSC).
-#osc=no
-
-# Keep the player window on top of all other windows.
+autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80% of the screen size
 #ontop=yes
 
-# Specify high quality video rendering preset (for --vo=gpu only)
-# Can cause performance problems with some drivers and GPUs.
+# Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
 # Andy reference: https://wiki.archlinux.org/index.php/Mpv
 vo=gpu
 profile=gpu-hq
@@ -63,105 +17,37 @@ profile=gpu-hq
 scale=ewa_lanczossharp
 cscale=ewa_lanczossharp
 tscale=oversample
+
 # ytdl-format=bestaudio/best # force VP9 video for 60fps
 # af=acompressor # compress audio dynamic range
 
-# Force video to lock on the display's refresh rate, and change video and audio
-# speed to some degree to ensure synchronous playback - can cause problems
-# with some drivers and desktop environments.
-# video-sync=display-resample
-# interpolation
-
-# Enable hardware decoding if available. Often, this does not work with all
-# video outputs, but should work well with default settings on most systems.
-# If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
-# may or may not help.
-
-# NOTE: Enableing HW decoder for NVIDIA (using VDPAU, its only option), causes more stutter and higher CPU usage
-# hwdec=auto
 
 ##################
-# audio settings #
+# Other settings #
 ##################
-# Specify default audio device. You can list devices with: --audio-device=help
-# The option takes the device string (the stuff between the '...').
-# audio-device=alsa/default
-
-# Do not filter audio to keep pitch when changing playback speed.
-#audio-pitch-correction=no
-
-# Output 5.1 audio natively, and upmix/downmix audio with a different format.
-#audio-channels=5.1
-# Disable any automatic remix, _if_ the audio output accepts the audio format.
-# of the currently played file. See caveats mentioned in the manpage.
-# (The default is "auto-safe", see manpage.)
-#audio-channels=auto
-
-##################
-# other settings #
-##################
-
-# Pretend to be a web browser. Might fix playback with some streaming sites,
-# but also will break with shoutcast streams.
+# Pretend to be a web browser. Might fix playback with some streaming sites, but also will break with shoutcast streams.
 #user-agent="Mozilla/5.0"
 
-# cache settings
-#
-# Use 150MB input cache by default. The cache is enabled for network streams only.
-#cache-default=153600
-#
-# Use 150MB input cache for everything, even local files.
-#cache=153600
-#
-# Disable the behavior that the player will pause if the cache goes below a
-# certain fill size.
+#cache-default=153600 # 150MB input cache. For network streams only.
+#cache=153600 # 150MB input cache for everything, even local files.
 #cache-pause=no
-#
+
 # Read ahead about 5 seconds of audio and video packets.
 #demuxer-readahead-secs=5.0
-#
 # Raise readahead from demuxer-readahead-secs to this value if a cache is active.
 #cache-secs=50.0
 
-# Display English subtitles if available.
-slang=en
-
-# Play Finnish audio if available, fall back to English otherwise.
-alang=en,cht
-
-# Change subtitle encoding. For Arabic subtitles use 'cp1256'.
+# Change subtitle encoding. For Arabic subtitles use 'cp1256' (You can add '+' in front of the codepage to force it.)
 # If the file seems to be valid UTF-8, prefer UTF-8.
-# (You can add '+' in front of the codepage to force it.)
 #sub-codepage=cp1256
-
-# You can also include other configuration files.
-#include=/path/to/the/file/you/want/to/include
-
-############
-# Profiles #
-############
-
-# The options declared as part of profiles override global default settings,
-# but only take effect when the profile is active.
-
-# The following profile can be enabled on the command line with: --profile=eye-cancer
-
-#[eye-cancer]
-#sharpen=5
-
-# [audio-only]
-# vo=null
-# ytdl-format=bestaudio/best # force VP9 video for 60fps
-# [video-audio]
-# vo=gpu
 
 
 #------------------------------------------------------------------------------
 # Personal customizations
 # https://mpv.io/manual/master/
 #------------------------------------------------------------------------------
-# Allow outside script to control mpv
-input-ipc-server=~~/socket
+# Allow outside script to control mpv (e.g. SVP)
+input-ipc-server=/tmp/mpvsocket
 
 # Youtube download settings
 ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
@@ -172,7 +58,7 @@ slang=zh,en,eng             # automatically select these subtitles (decreasing p
 alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
 
 sub-font-size=40
-sub-margin-y=70
+sub-margin-y=30
 
 volume-max=200              # maximum volume in %, everything above 100 results in amplification
 
@@ -185,4 +71,69 @@ osd-border-size=1
 osd-align-x=center
 osd-align-y=bottom
 
+
+#------------------------------------------------------------------------------
+# From https://github.com/tsubajashi/mpv-settings
+#------------------------------------------------------------------------------
 # log-file=~/log
+
+# gpu-api=vulkan
+hwdec=auto-copy
+# vulkan-async-compute=yes
+# vulkan-async-transfer=yes
+# vulkan-queue-count=1
+dither=error-diffusion
+deband=yes
+deband-iterations=2
+# deband-threshold=20
+# deband-range=16
+# scale-clamp=0.2
+correct-downscaling=yes
+linear-downscaling=yes
+sigmoid-upscaling=yes
+# video-sync=display-resample
+# tscale=box
+# tscale-window=quadric
+# tscale-radius=1.1
+# tscale-clamp=0.0
+# interpolation
+blend-subtitles=no
+# hdr-compute-peak=yes
+# tone-mapping=mobius
+
+
+############
+# Profiles #
+############
+# The following profile can be enabled on the command line with: --profile=eye-cancer
+
+# [audio-only]
+# vo=null
+# ytdl-format=bestaudio/best # force VP9 video for 60fps
+
+# [shader-liveaction]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shader-anime]
+glsl-shaders-clr
+glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
+glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shaders-mixed]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/ravu-zoom-r3-rgb.hook"
+
+# [sharpening]
+# sigmoid-upscaling=no
+# glsl-shader="~~/shaders/adaptive-sharpen.glsl"
+
+# [default]
+# profile=shaders-liveaction
+# profile=shaders-mixed
+# profile=sharpening
+
+# SVP Settings
+# hr-seek-framedrop=no
+# no-resume-playback

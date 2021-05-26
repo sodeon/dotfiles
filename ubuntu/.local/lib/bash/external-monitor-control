@@ -5,15 +5,30 @@ rc="$HOME/.config/hardware/external-displayrc"
 
 # Flick reading mode if command is to swap mode
 if [ $1 = "bs" ]; then
-    if [ $is_reading_mode = true ]; then
+    if [ $is_gaming_mode = true ]; then
+		is_gaming_mode=false
+    elif [ $is_reading_mode = true ]; then
 		is_reading_mode=false
     else
 		is_reading_mode=true
     fi
 fi
 
-# Set mode/brightness/temperature based on reading/video mode
-if [ $is_reading_mode = true ]; then
+if [ $1 = "bg" ]; then
+    if [ $is_gaming_mode = true ]; then
+		is_gaming_mode=false
+    else
+		is_gaming_mode=true
+    fi
+fi
+
+# Set mode/brightness/temperature based on reading/video/gaming mode
+if [ $is_gaming_mode = true ]; then
+    mode="gaming"
+    brightness=$gaming_brightness
+    temperature=$color_temperature_gaming
+    contrast=$gaming_contrast
+elif [ $is_reading_mode = true ]; then
     mode="reading"
     brightness=$reading_brightness
     temperature=$color_temperature_reading
@@ -26,7 +41,9 @@ else
 fi
 
 display-mode() {
-    [[ $mode = "video" ]] && echo "Video" || echo "Reading"
+    ([[ $mode = "gaming" ]] && echo "Gaming") || \
+    ([[ $mode = "video"  ]] && echo "Video" ) || \
+                               echo "Reading"
 }
 
 case "$1" in
@@ -103,16 +120,12 @@ case "$1" in
         fi
         echo "B: $brightness   C: $contrast"
         ;;
-    bs)
-        if [ $mode = "reading" ]; then
-            isReadingMode="true"
-        else
-            isReadingMode="false"
-        fi
+    bs | bg)
 		ddcutil setvcp $color_temperature_feature_id $temperature $brightness_feature_id $brightness $contrast_feature_id $contrast --bus $i2c_bus
 
         display-mode
-        sed -i s/is_reading_mode=.*/is_reading_mode="$isReadingMode"/ $rc
+        ([ $mode = "gaming"  ] && sed -i s/is_gaming_mode=.*/is_gaming_mode="true"/   $rc) || (sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc && \
+        ([ $mode = "reading" ] && sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc  ||  sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc))
         if [[ $contrast == "50" ]]; then
             echo "$brightness"
         else

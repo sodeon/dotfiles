@@ -22,11 +22,12 @@ rofi.kb-row-up:                      Up,Control+k
 rofi.kb-row-down:                    Down,Control+j
 
 rofi.kb-accept-entry:                Return,KP_Enter,Control+m
-rofi.kb-cancel:                      Escape
-rofi.kb-mode-next:                   Control+l,Control+Right,Super+F12
-rofi.kb-mode-previous:               Control+h,Control+Left
+rofi.kb-cancel:                      Escape,grave
+rofi.kb-mode-next:                   Control+l,Super+F12
+rofi.kb-mode-previous:               Control+h
 rofi.kb-remove-word-back:            Control+w,Control+BackSpace
 rofi.kb-clear-line:                  Control+u
+rofi.kb-toggle-case-sensitivity:     Control+grave
 
 ! Useless keybindings. Add these since above keybindings overrides below's default
 rofi.kb-remove-to-eol:               Control+Shift+e
