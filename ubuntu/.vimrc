@@ -14,11 +14,12 @@ set history=200
 set showcmd	" display incomplete commands
 set wildmenu " display completion matches in a status line
 
+" IMPORTANT: DO NOT HAVE KEYBINDINGS IN VISUAL MODE THAT START WITH <ESC>
 set ttimeout " time out for key codes
 set ttimeoutlen=0 " Insert mode esc timeout. Wait up to 0ms after Esc for special key (default: 100ms)
-set timeoutlen=0 " Visual mode esc timeout
-" autocmd InsertEnter * set timeoutlen=0    " Eliminate delay when <Esc>+key is mapped in insert mode
-" autocmd InsertLeave * set timeoutlen=1000 " Restore timeoutlen to enable custom chord keybindings
+" set timeoutlen=0 " Visual mode esc timeout
+autocmd InsertEnter * set timeoutlen=0    " Eliminate delay when <Esc>+key is mapped in insert mode
+autocmd InsertLeave * set timeoutlen=1000 " Restore timeoutlen to enable custom chord keybindings
 
 packadd! matchit
 
@@ -186,15 +187,23 @@ if executable("xsel") " By default, VIM will clear clipboard after closing or sw
 endif
 
 " Directory browsing
-"   Enter - open  
-"   -     - go up directory
+"   v - open in vertical split
+"   o - open in horizontal split
+"   p - open in horizontal split, keep focus in tree view
+"   - - go up directory
 "   :Vexplorer - file explorer in vertical split
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_browse_split=0  " open in current window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
-let g:netrw_winsize=25      " size of 25%
+let g:netrw_winsize=75      " size of 25%
 command! E  Vexplore
+
+
+"-----------------------------------------------------------------------------
+" Command alias
+"-----------------------------------------------------------------------------
+cnoreabbrev tn tabnew
 
 
 "-----------------------------------------------------------------------------
@@ -229,28 +238,26 @@ nnoremap <Esc>[24~ :!<Up><CR>
 
 " Split resize and movement
 " NOTE: To move split in complext layout, move vertical direction first (jk), then move horizontal direction (hl)
-" <C-w>e: detach tab to right split
-" <C-w>t: attach split to tab
-nnoremap <C-w>e :Tabmerge left<CR><C-w>l
-nnoremap <C-w>t <C-w>T
-" Move split to new tab: <C-w>T
+" <C-w>t: move tab to right split
+" <C-w>T: move split to new tab
+nnoremap <C-w>t :Tabmerge left<CR><C-w>l
 " Move split <C-w> H/J/K/L (left/bottom/top/right)
 
 " Tab switching
 " NOTE: Terminal does not send alt key, insteand send escape key. Therefore, vim won't see alt key but escape key
 "       https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
 if has('gui_running')
-	nnoremap          <M-q> gT
-	nnoremap          <M-w> gt
+	nnoremap          <M-q>   :call TabFocus('left')<CR>
+	nnoremap          <M-w>   :call TabFocus('right')<CR>
+    nnoremap <silent> <M-S-q> :call TabMove('left')<CR>
+    nnoremap <silent> <M-S-w> :call TabMove('right')<CR>
 	nnoremap <silent> <M-e> :q<CR>
-    nnoremap <silent> <M-S-q> :-tabmove<CR>
-    nnoremap <silent> <M-S-w> :+tabmove<CR>
 else
-	nnoremap          <Esc>q gT
-	nnoremap          <Esc>w gt
+	nnoremap          <Esc>q     :call TabFocus('left')<CR>
+	nnoremap          <Esc>w     :call TabFocus('right')<CR>
+    nnoremap <silent> <Esc><S-q> :call TabMove('left')<CR>
+    nnoremap <silent> <Esc><S-w> :call TabMove('right')<CR>
 	nnoremap <silent> <Esc>e :q<CR>
-    nnoremap <silent> <Esc><S-q> :-tabmove<CR>
-    nnoremap <silent> <Esc><S-w> :+tabmove<CR>
 endif
 
 " Make ctrl+left/right same behavior across all applications
@@ -264,8 +271,8 @@ vnoremap <leader>y "py
 vnoremap <leader>p "pp
 
 " Fix ctrl+left/right not working with urxvt+tmux
-map <ESC>[1;5D <C-Left>
-map <ESC>[1;5C <C-Right>
+nnoremap <ESC>[1;5D <C-Left>
+nnoremap <ESC>[1;5C <C-Right>
 
 
 "-----------------------------------------------------------------------------
@@ -284,7 +291,6 @@ Plug 'vim-scripts/Align' " :AlignCtrl =lp1P1I
                          "     = all separators are equivalent
 Plug 'vim-scripts/VisIncr'
 Plug 'vim-scripts/Tabmerge'
-Plug 'szw/vim-maximizer'
 Plug 'AndrewRadev/switch.vim' " Toggle boolean and can be more
 Plug 'justinmk/vim-sneak' " Motion search (type s plus two char to move cursor to first match, type : to go to next match)
 Plug 'tpope/vim-commentary'
@@ -295,6 +301,7 @@ Plug 'tpope/vim-surround' " Change surround characters:
 Plug 'tpope/vim-repeat' " dot will repeat not only native command, but also plugin command
 Plug 'will133/vim-dirdiff'
 Plug 'thaerkh/vim-workspace' " Provides better session experiences. It behaves like modern IDE. To enable workspace: ':ToggleWorkspace'
+Plug 'yssl/TWcmd.vim'
 Plug 'sodeon/vim-i3-integration'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'mtth/scratch.vim'
@@ -307,9 +314,15 @@ Plug 'jremmen/vim-ripgrep' " :Rg (cannot bind ctrl-shift-f as vim cannot detect 
 " File type plugins
 Plug 'posva/vim-vue',                {'for': 'vue'}
 Plug 'digitaltoad/vim-pug',          {'for': 'vue'}
-Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }} " Cannot add {'for': 'markdown'}. 
-                                                                        " With it, PlugInstall must run with a markdown file opened.
-                                                                        " Or post install 'do' will fail.
+if exists('$XDG_CURRENT_DESKTOP')
+    Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }} " Cannot add {'for': 'markdown'}. 
+                                                                            " With it, PlugInstall must run with a markdown file opened.
+                                                                            " Or post install 'do' will fail.
+endif
+
+if exists('$TMUX')                                                                        
+    Plug 'jabirali/vim-tmux-yank'
+endif
 
 " Not using, but other like these
 " Plug 'tpope/vim-fugitive' " Git
@@ -335,7 +348,7 @@ noremap gA :AlignCtrl
 noremap  <silent> <C-_> :Commentary<CR>
 noremap  <silent> <C-/> :Commentary<CR>
 noremap  <silent> <C-p> :FZF<CR>
-noremap  <silent> <C-w>z :MaximizerToggle<CR>
+noremap  <silent> <C-w>z :TWcmd wcm m<CR>
 nnoremap <silent> t :Switch<CR>
 
 let g:sneak#s_next = 1
@@ -376,18 +389,18 @@ let g:mkdp_auto_close = 0 " If auto-close, switching between buffer/split/tab wi
 
 " Window navigation/resizing/movement
 if has('gui_running') " gvim can see alt key
-	noremap <silent> <M-l>   :call Focus('right')<CR>
-    noremap <silent> <M-h>   :call Focus('left' )<CR>
-	noremap <silent> <M-k>   :call Focus('up'   )<CR>
-	noremap <silent> <M-j>   :call Focus('down' )<CR>
-	noremap <silent> <M-L>   :call Move('right')<CR>
-	noremap <silent> <M-H>   :call Move('left' )<CR>
-	noremap <silent> <M-K>   :call Move('up'   )<CR>
-	noremap <silent> <M-J>   :call Move('down' )<CR>
-	noremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
-	noremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
-	noremap <silent> <C-M-k> :call Resize('vertical'  ,  6 )<CR>
-	noremap <silent> <C-M-j> :call Resize('vertical'  , -6 )<CR>
+	nnoremap <silent> <M-l>   :call Focus('right')<CR>
+    nnoremap <silent> <M-h>   :call Focus('left' )<CR>
+	nnoremap <silent> <M-k>   :call Focus('up'   )<CR>
+	nnoremap <silent> <M-j>   :call Focus('down' )<CR>
+	nnoremap <silent> <M-L>   :call Move('right')<CR>
+	nnoremap <silent> <M-H>   :call Move('left' )<CR>
+	nnoremap <silent> <M-K>   :call Move('up'   )<CR>
+	nnoremap <silent> <M-J>   :call Move('down' )<CR>
+	nnoremap <silent> <C-M-l> :call Resize('horizontal',  10)<CR>
+	nnoremap <silent> <C-M-h> :call Resize('horizontal', -10)<CR>
+	nnoremap <silent> <C-M-k> :call Resize('vertical'  ,  6 )<CR>
+	nnoremap <silent> <C-M-j> :call Resize('vertical'  , -6 )<CR>
 	inoremap <silent> <M-l>   <Esc>:call Focus('right')<CR>a
     inoremap <silent> <M-h>   <Esc>:call Focus('left' )<CR>a
 	inoremap <silent> <M-k>   <Esc>:call Focus('up'   )<CR>a
@@ -401,18 +414,18 @@ if has('gui_running') " gvim can see alt key
 	inoremap <silent> <C-M-k> <Esc>:call Resize('vertical'  ,  6 )<CR>a
 	inoremap <silent> <C-M-j> <Esc>:call Resize('vertical'  , -6 )<CR>a
 else " alt key is sent as <Esc>
-	noremap <silent> <Esc>l     :call Focus('right')<CR>
-    noremap <silent> <Esc>h     :call Focus('left' )<CR>
-	noremap <silent> <Esc>k     :call Focus('up'   )<CR>
-	noremap <silent> <Esc>j     :call Focus('down' )<CR>
-	noremap <silent> <Esc>L     :call Move('right')<CR>
-	noremap <silent> <Esc>H     :call Move('left' )<CR>
-	noremap <silent> <Esc>K     :call Move('up'   )<CR>
-	noremap <silent> <Esc>J     :call Move('down' )<CR>
-	noremap <silent> <Esc><C-l> :call Resize('horizontal',  10)<CR>
-	noremap <silent> <Esc><C-h> :call Resize('horizontal', -10)<CR>
-	noremap <silent> <Esc><C-k> :call Resize('vertical'  ,  6 )<CR>
-	noremap <silent> <Esc><C-j> :call Resize('vertical'  , -6 )<CR>
+	nnoremap <silent> <Esc>l     :call Focus('right')<CR>
+    nnoremap <silent> <Esc>h     :call Focus('left' )<CR>
+	nnoremap <silent> <Esc>k     :call Focus('up'   )<CR>
+	nnoremap <silent> <Esc>j     :call Focus('down' )<CR>
+	nnoremap <silent> <Esc>L     :call Move('right')<CR>
+	nnoremap <silent> <Esc>H     :call Move('left' )<CR>
+	nnoremap <silent> <Esc>K     :call Move('up'   )<CR>
+	nnoremap <silent> <Esc>J     :call Move('down' )<CR>
+	nnoremap <silent> <Esc><C-l> :call Resize('horizontal',  10)<CR>
+	nnoremap <silent> <Esc><C-h> :call Resize('horizontal', -10)<CR>
+	nnoremap <silent> <Esc><C-k> :call Resize('vertical'  ,  6 )<CR>
+	nnoremap <silent> <Esc><C-j> :call Resize('vertical'  , -6 )<CR>
 	inoremap <silent> <Esc>l     <Esc>:call Focus('right')<CR>a
     inoremap <silent> <Esc>h     <Esc>:call Focus('left' )<CR>a
 	inoremap <silent> <Esc>k     <Esc>:call Focus('up'   )<CR>a

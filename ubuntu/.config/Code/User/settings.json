@@ -4,7 +4,7 @@
     // "editor.fontSize": 17,
     // "editor.lineHeight": 22,
     "editor.fontFamily": "'Fira Code', 'Dank Mono', 'Consolas NF', 'Courier New', monospace",
-    "editor.fontSize": 16.5,
+    "editor.fontSize": 14.5,
     "editor.fontWeight": "400",
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
@@ -57,14 +57,16 @@
     // "vim.statusBarColorControl": false,
     "vim.normalModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
-        {"before": [":"], "after": [";"]},
+        // {"before": [":"], "after": [";"]},
+        {"before": [":"], "after": ["o", "<Esc>"]},
         {"before": ["q"], "commands": [":q"]},
         // {"before": ["u"], "commands": ["undo"]}, // workaround undoing all will not clear the circle
         // {"before": ["<C-r>"], "commands": ["redo"]}, // if replacing vim's undo with vscode's, must use vscode's redo
         {"before": ["Y"], "after": ["y", "$"]},
         {"before": ["<leader>", "y"], "after": ["\"", "p", "y", "y"]},
         {"before": ["<leader>", "p"], "after": ["\"", "p", "p"]},
-        {"before": ["<CR>"], "after": ["o", "<Esc>"]},
+        {"before": ["<CR>"], "after": [":"]},
+        // {"before": ["<CR>"], "after": ["o", "<Esc>"]},
         {"before": ["<C-w>", "z"], "commands": ["workbench.action.maximizeEditor"]},
         {"before": ["<C-w>", "="], "commands": ["workbench.action.evenEditorWidths"]},
         {"before": ["<C-w>", "L"], "commands": ["workbench.action.moveEditorToRightGroup"]},
@@ -85,7 +87,8 @@
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": [";"], "after": [":"]},
-        {"before": [":"], "after": [";"]},
+        // {"before": [":"], "after": [";"]},
+        {"before": ["<CR>"], "after": [":"]},
         {"before": ["<leader>", "y"], "after": ["\"", "p", "y"]},
         {"before": ["<leader>", "p"], "after": ["\"", "p", "p"]},
         {"before": ["g", "a"], "commands": ["wwm.aligncode"]},

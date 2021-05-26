@@ -21,11 +21,13 @@ b:1
 "xdotool key --clearmodifiers control+equal"
 b:3
 
-#c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-XF86Launch4
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+XF86Launch4
+
+#---------------------------------------------------------------------------------------------------
+# Middle button
+#---------------------------------------------------------------------------------------------------
+# Close all notifications
+"activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
+b:2
 
 
 #---------------------------------------------------------------------------------------------------
@@ -49,10 +51,6 @@ Mod3+Mod5+b:4
 "xte 'key End'"
 Mod3+Mod5+b:5
 
-# Enter
-"xte 'mouseup 2' 'key Return'; activate-hotkeys toggle-mouse-mode"
-b:2
-
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
@@ -61,15 +59,16 @@ b:2
 #   XF86Launch9 (F18): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
 "activate-hotkeys toggle-mouse-mode"
-XF86Launch7
+c:197
+# XF86Launch7 # Work with xcape but does not work with evcape
 
 # Redefine: Forward
 "activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-XF86Launch8
+c:198
 
 # Redefine: Workspace picker
 "activate-hotkeys toggle-mouse-mode; autohotkey workspacePicker"
-XF86Launch9
+c:196
 
 
 #---------------------------------------------------------------------------------------------------
@@ -82,6 +81,17 @@ b:8+Release
 # Re-open closed tab
 "xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L'; activate-hotkeys toggle-mouse-mode"
 Mod3+b:8+Release
+
+
+#---------------------------------------------------------------------------------------------------
+# Top buttons (G602 only) 
+# c:191: XF86Launch6 (G602: left   top button)
+# c:192: XF86Launch4 (G602: buttom top button)
+#---------------------------------------------------------------------------------------------------
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+c:192
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+c:192
 
 
 #---------------------------------------------------------------------------------------------------

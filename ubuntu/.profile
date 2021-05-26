@@ -65,3 +65,4 @@ urxvtd -q -o -f
 
 # Additional "less" keybindings
 lesskey
+if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

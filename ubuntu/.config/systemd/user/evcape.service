@@ -1,0 +1,22 @@
+[Unit]
+Description=evcape
+
+[Service]
+# Capslock as Esc
+# Send to background
+# App switcher
+# Alt+Tab
+# Mouse: inner thumb button to differnt mouse mode toggle (f16 and f17)
+# Key list: https://hackage.haskell.org/package/evdev-2.0.0.1/docs/Evdev-Codes.html
+ExecStart=evcape.py \
+    --timeout 170 \
+    press:capslock,release:capslock=press:esc,release:esc \
+    press:leftctrl,release:leftctrl=press:leftctrl,press:z,release:z,release:leftctrl \
+    press:leftmeta,release:leftmeta=press:leftmeta,press:f12,release:f12,release:leftmeta \
+    press:leftalt,release:leftalt=press:leftalt,press:tab,release:tab,release:leftalt \
+    press:f16,release:f16=press:f19,release:f19 \
+    press:f17,release:f17=press:f20,release:f20
+Restart=always
+
+[Install]
+WantedBy=default.target

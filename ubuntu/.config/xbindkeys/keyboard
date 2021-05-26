@@ -1,10 +1,10 @@
 # Suspend / turn off monitor
-"xset dpms force off"
-Pause+Release
-"systemctl suspend"
-Shift+Pause+Release
+# "xset dpms force off"
+# Pause+Release
+# "systemctl suspend"
+# Shift+Pause+Release
 
 # Activate mode_switch layer without pressing mode_switch. Useful for 60% keyboard
-"activate-hotkeys toggle-keyboard-alt"
-XF86Launch2
+# "activate-hotkeys toggle-keyboard-alt"
+# XF86Launch2
 

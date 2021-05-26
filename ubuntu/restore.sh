@@ -7,7 +7,7 @@ cd "$(dirname "$(realpath "$0")")"
 # Don't put it in provision.sh. This creates dependency on provision.sh and cannot use restore.sh alone
 #
 set +e
-mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,cmus,Code/User,i3/layouts,Xmodmap}
+mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,sxiv,broot,cmus,Code/User,i3/layouts,Xmodmap,systemd/user,MangoHud}
 set -e
 
 # $HOME/.Xresources will source ~/.config/Xresources/{dpi,i3}. If these files does not exist, ~/.profile will fail executing xrdb command

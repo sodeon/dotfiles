@@ -13,6 +13,9 @@ alias t='touch'
 alias v='vim'
 alias d='vimdiff'
 alias m='man'
+alias b='br'
+alias p='python3'
+alias s='source'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
                                       # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code
@@ -30,6 +33,8 @@ alias ap='ps  -aux' # ap: all processes
 # alias f='fg'
 alias jo='jobs'
 
+# Git
+alias g='git'
 
 #-----------------------------------------------------
 # Utilities
@@ -41,35 +46,8 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 alias mount-android="jmtpfs /mnt/phone; cd /mnt/phone"
 alias umount-android="fusermount -u /mnt/phone"
 
-
-#-----------------------------------------------------
-# Git
-#-----------------------------------------------------
-alias g='git'
-alias gs='git status'
-alias gd='git diff --color' # --name-only: don't show diff content, only show files that differ
-alias gdt='git difftool'
-alias gd^='git diff HEAD^'
-
-alias gb='git branch'
-
-alias ga='git add'
-alias gc='git commit -v'
-alias gac='git add .; git commit -v' # stage all modified files and commit. --amend: update current commit without creating new one
-
-alias gco='git checkout'
-alias gm='git merge'
-
-alias gt='git tag'
-
-alias gps='git push' # --tags. --force: force use local copy and ignore conflict, usually coupled with git commit --amend. Only use this on branch that is only owned by only one person.
-alias gf='git fetch'
-alias gpl='git pull'
-
-alias gl='git log'
-alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)- %an%C(reset)' --all" # --stat: show file change summary
-alias gld="git log --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(bold green)(%ar) %aD%C(reset)%C(bold yellow)%d%C(reset)%n''    %C(white)%s%C(reset) %C(bold blue)- %an%C(reset)' -p" # git log with diff
-alias gr='git reflog'
+alias ytdl="youtube-dl"
+alias lc="lossless-cut"
 
 
 #-----------------------------------------------------
@@ -93,19 +71,19 @@ alias ta='task add'
 #-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
+alias sc='systemctl'
+
 alias suspend='systemctl suspend'
 alias shutdown='shutdown -h now'
 
-# alias memory='free -m' # In megabytes
-
-alias du='ncdu --exclude /mnt' # do not include ntfs partitions
-alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort" # disk usage in human readable format and partition format
+alias du='ncdu --exclude /mnt' # Do not include ntfs partitions
+# alias du='gdu --ignore-dirs /mnt' # Not as robst as ncdu, but probably faster
+alias df-="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
 
-# Disable GPU acceleration for VSCode. It has no real world benefit.
-alias code='code --disable-gpu'
+alias code='code --disable-gpu' # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
 
 
 #-----------------------------------------------------

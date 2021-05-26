@@ -7,6 +7,7 @@
 
 # Graphics card connector used
 interface="DP-1"
+# interface="HDMI-0"
 i2c_bus=4
 
 # Resolution
@@ -22,10 +23,15 @@ contrast_feature_id=12
 
 # Brightness/color temperature control
 is_reading_mode=false
+is_gaming_mode=false
 brightness_step=5
+contrast_step=5
 reading_brightness=5
 video_brightness=20
+gaming_brightness=35
 color_temperature_reading=4 # 6500K
 color_temperature_video=5 # 5000K
+color_temperature_gaming=5 # 5000K
 reading_contrast=50
 video_contrast=50
+gaming_contrast=50

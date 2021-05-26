@@ -121,7 +121,7 @@ URxvt.matcher.rend.2: Regular
 
 ! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
-URxvt.keysym.Control-S: perl:keyboard-select:activate
+URxvt.keysym.Control-Y: perl:keyboard-select:activate
 
 
 !-----------------------------------------------------------------

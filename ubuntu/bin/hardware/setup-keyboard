@@ -1,0 +1,19 @@
+#!/bin/bash -ue
+
+# udev script cannot seen environment variables
+DISPLAY=":0.0"
+HOME=/home/andy/
+XAUTHORITY=/run/user/1000/gdm/Xauthority
+# XAUTHORITY=$HOME/.Xauthority
+XDG_CURRENT_DESKTOP=i3
+PATH="/usr/bin:/usr/local/bin:/home/andy/bin:$PATH"
+export DISPLAY XAUTHORITY HOME XDG_CURRENT_DESKTOP PATH
+
+# Add multiple trigger guard
+guard=/tmp/udev-setup-keyboard
+[ -f $guard ] && exit
+
+touch $guard
+# Add 1sec delay to let device to get ready
+sleep 1 && rm $guard && activate-hotkeys setup-keyboard &
+# sleep 1 && rm $guard && activate-hotkeys & # xcape will not work in udev rules
