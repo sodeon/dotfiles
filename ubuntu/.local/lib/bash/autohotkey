@@ -227,7 +227,8 @@ focusWindow() {
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
        || isWinActive ^Notebook$ ahk_title \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^tmux$ ahk_title \
+       || isWinActive '^/usr/libexec/login.sh ' ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     elif isWinActive ^ranger ahk_title && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey
@@ -422,7 +423,7 @@ brightness() {
 
 display-input() {
     feature_id=60
-    inputs=(0xf 0x11) # 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
+    inputs=(0xf 0x1) # 0x1: D-Sub, 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
 
     notify-send.sh -u normal -r 101 "Switching display input..." # ddcutil is slow on NVIDIA graphics, add notification to ease slow responsieness
     if [[ $1 != "toggle" ]]; then

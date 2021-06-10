@@ -25,9 +25,12 @@ b:3
 #---------------------------------------------------------------------------------------------------
 # Middle button
 #---------------------------------------------------------------------------------------------------
-# Close all notifications
-"activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
+# Re-enable Chrome dark reader extension
+"xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
 b:2
+# Close all notifications
+# "activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
+# b:2
 
 
 #---------------------------------------------------------------------------------------------------

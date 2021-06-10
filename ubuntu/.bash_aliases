@@ -43,11 +43,12 @@ alias escape-space='sed '"'"'s/ /\\ /g'"'"
 dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will results in $@ forcibly split arguments.
 # alias dirdiff='diff -qr'
 
-alias mount-android="jmtpfs /mnt/phone; cd /mnt/phone"
-alias umount-android="fusermount -u /mnt/phone"
+alias mount-android="jmtpfs /mnt/usb; cd /mnt/usb"
+alias umount-android="fusermount -u /mnt/usb"
 
 alias ytdl="youtube-dl"
 alias lc="lossless-cut"
+alias lcc="lossless-concat"
 
 
 #-----------------------------------------------------
@@ -74,7 +75,7 @@ alias ta='task add'
 alias sc='systemctl'
 
 alias suspend='systemctl suspend'
-alias shutdown='shutdown -h now'
+# alias shutdown='shutdown -h now'
 
 alias du='ncdu --exclude /mnt' # Do not include ntfs partitions
 # alias du='gdu --ignore-dirs /mnt' # Not as robst as ncdu, but probably faster
