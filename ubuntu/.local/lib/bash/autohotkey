@@ -227,7 +227,8 @@ focusWindow() {
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
        || isWinActive ^Notebook$ ahk_title \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^tmux$ ahk_title \
+       || isWinActive '^/usr/libexec/login.sh ' ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     elif isWinActive ^ranger ahk_title && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey

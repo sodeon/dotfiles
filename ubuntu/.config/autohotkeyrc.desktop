@@ -11,7 +11,7 @@ chromeArgs="--force-dark-mode --force-device-scale-factor=0.84" # Chrome has a b
 # rofi menu entries
 #------------------------------------------------------------------------------
 f4Entries=("Visual Studio Code")
-f10Entries=("lutris") # "ppsspp" "moonlight", "desmune"
+f10Entries=("lutris" "moonlight") # "ppsspp" "desmune"
 powerEntries=("Display Standby" "Suspend" "Reboot" "Shutdown")
 wolEntries=("nas" "tv")
 bluetoothEntries=("Power On/Off" "Headset Conn/Disconn")

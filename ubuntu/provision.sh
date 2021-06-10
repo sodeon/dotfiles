@@ -97,7 +97,7 @@ apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: curr
 apt-force autoremove
 
 # oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 mkdir -p ~/.oh-my-zsh/plugins
 cp -rf .oh-my-zsh/plugins/sd ~/.oh-my-zsh/plugins
@@ -235,24 +235,6 @@ systemctl --user enable evcape
 
 # Keyboard setup upon plugging
 sudo cp apps/90-keyboards.rules /etc/udev/rules.d
-
-# gnome desktop environment settings
-if which gsettings; then
-    # Disable password request after resuming from lock screen
-    gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend 'false'
-fi
-
-# GDM (gnome desktop manager)
-#if [[ -f /etc/default/grub ]]; then
-#    # Disable splash screen (default: quiet splash)
-#	sudo sed -i -r "s/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/" /etc/default/grub
-#    # Minimize grub menu time (5 is the minimum value)
-#	sudo sed -i -r "s/^GRUB_TIMEOUT.*/GRUB_TIMEOUT=5/" /etc/default/grub
-#    # GRUB remembeers last selected menu entry
-#	sudo sed -i -r "s/^GRUB_DEFAULT.*/GRUB_DEFAULT=saved/" /etc/default/grub
-#    sudo grep -P '^\s*GRUB_SAVEDEFAULT=' /etc/default/grub || sudo echo "\nGRUB_SAVEDEFAULT=true" >> /etc/default/grub
-#    sudo update-grub
-#fi
 
 
 #------------------------------------------------------------------------------

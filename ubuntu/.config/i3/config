@@ -321,8 +321,8 @@ assign [class="Code"         ] $ws4
 assign [class="Sxiv"         ] $ws9
 assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
-assign [class="Desmume"      ] $ws10
-assign [class="^Lutris"      ] $ws10
+assign [class="^Desmume$"    ] $ws10
+assign [class="^Lutris$"     ] $ws10
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
@@ -332,7 +332,7 @@ for_window [class="Code"                ] border none,    focus
 for_window [class="Zathura"             ] border none,    focus
 for_window [class="Sxiv"                ] border none,    focus, fullscreen
 for_window [title="^LibreOffice "       ] border none,    focus
-for_window [class="Lutris"              ] border none,    focus
+for_window [class="^Lutris$"            ] border none,    focus
 # for_window [class="Steam"               ] border none,    focus
 for_window [class="qBittorrent"         ]                        floating enable, move center
 
@@ -454,5 +454,5 @@ exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspend
 #
 # Startup programs
 #
-exec --no-startup-id start-ssh-feedback-listener-server &
-exec --no-startup-id mpris2controller &
+exec        --no-startup-id mpris2controller &
+exec_always --no-startup-id pgrep start-ssh-feed || start-ssh-feedback-listener-server &

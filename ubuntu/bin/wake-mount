@@ -1,0 +1,66 @@
+#!/bin/bash -ue
+[ $# -eq 0 ] && echo \
+"Mount remote machine disks to local directories
+Usage: $0 [remote_name]" && exit
+[ $# -ne 1 ] && echo "Error: Did not provide remote name" && exit
+remote=$1
+
+# SSH params
+identity=$HOME/.ssh/id_rsa
+sshOptions="-o allow_other -o idmap=user,uid=1000 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+
+mount-sshfs() {
+    src=$1
+    dst=$2
+
+    sudo sshfs "$src" "$dst" -o IdentityFile=$identity $sshOptions \
+        && notify-send -t 2000 -u low      "Drive mounted at $dst" \
+        || notify-send -t 3000 -u critical "Drive mount at $dst failed"
+}
+
+mount-all() {
+    for i in $(seq ${#src_list[@]}); do
+        i=$(($i-1))
+        mount-sshfs "$username@$remote:${src_list[$i]}" "${dst_list[$i]}"
+    done
+}
+
+
+case $remote in
+    nas)
+        username=root
+        src_list=(
+            "/"
+            "/mnt/d"
+            "/mnt/e"
+            "/mnt/f"
+        )
+        dst_list=(
+            "/nas/c"
+            "/nas/d"
+            "/nas/e"
+            "/nas/f"
+        )
+        ;;
+    andy-desktop)
+        username=andy
+        src_list=(
+            "/mnt/d"
+            "/mnt/e"
+        )
+        dst_list=(
+            "/nas/andy-desktop/d"
+            "/nas/andy-desktop/e"
+        )
+        ;;
+    tv)
+        username=andy
+        src_list=( "/" )
+        dst_list=( "/nas/tv")
+        ;;
+esac
+
+
+autohotkey wake-on-lan $remote > /dev/null
+mount-all

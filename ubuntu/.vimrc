@@ -104,7 +104,7 @@ let &t_te.="\e[6 q"
 " hi clear CursorLine
 
 " Invisible Vertical split
-hi VertSplit ctermfg=Black ctermbg=DarkGrey
+hi VertSplit ctermfg=Black ctermbg=Grey
 set fillchars+=vert:\ 
 
 
