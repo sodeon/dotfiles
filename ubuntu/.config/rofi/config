@@ -2,10 +2,10 @@
 rofi.modi: calc
 !rofi.modi: window,drun,run,ssh,emoji,calc
 
-rofi.combi-modi: window,drun,ssh,run,emoji
+rofi.combi-modi: drun,ssh,run,emoji
 
 rofi.theme: arc-dark-custom
-rofi.font: Ubuntu 16
+rofi.font: Ubuntu 14
 !rofi.font: System San Francisco Display 15
 
 
@@ -22,11 +22,12 @@ rofi.kb-row-up:                      Up,Control+k
 rofi.kb-row-down:                    Down,Control+j
 
 rofi.kb-accept-entry:                Return,KP_Enter,Control+m
-rofi.kb-cancel:                      Escape
-rofi.kb-mode-next:                   Control+l,Control+Right,Super+F12
-rofi.kb-mode-previous:               Control+h,Control+Left
+rofi.kb-cancel:                      Escape,grave
+rofi.kb-mode-next:                   Control+l,Super+F12
+rofi.kb-mode-previous:               Control+h
 rofi.kb-remove-word-back:            Control+w,Control+BackSpace
 rofi.kb-clear-line:                  Control+u
+rofi.kb-toggle-case-sensitivity:     Control+grave
 
 ! Useless keybindings. Add these since above keybindings overrides below's default
 rofi.kb-remove-to-eol:               Control+Shift+e

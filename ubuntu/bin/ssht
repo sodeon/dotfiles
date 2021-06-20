@@ -1,0 +1,14 @@
+#!/bin/zsh
+[ $# -ne 1 ] && echo "Error: Did not provide remote name" && exit
+remote=$1
+
+print -Pn "\e]2;tmux\a" # Set window name to tmux to allow vim-tmux-i3-integration
+case $remote in
+    router)
+        TERM=rxvt-unicode
+        ssh $remote -t "tmux new-session -s user || tmux attach-session -t user" # This request pseudo-terminal. Inside pseudo-terminal, all set title has no effect.
+        ;;
+    *)
+        ssh $remote -t "tmux new-session -s user || tmux attach-session -t user" # This request pseudo-terminal. Inside pseudo-terminal, all set title has no effect.
+        ;;
+esac

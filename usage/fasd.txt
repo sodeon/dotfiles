@@ -1,2 +1,0 @@
-$z: fast change directory based on history usage rate
-$zv: fast open file in vim based on history usage rate

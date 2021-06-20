@@ -1,0 +1,4 @@
+! Some keyboards, like Dareu EK820, swap "Esc" and "~" by default.
+! This xmodmap config file swap it back to normal keyboard layout
+keycode  9 = grave asciitilde grave asciitilde
+keycode 49 = Escape NoSymbol Escape

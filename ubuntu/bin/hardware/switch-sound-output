@@ -119,4 +119,4 @@ while read line; do
     fi
 done <<< "$(get_pacmd_section $id properties)"
 echo $message
-notify-send --icon="$device_icon_name" --expire-time=2000 "$message"
+notify-send.sh -r 80 --icon="$device_icon_name" --expire-time=2000 "$message"

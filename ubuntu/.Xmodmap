@@ -1,9 +1,91 @@
-! Reload: Xmodmap ~/.Xmodmap
-!-------------------------------------------------------------------
-! Override default modifier
-!-------------------------------------------------------------------
-! Assing caps lock to Hyper modifier
-clear Lock
-keycode 66 = Hyper_L
-remove mod4 = Hyper_L
-add mod3 = Hyper_L
+!------------------------------------------------------------------------------
+! Default layout
+!------------------------------------------------------------------------------
+! keycode 22 = BackSpace BackSpace BackSpace BackSpace
+! keycode 24 = q Q q Q
+! keycode 25 = w W w W
+! keycode 26 = e E e E
+! keycode 27 = r R r R
+! keycode 28 = t T t T
+! keycode 29 = y Y y Y
+! keycode 30 = u U u U
+! keycode 31 = i I i I
+! keycode 33 = p P p P
+! keycode 34 = bracketleft braceleft bracketleft braceleft
+! keycode 35 = bracketright braceright bracketright braceright
+! keycode 36 = Return NoSymbol Return
+! keycode 38 = a A a A
+! keycode 39 = s S s S
+keycode 40 = d D d D
+keycode 41 = f F f F
+keycode 42 = g G g G
+! keycode 47 = semicolon colon semicolon colon
+! keycode 48 = apostrophe quotedbl apostrophe quotedbl
+! keycode 49 = grave asciitilde grave asciitilde
+! keycode 51 = backslash bar backslash bar
+! keycode 52 = z Z z Z
+! keycode 53 = x X x X
+! keycode 54 = c C c C
+! keycode 55 = v V v V
+! keycode 56 = b B b B
+! keycode 58 = m M m M
+! keycode 57 = n N n N
+! keycode 60 = period greater period greater
+! keycode 61 = slash question slash question
+! keycode 110 = Home NoSymbol Home
+! keycode 112 = Prior NoSymbol Prior
+! keycode 117 = Next NoSymbol Next
+! keycode 115 = End NoSymbol End
+
+! keycode 120 = v V v V
+! keycode 55 = Mode_switch
+
+!------------------------------------------------------------------------------
+! Customized layout
+!------------------------------------------------------------------------------
+! Typing assist
+keycode 29 = y Y Delete    Delete
+keycode 32 = o O BackSpace BackSpace
+! keycode 31 = i I Delete    Delete
+
+! Right hand navigation (HJKL)
+keycode 43 = h H Left  Left
+keycode 44 = j J Down  Down
+keycode 45 = k K Up    Up
+keycode 46 = l L Right Right
+
+keycode 58 = m          M        Next  Next
+keycode 59 = comma      less     Prior Prior
+keycode 47 = semicolon  colon    Home  Home
+keycode 48 = apostrophe quotedbl End   End
+
+! Left hand navigation (WASD)
+keycode 25 = w W Up    Up
+keycode 38 = a A Left  Left
+keycode 39 = s S Down  Down
+keycode 40 = d D Right Right
+! keycode 24 = q Q Prior Prior
+! keycode 26 = e E Next  Next
+
+keycode 52 = z Z j J
+keycode 53 = x X l L
+
+! Function keys
+keycode 10 = 1     exclam      F1
+keycode 11 = 2     at          F2
+keycode 12 = 3     numbersign  F3
+keycode 13 = 4     dollar      F4
+keycode 14 = 5     percent     F5
+keycode 15 = 6     asciicircum F6
+keycode 16 = 7     ampersand   F7
+keycode 17 = 8     asterisk    F8
+keycode 18 = 9     parenleft   F9
+keycode 19 = 0     parenright  F10
+keycode 20 = minus underscore  F11
+keycode 21 = equal plus        F12
+
+! Pause/Scroll_Lock/Print
+! keycode 34 = bracketleft  braceleft  Print       Print
+! keycode 35 = bracketright braceright Scroll_Lock Scroll_Lock
+! keycode 51 = backslash    bar        Pause       Pause
+

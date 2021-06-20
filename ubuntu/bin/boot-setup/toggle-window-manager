@@ -5,7 +5,7 @@ pattern="XSession="
 declare -a options=(gnome-xorg i3)
 
 
-if grep -qr "^$pattern${options[0]}" $file; then
+if sudo grep -qr "^$pattern${options[0]}" $file; then
 	sudo sed -i -r "s/^$pattern.*/$pattern${options[1]}/" $file
     echo "Switched to ${options[1]}"
 else

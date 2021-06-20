@@ -34,3 +34,6 @@ i3wm.ws9.horizontalGap:  424
 
 ! Hardware control when booting
 ! i3wm.hardware.bluetoothEnable: false
+! i3wm.hardware.bluetoothQuickConnectMac: 94:DB:56:AE:BE:C5
+! i3wm.hardware.autoSuspend.enable: true
+! i3wm.hardware.autoSuspend.timeInSec: 2700

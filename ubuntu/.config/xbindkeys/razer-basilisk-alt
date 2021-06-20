@@ -1,0 +1,104 @@
+#---------------------------------------------------------------------------------------------------
+# Alternate mode advantages:
+# 1. Ergonomically better for multi click command (e.g. Pageup/pagedown) since don't have to press modifiers.
+#
+# Alternate mode disadvantages:
+# 1. Ergonomically inconvenient for single click command (e.g. Home/End) since it is like chord shortcuts.
+# 2. Harder to memorize. Try not to over design this mode.
+#
+# When in alternate mode, try to avoid adding new functionalities to with hypershift. 
+# It is cumbersome to press hypershift, then hypershift+button.
+#
+# If start of the comment has following tags, it means:
+# New: new binding not found in normal mode
+# Redefine: redefine binding in normal mode
+#---------------------------------------------------------------------------------------------------
+# Left/right clicks
+#---------------------------------------------------------------------------------------------------
+# Zoom
+"xdotool key --clearmodifiers control+minus"
+b:1
+"xdotool key --clearmodifiers control+equal"
+b:3
+
+
+#---------------------------------------------------------------------------------------------------
+# Middle button
+#---------------------------------------------------------------------------------------------------
+# Re-enable Chrome dark reader extension
+"xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
+b:2
+# Close all notifications
+# "activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
+# b:2
+
+
+#---------------------------------------------------------------------------------------------------
+# Scroll wheel
+#---------------------------------------------------------------------------------------------------
+# New: Page up/down
+"xte 'mouseup 4' 'key Prior'"
+b:4
+"xte 'mouseup 5' 'key Next'"
+b:5
+
+# Half page up/down
+"xte 'mouseup 4'; autohotkey pageup"
+Mod3+b:4
+"xte 'mouseup 5'; autohotkey pagedown"
+Mod3+b:5
+
+# Home/End
+"xte 'key Home'"
+Mod3+Mod5+b:4
+"xte 'key End'"
+Mod3+Mod5+b:5
+
+
+#---------------------------------------------------------------------------------------------------
+# Thumb buttons
+#   XF86Launch7 (F16): Factory default to "Back"
+#   XF86Launch8 (F17): Factory default to "Forward"
+#   XF86Launch9 (F18): Factory default to "DPI trigger"
+#---------------------------------------------------------------------------------------------------
+"activate-hotkeys toggle-mouse-mode"
+c:197
+# XF86Launch7 # Work with xcape but does not work with evcape
+
+# Redefine: Forward
+"activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
+c:198
+
+# Redefine: Workspace picker
+"activate-hotkeys toggle-mouse-mode; autohotkey workspacePicker"
+c:196
+
+
+#---------------------------------------------------------------------------------------------------
+# Buttons under scroll wheel
+#---------------------------------------------------------------------------------------------------
+# Go to top of the site
+"xte 'mouseup 8' 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode"
+b:8+Release
+
+# Re-open closed tab
+"xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L'; activate-hotkeys toggle-mouse-mode"
+Mod3+b:8+Release
+
+
+#---------------------------------------------------------------------------------------------------
+# Top buttons (G602 only) 
+# c:191: XF86Launch6 (G602: left   top button)
+# c:192: XF86Launch4 (G602: buttom top button)
+#---------------------------------------------------------------------------------------------------
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+c:192
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+c:192
+
+
+#---------------------------------------------------------------------------------------------------
+# Legacy
+#---------------------------------------------------------------------------------------------------
+# Go up one leve of the site
+# "xte 'mouseup 8' 'key g' 'key u'; activate-hotkeys toggle-mouse-mode"

@@ -61,7 +61,8 @@ xrdb $HOME/.Xresources
 urxvtd -q -o -f
 
 [[ $XDG_CURRENT_DESKTOP == "i3" ]] && (set-display-monitor &) # For gnome desktop environment, use gnome's built-in scaling
-play-with-mpv &
+# play-with-mpv &
 
 # Additional "less" keybindings
 lesskey
+if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

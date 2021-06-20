@@ -1,0 +1,19 @@
+#!/bin/bash -ue
+
+if [[ $# -eq 0 ]] || [[ $# -eq 1 ]]; then
+    echo "Usage: ${0##*/} <output file> <input file>"
+    echo
+    echo "Lossless concatenate video using ffmpeg"
+    echo
+    exit 1
+fi
+
+output=$1; shift
+list=concat-inputs.list
+
+[-f $list ] && rm $list; touch $list
+for input in "$@"; do
+    echo file \'$input\' >> $list
+done
+ffmpeg -f concat -safe 0 -i "$list" -c copy "$output"
+rm $list

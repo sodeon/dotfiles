@@ -24,14 +24,21 @@ declare -a direct_backup_configs=(
     rofi
     ranger
     zathura
+    Xmodmap
     xbindkeys
     mpv/scripts
+    sxiv
+    systemd/user
 
+    broot/conf.hjson
     mpv/input.conf
     cmus/{autosave,rc}
     Code/User/{settings.json,keybindings.json}
+    MangoHud/MangoHud.conf
 
+    autohotkeyrc.example
     i3/{config,i3blocks.conf.example,layouts}
+    hardware/macs
     dotfiles/*.example
     hardware/*.example
     Xresources/*.example
@@ -40,6 +47,7 @@ declare -a direct_backup_configs=(
 # Files and directories to backup with machine name as file name suffix.
 # Support brace expansion and extglob.
 declare -a adding_machine_name_backup_configs=(
+    autohotkeyrc
     mpv/mpv.conf
     i3/i3blocks.conf
     "dotfiles/!(*.example)"

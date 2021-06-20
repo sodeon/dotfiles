@@ -1,0 +1,10 @@
+! Mouse direction
+keycode 43 = KP_Left  KP_Left
+keycode 44 = KP_Down  KP_Down
+keycode 45 = KP_Up    KP_Up
+keycode 46 = KP_Right KP_Right
+
+! Mouse keys
+keycode 40 = Pointer_Button2 Pointer_Button2
+keycode 41 = Pointer_Button1 Pointer_Button1
+keycode 42 = Pointer_Button3 Pointer_Button3

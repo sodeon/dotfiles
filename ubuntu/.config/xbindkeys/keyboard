@@ -1,40 +1,10 @@
-#---------------------------------------------------------------------------------------------------
-# NOTE:
-#     When paired with xdotool, system will see both the triggering shortcut and triggered shortcut.
-#     Therefore, add keyup to untrigger the triggering shortcut first
-#
-# Reload rc file: xbindkeys --poll-rc / xbindkeys -f ~/.xbindkeysrc
-# Interactive key: xbindkeys --key
-#                  xbindkeys --multikey
-#
-# Mod3: Caps_Lock
-# Mod4: Windows
-#---------------------------------------------------------------------------------------------------
-# Volume/sound control
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-Control_R
-"amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-Super_R
-# "amixer -D pulse set Master 5%+ && pkill -RTMIN+10 i3blocks"
-# Menu
-"amixer -D pulse set Master 5%- && pkill -RTMIN+10 i3blocks"
-Alt_R
-"switch-sound-output && pkill -RTMIN+10 i3blocks"
-Mod3+s
+# Suspend / turn off monitor
+# "xset dpms force off"
+# Pause+Release
+# "systemctl suspend"
+# Shift+Pause+Release
 
-# Brightness control (Mod3+b: toggle video/reading mode)
-# https://github.com/haikarainen/light
-"monitor-control bu && pkill -RTMIN+11 i3blocks"
-Mod3+Control_R
-"monitor-control bu && pkill -RTMIN+11 i3blocks"
-Mod3+Super_R
-# "monitor-control bu && pkill -RTMIN+11 i3blocks"
-# Mod3+Menu
-"monitor-control bd && pkill -RTMIN+11 i3blocks"
-Mod3+Alt_R
-"monitor-control bs && pkill -RTMIN+11 i3blocks"
-Mod3+b
+# Activate mode_switch layer without pressing mode_switch. Useful for 60% keyboard
+# "activate-hotkeys toggle-keyboard-alt"
+# XF86Launch2
 
-# Media control (nextTrack and prevTrack moved to i3 config to allow xdotool-forward to work)
-"autohotkey pause"
-Mod3+space

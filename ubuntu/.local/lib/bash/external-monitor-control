@@ -1,57 +1,136 @@
-#!/bin/bash
+#!/bin/bash -ue
 
 source ~/.config/hardware/external-displayrc
 rc="$HOME/.config/hardware/external-displayrc"
 
 # Flick reading mode if command is to swap mode
 if [ $1 = "bs" ]; then
-    if [ $is_reading_mode = true ]; then
+    if [ $is_gaming_mode = true ]; then
+		is_gaming_mode=false
+    elif [ $is_reading_mode = true ]; then
 		is_reading_mode=false
     else
 		is_reading_mode=true
     fi
 fi
 
-# Set mode/brightness/temperature based on reading/video mode
-if [ $is_reading_mode = true ]; then
+if [ $1 = "bg" ]; then
+    if [ $is_gaming_mode = true ]; then
+		is_gaming_mode=false
+    else
+		is_gaming_mode=true
+    fi
+fi
+
+# Set mode/brightness/temperature based on reading/video/gaming mode
+if [ $is_gaming_mode = true ]; then
+    mode="gaming"
+    brightness=$gaming_brightness
+    temperature=$color_temperature_gaming
+    contrast=$gaming_contrast
+elif [ $is_reading_mode = true ]; then
     mode="reading"
     brightness=$reading_brightness
     temperature=$color_temperature_reading
+    contrast=$reading_contrast
 else
     mode="video"
     brightness=$video_brightness
     temperature=$color_temperature_video
+    contrast=$video_contrast
 fi
+
+display-mode() {
+    ([[ $mode = "gaming" ]] && echo "Gaming") || \
+    ([[ $mode = "video"  ]] && echo "Video" ) || \
+                               echo "Reading"
+}
 
 case "$1" in
     b)
-		ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' 
+        # When booting up, reading DDC information may fail sometimes on NVIDIA cards.
+        # TODO: Add retry limit
+        while true; do
+            output=`ddcutil getvcp $brightness_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' | tail -1`
+            contrast=`ddcutil getvcp $contrast_feature_id --bus $i2c_bus | gawk '{print $9}' | sed 's/,//' | tail -1`
+            if [[ $output == ?(-)+([0-9]) ]] && [[ $contrast == ?(-)+([0-9]) ]]; then
+                if [[ $contrast != "50" ]]; then
+                    output="$output | $contrast"
+                fi
+                break
+            else
+                sleep 2
+            fi
+        done
+        echo $output
+        display-mode
+        exit 0
         ;;
     bu)
-        let brightness="$brightness + $brightness_step"
-        if [ $brightness -gt 100 ]; then
-            brightness=100
+        if [ $brightness -eq 0 ] && [ $contrast -lt 50 ]; then
+            let contrast="$contrast + $contrast_step"
+            if [ $contrast -gt 50 ]; then
+                contrast=50
+            fi
+            ddcutil setvcp $contrast_feature_id $contrast --bus $i2c_bus
+            sed -i s/"$mode"_contrast=.*/"$mode"_contrast=$contrast/ $rc
+        else
+            let brightness="$brightness + $brightness_step"
+            if [ $brightness -gt 100 ]; then
+                brightness=100
+            fi
+            ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
+            sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
         fi
-		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
-        sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+
+        display-mode
+        if [[ $contrast == "50" ]]; then
+            echo "$brightness"
+        else
+            echo "$brightness | $contrast"
+        fi
+        echo "B: $brightness   C: $contrast"
         ;;
     bd)
-        let brightness="$brightness - $brightness_step"
-        if [ $brightness -lt 0 ]; then
-            brightness=0
-        fi
-		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
-        sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
-        ;;
-    bs)
-        if [ $mode = "reading" ]; then
-            isReadingMode="true"
+        if [ $brightness -le 0 ]; then
+            set +e # NOTE: In Bash 5.0.3 (Ubuntu 19.10), If expression evaluated to 0, it results expression failure and quit execution due to "-e".
+            let contrast="$contrast - $contrast_step"
+            set -e
+            if [ $contrast -lt 0 ]; then
+                contrast=0
+            fi
+            ddcutil setvcp $contrast_feature_id $contrast --bus $i2c_bus
+            sed -i s/"$mode"_contrast=.*/"$mode"_contrast=$contrast/ $rc
         else
-            isReadingMode="false"
+            set +e # NOTE: In Bash 5.0.3 (Ubuntu 19.10), If expression evaluated to 0, it results expression failure and quit execution due to "-e".
+            let brightness="$brightness - $brightness_step"
+            set -e
+            if [ $brightness -lt 0 ]; then
+                brightness=0
+            fi
+            ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
+            sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
         fi
-		ddcutil setvcp $brightness_feature_id $brightness --bus $i2c_bus
-		ddcutil setvcp $color_temperature_feature_id $temperature --bus $i2c_bus
-        sed -i s/is_reading_mode=.*/is_reading_mode="$isReadingMode"/ $rc
+
+        display-mode
+        if [[ $contrast == "50" ]]; then
+            echo "$brightness"
+        else
+            echo "$brightness | $contrast"
+        fi
+        echo "B: $brightness   C: $contrast"
+        ;;
+    bs | bg)
+		ddcutil setvcp $color_temperature_feature_id $temperature $brightness_feature_id $brightness $contrast_feature_id $contrast --bus $i2c_bus
+
+        display-mode
+        ([ $mode = "gaming"  ] && sed -i s/is_gaming_mode=.*/is_gaming_mode="true"/   $rc) || (sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc && \
+        ([ $mode = "reading" ] && sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc  ||  sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc))
+        if [[ $contrast == "50" ]]; then
+            echo "$brightness"
+        else
+            echo "$brightness | $contrast"
+        fi
+        echo "B: $brightness   C: $contrast"
         ;;
 esac
-

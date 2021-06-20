@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "400x10-30+50"
+    geometry = "200x10-10+27"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -86,7 +86,7 @@
 
     ### Text ###
 
-    font = Ubuntu 15
+    font = Ubuntu 13
     # font = Monospace 15
 
     # The spacing between lines.  If the height is smaller than the
@@ -262,7 +262,8 @@
     close = ctrl+space
 
     # Close all notifications.
-    close_all = ctrl+shift+space
+    close_all = mod1+BackSpace
+    # close_all = ctrl+shift+space
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left

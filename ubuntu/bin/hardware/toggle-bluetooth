@@ -10,15 +10,22 @@ command=${1-toggle}
 # Reference: https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
 #------------------------------------------------------------------------------
 is-bluetooth-enabled() {
-    rfkill --output TYPE,SOFT | grep bluetooth | grep -q unblocked
+    bluetoothctl show | grep -q "Powered: yes"
+    # rfkill --output TYPE,SOFT | grep bluetooth | grep -q unblocked
+}
+
+has-connected-device() {
+    bluetoothctl info >/dev/null
 }
 
 disable-bluetooth() {
-    rfkill block   bluetooth && sudo systemctl disable bluetooth.service 2> /dev/null && sudo systemctl stop  bluetooth.service # && notify-send "Bluetooth disabled"
+    bluetoothctl power off
+    # rfkill block   bluetooth && sudo systemctl disable bluetooth.service 2> /dev/null && sudo systemctl stop  bluetooth.service # && notify-send "Bluetooth disabled"
 }
 
 enable-bluetooth() {
-    rfkill unblock bluetooth && sudo systemctl enable  bluetooth.service 2> /dev/null && sudo systemctl start bluetooth.service # && notify-send "Bluetooth enabled"
+    bluetoothctl power on
+    # rfkill unblock bluetooth && sudo systemctl enable  bluetooth.service 2> /dev/null && sudo systemctl start bluetooth.service # && notify-send "Bluetooth enabled"
 }
 
 case "$command" in
@@ -31,12 +38,26 @@ case "$command" in
     disable)
         disable-bluetooth && notify-send -u low "Bluetooth disabled"
         ;;
+    device)
+        mac=$2
+        auto_off=${3-false}
+        # TODO: Error check MAC address
+        if bluetoothctl info $mac | grep -q 'Connected: yes'; then
+            notify-send.sh -t 0 -r 30 -u low "Disconnecting Bluetooth Device..."
+            bluetoothctl disconnect $mac && notify-send.sh -t 5000 -r 30 -u normal "Device Disconnected" "$mac" || notify-send.sh -t 5000 -r 30 -u critical "Disconnection Failed" "$mac"
+            [ $auto_off == "true" ] && (has-connected-device || disable-bluetooth) # Automatically turn off bluetooth there is no more connected bluetooth device
+        else                                                         
+            notify-send.sh -t 0 -r 30 -u low "Connecting Bluetooth Device..."
+            has-connected-device || enable-bluetooth
+            bluetoothctl connect    $mac && notify-send.sh -t 5000 -r 30 -u normal "Device Connected"    "$mac" || notify-send.sh -t 5000 -r 30 -u critical "Connection Failed"    "$mac"
+        fi
+        ;;
     *)
         echo
-        info Usage: ${0##*/} [enable/disable/toggle]
+        info Usage: ${0##*/} [enable/disable/toggle/device]
         echo
         echo If argument is not provided, it will toggle bluetooth between enable/disable.
         echo
-        notify-send "Invalid command" "Use enable/disable/toggle or no argument (same as toggle)"
+        notify-send "Invalid command" "Use enable/disable/toggle/device or no argument (same as toggle)"
         ;;
 esac

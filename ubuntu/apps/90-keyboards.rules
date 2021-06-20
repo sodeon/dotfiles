@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+# How to add new keyboard
+#------------------------------------------------------------------------------
+# Get id: xinput
+# Get device node (e.g. /dev/input/event10): xinput --list-props {id}
+# Get udev chain details: udevadm info -a -n {node}
+#   From above, you can get all ATTRS{}, SUBSYSTEM, and etc.
+
+# Monitor udev events: udevadm monitor
+
+# Reload udev rules: sudo udevadm control --reload-rules && udevadm trigger
+
+
+#------------------------------------------------------------------------------
+# USB keyboards
+# "bind+hid" will triggered twice by udev for USB keyboard near the end of all udev keyboard init
+#------------------------------------------------------------------------------
+# dz44
+ACTION=="bind"  , SUBSYSTEM=="hid", RUN+="/home/andy/bin/hardware/setup-keyboard", OWNER="andy"
+ACTION=="remove", SUBSYSTEM=="hid", RUN+="/home/andy/bin/hardware/setup-keyboard", OWNER="andy"
+# ACTION=="bind", SUBSYSTEM=="hid", ATTRS{idVendor}=="feed", ATTRS{idProduct}=="6060", RUN+="/home/andy/bin/hardware/setup-keyboard", OWNER="andy"
+
+
+#------------------------------------------------------------------------------
+# Bluetooth keyboards
+#------------------------------------------------------------------------------
+# Microsoft designer keyboard
+# ACTION=="add", SUBSYSTEM=="input", ATTRS{uniq}=="f3:4d:0e:5f:57:a3", RUN+="/home/andy/bin/hardware/setup-keyboard", OWNER="andy"

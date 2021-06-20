@@ -1,4 +1,4 @@
-set aaa_mode=all
+set aaa_mode=album
 set altformat_current= %F 
 set altformat_playlist= %f%= %d 
 set altformat_title=%f
@@ -21,9 +21,13 @@ set color_statusline_fg=black
 set color_titleline_attr=default
 set color_titleline_bg=blue
 set color_titleline_fg=white
+set color_trackwin_album_attr=bold
+set color_trackwin_album_bg=default
+set color_trackwin_album_fg=default
 set color_win_attr=default
 set color_win_bg=default
 set color_win_cur=lightyellow
+set color_win_cur_attr=default
 set color_win_cur_sel_attr=default
 set color_win_cur_sel_bg=blue
 set color_win_cur_sel_fg=lightyellow
@@ -53,7 +57,7 @@ set dsp.ao.wav_counter=1
 set dsp.ao.wav_dir=/home/andy
 set dsp.jack.resampling_quality=2
 set dsp.jack.server_name=
-set follow=true
+set follow=false
 set format_current= %a - %l -%3n. %t%= %y 
 set format_playlist= %-21%a %3n. %t%= %y %d %{?X!=0?%3X ?    }
 set format_playlist_va= %-21%A %3n. %t (%a)%= %y %d %{?X!=0?%3X ?    }
@@ -66,17 +70,31 @@ set format_treewin=  %l
 set format_treewin_artist=%a
 set icecast_default_charset=ISO-8859-1
 set id3_default_charset=ISO-8859-1
+set input.aac.priority=50
 set input.cdio.cddb_url=freedb.freedb.org:8880
+set input.cdio.priority=50
+set input.cue.priority=50
+set input.ffmpeg.priority=30
+set input.flac.priority=50
+set input.mad.priority=55
+set input.modplug.priority=50
+set input.mpc.priority=50
+set input.opus.priority=50
+set input.vorbis.priority=50
+set input.wav.priority=50
+set input.wavpack.priority=50
+set lib_add_filter=
 set lib_sort=albumartist date album discnumber tracknumber title filename play_count
 set mixer.alsa.channel=
 set mixer.alsa.device=
 set mixer.pulse.restore_volume=1
 set mouse=true
+set mpris=true
 set output_plugin=pulse
 set passwd=
 set pl_sort=
-set play_library=false
-set play_sorted=true
+set play_library=true
+set play_sorted=false
 set repeat=true
 set repeat_current=false
 set replaygain=disabled
@@ -90,13 +108,15 @@ set show_all_tracks=true
 set show_current_bitrate=true
 set show_hidden=false
 set show_playback_position=true
-set show_remaining_time=false
+set show_remaining_time=true
 set shuffle=false
 set skip_track_info=false
 set smart_artist_sort=true
 set softvol=false
 set softvol_state=0 0
+set start_view=tree
 set status_display_program=
+set time_show_leading_zero=true
 set wrap_search=true
 bind browser backspace browser-up
 bind browser h browser-up
@@ -137,7 +157,7 @@ bind common ^R refresh
 bind common ^Y win-scroll-up
 bind common a win-add-l
 bind common b player-next
-bind common c player-pause
+bind common c win-toggle
 bind common d win-remove
 bind common delete win-remove
 bind common down win-down
@@ -151,7 +171,7 @@ bind common i win-sel-cur
 bind common j win-down
 bind common k win-up
 bind common l win-activate
-bind common left seek -5
+bind common left seek -10
 bind common m toggle aaa_mode
 bind common mlb_click_selected win-activate
 bind common mouse_scroll_down win-down
@@ -163,14 +183,14 @@ bind common page_down win-page-down
 bind common page_up win-page-up
 bind common q quit
 bind common r toggle repeat
-bind common right seek +5
+bind common right seek +10
 bind common s toggle shuffle
 bind common space player-pause
 bind common t toggle show_remaining_time
 bind common tab win-next
 bind common u update-cache
 bind common up win-up
-bind common v player-stop
+bind common x player-stop
 bind common y win-add-p
 bind common z player-prev
 bind common { vol -1% -0

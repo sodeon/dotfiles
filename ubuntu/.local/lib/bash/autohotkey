@@ -1,5 +1,11 @@
 #!/bin/bash
 #-----------------------------------------------------------------------------------------------
+# Parameters
+#-----------------------------------------------------------------------------------------------
+source $HOME/.config/autohotkeyrc
+
+
+#-----------------------------------------------------------------------------------------------
 # Autohotkey library
 #-----------------------------------------------------------------------------------------------
 activeWinId() {
@@ -9,22 +15,16 @@ activeWinId() {
     return $result
 }
 
-# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
-# activeWinPid() {
-#     pid=`xdotool getactivewindow getwindowpid`
-#     result=$?
-#     echo $pid
-#     return $result
-# }
-
 # @param class/title name
 # @param ahk_title
 isWinActive() {
     if [[ -z ${2-} ]]; then # class
         xprop -id $(xdotool getactivewindow) | grep -q WM_CLASS.*=.*$1
-        # activeWinPid | xargs -i xdotool search --all --pid {} --class $1
         return $?
-    else # title
+    elif [[ ${2-} == "ahk_command" ]]; then
+        xprop -id $(xdotool getactivewindow) | grep -q WM_COMMAND.*=.*$1
+        return $?
+    else # ahk_title
         title=`xdotool getactivewindow getwindowname`
         if echo $title | grep -E $1; then
             return 0
@@ -63,46 +63,101 @@ xdotool-forward() {
     i3-msg 'mode "default"'
 }
 
+wake-on-lan() {
+    machine=$1
+    if !(wol $machine); then
+        notify-send -t 5000 -u critical "Wake Up Failed" "$machine"
+        return 1
+    fi
+    notify-send.sh -t 0 -r 19 -u low "Waiting For Remote" "$machine"
+    for i in {1..5}; do
+        if ping -c1 $machine; then
+            notify-send.sh -t $notificationTimeout -r 19 -u low "$machine Awake Now"
+            return
+        fi
+    done
+    notify-send.sh -t $notificationTimeout -r 19 -u critical "Remote Timeout" $machine
+    return 1
+}
+
+# NOTE: Entries must use the variable name $entries
+simple-rofi() {
+    local title="$1"; shift
+    local width="$1"; shift
+    # local entries=($@) # Bash does not support array function argument. Use $entries variable name to hack/pass the $entries to function
+
+    rofiEntries=""
+    for entry in "${entries[@]}"; do
+        [ -z $rofiEntries ] \
+            && rofiEntries="$entry" \
+            || rofiEntries="$rofiEntries\n$entry"
+    done
+
+    echo `echo -e "$rofiEntries" | rofi -p "$title" -i -width -$width $rofiStyles`
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Shortcut implementation
 #-----------------------------------------------------------------------------------------------
 deleteWord() {
 	if isWinActive URxvt; then
-		xdotool keyup p keyup control key ctrl+w
+        xte 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
 	else
-		xdotool keyup p key ctrl+BackSpace
+        xte 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
+	fi
+}
+
+deleteWordAfter() {
+	if isWinActive URxvt; then
+        xte 'keyup i' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+	else
+        xte 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
+	fi
+}
+
+deleteLine() {
+	if isWinActive URxvt \
+       || isWinActive Code; then
+        xte 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
+	else
+        # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
+        xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
 	fi
 }
 
 closeTabOrWindow() {
-    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
-        xdotool key ctrl+w
+    if isWinActive Google-chrome || isWinActive Firefox; then
+        xte 'keydown Control_L' 'key w' 'keyup Control_L'
     else
-        xdotool key alt+grave
+        xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
     fi
 }
 
-floatingToggled() {
-    # When mpv got focused (mpv always floating), go to full screen
-    if isWinActive mpv; then
-        i3-msg fullscreen
-    fi
-}
+# floatingToggled() {
+#     # When mpv got focused (mpv always floating), go to full screen
+#     if isWinActive mpv; then
+#         i3-msg fullscreen
+#     fi
+# }
 
 pageup() {
-    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
-		xdotool-forward keyup $1 key shift+Prior
+    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+        xdotool key ctrl+b
+    elif isWinActive URxvt; then
+		xdotool key shift+Prior
     else
-        xdotool-forward keyup $1 key Prior
+        xdotool key Prior
     fi
 }
 
 pagedown() {
-    if isWinActive URxvt && ! isWinActive VIM$ ahk_title; then
-		xdotool-forward keyup $1 key shift+Next
+    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+        xdotool key ctrl+f
+    elif isWinActive URxvt; then
+		xdotool key shift+Next
     else
-        xdotool-forward keyup $1 key Next
+        xdotool key Next
     fi
 }
 
@@ -114,27 +169,43 @@ scroll() {
     fi
 }
 
-pause() {
-    if winExist mpv; then
-		echo cycle pause | socat - ~/.config/mpv/socket
-    else
+play() { # Play if there is any paused media
+    if cmus-remote -Q | grep -q "status paused"; then # Ubuntu cmus is not compiled with mpris support
+		cmus-remote -p && pkill -RTMIN+12 i3blocks
+    elif mpris2controller Status | grep -q "Paused"; then
+        mpris2controller PlayPause
+    fi
+}
+
+pause() { # Pause if there is any playing media
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
+		cmus-remote -U && pkill -RTMIN+12 i3blocks
+    elif mpris2controller Status | grep -q "Playing"; then
+        mpris2controller PlayPause
+    fi
+}
+
+playPause() { # Play, pause toggle
+    if cmus-remote -Q | grep -q -e "status playing" -e "status paused"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -u && pkill -RTMIN+12 i3blocks
+    else
+        mpris2controller PlayPause
     fi
 }
 
 nextTrack() {
-    if winExist mpv; then
-		echo playlist-next | socat - ~/.config/mpv/socket
-    else
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -n && pkill -RTMIN+12 i3blocks
+    else
+        mpris2controller Next
     fi
 }
 
 prevTrack() {
-    if winExist mpv; then
-		echo playlist-prev | socat - ~/.config/mpv/socket
-    else
+    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -r && pkill -RTMIN+12 i3blocks
+    else
+        mpris2controller Previous
     fi
 }
 
@@ -155,7 +226,9 @@ focusWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
-       || isWinActive ^tmux$ ahk_title; then
+       || isWinActive ^Notebook$ ahk_title \
+       || isWinActive ^tmux$ ahk_title \
+       || isWinActive '^/usr/libexec/login.sh ' ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     elif isWinActive ^ranger ahk_title && [[ $direction == 'left' || $direction == 'right' ]]; then
         xdotool-forward keyup $navKey key $navKey
@@ -178,6 +251,7 @@ moveWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
+       || isWinActive ^Notebook$ ahk_title \
        || isWinActive ^tmux$ ahk_title; then
         xdotool-forward keyup $navKey key $navKey
     else
@@ -199,6 +273,7 @@ resizeWindow() {
 	esac
     if isWinActive VIM$ ahk_title || isWinActive "^vim " ahk_title \
        || isWinActive Code \
+       || isWinActive ^Notebook$ ahk_title \
        || isWinActive ^tmux$ ahk_title; then
         echo "${@:3}" > /tmp/vim-tmux-i3-integration # Passing size parameters to be consumed.
         xdotool-forward keyup $navKey key $navKey
@@ -209,30 +284,35 @@ resizeWindow() {
 
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
-    if isWinActive Google-chrome || isWinActive Firefox || isWinActive Brave-browser; then
-        xdotool-forward keyup F11 key F11
+    if (isWinActive Google-chrome || isWinActive Firefox); then
+        if (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
+            xte 'key f'
+        else
+            xte 'key F11'
+            # i3-msg "fullscreen toggle"
+        fi
     elif isWinActive Code; then # Toggle zen mode for vscode
-        xdotool-forward keyup F11 key ctrl+shift+z
+        xdotool key ctrl+shift+z
     else
         i3-msg "fullscreen toggle"
     fi
+    #i3-msg "fullscreen toggle"
 }
 
-rename() {
-    if isWinActive ^ranger ahk_title; then # For some reason, ranger always sees the "shift" with F2
-        xdotool-forward keyup F2 key --clearmodifiers a
-    else
-        xdotool-forward keyup F2 key --clearmodifiers F2
-    fi
+mediaPlayerFullscreen() {
+    i3-msg '[class="^mpv"] fullscreen toggle, scratchpad show'
+    # i3-msg '[class="^mpv"] fullscreen toggle' && i3-msg '[class=mpv] scratchpad show'
+    # i3-msg '[class="^mpv"] scratchpad show' && sleep 1.5 && i3-msg '[class="^mpv"] fullscreen'
 }
+
+workspacePicker() { i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi; }
 
 F1() {
     i3-msg 'workspace number "1: Web "'
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
-            google-chrome --force-dark-mode
+            google-chrome $chromeArgs &
         fi
     fi
 }
@@ -242,21 +322,183 @@ F2() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 2) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            urxvtc
+            urxvtc &
         fi
     fi
 }
 
-# File manager
 F3() {
     i3-msg 'workspace number "3: File "'
 
-    # If workspace 3 has no ranger instance, create one
+    If workspace 3 has no ranger instance, create one
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 3) .focused' | grep 'true'; then
-        if ! isWinActive ^ranger ahk_title; then
-            urxvtc -e ranger $HOME
+        if ! isWinActive ranger ahk_command; then
+            urxvtc -e ranger $HOME & # ranger default editor: $HOME/.selected_editor; (or export VISUAL=vim;)
         fi
     fi
+}
+
+F4() {
+    entries=("${f4Entries[@]}")
+
+    i3-msg 'workspace number "4: Code "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            selection=`simple-rofi Program 30 ${entries[@]}`
+            [ -z $selection ] && i3-msg "workspace back_and_forth" && return
+            
+            case "$selection" in
+                ${entries[0]})
+                    code --disable-gpu # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+                    ;;
+            esac
+        fi
+    fi
+}
+
+F10() {
+    entries=("${f10Entries[@]}")
+
+    i3-msg 'workspace number "10: G "'
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            selection=`simple-rofi Program 20 ${entries[@]}`
+            if [ -z $selection ]; then
+                i3-msg "workspace back_and_forth"
+            else
+                $selection
+            fi
+        fi
+    fi
+}
+
+toggleMouseMode() {
+    file='/tmp/mouse-alt'
+    if [ -f $file ]; then
+        rm $file
+        notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+    else
+        touch $file
+        notify-send.sh -t 0 -r 10 -u critical Alt Mouse
+    fi
+
+    activate-hotkeys
+}
+
+
+#-----------------------------------------------------------------------------------------------
+# Hardware control
+#-----------------------------------------------------------------------------------------------
+volume() {
+    if [ $1 = "up" ]; then
+        amixer -D pulse set Master 3%+
+    elif [ $1 = "down" ]; then
+        amixer -D pulse set Master 3%-
+    elif [ $1 = "toggle" ]; then
+        amixer -D pulse set Master toggle
+    fi
+    if [ `pulsemixer --get-mute` -eq 1 ]; then
+        notify-send.sh -t $notificationTimeout -r 21 -u low Mute Volume
+    else
+        notify-send.sh -t $notificationTimeout -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+    fi
+    pkill -RTMIN+10 i3blocks
+}
+
+brightness() {
+    if [ $1 = "up" ]; then
+        monitor-control bu | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "down" ]; then
+        monitor-control bd | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "toggle" ]; then
+        monitor-control bs | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "gaming" ]; then
+        monitor-control bg | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    else
+        monitor-control b  | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+    fi
+} 
+
+display-input() {
+    feature_id=60
+    inputs=(0xf 0x1) # 0x1: D-Sub, 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
+
+    notify-send.sh -u normal -r 101 "Switching display input..." # ddcutil is slow on NVIDIA graphics, add notification to ease slow responsieness
+    if [[ $1 != "toggle" ]]; then
+        ddcutil setvcp $feature_id $1
+    else
+        cur_input=`ddcutil getvcp 60 | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
+        inputs[${#inputs[@]}]=${inputs[0]}
+        hit=0
+        for input in ${inputs[@]}; do
+            [ $hit -eq 1 ] && ddcutil setvcp $feature_id $input && break
+            [[ $input -eq $cur_input ]] && hit=1 && continue
+        done
+    fi
+    notify-send.sh --close=101
+}
+
+suspend() {
+    notify-send.sh -u critical -r 99 "Preparing to suspend..."
+    sleep 0.7
+    notify-send.sh --close=99
+    systemctl suspend
+}
+
+display-standby() {
+    sleep 0.3
+    xset dpms force off
+}
+
+bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac true; }
+
+power-menu() {
+    entries=("${powerEntries[@]}")
+
+    selection=`simple-rofi Menu 20 ${entries[@]}`
+    [ -z $selection ] && return
+    
+    case "$selection" in
+        ${entries[0]})
+            xset dpms force off
+            ;;
+        ${entries[1]})
+            systemctl suspend
+            ;;
+        ${entries[2]})
+            reboot
+            ;;
+        ${entries[3]})
+            shutdown -h now
+            ;;
+    esac
+}
+
+bluetooth-menu() {
+    entries=("${bluetoothEntries[@]}")
+
+    selection=`simple-rofi Bluetooth 28 ${entries[@]}`
+    [ -z $selection ] && return
+    
+    case "$selection" in
+        ${entries[0]})
+            toggle-bluetooth
+            ;;
+        ${entries[1]})
+            bluetooth-quick-connect
+            ;;
+    esac
+}
+
+wol-menu() {
+    entries=("${wolEntries[@]}")
+
+    selection=`simple-rofi Machine 15 ${entries[@]}`
+    [ -z $selection ] && return
+
+    wake-on-lan $selection
 }
 
 
@@ -265,3 +507,12 @@ F3() {
 # TODO: Input validation
 #-----------------------------------------------------------------------------------------------
 [[ $# == 0 ]] || $@
+
+
+# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
+# activeWinPid() {
+#     pid=`xdotool getactivewindow getwindowpid`
+#     result=$?
+#     echo $pid
+#     return $result
+# }

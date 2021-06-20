@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=SVP 4 Linux
+GenericName=Real time frame interpolation
+Type=Application
+Categories=Multimedia;AudioVideo;Player;Video;
+MimeType=video/x-msvideo;video/x-matroska;video/webm;video/mpeg;video/mp4;
+Terminal=false
+StartupNotify=true
+Exec="/home/andy/SVP 4/SVPManager" %f
+Icon=svp-manager4.png

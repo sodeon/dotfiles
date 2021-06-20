@@ -53,16 +53,16 @@
 ! xterm
 !-----------------------------------------------------------------
 XTerm*faceName: Consolas NF
-XTerm*faceSize: 16
+XTerm*faceSize: 14
 
 
 !-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
-URxvt.font: xft:Consolas NF:style=Book:size=16
-URxvt.boldFont: xft:Consolas NF:style=Bold:size=16
-URxvt.italicFont: xft:Consolas NF:style=Italic:size=16
-URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=16
+URxvt.font: xft:Consolas NF:style=Book:size=14
+URxvt.boldFont: xft:Consolas NF:style=Bold:size=14
+URxvt.italicFont: xft:Consolas NF:style=Italic:size=14
+URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
@@ -91,6 +91,8 @@ URxvt.keysym.Control-V: eval:paste_clipboard
 ! Scroll one line
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
+! URxvt.keysym.Prior: perl:scroll-page:pageup
+! URxvt.keysym.Next: perl:scroll-page:pagedown
 
 ! Move cursor forward/backward one word (this is xterm behavior)
 URxvt.keysym.Control-Right: \033[1;5C
@@ -100,6 +102,7 @@ URxvt.keysym.Control-Left: \033[1;5D
 !-----------------------------------------------------------------
 ! URxvt plugins
 !-----------------------------------------------------------------
+! URxvt.perl-ext-common: default,matcher,keyboard-select,scroll-page
 URxvt.perl-ext-common: default,matcher,keyboard-select
 
 ! Search
@@ -111,14 +114,22 @@ URxvt.keysym.Control-D: matcher:select
 URxvt.matcher.button: 1
 URxvt.matcher.pattern.1: ^\\s*(~?[\\S]+\/[\\S]+)
 URxvt.matcher.launcher.1: copy-then-paste
-URxvt.matcher.rend.1: Regular
+URxvt.matcher.rend.1: Book
 URxvt.matcher.pattern.2: modified:\\s*(~?[\\S]+\/[\\S]+)
 URxvt.matcher.launcher.2: copy-then-paste
-URxvt.matcher.rend.2: Regular
+URxvt.matcher.rend.2: Book
 
 ! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
-URxvt.keysym.Control-S: perl:keyboard-select:activate
+URxvt.keysym.Control-Y: perl:keyboard-select:activate
+
+
+!-----------------------------------------------------------------
+! Sxiv (background: for both text and image background color)
+!-----------------------------------------------------------------
+Sxiv.foreground: #aaaaaa
+Sxiv.background: #000000
+Sxiv.font: xft:Consolas NF:style=Book:size=14
 
 
 !-----------------------------------------------------------------

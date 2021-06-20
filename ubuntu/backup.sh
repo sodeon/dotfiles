@@ -1,4 +1,4 @@
-#!/bin/bash -ue
+#!/usr/bin/bash -ue
 cd "$(dirname "$(realpath "$0")")"
 . backup-restore-config-spec.sh
 
@@ -6,7 +6,7 @@ cd "$(dirname "$(realpath "$0")")"
 # $HOME directory
 #
 for item in ${home_backup_files[@]}; do
-    cp ~/$item .
+    cp -p ~/$item .
 done
 
 #
@@ -15,14 +15,14 @@ done
 shopt -s extglob
 for item in ${direct_backup_configs[@]}; do
     if [[ -d "~/.config/$item" ]]; then
-        cp -rf ~/.config/$item .config/$item/..
+        cp -p -rf ~/.config/$item .config/$item/..
     else
         items=(~/.config/$item)
         for sub_item in ${items[@]}; do
             if [[ -d "$sub_item" ]]; then
-                cp -rf $sub_item/* `echo $sub_item | sed -r "s/\/home\/$USER\///"`
+                cp -p -rf $sub_item/* `echo $sub_item | sed -r "s/\/home\/$USER\///"`
             else
-                cp $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`
+                cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`
             fi
         done
     fi
@@ -37,7 +37,7 @@ if [[ ! -z ${1-} ]]; then
                 if [[ -d "$sub_item" ]]; then
                     log_error "Using directory for renaming is not supported ($sub_item)"
                 else
-                    cp $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`.$1
+                    cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`.$1
                 fi
             done
         fi
@@ -48,35 +48,37 @@ shopt -u extglob
 #
 # Other non-standard config directory
 #
-cp -rf ~/.urxvt .
-cp ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
+mkdir -p .urxvt/ext && cp -p -rf ~/.urxvt/ext .urxvt
+cp -p ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
 
 #
 # .local directory
 #
 rm -rf .local/lib/bash
-cp -rf ~/.local/lib/bash .local/lib
+cp -p -rf ~/.local/lib/bash .local/lib
 
-cp -rf ~/.local/share/applications/*.desktop .local/share/applications
+shopt -s extglob
+cp -p -rf ~/.local/share/applications/!(wine*).desktop .local/share/applications
+shopt -u extglob
 rm .local/share/applications/thann.play-with-mpv.desktop
 
 #
 # bin directory
 #
 rm -rf ./bin/*
-cp -rf ~/bin .
+cp -p -rf ~/bin .
 
 #
 # Built binaries
 #
 if [ -d ~/code/sxiv ]; then
-	cp ~/code/sxiv/sxiv     apps/sxiv
-	cp ~/code/sxiv/config.h apps/sxiv
-	cp ~/code/sxiv/sxiv.1   apps/sxiv
-	cp ~/code/sxiv/exec/*   apps/sxiv/exec
+	cp -p ~/code/sxiv/sxiv     apps/sxiv
+	cp -p ~/code/sxiv/config.h apps/sxiv
+	cp -p ~/code/sxiv/sxiv.1   apps/sxiv
+	cp -p ~/code/sxiv/exec/*   apps/sxiv/exec
 fi
 
 #
 # VSCode extensions
 #
-code --list-extensions > vscode-extensions.list
+which code >/dev/null && code --list-extensions > vscode-extensions.list

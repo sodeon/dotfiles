@@ -25,7 +25,7 @@ fi
 
 case "$1" in
     b)
-		light -G | xargs printf '%.*f' 0
+		light -G | xargs printf '%.*f' 0 | tail -1
         ;;
     bu)
         let brightness="$brightness + $brightness_step"
@@ -34,6 +34,7 @@ case "$1" in
         fi
 		light -S $brightness
 		sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        echo $brightness
         ;;
     bd)
         let brightness="$brightness - $brightness_step"
@@ -42,6 +43,7 @@ case "$1" in
         fi
 		light -S $brightness
 		sed -i s/"$mode"_brightness=.*/"$mode"_brightness=$brightness/ $rc
+        echo $brightness
         ;;
     bs)
         if [ $mode = "reading" ]; then
@@ -51,5 +53,6 @@ case "$1" in
         fi
 		light -S $brightness
         sed -i s/is_reading_mode=.*/is_reading_mode="$isReadingMode"/ $rc
+        echo $brightness
         ;;
 esac

@@ -1,5 +1,4 @@
 #!/bin/bash
-sleep 0.1 # Workaround mpv will have a little delay for video frame size to update
 
 displayGeometry=`xdotool getdisplaygeometry`
 # windowPosition=`xdotool getactivewindow getwindowgeometry | grep Position | sed -r 's/^\s*Position:\s*//' | sed -r 's/ \(.*$//'`

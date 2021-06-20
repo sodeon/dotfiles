@@ -46,4 +46,4 @@ sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
 - **`which -a`**: Searches $PATH executable
 - **`whereis`**: Searches $PATH for executable, source and man
 - **`apropos`**: Searches the man page with more fidelity than whatis (Meaning "related to").
-- `whatis`: Searches the man one-line descriptions.
+- **`whatis`**: Searches the man one-line descriptions.

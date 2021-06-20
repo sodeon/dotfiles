@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Generate entries for Rofi
+workspaces=`i3-msg -t get_workspaces | jq ".[] | select(.focused == false) .name" \
+    | sed 's/"//g'` # Remove double quote at the beginning and end`
+rofi_entries=$(echo "$workspaces" \
+        | sed 's/\s*$//' `# Remove trailing white spaces` \
+        | sed -r '/:\s?\w/s/^[0-9]+:\s?//') # Remove workspace index and ":"`
+
+# Get Rofi selection and translate to original i3 workspace name
+rofi_selection=$(echo "$rofi_entries"  | rofi -dmenu -p 'Workspace' -i -no-custom $@)
+selection=`echo "$workspaces" | grep $rofi_selection`
+
+i3-msg workspace "${selection}"

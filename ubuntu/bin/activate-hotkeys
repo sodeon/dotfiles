@@ -1,32 +1,191 @@
 #!/bin/bash -ue
 
-activate-hotkeys() {
-    # Kill residual xcape/xbindkeys processes
-    pgrep xbindkeys > /dev/null && pkill xbindkeys
-    pgrep xcape     > /dev/null && pkill xcape
+inputs=`xinput --list --short`
 
-    # Modifiers
+mouse_alt="/tmp/mouse-alt"
+keyboard_alt="/tmp/keyboard-alt"
+keyboard_mouse="/tmp/keyboard-mouse"
+
+
+#------------------------------------------------------------------------------
+# Keymap definitions
+#------------------------------------------------------------------------------
+swap-esc-grave()              { xmodmap ~/.config/Xmodmap/swap-esc-grave;              }
+default-esc-grave()           { xmodmap ~/.config/Xmodmap/default-esc-grave;           }
+right-ctrl-os-as-right-left() { xmodmap ~/.config/Xmodmap/right-ctrl-os-as-right-left; }
+default-right-ctrl-os()       { xmodmap ~/.config/Xmodmap/default-right-ctrl-os;       }
+
+setup-keymap() {
+    # Keyboard and mouse goes to default layer
+    [ -f $mouse_alt      ] && rm  $mouse_alt      && notify-send.sh --close=10
+    [ -f $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
+    [ -f $keyboard_mouse ] && rm  $keyboard_mouse && notify-send.sh --close=12
+
+    # Common key assignments
+    xmodmap ~/.config/Xmodmap/modifiers
+    xmodmap -e 'remove control = Mode_switch'
+    xmodmap -e 'add mod5 = Mode_switch'
     xmodmap ~/.Xmodmap
-    xcape -e "Hyper_L=Escape;Super_L=Super_L|F12"
 
-    # Keybindings
-    cat ~/.config/xbindkeys/keyboard > /tmp/xbindkeysrc
-    if xinput --list --short | grep -q "M720.*pointer"; then
-        cat ~/.config/xbindkeys/logitech-m720 >> /tmp/xbindkeysrc
+    # Grave esc swap
+    if echo "$inputs" | grep -q -e "SN TECH" -e "EK820" -e "SONiX USB DEVICE Keyboard"; then # Dareu EK820 and Rapoo V860-61
+        swap-esc-grave
+    else
+        default-esc-grave
     fi
+
+    # Right ctrl/os to right/left
+    if echo "$inputs" | grep -q "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
+        right-ctrl-os-as-right-left
+        xmodmap -e 'remove control = Right'
+        xmodmap -e 'remove mod4    = Left'
+    else
+        default-right-ctrl-os
+        xmodmap -e 'add control = Control_R'
+        xmodmap -e 'add mod4    = Super_R'
+    fi
+}
+
+# set-mouse-scroll-speed() {
+#     pgrep imwheel > /dev/null && pkill imwheel
+
+#     if echo "$inputs" | grep -q \
+#        -e "Razer.*pointer" \
+#        -e "Logitech USB Receiver"; then
+#         imwheel -b "4 5" > /dev/null 2>&1 # Restrict imwheel to only affect scroll wheel. If unrestricted, thumb buttons will not work anymore
+#     fi
+# }
+
+
+#------------------------------------------------------------------------------
+# Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
+#------------------------------------------------------------------------------
+bind-dualkeys() {
+    # evcape implementation is moved to systemd service (evcape.service)
+    pgrep --full evcape > /dev/null && pkill --full evcape || systemctl --user start evcape
+
+    #--------------------------------------------------------------------------
+    #xcape version
+    #--------------------------------------------------------------------------
+    # Dual-purpose modifiers
+    # Caps lock    : Esc
+    # Left alt     : alt+tab
+    # Left Windows : App launcher
+    # Left ctrl    : Send terminal command to background (ctrl-z)
+    # Right Windows: No binding due to no such key on most laptops
+    # Right alt    : Toggle input method
+    # Right ctrl   : No binding due to usually no such key for 65% keyboard non typical location for this key
+
+    # xcapeTyping="Mode_switch=Escape;Control_L=Control_L|z"
+    # # xcapeTyping="$xcapeTyping;Ctrl_R=XF86Launch2" # Toggle keyboard layer
+    # # [ -f $keyboard_alt ] && xcapeTyping="$xcapeTyping;Mode_switch=XF86Launch2" # Use esc (caps_lock) to toggle back to default keyboard layer
+    # xcapeLauncher="Super_L=Super_L|F12"
+    # xcapeAppSwitcher="Alt_L=Alt_L|Tab"
+    # # xcapeNavigation="Super_R=Left;Control_R=Right" # Useful for 60% keyboard
+    # xcapeMouse="Hyper_L=XF86Launch7;XF86Launch5=XF86Launch8"
+
+    # pgrep xcape > /dev/null && pkill xcape
+    # if [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP == "i3" ]]; then
+    #     xcape -t 170 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse;$xcapeLauncher"
+    # else
+    #     xcape -t 170 -e "$xcapeTyping;$xcapeAppSwitcher;$xcapeMouse"
+    # fi
+}
+
+bind-hotkeys() {
+    echo "" > /tmp/xbindkeysrc
+
+    # Keyboard keybindings
+    # cat ~/.config/xbindkeys/keyboard >> /tmp/xbindkeysrc
+    # echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
+
+    # Mouse keybindings
+    echo "$inputs" | grep -q -e "Razer Basilisk.*pointer" \
+                             -e "Logitech USB Receiver" && \
+        ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
+    
+    pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
     xbindkeys -f /tmp/xbindkeysrc
 }
 
-setup-mouse-scroll-speed() {
-    if xinput --list --short | grep -q "M720.*pointer"; then
-        pgrep imwheel > /dev/null && pkill imwheel
-        imwheel > /dev/null 2>&1
+
+#------------------------------------------------------------------------------
+# Mouse and keyboard mode. Mousekey (keyboard-mouse)
+#------------------------------------------------------------------------------
+mouse-mode() {
+    mode=$1
+    if [ $mode = "normal" ]; then
+        [ -f $mouse_alt ] && rm $mouse_alt
+        notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+    else
+        touch $mouse_alt
+        notify-send.sh -t 0 -r 10 -u critical Alt Mouse
+    fi
+
+    # set-mouse-scroll-speed # When xbindkeys binds mouse buttons, imwheel won't work. Also vice versa.
+    bind-hotkeys
+}
+
+toggle-mouse-mode() { [ -f $mouse_alt ] && mouse-mode normal || mouse-mode alternate; }
+
+# Alternate method: https://linuxreviews.org/HOWTO_use_the_numeric_keyboard_keys_as_mouse_in_XOrg
+# This method is cumbersome when left/right clicking and enabling/disabling mousekey
+keyboard-mouse() {
+    case $1 in
+        "on")
+            touch $keyboard_mouse
+            xkbset m # Enable mousekey. Once enabled. There is no way to disable through xkbset
+            xmodmap ~/.config/Xmodmap/keyboard-mouse
+            notify-send.sh -t 0 -r 12 -u critical Mousekey Enabled
+            ;;
+        "off")
+            rm $keyboard_mouse
+            xmodmap ~/.Xmodmap
+            notify-send.sh --close=12 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
+            ;;
+        "toggle")
+            if [ -f $keyboard_mouse ]; then
+                keyboard-mouse off
+            else
+                keyboard-mouse on
+            fi
+            ;;
+    esac
+}
+
+toggle-keyboard-alt() {
+    if [ -f $keyboard_alt ]; then # Default layer
+        rm $keyboard_alt
+        xmodmap ~/.Xmodmap
+        notify-send.sh --close=11
+    else # Alternate layer (layer1)
+        touch $keyboard_alt
+        xmodmap ~/.config/Xmodmap/layer1
+        notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
     fi
 }
 
 
-# 
+#------------------------------------------------------------------------------
 # Main
-#
-activate-hotkeys
-setup-mouse-scroll-speed
+#------------------------------------------------------------------------------
+setup-keyboard() {
+    setup-keymap
+    bind-dualkeys
+}
+
+# Remove all alt mode and rebind hotkeys
+init() {
+    setup-keymap
+    bind-dualkeys
+
+    # Setup one time
+    bind-hotkeys
+    # [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP == "i3" ]] && bind-hotkeys # Disable xbindkeys: Both Ubuntu 19.4 and 19.10 has compatibility issues with xbindkeys.
+}
+
+if [ $# == 0 ]; then
+    init
+else
+    $@
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash -ue
+# NOTE: Run $evtest to decide which event to grab. Once decided, go to /dev/input/by-id to find the symbolic link for the event.
+
+(( `pgrep --count --full $0` > 1 )) && exit 0 # Singleton (https://www.mylinuxplace.com/bash-singleton-process/) (Modified: method in the link does not work if process name is more than 15 characters.)
+
+event=`realpath /dev/input/by-id/usb-Razer_Razer_Basilisk-if02-event-kbd` # TODO: parameterize into somewhere in ~/.config or fully automatically detecting
+while true; do
+    if evtest --query $event EV_KEY KEY_F16; then # pressed: return 1 (error), released: return 0 (success)
+        activate-hotkeys mouse-mode normal
+        exit 0
+    fi
+    sleep 0.1
+done

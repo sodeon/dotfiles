@@ -683,22 +683,6 @@
         "command": "workbench.action.increaseViewSize",
     },
     {
-        "key": "alt+shift+h",
-        "command": "workbench.action.moveEditorToLeftGroup",
-    },
-    {
-        "key": "alt+shift+j",
-        "command": "workbench.action.moveEditorToBelowGroup",
-    },
-    {
-        "key": "alt+shift+k",
-        "command": "workbench.action.moveEditorToAboveGroup",
-    },
-    {
-        "key": "alt+shift+l",
-        "command": "workbench.action.moveEditorToRightGroup",
-    },
-    {
         "key": "ctrl+shift+s",
         "command": "workbench.action.openSettingsJson"
     },
@@ -718,5 +702,49 @@
         "key": "tab",
         "command": "-acceptSelectedSuggestion",
         "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+j",
+        "command": "workbench.action.moveActiveEditorGroupDown"
+    },
+    {
+        "key": "ctrl+k down",
+        "command": "-workbench.action.moveActiveEditorGroupDown"
+    },
+    {
+        "key": "ctrl+k ctrl+h",
+        "command": "workbench.action.moveActiveEditorGroupLeft"
+    },
+    {
+        "key": "ctrl+k left",
+        "command": "-workbench.action.moveActiveEditorGroupLeft"
+    },
+    {
+        "key": "ctrl+k ctrl+l",
+        "command": "workbench.action.moveActiveEditorGroupRight"
+    },
+    {
+        "key": "ctrl+k right",
+        "command": "-workbench.action.moveActiveEditorGroupRight"
+    },
+    {
+        "key": "ctrl+k ctrl+k",
+        "command": "workbench.action.moveActiveEditorGroupUp"
+    },
+    {
+        "key": "ctrl+k up",
+        "command": "-workbench.action.moveActiveEditorGroupUp"
+    },
+    {
+        "key": "shift+alt+1",
+        "command": "-workbench.action.moveEditorToFirstGroup"
+    },
+    {
+        "key": "shift+alt+9",
+        "command": "-workbench.action.moveEditorToLastGroup"
+    },
+    {
+        "key": "f3",
+        "command": "workbench.action.minimizeOtherEditors"
     }
 ]

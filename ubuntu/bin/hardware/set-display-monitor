@@ -20,7 +20,7 @@ fi
 # Assemble xrandr command
 if xrandr | grep "\<$interface\> connected"; then
     # External display connected
-    cmd="xrandr --output $interface --mode $resolution --scale $scale"
+    cmd="xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate"
 	if [ -f ~/.config/hardware/internal-displayrc ]; then
 		source ~/.config/hardware/internal-displayrc
         if [ ! -z $interface ]; then

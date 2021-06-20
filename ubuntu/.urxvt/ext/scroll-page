@@ -1,0 +1,16 @@
+#! perl -w
+use List::Util qw(min max);
+
+sub on_user_command {
+    my ($term, $command) = @_;
+    my $page_height = $term->nrow - 1;
+    my $current_line = $term->view_start;
+    my $new_line;
+    if ($command eq 'scroll-page:pageup') {
+        $new_line = max($current_line-$page_height, $term->top_row);
+    } elsif ($command eq 'scroll-page:pagedown') {
+        $new_line = min($current_line+$page_height, 0);
+    };
+    $term->view_start($new_line);
+    $term->want_refresh();
+}

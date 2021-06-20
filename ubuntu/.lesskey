@@ -1,5 +1,5 @@
 #command
-c forw-screen
-v back-screen
+c forw-scroll
+v back-scroll
 V visual
 ;q quit

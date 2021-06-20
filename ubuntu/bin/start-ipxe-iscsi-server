@@ -1,0 +1,34 @@
+#!/bin/bash -ue
+
+# Enable services for PXE boot
+sudo systemctl restart isc-dhcp-server.service # DHCP
+sudo systemctl restart tftpd-hpa.service # TFTP
+
+# Start services for iPXE
+sudo systemctl restart nginx.service # HTTP
+
+# Enable iscsi target server
+mount | grep -q windows      && sudo umount /mnt/windows      # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+sudo systemctl restart rtslib-fb-targetctl.service # save/load iscsi target config upon start/boot/reboot
+sudo systemctl restart targetclid.service # iscsi target
+sudo targetctl restore ~/.config/targetcli/saveconfig.json #  targetcli will not restore/store config if service is not enabled
+
+# Enable network share (OS in iscsi usually connects to both iscsi target and network share)
+systemctl status smbd.service >/dev/null || sudo systemctl restart smbd.service  # samba/cifs network share
+
+# Enable mouse/keyboard sharing
+pgrep barrier >/dev/null || barrier 2>/dev/null &
+
+# Connect iscsi node locally for local use
+sudo iscsiadm -m session >/dev/null 2>&1 || sudo iscsiadm -m node -L all >/dev/null # No need to start iscsid.service. It will be started automatically by iscsiadm
+
+
+
+# sudo systemctl disable isc-dhcp-server.service     # DHCP
+# sudo systemctl disable tftpd-hpa.service           # TFTP
+# sudo systemctl disable nginx.service               # HTTP
+# sudo systemctl disable smbd.service                # samba/cifs network share
+# sudo systemctl disable targetclid.service          # iscsi target
+# sudo systemctl disable rtslib-fb-targetctl.service # save/load iscsi target config upon boot/reboot
+# sudo systemctl disable iscsid.service              # iscsi client
