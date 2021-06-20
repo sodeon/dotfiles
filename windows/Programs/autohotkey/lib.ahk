@@ -1,7 +1,7 @@
 #Include %A_LineFile%/../notification.ahk
 #Include %A_LineFile%/../dual-key.ahk
 #Include %A_LineFile%/../mouse-mode.ahk
-#Include %A_LineFile%/../display.ahk
+#Include %A_LineFile%/../monitor.ahk
 #Include %A_LineFile%/../virtual-desktop.ahk
 
 
@@ -24,6 +24,27 @@ winActivateExe(exe, exePath = "", params = "", runOptions = "Max", dstDesktop = 
         fullExe := """" fullExe """" ; enclosing command with quotations
         Run, %fullExe% %params%,, %runOptions%
     }
+}
+
+
+;-------------------------------------------------------------------------------
+; Maximize window or toggle full screen mode if already maximized
+;-------------------------------------------------------------------------------
+toggleFullScreen(terminal) {
+    if WinActive("ahk_exe " . terminal)
+        SendInput !{Enter}
+    else
+        SendInput {F11}
+}
+
+maxThenFullScreen(browser, terminal) {
+    WinGet, maximized, MinMax, A
+    if (!maximized)
+        WinMaximize, A
+    else if WinActive("ahk_exe " . browser) && (WinActive("YouTube") || WinActive("Twitch") || WinActive("bilibili") || WinActive("Netflix"))
+        SendInput f
+    else 
+        toggleFullScreen(terminal)
 }
 
 
@@ -102,3 +123,18 @@ RunWaitMany(commands) {
 }
 
 
+;-------------------------------------------------------------------------------
+; Hotkey management
+;-------------------------------------------------------------------------------
+notifyHotkeysSuspension() {
+    ; Suspend, Toggle ; Suspend command must be at the first line of hotkey, not in function.
+                      ; If in function, once suspended, hotkeys will not be toggled back anymore.
+    if (!A_isSuspended) {
+        ; showNotification("Autohotkey Enabled")
+        Progress, off
+    } else {
+        ; showNotification("Autohotkey Disabled")
+        Progress,% "b zh0 w100 h60 cwFFAAAA x" A_ScreenWidth-120 " y" A_ScreenHeight-100, Disabled, Autohotkey
+    } 
+    return
+}

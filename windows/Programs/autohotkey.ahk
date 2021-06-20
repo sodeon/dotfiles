@@ -47,6 +47,7 @@ displayMode = 1 ; 1: Reading, 2: Video, 3: Gaming
 monitorSettings := [{brightness:  5, temperature: "5000K", contrast: 50, width: 2880, height: 2160, refreshRate: 60}  ; Reading, web browsing
                    ,{brightness: 20, temperature: "6500K", contrast: 50, width: 3840, height: 2160, refreshRate: 60}  ; Multimedia
                    ,{brightness: 50, temperature: "6500K", contrast: 50, width: 2880, height: 2160, refreshRate: 60}] ; Gaming
+monitorOutput := "DisplayPort"
 
 ; Apps
 browser  := "chrome.exe"
@@ -92,6 +93,12 @@ Alt & Esc:: WinClose, A
 
 ; Reload autohotkey (uses i3 reload shortcut)
 !+r:: Run, cmd.exe /C autohotkey.ahk,, Hide
+; Suspend autohotkey
+!x::
+; Esc & z:: ; Cannot be triggered in admin apps
+    Suspend, Toggle
+    notifyHotkeysSuspension()
+    return
 
 
 ;-------------------------------------------------------------------------------
@@ -134,6 +141,7 @@ $#k:: SendInput {Blind}{Up}
 $^#h:: SendInput {Blind}{Left}
 $^#l:: SendInput {Blind}{Right}
 
+!f:: toggleFullScreen(terminal)
 
 ;-------------------------------------------------------------------------------
 ; mode_switch layer
@@ -191,7 +199,7 @@ Esc & =:: SendInput {F12}
 
 Esc & Backspace:: SendInput {Del}
 
-; Esc & \ Up:: SendInput {Pause}
+Esc & \ Up:: SendInput {Pause}
 Esc & ]:: SendInput {ScrollLock}
 Esc & [:: SendInput {PrintScreen}
 
@@ -221,16 +229,25 @@ Esc & f::
 +Volume_Up:: increaseBrightness()
 
 ; Brightness and night light
-Esc & g::
+Esc & c::
+    ; if GetKeyState("Shift") && GetKeyState("Ctrl")
+    ;     toggleStreamMode()
     if GetKeyState("Shift")
         toggleBrightnessMode()
     else if GetKeyState("Ctrl")
         toggleGameMode()
     else
-        toggleSoundOutput()
+        SendInput {Volume_Mute}
     return
 
-Esc & b:: SendInput {Volume_Mute}
+Esc & g:: 
+    if GetKeyState("Shift")
+        setMonitorInput(monitorOutput) ; Switch back to current output. If you want to switch to another output, use turnOffDisplay() hotkey
+    ; else if GetKeyState("Ctrl")
+    ;     setMonitorInput("HDMI1")
+    else
+        toggleSoundOutput()
+    return
 
 ; Resolution
 !r::
@@ -246,6 +263,8 @@ Esc & Right:: SendInput {Media_Next}
 Esc & Left::  SendInput {Media_Prev}
 Esc & Down::  SendInput {Volume_Down}
 Esc & Up::    SendInput {Volume_Up}
+Esc & x::     SendInput {l}
+Esc & z::     SendInput {j}
 
 
 ;-------------------------------------------------------------------------------
@@ -261,7 +280,13 @@ Pause:: turnOffDisplay()
 ; Logitech G602
 ; Thumb buttons
 $F15:: SendInput #{Tab} ; G4 button
-$F18:: SendInput !{Tab} ; G7 button
+$F18:: ; G7 button
+    if (isMouseAlt()) {
+        SendInput #{Tab}
+        toMouseNormal()
+    } else
+        SendInput !{Tab}
+    return
 
 Xbutton1:: ; G5 button
     if (isMouseAlt()) {
@@ -272,9 +297,12 @@ Xbutton1:: ; G5 button
         toMouseNormal()
     } else if (isMouseShift(0) && isMouseShift(1))
         SendInput ^r ; Reload
-    else if (isMouseShift(0))
-        SendInput ^t ; New tab
-    else if (isMouseShift(1))
+    else if (isMouseShift(0)) {
+        if WinActive("ahk_exe " . browser)
+            SendInput ^t ; New tab
+        else
+            SendInput ^n ; New window
+    } else if (isMouseShift(1))
         toggleBrightnessMode()
     else {
         if WinActive("ahk_exe " . browser)
@@ -346,8 +374,13 @@ $RButton::
         SendInput {RButton}
     return
 $MButton::
-    if (isMouseShift(0))
-        SendInput {Esc}
+    if (isMouseShift(0) && isMouseShift(1)) {
+        if WinActive("ahk_exe " . browser)
+            SendInput e ; Detach/re-attach tab
+        else
+            SendInput #d
+    } else if (isMouseShift(0))
+        maxThenFullScreen(browser, terminal)
     else if (isMouseShift(1))
         toggleSoundOutput()
     else
@@ -395,18 +428,8 @@ F13::
         WinMaximize, A
         SendInput #{Right 2}
         toMouseNormal()
-    } else {
-        ; Maximize window or toggle full screen mode if already maximized
-        WinGet, maximized, MinMax, A
-        if (!maximized)
-            WinMaximize, A
-        else if WinActive("ahk_exe " . browser) && (WinActive("YouTube") || WinActive("Twitch") || WinActive("bilibili") || WinActive("Netflix"))
-            SendInput f
-        else if WinActive("ahk_exe " . terminal)
-            SendInput !{Enter}
-        else
-            SendInput {F11}
-    }
+    } else
+        maxThenFullScreen(browser, terminal)
     return
 F14::
     if (isMouseAlt()) {
@@ -437,15 +460,17 @@ F14::
 ; Dual keys (same as Linux's xcape)
 ;-------------------------------------------------------------------------------
 ; LAlt: Alt+Tab
+; NOTE: LAlt dualkey functionality does not work. Since LAlt has other bindings (e.g. alt+h, alt+l), "LAlt down" will only trigger just before "LAlt up".
 $LAlt:: 
-    startDualKey()
+    ; startDualKey()
     SendInput {LAlt down}
     return
 $LAlt Up::
-    if isDualKey("LAlt")
-        SendInput {Tab}{LAlt Up}
-    else
-        SendInput {LAlt Up}
+    SendInput {Tab}{LAlt Up}
+    ; if isDualKey("LAlt")
+    ;     SendInput {Tab}{LAlt Up}
+    ; else
+    ;     SendInput {LAlt Up}
     return
 
 ; RAlt: Toggle input method

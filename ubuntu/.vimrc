@@ -16,6 +16,7 @@ set wildmenu " display completion matches in a status line
 
 set ttimeout " time out for key codes
 set ttimeoutlen=0 " wait up to 0ms after Esc for special key (default: 100ms)
+set timeoutlen=0
 
 packadd! matchit
 
@@ -218,6 +219,9 @@ nnoremap <space> za
 " Insert line w/o entering insert mode. (Shift+Enter doesn't work in terminal)
 nnoremap <S-Enter> O<Esc>
 nnoremap <CR>      o<Esc>
+
+nnoremap <CR> :
+vnoremap <CR> :
 
 " F12: run last command (like IDE run), terminal emit special key code for function key http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 nnoremap <F12> :!<Up><CR>
