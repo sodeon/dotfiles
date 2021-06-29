@@ -39,6 +39,7 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
+apt-force install debian-goodies # ex: To list installed packages by size, "dpigs -H"
 apt-force install python3-pip python2
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
@@ -47,6 +48,7 @@ apt-force install ripgrep
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
+apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
 apt-force install iperf3 sysbench # Benchmark
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 apt-force install taskwarrior # task management tool
@@ -74,7 +76,7 @@ apt-force install mpv socat # video player, socat: socket read/write for remote 
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar p7zip
-apt-force install jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
+apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install numlockx

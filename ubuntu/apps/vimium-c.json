@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "12/16/2020, 8:36:56 PM",
-	"time": 1608122216600,
+	"@time": "6/16/2021, 10:12:04 AM",
+	"time": 1623809524858,
 	"environment": {
-		"extension": "1.87.2",
+		"extension": "1.90.2",
 		"platform": "linux",
-		"chrome": 87
+		"chrome": 91
 	},
 	"exclusionRules": [
 		{
@@ -31,6 +31,10 @@
 		{
 			"passKeys": "f j k l s ",
 			"pattern": "^https://www.netflix.com/watch/*"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":http://router:7681/"
 		}
 	],
 	"focusNewTabContent": false,
@@ -78,8 +82,10 @@
 		"map S goNext",
 		"map e moveTabToNextWindow",
 		"map E moveTabToNewWindow",
+		"map p togglePinTab",
 		"map ' Marks.activate",
 		"map gv enterVisualMode",
+		"map R toggleReaderMode",
 		"",
 		"# Links",
 		"# map h Vomnibar.activateHistoryInNewTab",
@@ -112,8 +118,6 @@
 	],
 	"searchUrl": "https://www.google.com/search?q=",
 	"showActionIcon": false,
-	"showAdvancedCommands": true,
-	"showAdvancedOptions": true,
 	"smoothScroll": false,
 	"vimSync": true
 }

@@ -4,3 +4,12 @@
 cur_dir() {
 	echo $(dirname "$(realpath "$0")")
 }
+
+# Check if array has element (https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value)
+has () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+

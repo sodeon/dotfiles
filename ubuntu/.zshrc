@@ -32,6 +32,11 @@ ENABLE_CORRECTION="true"
 # If you want to change the command execution time stamp shown in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
+# 10x increase .zsh_history size (default: 10000 lines)
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+
 
 #--------------------------------------------------------------------------------------------------------------
 # Pre-oh-my-zsh settings
@@ -89,10 +94,23 @@ source $ZSH/oh-my-zsh.sh
 
 
 #--------------------------------------------------------------------------------------------------------------
-# Plugin settings
+# Post oh-my-zsh settings
 #--------------------------------------------------------------------------------------------------------------
 PROJECT_PATHS=($HOME/code)
 
+
+#--------------------------------------------------------------------------------------------------------------
+# Aliases
+#--------------------------------------------------------------------------------------------------------------
+source ~/.bash_aliases
+
+# zsh only aliases
+alias j='jump'
+
+
+#--------------------------------------------------------------------------------------------------------------
+# Key bindings
+#--------------------------------------------------------------------------------------------------------------
 # Vim navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -101,26 +119,6 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-
-#--------------------------------------------------------------------------------------------------------------
-# Aliases
-#--------------------------------------------------------------------------------------------------------------
-source ~/.bash_aliases
-
-# zsh aliases
-alias j='jump'
-# alias stats='zsh_stats'
-
-# fzf (Fuzzy finder, auto-generated)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
-bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
-# bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
-
-
-#--------------------------------------------------------------------------------------------------------------
-# Post oh-my-zsh settings
-#--------------------------------------------------------------------------------------------------------------
 # Alt+,: Repeat last argument of current prompt
 bindkey -s "^[," "!#\$^I"
 
@@ -130,11 +128,21 @@ bindkey '^[[1;5C' emacs-forward-word
 bindkey -M emacs '^H'    backward-kill-word
 bindkey -M emacs '^[[3^' kill-word
 
-# fzf
-export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
-export FZF_COMPLETION_TRIGGER=''
+
+#--------------------------------------------------------------------------------------------------------------
+# External tools
+#--------------------------------------------------------------------------------------------------------------
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+    bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
+    bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
+    # bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
+
+    export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
+    export FZF_COMPLETION_TRIGGER=''
+fi
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
