@@ -1,17 +1,28 @@
 #!/bin/bash -ue
+
 quickConnectMac="94:DB:56:AE:BE:C5" # WH-1000XM4
+displayInputs=(0xf 0x11) # 0x1: D-Sub, 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
 
 notificationTimeout=1400
 
 rofiStyles="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
-chromeArgs="--force-dark-mode --force-device-scale-factor=0.84" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+
+# chrome
+browserWinClass="Google-chrome"
+browserCmd="google-chrome --force-dark-mode --force-device-scale-factor=0.84" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+# chromium
+# browserWinClass="chromium-browser"
+# browserCmd="chromium --force-dark-mode --force-device-scale-factor=0.84 --enable-features=VaapiVideoDecoder --use-gl=desktop" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+# brave
+# browserWinClass="Brave-browser"
+# browserCmd="brave-browser --force-dark-mode --force-device-scale-factor=0.84" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
 
 
 #------------------------------------------------------------------------------
 # rofi menu entries
 #------------------------------------------------------------------------------
 f4Entries=("Visual Studio Code")
-f10Entries=("lutris" "moonlight") # "ppsspp" "desmune"
+f10Entries=("lutris" "mame" "moonlight") # "ppsspp" "desmune"
 powerEntries=("Display Standby" "Suspend" "Reboot" "Shutdown")
 wolEntries=("nas" "tv")
 bluetoothEntries=("Power On/Off" "Headset Conn/Disconn")

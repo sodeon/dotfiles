@@ -226,13 +226,13 @@ bindsym $mod+f exec --no-startup-id i3-msg "fullscreen toggle"
 # bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
 # Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
 bindsym $mod+a layout toggle split
-bindsym $mod+s layout stacked
-bindsym $mod+d layout tabbed
+bindsym $mod+s layout toggle stacking split
+bindsym $mod+d layout toggle tabbed   split
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 
 # Floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+g floating toggle
 bindsym $mod+space focus mode_toggle
 # bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey floatingToggled
 
@@ -255,7 +255,8 @@ bindsym Mod4+Right exec --no-startup-id "snap-window right; i3-msg 'focus mode_t
 # TODO: mark/unmark window
 
 # Notifications
-# close all notifications: alt+c (~/.config/dunst/dunstrc)
+# close all notifications: (or set "close_all" @ ~/.config/dunst/dunstrc)
+bindsym $mod+BackSpace exec --no-startup-id pkill dunst
 
 # Mousekeys
 bindsym $mode+q exec --no-startup-id activate-hotkeys keyboard-mouse toggle
@@ -323,9 +324,11 @@ assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
 assign [class="^Desmume$"    ] $ws10
 assign [class="^Lutris$"     ] $ws10
+assign [class="^mame$"       ] $ws10
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
+for_window [class="Brave-browser"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
 for_window [class="Code"                ] border none,    focus
@@ -333,6 +336,7 @@ for_window [class="Zathura"             ] border none,    focus
 for_window [class="Sxiv"                ] border none,    focus, fullscreen
 for_window [title="^LibreOffice "       ] border none,    focus
 for_window [class="^Lutris$"            ] border none,    focus
+for_window [class="^mame$"              ] border none,    focus
 # for_window [class="Steam"               ] border none,    focus
 for_window [class="qBittorrent"         ]                        floating enable, move center
 

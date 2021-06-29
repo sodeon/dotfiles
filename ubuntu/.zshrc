@@ -32,6 +32,11 @@ ENABLE_CORRECTION="true"
 # If you want to change the command execution time stamp shown in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
+# 10x increase .zsh_history size (default: 10000 lines)
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+
 
 #--------------------------------------------------------------------------------------------------------------
 # Pre-oh-my-zsh settings
