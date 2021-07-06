@@ -256,7 +256,7 @@ bindsym Mod4+Right exec --no-startup-id "snap-window right; i3-msg 'focus mode_t
 
 # Notifications
 # close all notifications: (or set "close_all" @ ~/.config/dunst/dunstrc)
-bindsym $mod+BackSpace exec --no-startup-id pkill dunst
+# bindsym $mod+BackSpace exec --no-startup-id pkill dunst && dunst
 
 # Mousekeys
 bindsym $mode+q exec --no-startup-id activate-hotkeys keyboard-mouse toggle
@@ -459,4 +459,5 @@ exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspend
 # Startup programs
 #
 exec        --no-startup-id mpris2controller &
+exec        --no-startup-id pgrep dunst || dunst &
 exec_always --no-startup-id pgrep start-ssh-feed || start-ssh-feedback-listener-server &

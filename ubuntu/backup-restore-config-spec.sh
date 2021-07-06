@@ -29,6 +29,7 @@ declare -a direct_backup_configs=(
     mpv/scripts
     sxiv
     systemd/user
+    hardware
 
     broot/conf.hjson
     mpv/input.conf
@@ -38,9 +39,7 @@ declare -a direct_backup_configs=(
 
     autohotkeyrc.example
     i3/{config,i3blocks.conf.example,layouts}
-    hardware/macs
     dotfiles/*.example
-    hardware/*.example
     Xresources/*.example
 )
 
@@ -51,6 +50,5 @@ declare -a adding_machine_name_backup_configs=(
     mpv/mpv.conf
     i3/i3blocks.conf
     "dotfiles/!(*.example)"
-    "hardware/!(*.example)"
     "Xresources/!(*.example)"
 )

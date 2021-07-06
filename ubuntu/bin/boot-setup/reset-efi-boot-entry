@@ -1,0 +1,51 @@
+#!/usr/bin/bash -ue
+#------------------------------------------------------------------------------
+# efibootmgr
+#------------------------------------------------------------------------------
+# List boot entries: efibootmgr -v
+# Remove boot entry: sudo efibootmgr -B -b 3 # e.g. boot entry 0003
+# Reorder boot order: sudo efibootmgr -o b,7,3,2 # When booting to Windows, Windows must be the BootCurrent, or Windows will rewrite boot order
+# Specify next boot: sudo efibootmgr -n 1 # Next boot to entry 1
+# Remove duplicate (don't use, seems broken): sudo efibootmgr -D
+
+# EFISTUB specifications
+label="Linux Mint" # Boot name shown in BIOS
+disk=/dev/mmcblk0  # UEFI partition disk
+part=1             # UEFI partition ID (e.g. mmcblk0p"1", sda"4")
+efistub="\EFI\ubuntu\efistub.efi"
+
+preserve_entry=0 # TODO: Allow multiple entries to be preserved
+
+
+#----------------
+# Remove all entries
+#----------------
+entries=`efibootmgr`
+for i in 0 1 2 3 4 5 6 7 8 9 A B C D E F; do # Do not clear entry 0, automatically created by bios
+    [ $i == $preserve_entry ] && continue
+    echo $entries | grep Boot000$i > /dev/null && sudo efibootmgr -B -b $i 2&> /dev/null # Remove entry
+done
+
+
+#----------------
+# Create entries
+#----------------
+# Linux:
+sudo efibootmgr -c -g --disk $disk --part $part -L "$label" -l "$efistub" > /dev/null
+
+
+#----------------
+# Boot order
+#----------------
+default_entry=`efibootmgr | awk '/'"$label"'/ {print $1}' | sed -r 's/Boot//' | sed -r 's/\*//'` # Get $label entry number
+sudo efibootmgr -o $default_entry,0000 > /dev/null # Boot sequence: $label
+
+# Print results
+efibootmgr -v
+
+
+#------------------------------------------------------------------------------
+# Legacy
+#------------------------------------------------------------------------------
+# export UUID=$(blkid -s UUID -o value /dev/mmcblk0p2) # Ubuntu UUID
+

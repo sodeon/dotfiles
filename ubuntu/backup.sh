@@ -6,7 +6,7 @@ cd "$(dirname "$(realpath "$0")")"
 # $HOME directory
 #
 for item in ${home_backup_files[@]}; do
-    cp -p ~/$item .
+    [[ -f ~/$item ]] && cp -p ~/$item .
 done
 
 #
@@ -21,7 +21,7 @@ for item in ${direct_backup_configs[@]}; do
         for sub_item in ${items[@]}; do
             if [[ -d "$sub_item" ]]; then
                 cp -p -rf $sub_item/* `echo $sub_item | sed -r "s/\/home\/$USER\///"`
-            else
+            elif [[ -f $"$sub_item" ]]; then
                 cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`
             fi
         done
@@ -36,7 +36,7 @@ if [[ ! -z ${1-} ]]; then
             for sub_item in ${items[@]}; do
                 if [[ -d "$sub_item" ]]; then
                     log_error "Using directory for renaming is not supported ($sub_item)"
-                else
+                elif [[ -f $"$sub_item" ]]; then
                     cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`.$1
                 fi
             done
@@ -60,7 +60,7 @@ cp -p -rf ~/.local/lib/bash .local/lib
 shopt -s extglob
 cp -p -rf ~/.local/share/applications/!(wine*).desktop .local/share/applications
 shopt -u extglob
-rm .local/share/applications/thann.play-with-mpv.desktop
+rm -f .local/share/applications/thann.play-with-mpv.desktop
 
 #
 # bin directory
@@ -82,3 +82,5 @@ fi
 # VSCode extensions
 #
 which code >/dev/null && code --list-extensions > vscode-extensions.list
+
+exit 0
