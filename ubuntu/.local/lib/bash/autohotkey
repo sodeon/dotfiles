@@ -385,26 +385,26 @@ volume() {
         amixer -D pulse set Master toggle
     fi
     if [ `pulsemixer --get-mute` -eq 1 ]; then
-        notify-send.sh -t $notificationTimeout -r 21 -u low Mute Volume
+        notify-send.sh -t $NOTIFICATION_TIMEOUT -r 21 -u low Mute Volume
     else
         local volume=`pulsemixer --get-volume | sed -r 's/\s+.*$//'`
         # notify-send.sh -s 21 # Workaround notify-send.sh sometimes will not close volume notification
-        notify-send.sh -t $notificationTimeout -r 21 -u low $volume Volume
+        notify-send.sh -t $NOTIFICATION_TIMEOUT -r 21 -u low $volume Volume
     fi
     pkill -RTMIN+10 i3blocks
 }
 
 brightness() {
     if [ $1 = "up" ]; then
-        monitor-control bu | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+        monitor-control bu | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     elif [ $1 = "down" ]; then
-        monitor-control bd | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+        monitor-control bd | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     elif [ $1 = "toggle" ]; then
-        monitor-control bs | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+        monitor-control bs | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     elif [ $1 = "gaming" ]; then
-        monitor-control bg | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+        monitor-control bg | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     else
-        monitor-control b  | xargs -d '\n' notify-send.sh -t $notificationTimeout -r 22 -u low && pkill -RTMIN+11 i3blocks
+        monitor-control b  | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     fi
 } 
 
