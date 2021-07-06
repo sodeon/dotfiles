@@ -6,7 +6,8 @@ cd "$(dirname "$(realpath "$0")")";
 tmp=/tmp/provision
 
 apt-force() {
-    sudo apt --assume-yes "$@" 
+    yes | sudo apt "$@" 
+    # sudo apt --assume-yes "$@" 
 }
 
 cd-temp() {
@@ -49,13 +50,13 @@ apt-force install ripgrep
 apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
 apt-force install iperf3 sysbench # Benchmark
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
-apt-force install taskwarrior # task management tool
+# apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
-apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
-apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
+# apt-force install cmake make build-essential autotools-dev # build tools
+# apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
@@ -66,34 +67,35 @@ apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and 
 apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
-apt-force install gdb gcc g++ # build tools
-apt-force install qbittorrent
+# apt-force install gdb gcc g++ # build tools
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 apt-force install zathura # pdf reader
-apt-force install libreoffice
+# apt-force install libreoffice
+# apt-force install qbittorrent
 apt-force install unrar p7zip
-apt-force install jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
+apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
-# apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install numlockx
 apt-force install wakeonlan ethtool
-# apt-force install blueman
 apt-force install lm-sensors # Hardware sensors. $sensors to read temperatures/voltages
+# apt-force install blueman
+# apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 
 # light: LCD blacklight control for laptop panel. For external monitor, use ddccontrol.
-sudo apt install light
+# sudo apt install light
 
 # From Ubuntu apt - i3
 # apt-force install xautolock # Automatic suspend/lock (marked as legacy, replaced by xidlehook that correctly supports Chrome Youtube)
 apt-force install jq # json parser for i3-msg
 apt-force install dunst # Lightweight notification for i3
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
-apt-force install lxappearance # Apply GTK theme in i3
 apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
+# apt-force install lxappearance # Apply GTK theme in i3
 # apt-force install compton # compton: transition/transparency effect
 
+apt-force clean # Clear apt cache
 apt-force autoremove
 
 # oh-my-zsh
@@ -115,11 +117,11 @@ chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 cd-before-temp
 
 # fzf
-cd-temp
-git clone --depth 1 https://github.com/junegunn/fzf.git
-cp -rf fzf ~/.fzf
-yes | ~/.fzf/install
-cd-before-temp
+# cd-temp
+# git clone --depth 1 https://github.com/junegunn/fzf.git
+# cp -rf fzf ~/.fzf
+# yes | ~/.fzf/install
+# cd-before-temp
 
 # vim/gvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -156,9 +158,9 @@ cd-before-temp
 sudo install -Dm 0755 ./apps/unclutter /usr/bin/
 
 # Automatic suspend (xidlehook)
-sh <(curl -L https://nixos.org/nix/install) # Install nix
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # Load nix executable path
-nix-env -iA nixpkgs.xidlehook # Install xidlehook
+# sh <(curl -L https://nixos.org/nix/install) # Install nix
+# if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # Load nix executable path
+# nix-env -iA nixpkgs.xidlehook # Install xidlehook
 
 # Set urxvt as default terminal
 echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
@@ -180,21 +182,17 @@ pip3 install git+git://github.com/thann/play-with-mpv --user
 # Remove Ubuntu installed software
 #------------------------------------------------------------------------------
 # Ubuntu data collection service
-apt-force purge ubuntu-report popularity-contest
+# apt-force purge ubuntu-report popularity-contest
 
 # Ubuntu auto-update (this service does not work in i3)
-apt-force purge unattended-upgrades
+# apt-force purge unattended-upgrades
 
 
 #------------------------------------------------------------------------------
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-chmod +x ./restore.sh && ./restore.sh
-
-# git
-git config --global credential.helper 'cache --timeout=7200'
-git config --global diff.tool vimdiff
+# chmod +x ./restore.sh && ./restore.sh
 
 # Use ranger as default file manager (By default, xdg-open is the command to open file/folder with appropriate application)
 # Go to /usr/share/applications and look inside its entries to find the mime types
@@ -202,9 +200,9 @@ git config --global diff.tool vimdiff
 xdg-mime default ranger.desktop inode/directory
 
 # Disable error reporting
-sudo systemctl mask apport # Program crash report
-sudo systemctl mask whoopsie # Ubuntu error reporting
-sudo systemctl mask kerneloops # Kernel debug message reporting
+# sudo systemctl mask apport # Program crash report
+# sudo systemctl mask whoopsie # Ubuntu error reporting
+# sudo systemctl mask kerneloops # Kernel debug message reporting
 
 # Additional fonts
 cd-temp

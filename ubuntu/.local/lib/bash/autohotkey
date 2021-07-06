@@ -127,7 +127,7 @@ deleteLine() {
 }
 
 closeTabOrWindow() {
-    if isWinActive Google-chrome || isWinActive Firefox; then
+    if isWinActive $browserWinClass; then
         xte 'keydown Control_L' 'key w' 'keyup Control_L'
     else
         xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
@@ -142,7 +142,7 @@ closeTabOrWindow() {
 # }
 
 pageup() {
-    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+    if isWinActive $browserWinClass || isWinActive VIM$ ahk_title; then
         xdotool key ctrl+b
     elif isWinActive URxvt; then
 		xdotool key shift+Prior
@@ -152,7 +152,7 @@ pageup() {
 }
 
 pagedown() {
-    if isWinActive Google-chrome || isWinActive VIM$ ahk_title; then
+    if isWinActive $browserWinClass || isWinActive VIM$ ahk_title; then
         xdotool key ctrl+f
     elif isWinActive URxvt; then
 		xdotool key shift+Next
@@ -284,7 +284,7 @@ resizeWindow() {
 
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
-    if (isWinActive Google-chrome || isWinActive Firefox); then
+    if (isWinActive $browserWinClass); then
         if (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
             xte 'key f'
         else
@@ -312,7 +312,7 @@ F1() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            google-chrome $chromeArgs &
+            launchBrowser
         fi
     fi
 }
@@ -402,7 +402,9 @@ volume() {
     if [ `pulsemixer --get-mute` -eq 1 ]; then
         notify-send.sh -t $notificationTimeout -r 21 -u low Mute Volume
     else
-        notify-send.sh -t $notificationTimeout -r 21 -u low `pulsemixer --get-volume | sed -r 's/\s+.*$//'` Volume
+        local volume=`pulsemixer --get-volume | sed -r 's/\s+.*$//'`
+        # notify-send.sh -s 21 # Workaround notify-send.sh sometimes will not close volume notification
+        notify-send.sh -t $notificationTimeout -r 21 -u low $volume Volume
     fi
     pkill -RTMIN+10 i3blocks
 }
@@ -423,16 +425,16 @@ brightness() {
 
 display-input() {
     feature_id=60
-    inputs=(0xf 0x11) # 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
+    # inputs=(0xf 0x1) # 0x1: D-Sub, 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
 
     notify-send.sh -u normal -r 101 "Switching display input..." # ddcutil is slow on NVIDIA graphics, add notification to ease slow responsieness
     if [[ $1 != "toggle" ]]; then
         ddcutil setvcp $feature_id $1
     else
         cur_input=`ddcutil getvcp 60 | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
-        inputs[${#inputs[@]}]=${inputs[0]}
+        displayInputs[${#displayInputs[@]}]=${displayInputs[0]}
         hit=0
-        for input in ${inputs[@]}; do
+        for input in ${displayInputs[@]}; do
             [ $hit -eq 1 ] && ddcutil setvcp $feature_id $input && break
             [[ $input -eq $cur_input ]] && hit=1 && continue
         done
@@ -452,7 +454,8 @@ display-standby() {
     xset dpms force off
 }
 
-bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac true; }
+bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac; }
+# bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac true; }
 
 power-menu() {
     entries=("${powerEntries[@]}")

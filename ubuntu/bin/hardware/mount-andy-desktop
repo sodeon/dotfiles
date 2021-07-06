@@ -1,28 +1,14 @@
 #!/bin/bash -u
 
-# Host
-mntMedia=/mnt/e
-mntRoot=/mnt/andy-desktop
+host=/nas/andy-desktop
+remote=andy@andy-desktop
 
-# Remote
-dst=andy@192.168.0.102
-dstMedia=/mnt/e
-dstMediaWin=/E:/
-
-# SSH params
 identity=$HOME/.ssh/id_rsa
+sshOptions="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 # sshOptions="-o allow_other -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o debug "
-sshOptions="-o allow_other -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
     
-# SSHFS commands
-sudo sshfs $dst:/ $mntRoot -o IdentityFile=$identity $sshOptions \
-    && notify-send -u low      "Drive mounted at $mntRoot" \
-    || notify-send -u critical "Drive mount at $mntRoot failed"
 
-if sudo sshfs $dst:$dstMedia $mntMedia -o IdentityFile=$identity $sshOptions; then
-    notify-send -u low      "Drive mounted at $mntMedia"
-elif sudo sshfs $dst:$dstMediaWin $mntMedia -o IdentityFile=$identity $sshOptions; then
-    notify-send -u low      "Drive mounted at $mntMedia"
-else
-    notify-send -u critical "Drive mount at $mntMedia failed"
-fi
+sshfs $remote:/ $host -o IdentityFile=$identity $sshOptions \
+    && notify-send -u low      "Drive mounted at $host" \
+    || notify-send -u critical "Drive mount at $host failed"
+

@@ -10,8 +10,7 @@ set +e
 mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,sxiv,broot,cmus,Code/User,i3/layouts,Xmodmap,systemd/user,MangoHud}
 set -e
 
-# $HOME/.Xresources will source ~/.config/Xresources/{dpi,i3}. If these files does not exist, ~/.profile will fail executing xrdb command
-[[ ! -f ~/.config/Xresources/dpi ]] && cp .config/Xresources/dpi.example ~/.config/Xresources/dpi
+# If these files does not exist, ~/.profile will fail executing xrdb command
 [[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
 
 #
@@ -73,6 +72,7 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 #
 rm -rf ~/.local/lib/bash
 cp -rf .local ~/
+sudo ln -s ~/.local/lib/bash/vim-tmux-i3-integration /usr/local/bin
 
 #
 # bin directory

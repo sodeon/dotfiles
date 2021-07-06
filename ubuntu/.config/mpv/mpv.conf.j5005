@@ -1,0 +1,79 @@
+#include=/path/to/the/file/you/want/to/include
+
+##################
+# Video settings #
+##################
+fs=yes # Start in fullscreen mode
+geometry=100%:100% # bottom right corner
+autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80% of the screen size
+#ontop=yes
+
+# Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
+# Andy reference: https://wiki.archlinux.org/index.php/Mpv
+vo=gpu
+# profile=gpu-hq
+
+# Scaling
+# scale=ewa_lanczossharp
+# cscale=ewa_lanczossharp
+# tscale=oversample
+
+
+#------------------------------------------------------------------------------
+# Personal customizations
+# https://mpv.io/manual/master/
+#------------------------------------------------------------------------------
+# Allow outside script to control mpv (e.g. SVP)
+input-ipc-server=/tmp/mpvsocket
+
+# Youtube download settings
+ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
+
+force-seekable=yes
+
+slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
+alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
+
+sub-font-size=40
+sub-margin-y=30
+
+volume-max=200              # maximum volume in %, everything above 100 results in amplification
+
+osd-font-size=32
+osd-on-seek=msg-bar
+osd-bar-align-y=0.783
+osd-bar-w=55
+osd-bar-h=2
+osd-border-size=1
+osd-align-x=center
+osd-align-y=bottom
+
+
+#------------------------------------------------------------------------------
+# From https://github.com/tsubajashi/mpv-settings
+#------------------------------------------------------------------------------
+# log-file=~/log
+
+hwdec=auto # "auto-copy" has significant performance impact, halfing frame rate
+# gpu-api=vulkan
+# vulkan-async-compute=yes
+# vulkan-async-transfer=yes
+# vulkan-queue-count=1
+# dither=error-diffusion
+# deband=yes
+# deband-iterations=2
+# deband-threshold=20
+# deband-range=16
+# scale-clamp=0.2
+correct-downscaling=yes
+linear-downscaling=yes
+sigmoid-upscaling=yes
+# video-sync=display-resample
+# tscale=box
+# tscale-window=quadric
+# tscale-radius=1.1
+# tscale-clamp=0.0
+# interpolation
+blend-subtitles=no
+# hdr-compute-peak=yes
+# tone-mapping=mobius

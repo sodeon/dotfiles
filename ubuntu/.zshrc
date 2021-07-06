@@ -112,9 +112,9 @@ alias j='jump'
 # alias stats='zsh_stats'
 
 # fzf (Fuzzy finder, auto-generated)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
-bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
+# bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
 # bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
 
 
@@ -131,11 +131,11 @@ bindkey -M emacs '^H'    backward-kill-word
 bindkey -M emacs '^[[3^' kill-word
 
 # fzf
-export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
-export FZF_COMPLETION_TRIGGER=''
+# export FZF_DEFAULT_COMMAND='fdfind --hidden --type f --exclude .git'
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_DEFAULT_OPTS='-1 --no-mouse --multi --color=16 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-f:page-down,ctrl-b:page-up'
+# export FZF_COMPLETION_TRIGGER=''
 
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-[ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
+# [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br

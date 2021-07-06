@@ -57,7 +57,7 @@ sd-command-line() {
     elif [[ $BUFFER = sd\ * ]]; then
         __sd-replace-buffer "sd" ""
     # Add sudo for built-in commands
-    elif [[ $cmd = mv || $cmd = cp ]]; then
+    elif [[ $cmd = mv || $cmd = cp || $cmd = mkdir ]]; then
         LBUFFER="sudo $LBUFFER"
     # Add sd for non-built-in commands
     else
