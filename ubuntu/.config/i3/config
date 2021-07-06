@@ -232,8 +232,8 @@ bindsym $mod+d layout toggle tabbed   split
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 
 # Floating
-bindsym $mod+g floating toggle
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
 # bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey floatingToggled
 
 # Snap floating window position

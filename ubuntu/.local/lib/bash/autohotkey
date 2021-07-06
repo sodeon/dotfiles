@@ -72,28 +72,29 @@ wake-on-lan() {
     notify-send.sh -t 0 -r 19 -u low "Waiting For Remote" "$machine"
     for i in {1..5}; do
         if ping -c1 $machine; then
-            notify-send.sh -t $notificationTimeout -r 19 -u low "$machine Awake Now"
+            notify-send.sh -t $NOTIFICATION_TIMEOUT -r 19 -u low "$machine Awake Now"
             return
         fi
     done
-    notify-send.sh -t $notificationTimeout -r 19 -u critical "Remote Timeout" $machine
+    notify-send.sh -t $NOTIFICATION_TIMEOUT -r 19 -u critical "Remote Timeout" $machine
     return 1
 }
 
-# NOTE: Entries must use the variable name $entries
 simple-rofi() {
     local title="$1"; shift
     local width="$1"; shift
-    # local entries=($@) # Bash does not support array function argument. Use $entries variable name to hack/pass the $entries to function
+    declare -n local entries=$1 # local entries=($@) # Bash does not support array function argument. Use $entries variable name to hack/pass the $entries to function
 
-    rofiEntries=""
-    for entry in "${entries[@]}"; do
-        [ -z $rofiEntries ] \
-            && rofiEntries="$entry" \
-            || rofiEntries="$rofiEntries\n$entry"
+    # Sort rofi entries. Bash associative array key sequence is random
+    local pre_sort=""
+    for entry in "${!entries[@]}"; do
+        pre_sort=$pre_sort"$entry\n"
     done
+    local rofiEntries=`printf "$pre_sort" | sort -k 1 -n`
 
-    echo `echo -e "$rofiEntries" | rofi -p "$title" -i -width -$width $rofiStyles`
+    selection=`printf "$rofiEntries" | rofi -p "$title" -i -width -$width $ROFI_STYLES`
+    [ -z $selection ] && return 1
+    ${entries["$selection"]}
 }
 
 
@@ -127,7 +128,7 @@ deleteLine() {
 }
 
 closeTabOrWindow() {
-    if isWinActive $browserWinClass; then
+    if isWinActive $BROWSER_WIN_CLASS; then
         xte 'keydown Control_L' 'key w' 'keyup Control_L'
     else
         xte 'keydown Alt_L' 'key grave' 'keyup Alt_L'
@@ -142,7 +143,7 @@ closeTabOrWindow() {
 # }
 
 pageup() {
-    if isWinActive $browserWinClass || isWinActive VIM$ ahk_title; then
+    if isWinActive $BROWSER_WIN_CLASS || isWinActive VIM$ ahk_title; then
         xdotool key ctrl+b
     elif isWinActive URxvt; then
 		xdotool key shift+Prior
@@ -152,7 +153,7 @@ pageup() {
 }
 
 pagedown() {
-    if isWinActive $browserWinClass || isWinActive VIM$ ahk_title; then
+    if isWinActive $BROWSER_WIN_CLASS || isWinActive VIM$ ahk_title; then
         xdotool key ctrl+f
     elif isWinActive URxvt; then
 		xdotool key shift+Next
@@ -284,7 +285,7 @@ resizeWindow() {
 
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
-    if (isWinActive $browserWinClass); then
+    if (isWinActive $BROWSER_WIN_CLASS); then
         if (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
             xte 'key f'
         else
@@ -312,7 +313,7 @@ F1() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            $browserCmd
+            $BROWSER_CMD
         fi
     fi
 }
@@ -339,37 +340,21 @@ F3() {
 }
 
 F4() {
-    entries=("${f4Entries[@]}")
-
     i3-msg 'workspace number "4: Code "'
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            selection=`simple-rofi Program 30 ${entries[@]}`
-            [ -z $selection ] && i3-msg "workspace back_and_forth" && return
-            
-            case "$selection" in
-                ${entries[0]})
-                    code --disable-gpu # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
-                    ;;
-            esac
+            simple-rofi Program 30 F4_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi
 }
 
 F10() {
-    entries=("${f10Entries[@]}")
-
     i3-msg 'workspace number "10: G "'
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            selection=`simple-rofi Program 20 ${entries[@]}`
-            if [ -z $selection ]; then
-                i3-msg "workspace back_and_forth"
-            else
-                $selection
-            fi
+            simple-rofi Program 28 F10_ENTRIES || i3-msg "workspace back_and_forth"
         fi
     fi
 }
@@ -432,9 +417,9 @@ display-input() {
         ddcutil setvcp $feature_id $1
     else
         cur_input=`ddcutil getvcp 60 | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
-        displayInputs[${#displayInputs[@]}]=${displayInputs[0]}
+        DISPLAY_INPUTS[${#DISPLAY_INPUTS[@]}]=${DISPLAY_INPUTS[0]}
         hit=0
-        for input in ${displayInputs[@]}; do
+        for input in ${DISPLAY_INPUTS[@]}; do
             [ $hit -eq 1 ] && ddcutil setvcp $feature_id $input && break
             [[ $input -eq $cur_input ]] && hit=1 && continue
         done
@@ -454,54 +439,19 @@ display-standby() {
     xset dpms force off
 }
 
-bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac; }
-# bluetooth-quick-connect() { toggle-bluetooth device $quickConnectMac true; }
+bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC; }
+# bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC true; }
 
 power-menu() {
-    entries=("${powerEntries[@]}")
-
-    selection=`simple-rofi Menu 20 ${entries[@]}`
-    [ -z $selection ] && return
-    
-    case "$selection" in
-        ${entries[0]})
-            xset dpms force off
-            ;;
-        ${entries[1]})
-            systemctl suspend
-            ;;
-        ${entries[2]})
-            reboot
-            ;;
-        ${entries[3]})
-            shutdown -h now
-            ;;
-    esac
+    simple-rofi Menu 23 POWER_ENTRIES
 }
 
 bluetooth-menu() {
-    entries=("${bluetoothEntries[@]}")
-
-    selection=`simple-rofi Bluetooth 28 ${entries[@]}`
-    [ -z $selection ] && return
-    
-    case "$selection" in
-        ${entries[0]})
-            toggle-bluetooth
-            ;;
-        ${entries[1]})
-            bluetooth-quick-connect
-            ;;
-    esac
+    simple-rofi Bluetooth 28 BLUETOOTH_ENTRIES
 }
 
 wol-menu() {
-    entries=("${wolEntries[@]}")
-
-    selection=`simple-rofi Machine 15 ${entries[@]}`
-    [ -z $selection ] && return
-
-    wake-on-lan $selection
+    simple-rofi Machine 15 WOL_ENTRIES
 }
 
 
