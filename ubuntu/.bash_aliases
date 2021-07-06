@@ -15,7 +15,7 @@ alias d='vimdiff'
 alias m='man'
 alias b='br'
 alias p='python3'
-alias s='source'
+alias s='systemctl'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
                                       # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code
@@ -72,8 +72,6 @@ alias ta='task add'
 #-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
-alias sc='systemctl'
-
 alias suspend='systemctl suspend'
 # alias shutdown='shutdown -h now'
 
