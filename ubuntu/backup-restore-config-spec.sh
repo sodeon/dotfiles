@@ -26,7 +26,7 @@ declare -a direct_backup_configs=(
     zathura
     Xmodmap
     xbindkeys
-    mpv/scripts
+    mpv/{scripts,shaders}
     sxiv
     systemd/user
 

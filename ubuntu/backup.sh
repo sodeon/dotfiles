@@ -20,7 +20,9 @@ for item in ${direct_backup_configs[@]}; do
         items=(~/.config/$item)
         for sub_item in ${items[@]}; do
             if [[ -d "$sub_item" ]]; then
-                cp -p -rf $sub_item/* `echo $sub_item | sed -r "s/\/home\/$USER\///"`
+                dst=`echo $sub_item | sed -r "s/\/home\/$USER\///"`
+                mkdir -p $dst
+                cp -p -rf $sub_item/* $dst
             else
                 cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`
             fi
