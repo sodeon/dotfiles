@@ -3,15 +3,25 @@
 # Check whether internal or external monitor is used and dispatch to corresponding handling script
 # FIXME: "tee /tmp/brightness" is used by i3blocks and notify-send. Quite ugly. Try to remove this tee.
 #-------------------------------------------------------------------------------------------------
-if [ -f ~/.config/hardware/external-displayrc ]; then
-	source ~/.config/hardware/external-displayrc
+source source-display-monitor
 
-	if xrandr | grep -q "\<$interface\> connected"; then
-		external-monitor-control $@ | tee /tmp/brightness
-	else
-		internal-monitor-control $@ | tee /tmp/brightness
-	fi
+if [[ $interface != "eDP" ]]; then
+    external-monitor-control $@ | tee /tmp/brightness
 else
-    echo -e "[Error] Cannot perform action: external-displayrc not found in ~/.config/hardware"
-    exit 1
+    internal-monitor-control $@ | tee /tmp/brightness
 fi
+
+
+
+# if [ -f ~/.config/hardware/external-displayrc ]; then
+# 	source ~/.config/hardware/external-displayrc
+
+# 	if xrandr | grep -q "\<$interface\> connected"; then
+# 		external-monitor-control $@ | tee /tmp/brightness
+# 	else
+# 		internal-monitor-control $@ | tee /tmp/brightness
+# 	fi
+# else
+#     echo -e "[Error] Cannot perform action: external-displayrc not found in ~/.config/hardware"
+#     exit 1
+# fi
