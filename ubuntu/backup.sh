@@ -9,7 +9,6 @@ backup-p() {
     # shopt -s extglob
     if [ -d $1 ]; then
         local src_dir=$1
-        local dst_dir=$1
         local dst_dir=`echo $src_dir | sed 's/^\/home\/[a-zA-Z0-9_]*\/\?\(.*\)/\1/' | sed 's/^\///'` # Stripe $HOME from path
         # echo d $src_dir $dst_dir
         # # rm -rf "$dst_dir"

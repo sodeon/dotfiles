@@ -32,6 +32,7 @@ backup_list=(
     .config/mpv/{scripts,shaders}
     .config/sxiv
     .config/systemd/user
+    .config/hardware
 
     .config/broot/conf.hjson
     .config/mpv/input.conf
@@ -52,6 +53,6 @@ machine_suffix_backup_list=(
     .config/mpv/mpv.conf
     .config/i3/i3blocks.conf
     .config/dotfiles/dotfilesrc
-    .config/Xresources/i3
+    .config/Xresources/{i3,i3.benq-ew3270u}
     # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.
 )
