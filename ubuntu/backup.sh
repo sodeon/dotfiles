@@ -2,76 +2,53 @@
 cd "$(dirname "$(realpath "$0")")"
 . backup-restore-config-spec.sh
 
-#
-# $HOME directory
-#
-for item in ${home_backup_files[@]}; do
-    cp -p ~/$item .
+#------------------------------------------------------------------------------
+# Support library
+#------------------------------------------------------------------------------
+backup-p() {
+    # shopt -s extglob
+    if [ -d $1 ]; then
+        local src_dir=$1
+        local dst_dir=$1
+        local dst_dir=`echo $src_dir | sed 's/^\/home\/[a-zA-Z0-9_]*\/\?\(.*\)/\1/' | sed 's/^\///'` # Stripe $HOME from path
+        # echo d $src_dir $dst_dir
+        # # rm -rf "$dst_dir"
+        mkdir -p $dst_dir
+        cp -p -rf "$src_dir"/* "$dst_dir"
+    elif [ -f $1 ]; then
+        local src_dir=`echo $1 | sed 's/^\(.*\)\/.*$/\1/'`
+        local dst_dir=`echo $src_dir | sed 's/^\/home\/[a-zA-Z0-9_]*\/\?\(.*\)/.\/\1/' | sed 's/^\///'` # Stripe $HOME from path
+        local file=`echo $1 | sed 's/^.*\///'`
+        # echo f $src_dir $dst_dir $file
+        mkdir -p $dst_dir
+        cp -p "$src_dir/$file" "$dst_dir"
+    fi
+    # shopt -u extglob
+}
+
+
+#------------------------------------------------------------------------------
+# Backup core
+#------------------------------------------------------------------------------
+for item in ${wipe_then_backup_list[@]}; do
+    rm -rf "$item"
+    backup-p "$HOME/$item"
 done
 
-#
-# .config directory
-#
-shopt -s extglob
-for item in ${direct_backup_configs[@]}; do
-    if [[ -d "~/.config/$item" ]]; then
-        cp -p -rf ~/.config/$item .config/$item/..
-    else
-        items=(~/.config/$item)
-        for sub_item in ${items[@]}; do
-            dst=`echo $sub_item | sed -r "s/\/home\/$USER\///"`
-            if [[ -d "$sub_item" ]]; then
-                mkdir -p $dst
-                cp -p -rf $sub_item/* $dst
-            else
-                cp -p $sub_item $dst
-            fi
-        done
-    fi
+for item in ${backup_list[@]}; do
+    backup-p "$HOME/$item"
 done
+
 if [[ ! -z ${1-} ]]; then
-    for item in ${adding_machine_name_backup_configs[@]}; do
-        if [[ -d "~/.config/$item" ]]; then
-            log_error "Using directory for renaming is not supported ($sub_item)"
-        else
-            items=(~/.config/$item)
-            for sub_item in ${items[@]}; do
-                if [[ -d "$sub_item" ]]; then
-                    log_error "Using directory for renaming is not supported ($sub_item)"
-                else
-                    cp -p $sub_item `echo $sub_item | sed -r "s/\/home\/$USER\///"`.$1
-                fi
-            done
-        fi
+    for item in ${machine_suffix_backup_list[@]}; do
+        # shopt -s extglob
+        cp -rf "$HOME/$item" "$item.$1"
+        # shopt -u extglob
     done
 fi
-shopt -u extglob
 
 #
-# Other non-standard config directory
-#
-mkdir -p .urxvt/ext && cp -p -rf ~/.urxvt/ext .urxvt
-cp -p ~/.oh-my-zsh/themes/andy.zsh-theme .oh-my-zsh/themes
-
-#
-# .local directory
-#
-rm -rf .local/lib/bash
-cp -p -rf ~/.local/lib/bash .local/lib
-
-shopt -s extglob
-cp -p -rf ~/.local/share/applications/!(wine*).desktop .local/share/applications
-shopt -u extglob
-rm .local/share/applications/thann.play-with-mpv.desktop
-
-#
-# bin directory
-#
-rm -rf ./bin/*
-cp -p -rf ~/bin .
-
-#
-# Built binaries
+# Self built binaries
 #
 if [ -d ~/code/sxiv ]; then
 	cp -p ~/code/sxiv/sxiv     apps/sxiv

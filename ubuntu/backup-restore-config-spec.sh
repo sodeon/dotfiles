@@ -1,8 +1,11 @@
 #!/bin/bash
-# NOTE: This script is not intended to be executed directly. It is sourced by backup.sh/restore.sh
+wipe_then_backup_list=(
+    bin
+    .local/lib/bash
+    .urxvt/ext
+)
 
-# Files to backup (no directory) at home directory root
-declare -a home_backup_files=(
+backup_list=(
     .bash_aliases
     .tmux.conf
     .vimrc
@@ -14,43 +17,41 @@ declare -a home_backup_files=(
     .xbindkeysrc
     .lesskey
     .imwheelrc
-)
 
-# Files and directories to backup without file name modifications.
-# Support brace expansion and extglob.
-declare -a direct_backup_configs=(
-    htop
-    dunst
-    rofi
-    ranger
-    zathura
-    Xmodmap
-    xbindkeys
-    mpv/{scripts,shaders}
-    sxiv
-    systemd/user
+    .local/share/applications
+    .oh-my-zsh/themes/andy.zsh-theme
 
-    broot/conf.hjson
-    mpv/input.conf
-    cmus/{autosave,rc}
-    Code/User/{settings.json,keybindings.json}
-    MangoHud/MangoHud.conf
+    .config/htop
+    .config/dunst
+    .config/rofi
+    .config/ranger
+    .config/zathura
+    .config/Xmodmap
+    .config/xbindkeys
+    .config/i3/layouts
+    .config/mpv/{scripts,shaders}
+    .config/sxiv
+    .config/systemd/user
 
-    autohotkeyrc.example
-    i3/{config,i3blocks.conf.example,layouts}
-    hardware/macs
-    dotfiles/*.example
-    hardware/*.example
-    Xresources/*.example
+    .config/broot/conf.hjson
+    .config/mpv/input.conf
+    .config/cmus/{autosave,rc}
+    .config/Code/User/{settings.json,keybindings.json}
+    .config/MangoHud/MangoHud.conf
+
+    # examples
+    .config/autohotkeyrc.example
+    .config/dotfiles/dotfilesrc.example
+    .config/i3/{config,i3blocks.conf.example}
+    .config/Xresources/i3.example
 )
 
 # Files and directories to backup with machine name as file name suffix.
-# Support brace expansion and extglob.
-declare -a adding_machine_name_backup_configs=(
-    autohotkeyrc
-    mpv/mpv.conf
-    i3/i3blocks.conf
-    "dotfiles/!(*.example)"
-    "hardware/!(*.example)"
-    "Xresources/!(*.example)"
+machine_suffix_backup_list=(
+    .config/autohotkeyrc
+    .config/mpv/mpv.conf
+    .config/i3/i3blocks.conf
+    .config/dotfiles/dotfilesrc
+    .config/Xresources/i3
+    # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.
 )

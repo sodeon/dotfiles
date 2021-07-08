@@ -2,23 +2,32 @@
 cd "$(dirname "$(realpath "$0")")"
 . backup-restore-config-spec.sh
 
-#
-# Create directory and links that will be used later
-# Don't put it in provision.sh. This creates dependency on provision.sh and cannot use restore.sh alone
-#
-set +e
-mkdir -p ~/.config/{dotfiles,hardware,Xresources,htop,dunst,rofi,ranger,zathura,xbindkeys,mpv/scripts,sxiv,broot,cmus,Code/User,i3/layouts,Xmodmap,systemd/user,MangoHud}
-set -e
+backup-p() {
+    if [ -d $1 ]; then
+        local src_dir=$1
+        local dst_dir=`echo $src_dir | sed 's/^\/home\/[a-zA-Z0-9_]*\/\?\(.*\)/\/home\/\1/' | sed 's/^\///'`
+        rm -rf "$dst_dir" && mkdir -p $dst_dir
+        cp -p -rf "$src_dir"/* "$dst_dir"
+    elif [ -f $1 ]; then
+        local src_dir=`echo $1 | sed 's/^\(.*\)\/.*$/\1/'`
+        local dst_dir=`echo $src_dir | sed 's/^\/home\/[a-zA-Z0-9_]*\/\?\(.*\)/\/home\/\1/' | sed 's/^\///'`
+        local file=`echo $1 | sed 's/^.*\///'`
+        mkdir -p $dst_dir
+        cp -p "$src_dir/$file" "$dst_dir"
+    fi
+}
 
-# $HOME/.Xresources will source ~/.config/Xresources/{dpi,i3}. If these files does not exist, ~/.profile will fail executing xrdb command
-[[ ! -f ~/.config/Xresources/dpi ]] && cp .config/Xresources/dpi.example ~/.config/Xresources/dpi
 [[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
 
 #
 # $HOME directory
 #
-for item in ${home_backup_files[@]}; do
-    cp $item ~/
+for item in ${home_backup[@]}; do
+    if [ -d $item ]; then
+        cp -rf $item ~/
+    else
+        cp $item ~/
+    fi
 done
 
 #
@@ -27,7 +36,7 @@ done
 shopt -s extglob
 for item in ${direct_backup_configs[@]}; do
     if [[ -d ".config/$item" ]]; then
-        cp -rf .config/$item ~/.config/$item/..
+        cp -p -rf .config/$item ~/.config
     else
         items=(.config/$item)
         for sub_item in ${items[@]}; do
