@@ -35,6 +35,9 @@ if [ -d "$HOME/.local/lib/bash" ] ; then
     PATH="$HOME/.local/lib/bash:$PATH"
 fi
 
+# NOTE: this may duplicate functionalities in /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
+xrdb $HOME/.Xresources
+
 [[ $XDG_CURRENT_DESKTOP == "i3" ]] && set-display-monitor # For other desktop environment, use its built-in mechanism
 
 # HiDPI
@@ -54,8 +57,6 @@ if  [[ $XDG_CURRENT_DESKTOP == "i3" ]] && [[ ${is_high_dpi+x} == "true" ]]; then
     export QT_SCALE_FACTOR=2
     export QT_FONT_DPI=96
 fi
-# NOTE: this duplicate functionalities in /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
-# xrdb $HOME/.Xresources
 
 # urxvt daemon
 urxvtd -q -o -f
