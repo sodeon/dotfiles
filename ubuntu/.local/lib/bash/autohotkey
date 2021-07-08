@@ -410,13 +410,12 @@ brightness() {
 
 display-input() {
     feature_id=60
-    # inputs=(0xf 0x1) # 0x1: D-Sub, 0xf: DP, 0x11: HDMI-1, 0x12: HDMI2, append first item for easier loop logic (no wrap around)
 
     notify-send.sh -u normal -r 101 "Switching display input..." # ddcutil is slow on NVIDIA graphics, add notification to ease slow responsieness
     if [[ $1 != "toggle" ]]; then
         ddcutil setvcp $feature_id $1
     else
-        cur_input=`ddcutil getvcp 60 | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
+        cur_input=`ddcutil getvcp $feature_id | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
         DISPLAY_INPUTS[${#DISPLAY_INPUTS[@]}]=${DISPLAY_INPUTS[0]}
         hit=0
         for input in ${DISPLAY_INPUTS[@]}; do
