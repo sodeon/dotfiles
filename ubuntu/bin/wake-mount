@@ -37,7 +37,7 @@ case $remote in
             "/mnt/f"
         )
         dst_list=(
-            "/nas/c"
+            "/nas/nas"
             "/nas/d"
             "/nas/e"
             "/nas/f"
@@ -45,19 +45,13 @@ case $remote in
         ;;
     andy-desktop)
         username=andy
-        src_list=(
-            "/mnt/d"
-            "/mnt/e"
-        )
-        dst_list=(
-            "/nas/andy-desktop/d"
-            "/nas/andy-desktop/e"
-        )
+        src_list=("/")
+        dst_list=("/nas/andy-desktop")
         ;;
     tv)
         username=andy
-        src_list=( "/" )
-        dst_list=( "/nas/tv")
+        src_list=("/")
+        dst_list=("/nas/tv")
         ;;
 esac
 

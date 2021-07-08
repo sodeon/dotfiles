@@ -82,6 +82,7 @@ cp .oh-my-zsh/themes/andy.zsh-theme ~/.oh-my-zsh/themes
 #
 rm -rf ~/.local/lib/bash
 cp -rf .local ~/
+sudo ln -s ~/.local/lib/bash/vim-tmux-i3-integration /usr/local/bin
 
 #
 # bin directory
