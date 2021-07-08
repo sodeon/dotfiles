@@ -33,6 +33,6 @@ i3wm.ws10.horizontalGap: 500
 i3wm.ws10.verticalGap: 100
 
 ! Hardware control when booting
-i3wm.hardware.bluetoothEnable: false
+i3wm.hardware.bluetoothEnable: true
 i3wm.hardware.autoSuspend.enable: true
 i3wm.hardware.autoSuspend.timeInSec: 1800
