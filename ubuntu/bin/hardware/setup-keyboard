@@ -1,12 +1,16 @@
-#!/bin/bash -ue
+#!/bin/sh
 
 # udev script cannot seen environment variables
 DISPLAY=":0.0"
-HOME=/home/andy/
-# XAUTHORITY=/run/user/1000/gdm/Xauthority
-XAUTHORITY=$HOME/.Xauthority
+USER=andy
+HOME=/home/$USER/
+if which gdm3; then
+    XAUTHORITY=/run/user/1000/gdm/Xauthority
+else
+    XAUTHORITY=$HOME/.Xauthority
+fi
 XDG_CURRENT_DESKTOP=i3
-PATH="/usr/bin:/usr/local/bin:/home/andy/bin:$PATH"
+PATH="/usr/bin:/usr/local/bin:$HOME/bin:$PATH"
 export DISPLAY XAUTHORITY HOME XDG_CURRENT_DESKTOP PATH
 
 # Add multiple trigger guard

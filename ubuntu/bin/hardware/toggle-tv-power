@@ -10,12 +10,10 @@ else
     exit 1 # Error. Support on/off arguments only
 fi
 
-echo $cmd >> /home/andy/test
-echo `date` >> /home/andy/test
 for i in 0 1 2 3 4 5; do
     # When triggered by resuming from sleep, network may not be available. Add service polling to alleviate.
     if ip -brief addr | grep -q UP; then
-        python3 -m panasonic_viera $tv $cmd >> /home/andy/test
+        python3 -m panasonic_viera $tv $cmd
         # python3 -m panasonic_viera $tv $@
         exit
     fi

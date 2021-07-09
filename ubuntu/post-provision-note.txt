@@ -6,7 +6,6 @@ Configs not backed up
 
 Vim plugin install:
     open vim and :PlugInstall
-    # copy ~/.vim to /c/Users/Andy
 
 Tmux plugin install:
     (ctrl+e I) to download and install plugins
@@ -18,11 +17,6 @@ vscode plugin install
 
 Proprietary drivers:
     $sudo ubuntu-drivers install # Auto-detect and install (e.g. NVIDIA proprietary driver)
-
-ssh:
-    Ubuntu already has ssh server and related ssh tools setup
-    Copy ssh key to remote machine
-    e.g. $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.50
 
 Config:
     Check backup.sh and search for ".example" for config tuning
