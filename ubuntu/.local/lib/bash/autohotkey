@@ -313,7 +313,7 @@ F1() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            $BROWSER_CMD
+            BROWSER_CMD
         fi
     fi
 }
@@ -334,7 +334,7 @@ F3() {
     # If workspace 3 has no ranger instance, create one
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 3) .focused' | grep 'true'; then
         if ! isWinActive ranger ahk_command; then
-            $FILE_CMD
+            FILE_CMD
         fi
     fi
 }

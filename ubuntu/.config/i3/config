@@ -111,7 +111,7 @@ bindsym --release Pause                 exec --no-startup-id autohotkey display-
 bindsym --release Shift+Pause           exec --no-startup-id autohotkey suspend
 bindsym --release $mode+backslash       exec --no-startup-id autohotkey display-standby
 bindsym --release $mode+Shift+backslash exec --no-startup-id autohotkey suspend
-bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
+# bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
 bindsym           mod4+x                exec --no-startup-id autohotkey power-menu
 
 # Screenshot
