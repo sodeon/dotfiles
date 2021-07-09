@@ -41,7 +41,9 @@ done
 if [[ ! -z ${1-} ]]; then
     for item in ${machine_suffix_backup_list[@]}; do
         # shopt -s extglob
-        cp -rf "$HOME/$item" "$item.$1"
+        if ([ -d "$HOME/$item" ] || [ -f "$HOME/$item" ]); then
+            cp -rf "$HOME/$item" "$item.$1"
+        fi
         # shopt -u extglob
     done
 fi
@@ -60,3 +62,5 @@ fi
 # VSCode extensions
 #
 which code >/dev/null && code --list-extensions > vscode-extensions.list
+
+exit 0
