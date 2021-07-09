@@ -44,9 +44,10 @@ keycode 42 = g G g G
 ! Customized layout
 !------------------------------------------------------------------------------
 ! Typing assist
-keycode 29 = y Y Delete    Delete
+! keycode 29 = y Y Delete    Delete
 keycode 32 = o O BackSpace BackSpace
 ! keycode 31 = i I Delete    Delete
+keycode 60 = period greater Delete Delete
 
 ! Right hand navigation (HJKL)
 keycode 43 = h H Left  Left
