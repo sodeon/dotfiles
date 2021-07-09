@@ -1,5 +1,5 @@
 #!/bin/bash -ue
 
-# Check boot options: $efibootmgr
-sudo efibootmgr -n 0 > /dev/null
+bootEntry=`efibootmgr | awk '/Windows/ {print $1}' | sed -r 's/Boot//' | sed -r 's/\*//'`
+sudo efibootmgr -n $bootEntry > /dev/null
 reboot

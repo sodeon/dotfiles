@@ -1,0 +1,4 @@
+#!/bin/bash -ue
+
+tv=192.168.0.106
+python3 -m panasonic_viera $tv $@

@@ -1,0 +1,6 @@
+#!/bin/sh -ue
+suspendTime=$1
+
+pgrep xidlehook && pkill xidlehook
+xidlehook --timer $suspendTime "pgrep qbittorrent || systemctl suspend" "" --not-when-audio # No detection for full screen: when powering off display without leaving full screen, we still want system to suspend.
+# xidlehook --timer $suspendTime "pgrep qbittorrent || systemctl suspend" "" --not-when-audio --not-when-fullscreen

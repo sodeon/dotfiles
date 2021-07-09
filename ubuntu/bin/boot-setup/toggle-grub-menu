@@ -2,11 +2,12 @@
 . log.sh
 
 GRUB_DEFAULT=saved
-GRUB_TIMEOUT=4
+GRUB_TIMEOUT=5
 
 if [[ -x /usr/bin/os-prober ]]; then
     warn "Disabling GRUB boot menu ..."
     sudo sed -i -re 's/^(\s*GRUB_TIMEOUT\s*=\s*)"?[0-9]+"?/\10/' /etc/default/grub
+    # sudo sed -i -re 's/^(\s*GRUB_DISABLE_OS_PROBE\s*=\s*)"?false"?/\1true/' /etc/default/grub
     sudo chmod -x /usr/bin/os-prober
     sudo update-grub
     # grep -P '^\s*GRUB_DEFAULT\s*=\s*0' /etc/default/grub || warn "Warning: GRUB_DEFAULT is not 0. GRUB may not allow disabling grub menu for non-default boot entry."

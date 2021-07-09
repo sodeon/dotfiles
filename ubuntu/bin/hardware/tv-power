@@ -1,0 +1,34 @@
+#!/usr/bin/bash -ue
+
+offSkip="/tmp/prevent-tv-off"
+
+toggle=${1-}
+if [ -z $toggle ]; then
+    panasonic-viera get_volume | grep -q off && exit 1 || exit 0
+elif [ $toggle == "on" ]; then
+    cmd='turn_on'
+elif [ $toggle == "off" ]; then
+    [ -f $offSkip ] && echo "TV is prevented to turn off." && exit
+    cmd='turn_off'
+fi
+
+# is-tv-on() { panasonic-viera get_volume | grep -q Volume; }
+
+date >> /tmp/tv-power; echo $cmd >> /tmp/tv-power
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do # In wired mode, wired connection can actually takes around 20s to back online
+    # echo $i >> /tmp/tv-power; ip -brief link >> /tmp/tv-power; ip -brief addr >> /tmp/tv-power
+    # When triggered by resuming from sleep, network may not be available. Add service polling to alleviate.
+    if ip -brief link | grep -q -e ' UP ' && ip -brief addr | grep -q 192.168; then # For wired connection, network status can be up with only ipv6 address and no ipv4 address
+    # if ip -brief addr | grep -q 192.168; then # For wired connection, network status can be up with only ipv6 address and no ipv4 address
+        # [ $1 == "on"  ] &&  is-tv-on && exit 0 # If TV is on  and trying to turn on  TV, do nothing
+        # [ $1 == "off" ] && !is-tv-on && exit 0 # If TV is off and trying to turn off TV, do nothing.
+        # echo "running $cmd..." >> /tmp/tv-power
+        panasonic-viera $cmd # >> /tmp/tv-power
+        exit
+    elif [ $1 == "off" ]; then
+        exit 1
+    fi
+    # echo next round >> /tmp/tv-power
+    sleep 1
+done
+exit 1

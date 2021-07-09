@@ -1,0 +1,8 @@
+#!/bin/bash -ue
+[ $# -eq 0 ] && device=galaxy-note3 || device=$1
+
+if [ $device == "usb" ]; then
+    /mnt/d/code/ipwebcam-gst/run-videochat.sh -w 1920 -h 1080
+else
+    /mnt/d/code/ipwebcam-gst/run-videochat.sh -w 1920 -h 1080 -i $device
+fi

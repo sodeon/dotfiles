@@ -41,7 +41,7 @@ popup_during_fullscreen leave_fullscreen
 # Bottom bar
 bar {
 	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-	font pango:Ubuntu 11
+	font pango:Ubuntu 15
 	colors {
 		set $bar-bg-color            #2f343f
 		set $bar-inactive-bg-color   #000000
@@ -112,13 +112,13 @@ bindsym $mode+Print      exec flameshot full -p $HOME/Pictures
 bindsym ctrl+$mode+Print exec flameshot gui  -p $HOME/Pictures
 
 # Monitor brightness
-bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up
-bindsym XF86MonBrightnessDown      exec --no-startup-id autohotkey brightness down
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
-bindsym $mode+Shift+f              exec --no-startup-id autohotkey brightness up
-bindsym $mode+Shift+v              exec --no-startup-id autohotkey brightness down
-bindsym $mode+Shift+g              exec --no-startup-id autohotkey brightness toggle
+# bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up
+# bindsym XF86MonBrightnessDown      exec --no-startup-id autohotkey brightness down
+# bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+# bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+# bindsym $mode+Shift+f              exec --no-startup-id autohotkey brightness up
+# bindsym $mode+Shift+v              exec --no-startup-id autohotkey brightness down
+# bindsym $mode+Shift+g              exec --no-startup-id autohotkey brightness toggle
 
 # Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
 bindsym XF86AudioPlay  exec --no-startup-id autohotkey playPause
@@ -149,14 +149,36 @@ bindcode $mode+116     exec --no-startup-id autohotkey volume down
 # Hardware toggle
 # Quick connect a specified bluetooth device
 set_from_resource $mac i3wm.hardware.bluetoothQuickConnectMac
-bindsym $mode+b        exec --no-startup-id toggle-bluetooth device $mac
-# bindsym $mode+Shift+b  exec --no-startup-id toggle-bluetooth device $mac
+# bindsym $mode+b exec --no-startup-id toggle-bluetooth device $mac
+bindsym $mode+b exec --no-startup-id switch-bluetooth-device-host $mac andy-desktop
 
 # Laptop (toggle-bluetooth does not work as the script contains "sudo" commands)
 bindsym           XF86Display        exec --no-startup-id set-display-monitor
 bindsym --release XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym           XF86TouchpadToggle exec --no-startup-id toggle-touchpad
 # bindsym           XF86Bluetooth      exec --no-startup-id toggle-bluetooth
+
+# Wake on lan (usually a NAS)
+bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+
+# Power (keycode 51: backslash)
+bindsym           XF86PowerOff       exec --no-startup-id suspend-system
+# bindcode          $mode+51           exec --no-startup-id suspend-system
+bindcode          $mode+Shift+51     exec --no-startup-id suspend-system
+
+
+#--------------------------------------------------------------------------------
+# TV remote control
+#--------------------------------------------------------------------------------
+bindsym $mode+Shift+h exec --no-startup-id panasonic-viera set_input hdmi1
+bindsym $mode+Shift+n exec --no-startup-id panasonic-viera launch_app netflix
+bindsym $mode+Shift+y exec --no-startup-id panasonic-viera launch_app youtube
+
+bindsym $mode+Shift+f exec --no-startup-id panasonic-viera volume_up
+bindsym $mode+Shift+v exec --no-startup-id panasonic-viera volume_down
+# bindsym $mode+Shift+c exec --no-startup-id panasonic-viera send_key info
+
+bindsym $mode+Shift+g exec --no-startup-id panasonic-viera send_key power
 
 
 #--------------------------------------------------------------------------------
@@ -207,7 +229,7 @@ bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow   width
 
 # Full screen (maximize)
 bindsym $mod+f exec --no-startup-id i3-msg "fullscreen toggle"
-#bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
+# bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
 # Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
 bindsym $mod+a layout toggle split
 bindsym $mod+s layout stacked
@@ -239,7 +261,12 @@ bindsym Mod4+Right exec --no-startup-id "snap-window right; i3-msg 'focus mode_t
 # TODO: mark/unmark window
 
 # Notifications ("cancel" notification badges)
-bindsym $mode+c exec --no-startup-id autohotkey closeNotifications
+bindsym $mode+c              exec --no-startup-id autohotkey volume toggle
+
+# Mousekeys and bluetooth mouse reconnect (workaround mouse not able to reconnect after resume)
+bindsym $mode+q       exec --no-startup-id activate-hotkeys keyboard-mouse toggle
+bindsym $mode+Shift+q exec --no-startup-id pgrep bluetoothctl || (notify-send.sh -t 0 -r 30 -u low "Connecting Mouse..." && bluetoothctl connect D2:79:84:6F:3B:04 && notify-send.sh -t 2000 -r 30 -u normal "Mouse Connected" || notify-send.sh -t 5000 -r 30 -u critical "Mouse Connection Failed")
+
 
 #--------------------------------------------------------------------------------
 # Workspace management
@@ -254,8 +281,8 @@ set $ws6  "6: 6 "
 set $ws7  "7: 7 "
 set $ws8  "8: 8 "
 set $ws9  "9: Viewer "
-set $ws10 "10: 10 "
-# set $ws10 "10: G "
+set $ws10 "10: G "
+# set $ws10 "10: 10 "
 
 # Switch to workspace
 bindsym $mod+Tab workspace back_and_forth
@@ -268,8 +295,8 @@ bindsym $mod+6   workspace number $ws6
 bindsym $mod+7   workspace number $ws7
 bindsym $mod+8   workspace number $ws8
 bindsym $mod+9   workspace number $ws9
-bindsym $mod+0   workspace number $ws10
-# bindsym $mod+0   exec autohotkey F10
+# bindsym $mod+0   workspace number $ws10
+bindsym $mod+0   exec autohotkey F10
 
 # Move focused container to workspace
 bindsym $mod+Shift+1  move container to workspace number $ws1
@@ -302,8 +329,7 @@ assign [class="Code"         ] $ws4
 assign [class="Sxiv"         ] $ws9
 assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
-# assign [class="Lutris"       ] $ws10
-# assign [class="Steam"        ] $ws10
+assign [class="Desmume"      ] $ws10
 
 for_window [class="URxvt" title="ranger"] border pixel 2, focus
 for_window [class="Google-chrome"       ] border none
@@ -420,18 +446,30 @@ exec i3-msg 'workspace $ws2; exec $term'
 # Black background
 exec --no-startup-id xsetroot -solid "#000000"
 # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
-exec_always --no-startup-id i3-watch-window
+exec_always --no-startup-id i3-watch-window &
 
 #
 # Hardware control
 #
+# Enable numlock
+exec --no-startup-id numlockx on
 # Auto-hide cursor
-exec --no-startup-id unclutter
+exec --no-startup-id unclutter &
+# Automatic suspension
+set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable
+set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec
+exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime
+# Disable idle screen blanking
+set_from_resource $idleScreenOff i3wm.hardware.idleScreenOff
+exec --no-startup-id [ $idleScreenOff = "false" ] && disable-screen-blanking
 # Workaround brightness value cannot be read until several seconds after booting
-exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
+# exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks
 # If in .profile, it sometimes won't work correctly
 exec --no-startup-id activate-hotkeys
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
-exec --no-startup-id [ $bluetoothEnable = "true"  ] && blueman-applet
+exec --no-startup-id [ $bluetoothEnable = "true"  ] && which blueman-applet && blueman-applet
+
+set_from_resource $screenRecorder i3wm.app.screenRecorder
+exec --no-startup-id [ $screenRecorder = "true" ] && simplescreenrecorder --start-hidden

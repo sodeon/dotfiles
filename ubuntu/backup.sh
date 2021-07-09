@@ -60,7 +60,7 @@ cp -rf ~/.local/lib/bash .local/lib
 shopt -s extglob
 cp -rf ~/.local/share/applications/!(wine*).desktop .local/share/applications
 shopt -u extglob
-rm .local/share/applications/thann.play-with-mpv.desktop
+# rm .local/share/applications/thann.play-with-mpv.desktop
 
 #
 # bin directory
@@ -77,8 +77,15 @@ if [ -d ~/code/sxiv ]; then
 	cp ~/code/sxiv/sxiv.1   apps/sxiv
 	cp ~/code/sxiv/exec/*   apps/sxiv/exec
 fi
+if [ -d ~/code/panasonic-viera ]; then
+	cp     ~/code/panasonic-viera/setup.py             apps/panasonic-viera
+	cp     ~/code/panasonic-viera/setup.cfg            apps/panasonic-viera
+	cp     ~/code/panasonic-viera/requirements.txt     apps/panasonic-viera
+	cp -rf ~/code/panasonic-viera/panasonic_viera/*.py apps/panasonic-viera/panasonic_viera
+fi
+
 
 #
 # VSCode extensions
 #
-code --list-extensions > vscode-extensions.list
+which code && code --list-extensions > vscode-extensions.list # Some machines do not install VSCode

@@ -1,0 +1,197 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/share/i3blocks/$BLOCK_NAME
+separator_block_width=12
+markup=none
+
+# [debug]
+# interval=1
+# command=xdotool getactivewindow
+# command=ps -o state= -o comm= >> ~/log; echo "" >> ~/log
+# command=ps -o state= -o comm= | grep -iE '^[R ]+'
+# command=ps -o state= -o comm= | grep -iE '^[^TXZ ]+ +(\\s+\\/)?ps$'
+
+[window]
+command=xdotool getactivewindow getwindowname || echo ""
+color=#aadddd
+interval=once
+signal=13
+separator=false
+separator_block_width=20
+
+# [music]
+# command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
+# color=#888888
+# interval=5
+# signal=12
+# separator=false
+# separator_block_width=40
+
+# label for CPU and memory
+#
+# [system-monitor]
+# interval=persist
+# command= echo 🖳
+# separator=false
+# separator_block_width=5
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[cpu_usage]
+# label= 🖳  🖵 
+interval=2
+min_width=99.00%
+separator=false
+separator_block_width=1
+
+# Memory usage
+#
+[memory]
+interval=5
+separator=false
+separator_block_width=12
+
+
+# Network
+#
+[bandwidth]
+#instance=eth0
+interval=5
+color=#888888
+separator=false
+separator_block_width=12
+
+# Brightness (Disable: TV does not support brightness query)
+#
+# [brightness]
+# label=☀
+# color=#66ff66
+# command=tail -2 /tmp/brightness || monitor-control b
+# interval=once
+# signal=11
+# separator=false
+
+# Volume indicator
+#
+# The first parameter sets the step (and units to display)
+# The second parameter overrides the mixer selection
+# See the script for details.
+[audio]
+label=♪
+color=#66ff66
+command=pulsemixer --get-volume | sed -r 's/\s+.*$//'
+interval=once
+signal=10
+separator=false
+separator_block_width=12
+#[volume]
+#label=♪
+#instance=Master
+##instance=PCM
+#interval=once
+#signal=10
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+#[battery]
+#label=⚡
+##instance=1
+#interval=30
+#separator=false
+#separator_block_width=18
+
+# Date Time
+#
+[time]
+command=date '+%m-%d %H:%M'
+interval=5
+
+# [memory]
+# label=SWAP
+# instance=swap
+# separator=false
+# interval=30
+
+# Disk usage
+#
+# The directory defaults to $HOME if the instance is not specified.
+# The script may be called with a optional argument to set the alert
+# (defaults to 10 for 10%).
+#[disk]
+#label=HOME
+# label=🖬 ⛁
+##instance=/mnt/data
+#interval=30
+
+# Network interface monitoring
+#
+# If the instance is not specified, use the interface used for default route.
+# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+## IP address
+#[iface]
+##instance=wlan0
+#color=#00FF00
+#interval=10
+#separator=false
+
+#[wifi]
+##instance=wlp3s0
+#interval=10
+#separator=false
+
+#[load_average]
+#interval=2
+
+# OpenVPN support
+#
+# Support multiple VPN, with colors.
+#[openvpn]
+#interval=20
+
+# Temperature
+#
+# Support multiple chips, though lm-sensors.
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+#[temperature]
+#label=TEMP
+#interval=10
+
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+# [mediaplayer]
+# # instance=cmus
+# color=#888888
+# interval=5
+# signal=12
+# separator=false
+# separator_block_width=40

@@ -13,6 +13,8 @@ alias t='touch'
 alias v='vim'
 alias d='vimdiff'
 alias m='man'
+alias b='br'
+alias p='python3'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
                                       # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code
@@ -40,6 +42,8 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 
 alias mount-android="jmtpfs /mnt/phone; cd /mnt/phone"
 alias umount-android="fusermount -u /mnt/phone"
+
+alias yd="youtube-dl"
 
 
 #-----------------------------------------------------
@@ -99,7 +103,7 @@ alias shutdown='shutdown -h now'
 # alias memory='free -m' # In megabytes
 
 alias du='ncdu --exclude /mnt' # do not include ntfs partitions
-alias df="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]' --color=never | body sort" # disk usage in human readable format and partition format
+alias df-="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)

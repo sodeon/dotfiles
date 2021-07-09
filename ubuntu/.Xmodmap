@@ -16,9 +16,9 @@
 ! keycode 36 = Return NoSymbol Return
 ! keycode 38 = a A a A
 ! keycode 39 = s S s S
-! keycode 40 = d D d D
-! keycode 41 = f F f F
-! keycode 42 = g G g G
+keycode 40 = d D d D
+keycode 41 = f F f F
+keycode 42 = g G g G
 ! keycode 47 = semicolon colon semicolon colon
 ! keycode 48 = apostrophe quotedbl apostrophe quotedbl
 ! keycode 49 = grave asciitilde grave asciitilde

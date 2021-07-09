@@ -186,15 +186,20 @@ if executable("xsel") " By default, VIM will clear clipboard after closing or sw
 endif
 
 " Directory browsing
-"   Enter - open  
-"   -     - go up directory
-"   :Vexplorer - file explorer in vertical split
+"   Enter : open file/directory in current buffer
+"   -     : go up directory
+"   p     : preview file, focus at netrw window
+"   o     : open in horizontal split, focus at preview window
+"   v     : open in vertical split, focus at preview window
+command! E  Explore
+command! Ve Vexplore
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_browse_split=0  " open in current window
-let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
-let g:netrw_winsize=25      " size of 25%
-command! E  Vexplore
+let g:netrw_altv=1          " open splits to the right (not working in vim 8.1)
+let g:netrw_alto=1          " open splits bottom (not working in vim 8.1)
+let g:netrw_winsize=75      " every window opened with netrw has size of 75% (including preview)
+let g:netrw_preview=1       " preview in vertical split (press p on file to preview)
 
 
 "-----------------------------------------------------------------------------

@@ -1,0 +1,21 @@
+#!/bin/bash -ue
+
+mac=$1
+target=$2
+
+# TODO: Error check MAC address
+if bluetoothctl info $mac | grep -q 'Connected: yes'; then
+    if bluetoothctl disconnect $mac; then
+        notify-send -u low "Disconnected" "$mac"
+        ssh $target bluetoothctl connect $mac && notify-send -u normal "Connected to $target"
+    else
+        notify-send -t 5000 -u critical "Disconnection Failed" "$mac"
+    fi
+else
+    ssh $target bluetoothctl disconnect $mac && notify-send -u low "Disconnected from $target"
+    if bluetoothctl connect $mac; then
+        notify-send -u normal "Connected" "$mac"
+    else
+        notify-send -t 5000 -u critical "Connection Failed" "$mac"
+    fi
+fi

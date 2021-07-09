@@ -1,0 +1,7 @@
+#!/bin/bash -u
+
+mntMedia=/mnt/e
+mntRoot=/mnt/andy-desktop
+
+sudo umount $mntMedia
+sudo umount $mntRoot

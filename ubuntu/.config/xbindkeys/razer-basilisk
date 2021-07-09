@@ -28,19 +28,19 @@ Mod5+b:1
 "autohotkey brightness up"
 Mod5+b:3
 
-#c:191
 "xte 'keyup XF86Launch6'; autohotkey toggleFullscreen"
-XF86Launch6
+c:191
 
-#c:192
+# Detach tab
 "xte 'keyup XF86Launch4' 'key e'"
-XF86Launch4
+c:192
+# Passthrough to functions below defined by b:8
 "xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+XF86Launch4
+Mod3+c:192
 "xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod5+XF86Launch4
+Mod5+c:192
 "xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+Mod5+XF86Launch4
+Mod3+Mod5+c:192
 
 
 #---------------------------------------------------------------------------------------------------
@@ -80,15 +80,16 @@ Mod5+b:8
 #   XF86Launch9 (F18): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
 "activate-hotkeys toggle-mouse-mode"
-XF86Launch7
+c:197
+# XF86Launch7 # Work with xcape but does not work with evcape
 
 # Back
 "xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
-XF86Launch8
+c:198
 
 # Switch to last workspace
 "xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
-XF86Launch9
+c:196
 
 # Workspace picker
 "autohotkey workspacePicker"

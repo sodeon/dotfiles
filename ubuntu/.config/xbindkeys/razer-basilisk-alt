@@ -21,11 +21,10 @@ b:1
 "xdotool key --clearmodifiers control+equal"
 b:3
 
-#c:192
 "xte 'keyup XF86Launch4' 'mouseclick 8'"
-XF86Launch4
+c:192
 "xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+XF86Launch4
+Mod3+c:192
 
 
 #---------------------------------------------------------------------------------------------------
@@ -61,15 +60,16 @@ b:2
 #   XF86Launch9 (F18): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
 "activate-hotkeys toggle-mouse-mode"
-XF86Launch7
+c:197
+# XF86Launch7 # Work with xcape but does not work with evcape
 
 # Redefine: Forward
 "activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-XF86Launch8
+c:198
 
 # Redefine: Workspace picker
 "activate-hotkeys toggle-mouse-mode; autohotkey workspacePicker"
-XF86Launch9
+c:196
 
 
 #---------------------------------------------------------------------------------------------------

@@ -59,10 +59,10 @@ XTerm*faceSize: 14
 !-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
-URxvt.font: xft:Consolas NF:style=Book:size=14
-URxvt.boldFont: xft:Consolas NF:style=Bold:size=14
-URxvt.italicFont: xft:Consolas NF:style=Italic:size=14
-URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
+URxvt.font: xft:Consolas NF:style=Book:size=20
+URxvt.boldFont: xft:Consolas NF:style=Bold:size=20
+URxvt.italicFont: xft:Consolas NF:style=Italic:size=20
+URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=20
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0

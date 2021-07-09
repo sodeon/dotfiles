@@ -64,4 +64,5 @@ urxvtd -q -o -f
 # play-with-mpv &
 
 # Additional "less" keybindings
-lesskey
+# lesskey
+if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

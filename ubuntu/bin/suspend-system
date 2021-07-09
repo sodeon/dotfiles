@@ -1,0 +1,6 @@
+#!/bin/bash
+# De-feature tv auto-power-off. 
+# Conflicts with user watching TV built-in netflix and power-off by PC.
+# There is no way to query TV's current input that can be used to prevent above conflict.
+tv-power off
+systemctl suspend

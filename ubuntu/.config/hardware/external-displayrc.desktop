@@ -6,9 +6,9 @@
 #     color_temperature_*: decimal or hex (starting with 0x)
 
 # Graphics card connector used
-interface="DP-0"
+interface="DP-4"
 # interface="HDMI-0"
-i2c_bus=7
+i2c_bus=8
 
 # Resolution
 resolution="1920x1080"
