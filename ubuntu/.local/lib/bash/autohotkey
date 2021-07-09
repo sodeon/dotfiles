@@ -331,10 +331,10 @@ F2() {
 F3() {
     i3-msg 'workspace number "3: File "'
 
-    If workspace 3 has no ranger instance, create one
+    # If workspace 3 has no ranger instance, create one
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 3) .focused' | grep 'true'; then
         if ! isWinActive ranger ahk_command; then
-            urxvtc -e ranger $HOME & # ranger default editor: $HOME/.selected_editor; (or export VISUAL=vim;)
+            $FILE_CMD
         fi
     fi
 }
