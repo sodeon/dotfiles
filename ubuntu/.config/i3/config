@@ -111,6 +111,7 @@ bindsym --release Pause                 exec --no-startup-id autohotkey display-
 bindsym --release Shift+Pause           exec --no-startup-id autohotkey suspend
 bindsym --release $mode+backslash       exec --no-startup-id autohotkey display-standby
 bindsym --release $mode+Shift+backslash exec --no-startup-id autohotkey suspend
+bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
 bindsym           mod4+x                exec --no-startup-id autohotkey power-menu
 
 # Screenshot
@@ -449,7 +450,7 @@ exec --no-startup-id activate-hotkeys # Keyboard/mouse
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
-# exec --no-startup-id [ $bluetoothEnable = "true"  ] && blueman-applet &
+exec --no-startup-id [ $bluetoothEnable = "true"  ] && which blueman-applet && blueman-applet
 # Automatic suspension
 set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable
 set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec
