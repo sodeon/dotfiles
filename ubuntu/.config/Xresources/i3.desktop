@@ -1,3 +1,5 @@
+i3wm.i3block.fontSize: 11
+
 ! Resize
 i3wm.resizeX: 64px or 6ppt	
 i3wm.resizeY: 64px or 6ppt
