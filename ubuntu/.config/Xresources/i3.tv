@@ -1,3 +1,5 @@
+i3wm.i3block.fontSize: 11
+
 ! Resize
 i3wm.resizeX: 64px or 6ppt	
 i3wm.resizeY: 64px or 6ppt
@@ -34,9 +36,6 @@ i3wm.ws10.horizontalGap: 116
 !
 ! Hardware control when booting
 i3wm.hardware.bluetoothEnable: true
-i3wm.hardware.bluetoothQuickConnectMac: 94:DB:56:AE:BE:C5
 i3wm.hardware.autoSuspend.enable: true
 i3wm.hardware.autoSuspend.timeInSec: 1800
-i3wm.hardware.idleScreenOff: false
-
-i3wm.app.screenRecorder: true
+i3wm.hardware.autoScreenOff.enable: true

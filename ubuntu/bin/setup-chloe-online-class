@@ -1,0 +1,34 @@
+#!/bin/bash -ue
+#----------------------------------------------------------------
+# Camera and microphone
+#----------------------------------------------------------------
+# connect-phonecam
+/mnt/d/code/ipwebcam-gst/setup-videochat.sh -w 1920 -h 1080 -i galaxy-note3
+
+
+#----------------------------------------------------------------
+# Screen recording
+#----------------------------------------------------------------
+# Combined audio channel of sound output and mcirophone
+pacmd unload-module module-null-sink sink_name=SpeakerAndMic >/dev/null
+pacmd load-module module-null-sink sink_name=SpeakerAndMic
+pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1.monitor
+# pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam_echo_cancel.monitor
+pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor.echo-cancel
+
+# Record destination
+mount | grep -q andy-desktop || wake-mount andy-desktop
+
+pgrep simplescreenrecorder || simplescreenrecorder --start-hidden 2> /dev/null &
+
+echo "Setup complete. Press enter to exit..."
+read
+
+
+#----------------------------------------------------------------
+# Cleanup
+#----------------------------------------------------------------
+pkill simplescreen
+pacmd unload-module module-null-sink
+# pacmd unload-module module-null-sink sink_name=SpeakerAndMic
+/mnt/d/code/ipwebcam-gst/remove-videochat.sh
