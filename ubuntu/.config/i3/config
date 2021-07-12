@@ -39,9 +39,10 @@ workspace_auto_back_and_forth yes
 popup_during_fullscreen leave_fullscreen
 
 # Bottom bar
+set_from_resource $i3blockFontSize i3wm.i3block.fontSize 11
 bar {
 	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-	font pango:Ubuntu 11
+	font pango:Ubuntu $i3blockFontSize
 	colors {
 		set $bar-bg-color            #2f343f
 		set $bar-inactive-bg-color   #000000
@@ -180,7 +181,7 @@ bindsym           XF86Bluetooth      exec --no-startup-id toggle-bluetooth
 # App launcher and workspace picker
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
-set_from_resource $rofiCombiWidth i3wm.rofi.combi.width
+set_from_resource $rofiCombiWidth i3wm.rofi.combi.width 20
 # Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
 #     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
 bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
@@ -448,13 +449,16 @@ exec --no-startup-id unclutter & # Auto-hide cursor
 exec --no-startup-id sleep 5 && pkill -RTMIN+11 i3blocks & # Workaround brightness value cannot be read until several seconds after booting
 exec --no-startup-id activate-hotkeys # Keyboard/mouse
 # Disable bluetooth (In Ubuntu, bluetooth is automatically enabled after boot)
-set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable
+set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable true
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
 exec --no-startup-id [ $bluetoothEnable = "true"  ] && which blueman-applet && blueman-applet
 # Automatic suspension
-set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable
-set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec
+set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable    false
+set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec 1800
 exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime &
+# Automatic screen off
+set_from_resource $screenOffEnable i3wm.hardware.autoScreenOff.enable true
+exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking
 
 #
 # Startup programs

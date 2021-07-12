@@ -1,3 +1,5 @@
+i3wm.i3block.fontSize: 11
+
 ! Resize
 i3wm.resizeX: 64px or 6ppt	
 i3wm.resizeY: 64px or 6ppt
@@ -36,3 +38,4 @@ i3wm.ws10.verticalGap: 100
 i3wm.hardware.bluetoothEnable: true
 i3wm.hardware.autoSuspend.enable: true
 i3wm.hardware.autoSuspend.timeInSec: 1800
+i3wm.hardware.autoScreenOff.enable: true
