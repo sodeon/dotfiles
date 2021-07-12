@@ -452,13 +452,13 @@ exec --no-startup-id activate-hotkeys # Keyboard/mouse
 set_from_resource $bluetoothEnable i3wm.hardware.bluetoothEnable false
 exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
 exec --no-startup-id [ $bluetoothEnable = "true"  ] && which blueman-applet && blueman-applet
-# Automatic screen off
-set_from_resource $idleScreenOff i3wm.hardware.idleScreenOff true
-exec --no-startup-id [ $idleScreenOff = "false" ] && disable-screen-blanking # Disable idle screen blanking
 # Automatic suspension
 set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable    false
 set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec 1800
 exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime &
+# Automatic screen off
+set_from_resource $screenOffEnable i3wm.hardware.autoScreenOff.enable true
+exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking
 
 #
 # Startup programs
