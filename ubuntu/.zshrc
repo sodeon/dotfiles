@@ -133,7 +133,7 @@ bindkey -M emacs '^[[3^' kill-word
 # External tools
 #--------------------------------------------------------------------------------------------------------------
 if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
+    . ~/.fzf.zsh
     bindkey '^P' fzf-completion  # Ctrl-p for fzf completion
     bindkey '^I' ${fzf_default_completion:-expand-or-complete} # Restore default zsh tab key behavior
     # bindkey '\ed' fzf-cd-widget # alt-d: using fzf to change directory
@@ -147,3 +147,5 @@ fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
+
+return 0
