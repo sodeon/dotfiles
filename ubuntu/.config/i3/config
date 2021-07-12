@@ -133,19 +133,6 @@ bindsym ctrl+$mode+bracketleft exec flameshot gui  -p $HOME/Pictures
 # bindsym $mode+Control+c            exec --no-startup-id autohotkey brightness gaming
 # bindsym $mode+Shift+g              exec --no-startup-id autohotkey display-input toggle
 
-# TV remote control (TV does not support ddcutil)
-bindsym $mode+Shift+h exec --no-startup-id panasonic-viera set_input hdmi1
-bindsym $mode+Shift+n exec --no-startup-id panasonic-viera launch_app netflix
-bindsym $mode+Shift+y exec --no-startup-id panasonic-viera launch_app youtube
-
-bindsym $mode+Shift+f exec --no-startup-id panasonic-viera volume_up
-bindsym $mode+Shift+v exec --no-startup-id panasonic-viera volume_down
-# bindsym $mode+Shift+c exec --no-startup-id panasonic-viera send_key info
-
-bindsym $mode+Shift+g exec --no-startup-id panasonic-viera send_key power
-
-
-
 # Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
 bindsym XF86AudioPlay  exec --no-startup-id autohotkey playPause
 bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
@@ -177,7 +164,6 @@ bindsym $mode+z exec --no-startup-id xte 'keyup z' 'key j'
 bindsym $mode+x exec --no-startup-id xte 'keyup x' 'key l'
 
 # Bluetooth control
-# bindsym $mode+b exec --no-startup-id switch-bluetooth-device-host $mac andy-desktop
 bindsym $mode+b       exec --no-startup-id autohotkey bluetooth-quick-connect
 bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
 
@@ -274,9 +260,28 @@ bindsym Mod4+Right exec --no-startup-id "snap-window right; i3-msg 'focus mode_t
 # close all notifications: (or set "close_all" @ ~/.config/dunst/dunstrc)
 # bindsym $mod+BackSpace exec --no-startup-id pkill dunst && dunst
 
-# Mousekeys and bluetooth mouse reconnect (workaround mouse not able to reconnect after resume)
+# Mousekeys
 bindsym $mode+q exec --no-startup-id activate-hotkeys keyboard-mouse toggle
+
+
+#--------------------------------------------------------------------------------
+# TV only key bindings (i3 does not allow duplicate keybindings. Comment out conflict keybindings)
+#--------------------------------------------------------------------------------
+# TV remote control (TV does not support ddcutil)
+bindsym $mode+Shift+h exec --no-startup-id panasonic-viera set_input hdmi1
+bindsym $mode+Shift+n exec --no-startup-id panasonic-viera launch_app netflix
+bindsym $mode+Shift+y exec --no-startup-id panasonic-viera launch_app youtube
+
+bindsym $mode+Shift+f exec --no-startup-id panasonic-viera volume_up
+bindsym $mode+Shift+v exec --no-startup-id panasonic-viera volume_down
+# bindsym $mode+Shift+c exec --no-startup-id panasonic-viera send_key info
+
+bindsym $mode+Shift+g exec --no-startup-id panasonic-viera send_key power
+
+# Bluetooth mouse reconnect (workaround mouse not able to reconnect after resume)
 bindsym $mode+Shift+q exec --no-startup-id pgrep bluetoothctl || (notify-send.sh -t 0 -r 30 -u low "Connecting Mouse..." && bluetoothctl connect D2:79:84:6F:3B:04 && notify-send.sh -t 2000 -r 30 -u normal "Mouse Connected" || notify-send.sh -t 5000 -r 30 -u critical "Mouse Connection Failed")
+
+# bindsym $mode+b exec --no-startup-id switch-bluetooth-device-host $mac andy-desktop
 
 
 #--------------------------------------------------------------------------------
@@ -286,7 +291,7 @@ bindsym $mode+Shift+q exec --no-startup-id pgrep bluetoothctl || (notify-send.sh
 set $ws1  "1: Web "
 set $ws2  "2: Term "
 set $ws3  "3: File "
-set $ws4  "4: Code "
+set $ws4  "4: 4 "
 set $ws5  "5: 5 "
 set $ws6  "6: 6 "
 set $ws7  "7: 7 "
@@ -472,7 +477,7 @@ set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable    false
 set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec 1800
 exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime &
 # Automatic screen off
-set_from_resource $screenOffEnable i3wm.hardware.autoScreenOff.enable
+set_from_resource $screenOffEnable i3wm.hardware.autoScreenOff.enable true
 exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking
 
 #
