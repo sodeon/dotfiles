@@ -42,9 +42,9 @@ declare -A F4_ENTRIES=(
     [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
 )
 declare -A F10_ENTRIES=(
-    [1. PC Gaming          ]=lutris
+    [1. Moonlight Streaming]=moonlight
     [2. Retro Arcade       ]=mame
-    [3. Moonlight Streaming]=moonlight
+    [3. PC Gaming          ]=lutris
 ) # "ppsspp" "desmune"
 declare -A POWER_ENTRIES=(
     [1. Display Standby]="xset dpms force off"
@@ -56,8 +56,10 @@ declare -A BLUETOOTH_ENTRIES=(
     [1. Power On/Off        ]="toggle-bluetooth"
     [2. Headset Conn/Disconn]="bluetooth-quick-connect"
 )
+WOL_WIDTH=22
 declare -A WOL_ENTRIES=(
-    [1. NAS  ]="wake-on-lan nas"
-    [2. TV   ]="wake-on-lan tv"
-    [3. J5005]="wake-on-lan j5005"
+    [1. ANDY DESKTOP]="wake-mount andy-desktop"
+    [2. NAS         ]="wake-mount nas"
+    [3. TV          ]="wake-on-lan tv"
+    # [3. J5005]="wake-on-lan j5005"
 )

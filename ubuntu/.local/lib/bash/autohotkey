@@ -344,7 +344,7 @@ F4() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            simple-rofi Program 30 F4_ENTRIES || i3-msg "workspace back_and_forth" && return
+            simple-rofi Program ${F4_WIDTH-30} F4_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi
 }
@@ -354,7 +354,7 @@ F10() {
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            simple-rofi Program 28 F10_ENTRIES || i3-msg "workspace back_and_forth"
+            simple-rofi Program ${F10_WIDTH-28} F10_ENTRIES || i3-msg "workspace back_and_forth"
         fi
     fi
 }
@@ -442,15 +442,15 @@ bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC; }
 # bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC true; }
 
 power-menu() {
-    simple-rofi Menu 23 POWER_ENTRIES
+    simple-rofi Menu ${POWER_WIDTH-23} POWER_ENTRIES
 }
 
 bluetooth-menu() {
-    simple-rofi Bluetooth 28 BLUETOOTH_ENTRIES
+    simple-rofi Bluetooth ${BLUETOOTH_WIDTH-28} BLUETOOTH_ENTRIES
 }
 
 wol-menu() {
-    simple-rofi Machine 15 WOL_ENTRIES
+    simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
 
