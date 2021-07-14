@@ -349,14 +349,16 @@ for_window [class="qBittorrent"         ]                        floating enable
 # Notebook and cmus uses lazy execution (won't execute until first accessing)
 bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
-bindsym $mod+Control+m exec open-clipboard-by-mpv
+bindsym $mod+Control+m exec open-clipboard-with-mpv
 bindsym $mod+Shift+m  [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
-for_window [instance="^cmus$"] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"      ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [instance="^tmux$"                     ] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"                     ] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv" instance="gl"             ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [class="mpv" instance="^mpv-web-video$"] border none   , focus, fullscreen
+assign     [class="mpv" instance="^mpv-web-video$"] $ws9
 
 
 #--------------------------------------------------------------------------------

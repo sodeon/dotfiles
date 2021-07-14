@@ -5,6 +5,6 @@ clipboard=/tmp/$USER-clipboard
 xsel -b > $clipboard
 
 cat $clipboard | xargs -I '{}' notify-send -t 3000 -u low "MPV" '{}'
-cat $clipboard | xargs mpv
+cat $clipboard | xargs mpv --x11-name=mpv-web-video
 
 rm $clipboard
