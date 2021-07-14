@@ -175,7 +175,7 @@ cd -
 # Youtube played by mpv (to enable hardware video acceleration)
 #    Install Chrome "play with mpv" extension
 #    In chrome: ctrl+space to play by mpv
-pip3 install git+git://github.com/thann/play-with-mpv --user 
+# pip3 install git+git://github.com/thann/play-with-mpv --user 
 
 
 #------------------------------------------------------------------------------
