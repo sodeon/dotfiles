@@ -349,7 +349,8 @@ for_window [class="qBittorrent"         ]                        floating enable
 # Notebook and cmus uses lazy execution (won't execute until first accessing)
 bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
-bindsym $mod+Shift+m [class="^mpv"] scratchpad show
+bindsym $mod+Control+m exec xsel -b | xargs mpv 
+bindsym $mod+Shift+m  [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
