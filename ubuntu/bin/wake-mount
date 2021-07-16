@@ -7,14 +7,14 @@ remote=$1
 
 # SSH params
 identity=$HOME/.ssh/id_rsa
-sshOptions="-o allow_other -o idmap=user,uid=1000 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+sshOptions="-o idmap=user,uid=1000 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 
 mount-sshfs() {
     src=$1
     dst=$2
 
-    sudo sshfs "$src" "$dst" -o IdentityFile=$identity $sshOptions \
+    sshfs "$src" "$dst" -o IdentityFile=$identity $sshOptions \
         && notify-send -t 2000 -u low      "Drive mounted at $dst" \
         || notify-send -t 3000 -u critical "Drive mount at $dst failed"
 }
