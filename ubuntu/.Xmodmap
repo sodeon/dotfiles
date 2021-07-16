@@ -44,8 +44,10 @@ keycode 42 = g G g G
 ! Customized layout
 !------------------------------------------------------------------------------
 ! Typing assist
+! keycode 29 = y Y Delete    Delete
 keycode 32 = o O BackSpace BackSpace
-keycode 31 = i I Delete    Delete
+! keycode 31 = i I Delete    Delete
+keycode 60 = period greater Delete Delete
 
 ! Right hand navigation (HJKL)
 keycode 43 = h H Left  Left
@@ -66,6 +68,9 @@ keycode 40 = d D Right Right
 ! keycode 24 = q Q Prior Prior
 ! keycode 26 = e E Next  Next
 
+keycode 52 = z Z j J
+keycode 53 = x X l L
+
 ! Function keys
 keycode 10 = 1     exclam      F1
 keycode 11 = 2     at          F2
@@ -80,7 +85,8 @@ keycode 19 = 0     parenright  F10
 keycode 20 = minus underscore  F11
 keycode 21 = equal plus        F12
 
-keycode 34 = bracketleft  braceleft  Print       Print
-keycode 35 = bracketright braceright Scroll_Lock Scroll_Lock
-keycode 51 = backslash    bar        Pause       Pause
+! Pause/Scroll_Lock/Print
+! keycode 34 = bracketleft  braceleft  Print       Print
+! keycode 35 = bracketright braceright Scroll_Lock Scroll_Lock
+! keycode 51 = backslash    bar        Pause       Pause
 
