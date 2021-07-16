@@ -10,11 +10,15 @@
 # Screen recording
 #----------------------------------------------------------------
 # Combined audio channel of sound output and mcirophone
+speaker=`pacmd list-sources | grep -e 'name:.*alsa' | awk '{print $2}' | sed -e 's/<//' -e 's/>//'`
 pacmd unload-module module-null-sink sink_name=SpeakerAndMic >/dev/null
 pacmd load-module module-null-sink sink_name=SpeakerAndMic
-pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1.monitor
-# pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam_echo_cancel.monitor
+pacmd load-module module-loopback sink=SpeakerAndMic source=$speaker
 pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor.echo-cancel
+# pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo.monitor
+# pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1.monitor
+# pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor
+# pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam_echo_cancel.monitor
 
 # Record destination
 mount | grep -q andy-desktop || wake-mount andy-desktop
