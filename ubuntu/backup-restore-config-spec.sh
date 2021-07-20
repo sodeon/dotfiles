@@ -35,7 +35,6 @@ declare -a direct_backup_configs=(
 
     i3/{config,i3blocks.conf.example,layouts}
     dotfiles/*.example
-    hardware/*.example
     Xresources/*.example
 )
 
@@ -45,6 +44,5 @@ declare -a adding_machine_name_backup_configs=(
     mpv/mpv.conf
     i3/i3blocks.conf
     "dotfiles/!(*.example)"
-    "hardware/!(*.example)"
     "Xresources/!(*.example)"
 )

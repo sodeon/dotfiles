@@ -1,31 +1,47 @@
 #!/bin/bash -ue
+cached_spec=/tmp/display1
 
-source source-display-monitor -f
-exec_xrandr
+# Force re-generate display information regardless of cache
+[ $# -eq 1 ] && [[ $1 == "-f" ]] && rm -f $cached_spec
 
+# If cached spec exist, use it.
+if [ -f $cached_spec ]; then
+    source $cached_spec
+    source ~/.config/hardware/$model
+    return 0
+fi
 
+# Read panel model information and cache it for later use
+read_display_connection() {
+    local ddc_info="`ddcutil detect`"
 
-# # Read panel model information and cache it for later use
-# ddc_info="`ddcutil detect`"
-# model=`echo "$ddc_info" | grep "Model:" | awk '{print $2}'`
-# i2c_bus=`echo "$ddc_info" | grep "I2C bus" | awk '{print $3}' | sed 's/.*-//'`
+    model=`echo "$ddc_info" | grep "Model:" | awk '{print $2}'`
+    i2c_bus=`echo "$ddc_info" | grep "I2C bus" | awk '{print $3}' | sed 's/.*-//'`
+}
 
-# cached_spec=/tmp/display1
-# rm -f $cached_spec
-# [ -f ~/.config/hardware/$model ] && source ~/.config/hardware/$model || exit 1
-# echo "model=$model
-# i2c_bus=$i2c_bus" > $cached_spec
+read_monitor_spec() { 
+    local xrandr_info=`xrandr` # Store xrandr result for more intormation parsing
+    interface=`echo "$xrandr_info" | grep -w connected | awk '{print $1}'`
 
-# # Assemble xrandr command and cache it for later use
-# xrandr_info=`xrandr`
-# interface=`echo "$xrandr_info" | grep -w connected | awk '{print $1}'`
-# cmd="xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate"
-# echo "interface=$interface" >> $cached_spec
+    [ -f ~/.config/hardware/$model ] && source ~/.config/hardware/$model || return 1; 
+}
 
-# # Execute xrandr command
-# eval $cmd
+cache_display_spec() {
+    echo "model=$model
+    i2c_bus=$i2c_bus" > $cached_spec
+    echo "interface=$interface" >> $cached_spec
+}
 
+exec_xrandr() {
+    local cmd="xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate"
+    eval $cmd
+}
 
+model=""
+i2c_bus=""
+interface=""
+read_display_connection && read_monitor_spec && cache_display_spec || return 1
+# exec_xrandr
 
 
 #------------------------------------------------------------------------------

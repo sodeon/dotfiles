@@ -1,0 +1,10 @@
+#!/bin/bash -ue
+clipboard=/tmp/$USER-clipboard
+
+# Store clipboard content. When launched from i3 shortcut, clipboard content will be cleared after calling "xsel -b"
+xsel -b > $clipboard
+
+cat $clipboard | xargs -I '{}' notify-send -t 3000 -u low "MPV" '{}'
+cat $clipboard | xargs mpv --x11-name=mpv-web-video
+
+rm $clipboard

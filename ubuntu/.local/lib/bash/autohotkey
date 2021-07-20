@@ -70,7 +70,7 @@ wake-on-lan() {
         return 1
     fi
     notify-send.sh -t 0 -r 19 -u low "Waiting For Remote" "$machine"
-    for i in {1..5}; do
+    for i in {1..25}; do # around 75 seconds timeout counter
         if ping -c1 $machine; then
             notify-send.sh -t $NOTIFICATION_TIMEOUT -r 19 -u low "$machine Awake Now"
             return
@@ -451,7 +451,7 @@ bluetooth-menu() {
 }
 
 wol-menu() {
-    simple-rofi Machine 15 WOL_ENTRIES
+    simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
 
