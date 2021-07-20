@@ -22,7 +22,7 @@ mount-sshfs() {
 mount-all() {
     for i in $(seq ${#src_list[@]}); do
         i=$(($i-1))
-        mount-sshfs "$username@$remote:${src_list[$i]}" "${dst_list[$i]}"
+        mount | grep -q "${dst_list[$i]}" || mount-sshfs "$username@$remote:${src_list[$i]}" "${dst_list[$i]}"
     done
 }
 

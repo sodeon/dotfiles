@@ -1,0 +1,34 @@
+#!/bin/bash
+FPS=${FPS-30}
+# ENCODER=${ENCODER-vaapih265enc}
+ENCODER=${ENCODER-vaapih264enc}
+BITRATE=${BITRATE-20000}
+QUALITY_LEVEL=${QUALITY_LEVEL-2}
+DST=${DST-"/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"}
+
+if [ -e /tmp/ffmpeg-pid ]; then
+    kill -15 $(cat /tmp/ffmpeg-pid)
+
+    notify-send -t 2000 --urgency=low \
+        'Stopping the recording...'
+    
+    rm -f /tmp/ffmpeg-pid
+else
+    notify-send -t 2000 --urgency=low \
+        'Starting the recording...'
+    echo $$ > /tmp/ffmpeg-pid
+    
+    export LIBVA_DRIVER_NAME=i965
+    exec gst-launch-1.0 \
+        ximagesrc show-pointer=false use-damage=false \
+        ! video/x-raw,framerate=$FPS/1 \
+        ! queue ! videoconvert ! queue \
+        ! $ENCODER bitrate=$BITRATE quality-level=$QUALITY_LEVEL \
+        ! filesink location=$DST.mp4 \
+        pulsesrc \
+        ! queue ! audioconvert ! queue \
+        ! wavenc \
+        ! filesink location=$DST.wav
+fi
+
+

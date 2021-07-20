@@ -272,7 +272,7 @@ set $ws1  "1: Web "
 set $ws2  "2: Term "
 set $ws3  "3: File "
 set $ws4  "4: Code "
-set $ws5  "5: 5 "
+set $ws5  "5: Meeting "
 set $ws6  "6: 6 "
 set $ws7  "7: 7 "
 set $ws8  "8: 8 "
@@ -321,6 +321,7 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 # Bind application to workspace
 assign [title="ranger"       ] $ws3
 assign [class="Code"         ] $ws4
+assign [class="^zoom$"       ] $ws5
 assign [class="Sxiv"         ] $ws9
 assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
@@ -354,11 +355,13 @@ bindsym $mod+Shift+m  [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"                     ] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
-for_window [instance="^cmus$"                     ] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv" instance="gl"             ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
-for_window [class="mpv" instance="^mpv-web-video$"] border none   , focus, fullscreen
-assign     [class="mpv" instance="^mpv-web-video$"] $ws9
+for_window [instance="^tmux$"                             ] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"                             ] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv"         instance="gl"             ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
+for_window [class="mpv"         instance="^mpv-web-video$"] border none   , focus, fullscreen
+for_window [                    instance="^rpiplay$"      ] border none   , focus, fullscreen
+assign     [class="mpv"         instance="^mpv-web-video$"] $ws9
+assign     [class="^GStreamer$" instance="^rpiplay$"      ] $ws9
 
 
 #--------------------------------------------------------------------------------

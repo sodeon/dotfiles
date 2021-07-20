@@ -1,8 +1,8 @@
 #!/bin/bash
 
 [ $# -ne 0 ] && interval=$1 || interval=1
-usage_warn=55
-usage_crit=80
+usage_warn=45
+usage_crit=75
 usage_warn_color=#C8D627
 usage_crit_color=#FFFF00
 temp_warn=60

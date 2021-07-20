@@ -27,7 +27,7 @@ vo=gpu
 input-ipc-server=/tmp/mpvsocket
 
 # Youtube download settings
-ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
+ytdl-format=bestvideo[height<=1440][vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
 
 force-seekable=yes
 
