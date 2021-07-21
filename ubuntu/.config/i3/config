@@ -112,7 +112,7 @@ bindsym --release Pause                 exec --no-startup-id autohotkey display-
 bindsym --release Shift+Pause           exec --no-startup-id autohotkey suspend
 bindsym --release $mode+backslash       exec --no-startup-id autohotkey display-standby
 bindsym --release $mode+Shift+backslash exec --no-startup-id autohotkey suspend
-# bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
+bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
 bindsym           mod4+x                exec --no-startup-id autohotkey power-menu
 
 # Screenshot
@@ -121,6 +121,9 @@ bindsym ctrl+Print             exec flameshot gui  -p $HOME/Pictures
 bindsym $mode+bracketleft      exec flameshot full -p $HOME/Pictures
 bindsym ctrl+$mode+bracketleft exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print  exec flameshot screen -p $HOME/Pictures # only produces white images
+
+# Record screen
+bindsym ctrl+$mod+r exec record-screen
 
 # Monitor brightness/input
 # bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up

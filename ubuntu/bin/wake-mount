@@ -14,6 +14,8 @@ mount-sshfs() {
     src=$1
     dst=$2
 
+    mount | grep -q "$dst" && return 0
+
     sshfs "$src" "$dst" -o IdentityFile=$identity $sshOptions \
         && notify-send -t 2000 -u low      "Drive mounted at $dst" \
         || notify-send -t 3000 -u critical "Drive mount at $dst failed"

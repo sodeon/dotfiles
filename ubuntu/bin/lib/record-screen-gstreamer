@@ -1,0 +1,54 @@
+#!/bin/bash
+FPS=${FPS-30}
+WIDTH=${WIDTH-1920}
+HEIGHT=${HEIGHT-1080}
+SCALING=${SCALING-bilinear}
+ENCODER=${ENCODER-nvh265enc}
+ENCODER_PARAMS=${ENCODER_PARAMS-""}
+# ENCODER=${ENCODER-avenc_mpeg4}
+# ENCODER_PARAMS=${ENCODER_PARAMS-"bitrate=30000000"}
+# ENCODER=${ENCODER-x264enc}
+# ENCODER_PARAMS=${ENCODER_PARAMS-"speed-preset=2 bitrate=20000"}
+QUALITY_LEVEL=${QUALITY_LEVEL-2}
+MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
+DST=${DST-"/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"}
+
+ping -c1 andy-desktop >/dev/null || wake-mount andy-desktop
+
+if [ -e /tmp/ffmpeg-pid ]; then
+    kill -15 $(cat /tmp/ffmpeg-pid)
+    notify-send -t 2000 --urgency=low \
+        'Stopping the recording...'
+    rm -f /tmp/ffmpeg-pid
+else
+    notify-send -t 2000 --urgency=low \
+        'Starting the recording...'
+    echo $$ > /tmp/ffmpeg-pid
+
+    mic_pipeline=""
+    if pacmd list-sources | grep -q $MIC_PULSE_SRC; then
+        mic_pipeline="\
+            pulsesrc device=$MIC_PULSE_SRC \
+            ! queue ! audioconvert ! queue \
+            ! wavenc \
+            ! filesink location=$DST.mic.wav"
+    fi
+    
+    # export LIBVA_DRIVER_NAME=i965
+    exec gst-launch-1.0 \
+        ximagesrc show-pointer=false use-damage=false \
+        ! video/x-raw,framerate=$FPS/1 \
+        ! videoconvert ! queue \
+        ! $ENCODER $ENCODER_PARAMS \
+        ! filesink location=$DST.mp4 \
+        pulsesrc \
+        ! queue ! audioconvert ! queue \
+        ! wavenc \
+        ! filesink location=$DST.wav \
+        $mic_pipeline
+fi
+
+
+        # ! video/x-raw,framerate=$FPS/1 \
+        # ! queue ! videoscale method=$SCALING \
+        # ! video/x-raw,width=$WIDTH,height=$HEIGHT \
