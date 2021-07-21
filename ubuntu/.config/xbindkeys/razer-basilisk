@@ -28,19 +28,20 @@ Mod5+b:1
 "autohotkey brightness up"
 Mod5+b:3
 
-"xte 'keyup XF86Launch6'; autohotkey toggleFullscreen"
-c:191
+
+#---------------------------------------------------------------------------------------------------
+# Middle button
+#---------------------------------------------------------------------------------------------------
+"autohotkey toggleFullscreen"
+Mod3+b:2
 
 # Detach tab
-"xte 'keyup XF86Launch4' 'key e'"
-c:192
-# Passthrough to functions below defined by b:8
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod5+c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+Mod5+c:192
+"xte 'mouseup 2' 'key e'"
+Mod3+Mod5+b:2
+
+# Switch sound device
+"switch-sound-output && pkill -RTMIN+10 i3blocks"
+Mod5+b:2
 
 
 #---------------------------------------------------------------------------------------------------
@@ -63,10 +64,6 @@ Mod3+Mod5+b:5
 Mod5+b:4
 "xte 'mouseup 5'; autohotkey volume down"
 Mod5+b:5
-
-# Escape (marked for legacy due to not using)
-"xte 'mouseup 2' 'key Escape'"
-Mod3+b:2
 
 # Brightness mode
 "autohotkey brightness toggle"
@@ -104,12 +101,8 @@ c:193
 b:8
 "xdotool mouseup 8 key ctrl+t"
 Mod3+b:8
-"xte 'keyup XF86Launch5' 'keydown Control_L' 'key r' 'keyup Control_L'" # Reload web page
+"xte 'keyup XF86Launch5' 'keydown Control_L' 'key r' 'keyup Control_L' 'keydown XF86Launch5'" # Reload web page
 Mod3+Mod5+b:8
-
-# Switch sound device
-"switch-sound-output && pkill -RTMIN+10 i3blocks"
-Mod5+b:2
 
 # Right/left
 "xte 'keydown Right'"
@@ -120,4 +113,23 @@ b:9+Release
 Mod3+b:9
 "xte 'keyup Left'"
 Mod3+b:9+Release
+# "xte 'key e'"
+# Mod3+Mod5+b:9
 
+
+#---------------------------------------------------------------------------------------------------
+# Top buttons (G602 only) 
+# c:191: XF86Launch6 (G602: left   top button)
+# c:192: XF86Launch4 (G602: buttom top button)
+#---------------------------------------------------------------------------------------------------
+"xte 'keyup XF86Launch6'; autohotkey toggleFullscreen"
+c:191
+
+"xte 'keyup XF86Launch4' 'key e'"
+c:192
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+c:192
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod5+c:192
+"xte 'keyup XF86Launch4' 'mouseclick 8'"
+Mod3+Mod5+c:192

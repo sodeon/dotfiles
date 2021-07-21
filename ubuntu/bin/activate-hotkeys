@@ -93,9 +93,10 @@ bind-dualkeys() {
 }
 
 bind-hotkeys() {
-    # Generic keyboard and mouse keybindings
-    cat ~/.config/xbindkeys/keyboard >  /tmp/xbindkeysrc
-    cat ~/.config/xbindkeys/mouse    >> /tmp/xbindkeysrc
+    echo "" > /tmp/xbindkeysrc
+
+    # Keyboard keybindings
+    # cat ~/.config/xbindkeys/keyboard >> /tmp/xbindkeysrc
     # echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
 
     # Mouse keybindings

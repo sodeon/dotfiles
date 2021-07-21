@@ -1,5 +1,18 @@
 #!/bin/bash
 
+device_num=`pacmd list-cards | grep active | wc -l`
+# If there is only one audio device, try to switch profiles instead.
+if [ $device_num -eq 1 ]; then
+    if pacmd list-cards | grep active | grep hdmi; then
+        pactl set-card-profile 0 output:analog-stereo
+        notify-send.sh -r 80 --expire-time=2000 Audio "Built-in Speakers"
+    else
+        pactl set-card-profile 0 output:hdmi-stereo
+        notify-send.sh -r 80 --expire-time=2000 Audio HDMI
+    fi
+    exit
+fi
+
 # Get the target (input or output) from the filename and exit otherwise
 IFS=''
 grep_index="egrep '^[*\ ]*index:\ +[[:digit:]]+$' | egrep -o '[[:digit:]]+'"
