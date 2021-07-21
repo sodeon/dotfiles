@@ -122,6 +122,9 @@ bindsym $mode+bracketleft      exec flameshot full -p $HOME/Pictures
 bindsym ctrl+$mode+bracketleft exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print  exec flameshot screen -p $HOME/Pictures # only produces white images
 
+# Screen recording
+bindsym $mod+ctrl+r exec record-screen
+
 # Monitor brightness/input
 bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up
 bindsym XF86MonBrightnessDown      exec --no-startup-id autohotkey brightness down
@@ -329,19 +332,20 @@ assign [class="^Desmume$"    ] $ws10
 assign [class="^Lutris$"     ] $ws10
 assign [class="^mame$"       ] $ws10
 
-for_window [class="URxvt" title="ranger"] border pixel 2, focus
-for_window [class="Google-chrome"       ] border none
-for_window [class="Brave-browser"       ] border none
-for_window [class="Firefox"             ] border none
-for_window [class="Org.gnome.Nautilus"  ] border none
-for_window [class="Code"                ] border none,    focus
-for_window [class="Zathura"             ] border none,    focus
-for_window [class="Sxiv"                ] border none,    focus, fullscreen
-for_window [title="^LibreOffice "       ] border none,    focus
-for_window [class="^Lutris$"            ] border none,    focus
-for_window [class="^mame$"              ] border none,    focus
-# for_window [class="Steam"               ] border none,    focus
-for_window [class="qBittorrent"         ]                        floating enable, move center
+for_window [class="URxvt" title="ranger"       ] border pixel 2, focus
+for_window [class="Google-chrome"              ] border none
+for_window [class="Brave-browser"              ] border none
+for_window [class="Firefox"                    ] border none
+for_window [class="Org.gnome.Nautilus"         ] border none
+for_window [class="Code"                       ] border none,    focus
+for_window [class="^zoom$" title="Zoom Meeting"]                 focus
+for_window [class="Zathura"                    ] border none,    focus
+for_window [class="Sxiv"                       ] border none,    focus, fullscreen
+for_window [title="^LibreOffice "              ] border none,    focus
+for_window [class="^Lutris$"                   ] border none,    focus
+for_window [class="^mame$"                     ] border none,    focus
+# for_window [class="Steam"                      ] border none,    focus
+for_window [class="qBittorrent"                ]                        floating enable, move center
 
 
 #--------------------------------------------------------------------------------

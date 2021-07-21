@@ -1,22 +1,32 @@
 #!/bin/bash
-FPS=${FPS-30}
+FPS=${FPS-15}
 # ENCODER=${ENCODER-vaapih265enc}
 ENCODER=${ENCODER-vaapih264enc}
 BITRATE=${BITRATE-20000}
 QUALITY_LEVEL=${QUALITY_LEVEL-2}
+MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
 DST=${DST-"/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"}
+
+ping -c1 andy-desktop || wake-mount andy-desktop
 
 if [ -e /tmp/ffmpeg-pid ]; then
     kill -15 $(cat /tmp/ffmpeg-pid)
-
     notify-send -t 2000 --urgency=low \
         'Stopping the recording...'
-    
     rm -f /tmp/ffmpeg-pid
 else
     notify-send -t 2000 --urgency=low \
         'Starting the recording...'
     echo $$ > /tmp/ffmpeg-pid
+
+    mic_pipeline=""
+    if pacmd list-sources | grep -q $MIC_PULSE_SRC; then
+        mic_pipeline="\
+            pulsesrc device=$MIC_PULSE_SRC \
+            ! queue ! audioconvert ! queue \
+            ! wavenc \
+            ! filesink location=$DST.mic.wav"
+    fi
     
     export LIBVA_DRIVER_NAME=i965
     exec gst-launch-1.0 \
@@ -28,7 +38,8 @@ else
         pulsesrc \
         ! queue ! audioconvert ! queue \
         ! wavenc \
-        ! filesink location=$DST.wav
+        ! filesink location=$DST.wav \
+        $mic_pipeline
 fi
 
 
