@@ -65,6 +65,10 @@ xdotool-forward() {
 
 wake-on-lan() {
     machine=$1
+    if ping -c1 $machine; then
+        notify-send -t 5000 -u low "Already Awake" "$machine"
+        return 0
+    fi
     if !(wol $machine); then
         notify-send -t 5000 -u critical "Wake Up Failed" "$machine"
         return 1
@@ -450,7 +454,7 @@ bluetooth-menu() {
 }
 
 wol-menu() {
-    simple-rofi Machine 15 WOL_ENTRIES
+    simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
 

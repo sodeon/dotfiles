@@ -50,6 +50,7 @@ declare -A BLUETOOTH_ENTRIES=(
     [1. Power On/Off        ]="toggle-bluetooth"
     [2. Headset Conn/Disconn]="bluetooth-quick-connect"
 )
+# WOL_WIDTH=15
 declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
