@@ -35,7 +35,9 @@ else
     #     $DBG \
     #     $DST
 
-    export LIBVA_DRIVER_NAME=i965
+    if vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
+        export LIBVA_DRIVER_NAME=i965
+    fi
     exec ffmpeg \
         -vaapi_device /dev/dri/renderD128 \
         -video_size $SIZE -r $FPS \
