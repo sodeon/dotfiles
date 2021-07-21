@@ -54,9 +54,12 @@ video_sink_pipeline="\
 video_pipeline="$video_src_pipeline $video_scaling_pipeline $video_sink_pipeline"
 
 # Audio and mic pipelines
-audio_device=""
 if [ ! -z ${AUDIO_PULSE_SRC-""} ]; then
     audio_device="device=$AUDIO_PULSE_SRC"
+else
+    device_name=`pacmd list-sinks | grep --after-context=1 \* | grep name | sed -e 's/.*<//' -e 's/>//'`
+    audio_device="device=$device_name.monitor"
+    echo $audio_device
 fi
 audio_pipeline="\
     pulsesrc $audio_device \
