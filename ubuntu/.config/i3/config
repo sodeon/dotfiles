@@ -355,7 +355,7 @@ for_window [class="qBittorrent"                ]                        floating
 bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
 bindsym $mod+Control+m exec open-clipboard-with-mpv
-bindsym $mod+Shift+m  [class="^mpv"] scratchpad show
+bindsym $mod+Shift+m [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
