@@ -41,6 +41,8 @@ declare -a direct_backup_configs=(
 # Files and directories to backup with machine name as file name suffix.
 # Support brace expansion and extglob.
 declare -a adding_machine_name_backup_configs=(
+    autohotkeyrc
+    record-screen.rc
     mpv/mpv.conf
     i3/i3blocks.conf
     "dotfiles/!(*.example)"

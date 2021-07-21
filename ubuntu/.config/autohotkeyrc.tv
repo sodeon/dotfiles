@@ -1,0 +1,60 @@
+#!/bin/bash -ue
+
+QUICK_CONNECT_MAC="94:DB:56:AE:BE:C5" # WH-1000XM4
+DISPLAY_INPUTS=( # $ddcutil capabilities | grep --after-context=10 Input
+    0x1  # D-Sub
+    0xf  # DP
+    0x11 # HDMI-1
+    0x12 # HDMI-2
+)
+
+NOTIFICATION_TIMEOUT=1400
+
+ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+
+FILE_CMD() {
+    mount | grep /nas/c || wake-mount nas
+    urxvtc -e ranger ~/Videos &
+}
+
+# chrome
+BROWSER_WIN_CLASS="Google-chrome"
+BROWSER_CMD() {
+    google-chrome --force-dark-mode --force-device-scale-factor=2 --disk-cache-dir=/tmp/google-chrome-cache & # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+}
+# chromium
+# BROWSER_WIN_CLASS="chromium-browser"
+# BROWSER_CMD="chromium --force-dark-mode --force-device-scale-factor=0.84 --enable-features=VaapiVideoDecoder --use-gl=desktop" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+# brave
+# BROWSER_WIN_CLASS="Brave-browser"
+# BROWSER_CMD="brave-browser --force-dark-mode --force-device-scale-factor=0.84" # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+
+
+#------------------------------------------------------------------------------
+# rofi menu entries
+#------------------------------------------------------------------------------
+declare -A F4_ENTRIES=(
+    [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+)
+declare -A F10_ENTRIES=(
+    [Moonlight Streaming]=moonlight
+    # [1. Moonlight Streaming]=moonlight
+    # [2. PC Gaming          ]=lutris
+    # [3. Retro Arcade       ]=mame
+) # "ppsspp" "desmune"
+declare -A POWER_ENTRIES=(
+    [1. Display Standby]="xset dpms force off"
+    [2. Suspend        ]="systemctl suspend"
+    [3. Reboot         ]="reboot"
+    [4. Shutdown       ]="shutdown -h now"
+)
+declare -A BLUETOOTH_ENTRIES=(
+    [1. Power On/Off        ]="toggle-bluetooth"
+    [2. Headset Conn/Disconn]="bluetooth-quick-connect"
+)
+WOL_WIDTH=23
+declare -A WOL_ENTRIES=(
+    [1. NAS         ]="wake-mount nas"
+    [2. ANDY-DESKTOP]="wake-mount andy-desktop"
+    [3. J5005       ]="wake-mount j5005"
+)
