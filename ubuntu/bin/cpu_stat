@@ -1,8 +1,8 @@
 #!/bin/bash
 
 [ $# -ne 0 ] && interval=$1 || interval=1
-usage_warn=55
-usage_crit=80
+usage_warn=45
+usage_crit=70
 usage_warn_color=#C8D627
 usage_crit_color=#FFFF00
 temp_warn=60
@@ -29,7 +29,7 @@ usage=`cpu_usage`
 freq=`cpu_freq`
 temp=`cpu_temp`
 
-full_text="$usage%   $temp°  |  $freq"
+full_text="$usage%   $temp° | $freq"
 echo "$full_text
 $usage%"
 if [ $temp -ge $temp_crit ]; then
@@ -41,5 +41,5 @@ elif [ $usage -ge $usage_crit ]; then
 elif [ $usage -ge $usage_warn ]; then
     echo $usage_warn_color
 else
-    echo "#888888"
+    echo "#CCCCCC"
 fi

@@ -41,7 +41,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=20
+separator_block_width=25
 
 # [music]
 # command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
@@ -51,33 +51,6 @@ separator_block_width=20
 # separator=false
 # separator_block_width=40
 
-# label for CPU and memory
-#
-# [system-monitor]
-# interval=persist
-# command= echo 🖳
-# separator=false
-# separator_block_width=5
-
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-[cpu_usage]
-# label= 🖳  🖵 
-interval=2
-min_width=99.00%
-separator=false
-separator_block_width=1
-
-# Memory usage
-#
-[memory]
-interval=5
-separator=false
-separator_block_width=12
-
-
 # Network
 #
 [bandwidth]
@@ -85,7 +58,76 @@ separator_block_width=12
 interval=5
 color=#888888
 separator=false
-separator_block_width=12
+separator_block_width=5
+
+[mem_stat]
+interval=5
+command=mem_stat
+min_width=14.0G
+align=right
+separator=false
+separator_block_width=5
+
+[cpu_stat]
+interval=2
+min_width=195
+align=right
+# color=#888888
+# min_width=1.0  |  35°   100%
+# align=right
+command=cpu_stat 2
+separator=false
+separator_block_width=25
+
+# # CPU frequency is not accurate. "lscpu" will raise CPU clock.
+# [cpu_freq]
+# interval=2
+# color=#888888
+# min_width=02.8
+# align=right
+# command=lscpu | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
+# # command=lscpu | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1fGHz\n", $1)}'
+# # separator=false
+# # separator_block_width=5
+
+# [cpu_temp]
+# interval=2
+# color=#888888
+# min_width=aa
+# align=right
+# command=sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
+# # command=sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/°C//'
+# separator=false
+# separator_block_width=5
+
+# [cpu_busy]
+# interval=2
+# min_width=00%
+# align=right
+# command=cpu_usage
+# separator=false
+# separator_block_width=5
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds. See the script for details.
+# [cpu_usage]
+# # label= 🖳  🖵 
+# interval=2
+# min_width=100.00%
+# align=right
+# separator=false
+# separator_block_width=5
+
+# Memory usage
+#
+# [memory]
+# interval=6
+# min_width=14.0G
+# align=right
+# separator=false
+# separator_block_width=12
+
 
 # Brightness (Disable: TV does not support brightness query)
 #
