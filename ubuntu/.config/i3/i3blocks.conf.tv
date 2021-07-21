@@ -105,7 +105,7 @@ separator_block_width=12
 [audio]
 label=♪
 color=#66ff66
-command=pulsemixer --get-volume | sed -r 's/\s+.*$//'
+command=[ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
 interval=once
 signal=10
 separator=false
@@ -132,6 +132,14 @@ separator_block_width=12
 [time]
 command=date '+%m-%d %H:%M'
 interval=5
+separator=false
+separator_block_width=5
+
+[record]
+command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
+color=#CC4444
+interval=once
+signal=20
 
 # [memory]
 # label=SWAP
