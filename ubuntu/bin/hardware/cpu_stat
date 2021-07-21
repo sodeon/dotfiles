@@ -16,12 +16,17 @@ cpu_usage() {
     echo "$busy_pct"
 }
 
+cpu_info=`lscpu`
 cpu_freq() {
-    lscpu | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
+    echo "$cpu_info" | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
 }
 
 cpu_temp() {
-    sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
+    if echo "$cpu_info" | grep -q AMD; then
+        sensors | grep 'Tdie' | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
+    else
+        sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
+    fi
 }
 
 

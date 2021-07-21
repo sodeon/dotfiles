@@ -65,14 +65,18 @@ xdotool-forward() {
 
 wake-on-lan() {
     machine=$1
+    notify-send.sh -t 0 -r 19 -u low "Waiting For Remote" "$machine"
+    if ping -c1 $machine; then
+        notify-send.sh -t 2000 -r 19 -u low "Already Awake" "$machine"
+        return 0
+    fi
     if !(wol $machine); then
-        notify-send -t 5000 -u critical "Wake Up Failed" "$machine"
+        notify-send.sh -t 5000 -r 19 -u critical "Wake Up Failed" "$machine"
         return 1
     fi
-    notify-send.sh -t 0 -r 19 -u low "Waiting For Remote" "$machine"
-    for i in {1..5}; do
+    for i in {1..25}; do # around 75 seconds timeout counter
         if ping -c1 $machine; then
-            notify-send.sh -t $NOTIFICATION_TIMEOUT -r 19 -u low "$machine Awake Now"
+            notify-send.sh -t $NOTIFICATION_TIMEOUT -r 19 -u low "$machine Awakened"
             return
         fi
     done

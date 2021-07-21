@@ -1,0 +1,87 @@
+#!/bin/bash
+config=$HOME/.config/record-screen.rc
+[ -f $config ] && . $config
+
+
+#------------------------------------------------------------------------------
+# Stop recording if there are any active recording
+#------------------------------------------------------------------------------
+bin=`echo $0 | sed 's/^.*\///'`
+is-recording() { pgrep $bin | grep -v "^$$"; }
+if is-recording; then
+    notify-send -t 2000 -u low 'Recording' 'Done'
+    pkill -15 gst-launch-1.0
+    pkill -RTMIN+20 i3blocks
+    pkill -15 $bin
+    exit 0
+fi
+
+
+#------------------------------------------------------------------------------
+# Asssemble gstreamer pipeline
+#------------------------------------------------------------------------------
+# Automatic encoder settings
+if [ ! -z ${ENCODER-""} ]; then # Manual encoder settings
+    true
+elif vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
+    export LIBVA_DRIVER_NAME=i965
+    ENCODER=vaapih264enc
+    ENCODER_PARAMS="bitrate=20000 quality-level=2"
+elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
+    ENCODER=nvh265enc
+    ENCODER_PARAMS=""
+else # software mpeg4 (x264 has high CPU usage)
+    ENCODER=avenc_mpeg4
+    ENCODER_PARAMS="bitrate=30000000"
+fi
+
+# Automatic scaling
+video_scaling_pipeline=""
+if [ ! -z ${SCALING-""} ]; then
+    video_scaling_pipeline="\
+        ! queue ! videoscale method=$SCALING \
+        ! video/x-raw,width=$WIDTH,height=$HEIGHT"
+fi
+
+# Video pipeline
+video_src_pipeline="\
+    ximagesrc show-pointer=false use-damage=false \
+    ! video/x-raw,framerate=$FPS/1"
+video_sink_pipeline="\
+    ! videoconvert ! queue \
+    ! $ENCODER $ENCODER_PARAMS \
+    ! filesink location=$DST.mp4"
+video_pipeline="$video_src_pipeline $video_scaling_pipeline $video_sink_pipeline"
+
+# Audio and mic pipelines
+if [ ! -z ${AUDIO_PULSE_SRC-""} ]; then
+    audio_device="device=$AUDIO_PULSE_SRC"
+else
+    device_name=`pacmd list-sinks | grep --after-context=1 \* | grep name | sed -e 's/.*<//' -e 's/>//'`
+    audio_device="device=$device_name.monitor"
+fi
+audio_pipeline="\
+    pulsesrc $audio_device \
+    ! queue ! audioconvert ! queue \
+    ! wavenc \
+    ! filesink location=$DST.wav"
+mic_pipeline=""
+if pacmd list-sources | grep -q $MIC_PULSE_SRC; then
+    mic_pipeline="\
+        pulsesrc device=$MIC_PULSE_SRC \
+        ! queue ! audioconvert ! queue \
+        ! wavenc \
+        ! filesink location=$DST.mic.wav"
+fi
+
+# Final pipeline
+pipeline="$video_pipeline $audio_pipeline $mic_pipeline"
+
+
+#------------------------------------------------------------------------------
+# Start recording
+#------------------------------------------------------------------------------
+pkill -RTMIN+20 i3blocks
+notify-send.sh -r 20 -t 2000 -u low 'Recording' 'Start'
+gst-launch-1.0 $pipeline
+[ $? -eq 0 ] || notify-send.sh -r 20 -t 2000 -u critical "Recording Failed" "gstreamer Error"

@@ -50,6 +50,7 @@ backup_list=(
 # Files and directories to backup with machine name as file name suffix.
 machine_suffix_backup_list=(
     .config/autohotkeyrc
+    .config/record-screen.rc
     .config/mpv/mpv.conf
     .config/i3/i3blocks.conf
     .config/dotfiles/dotfilesrc

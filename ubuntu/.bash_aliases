@@ -75,7 +75,7 @@ alias ta='task add'
 alias suspend='systemctl suspend'
 # alias shutdown='shutdown -h now'
 
-alias du='ncdu --exclude /mnt' # Do not include ntfs partitions
+alias du='ncdu --exclude /mnt --exclude /nas' # Do not include ntfs partitions
 # alias du='gdu --ignore-dirs /mnt' # Not as robst as ncdu, but probably faster
 alias df-="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' -e '\/mmcblk[0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
 

@@ -51,33 +51,6 @@ separator_block_width=20
 # separator=false
 # separator_block_width=40
 
-# label for CPU and memory
-#
-[system-monitor]
-interval=persist
-command= echo 🖳
-separator=false
-separator_block_width=5
-
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-[cpu_usage]
-# label= 🖳  🖵 
-interval=2
-min_width=99.00%
-separator=false
-separator_block_width=1
-
-# Memory usage
-#
-[memory]
-interval=5
-separator=false
-separator_block_width=12
-
-
 # Network
 #
 [bandwidth]
@@ -85,7 +58,27 @@ separator_block_width=12
 interval=5
 color=#888888
 separator=false
-separator_block_width=12
+separator_block_width=5
+
+[mem_stat]
+interval=5
+command=mem_stat
+min_width=14.0G
+align=right
+separator=false
+separator_block_width=5
+
+[cpu_stat]
+interval=2
+min_width=100
+align=right
+# color=#888888
+# min_width=1.0  |  35°   100%
+# align=right
+command=cpu_stat 2
+separator=false
+separator_block_width=25
+
 
 # Brightness
 #
@@ -132,6 +125,14 @@ separator_block_width=12
 [time]
 command=date '+%m-%d %H:%M'
 interval=5
+separator=false
+separator_block_width=5
+
+[record]
+command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
+color=#CC4444
+interval=once
+signal=20
 
 # [memory]
 # label=SWAP
