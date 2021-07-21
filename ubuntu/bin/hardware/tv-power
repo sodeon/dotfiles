@@ -14,7 +14,7 @@ fi
 
 # is-tv-on() { panasonic-viera get_volume | grep -q Volume; }
 
-date >> /tmp/tv-power; echo $cmd >> /tmp/tv-power
+# date >> /tmp/tv-power; echo $cmd >> /tmp/tv-power
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do # In wired mode, wired connection can actually takes around 20s to back online
     # echo $i >> /tmp/tv-power; ip -brief link >> /tmp/tv-power; ip -brief addr >> /tmp/tv-power
     # When triggered by resuming from sleep, network may not be available. Add service polling to alleviate.

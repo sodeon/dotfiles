@@ -43,6 +43,7 @@ declare -a direct_backup_configs=(
 declare -a adding_machine_name_backup_configs=(
     autohotkeyrc
     record-screen.rc
+    profile_vars
     mpv/mpv.conf
     i3/i3blocks.conf
     "dotfiles/!(*.example)"
