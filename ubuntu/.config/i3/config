@@ -108,11 +108,11 @@ bindsym $mod+backslash exec --no-startup-id activate-hotkeys toggle-keyboard-alt
 # PrintScreen/Pause, XF86 (volume, monitor brightness and media control), and hardware keys
 #--------------------------------------------------------------------------------
 # Power (add a little delay on command execution to allow keyup fully)
-bindsym --release Pause                 exec --no-startup-id autohotkey display-standby
-bindsym --release Shift+Pause           exec --no-startup-id autohotkey suspend
+# bindsym --release Pause                 exec --no-startup-id autohotkey display-standby
+# bindsym --release Shift+Pause           exec --no-startup-id autohotkey suspend
 bindsym --release $mode+backslash       exec --no-startup-id autohotkey display-standby
 bindsym --release $mode+Shift+backslash exec --no-startup-id autohotkey suspend
-# bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
+bindsym           XF86PowerOff          exec --no-startup-id autohotkey suspend
 bindsym           mod4+x                exec --no-startup-id autohotkey power-menu
 
 # Screenshot
@@ -121,6 +121,9 @@ bindsym ctrl+Print             exec flameshot gui  -p $HOME/Pictures
 bindsym $mode+bracketleft      exec flameshot full -p $HOME/Pictures
 bindsym ctrl+$mode+bracketleft exec flameshot gui  -p $HOME/Pictures
 # bindsym Shift+Print  exec flameshot screen -p $HOME/Pictures # only produces white images
+
+# Screen recording
+bindsym ctrl+$mod+r exec record-screen
 
 # Monitor brightness/input
 bindsym XF86MonBrightnessUp        exec --no-startup-id autohotkey brightness up

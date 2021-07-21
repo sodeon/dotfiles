@@ -1,0 +1,67 @@
+#!/bin/bash
+SIZE=${SIZE-1920x1080}
+FPS=${FPS-15}
+DISPLAY=${DISPLAY-:0}
+# ENCODER=${ENCODER-h264_vaapi}
+ENCODER=${ENCODER-hevc_vaapi}
+FILTER=${FILTER-hwupload,scale_vaapi=format=nv12}
+DST=${DST-"/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`.mp4"}
+DBG=${DBG-""}
+# DBG=${DBG-"-v verbose"}
+
+if [ -e /tmp/ffmpeg-pid ]; then
+    kill -15 $(cat /tmp/ffmpeg-pid)
+
+    notify-send -t 2000 --urgency=low \
+        'Stopping the recording...'
+    
+    rm -f /tmp/ffmpeg-pid
+else
+    notify-send -t 2000 --urgency=low \
+        'Starting the recording...'
+    echo $$ > /tmp/ffmpeg-pid
+    
+    # Lossless
+    # exec ffmpeg \
+    #     -vaapi_device /dev/dri/renderD128 \
+    #     -video_size $SIZE -r $FPS \
+    #     -f x11grab \
+    #     -thread_queue_size 256 \
+    #     -i $DISPLAY \
+    #     -f alsa -i default \
+    #     -af acompressor=threshold=0.089:ratio=9:attack=200:release=1000 \
+    #     -c:v libx264 -preset ultrafast -crf 0 \
+    #     -c:a aac \
+    #     $DBG \
+    #     $DST
+
+    # export LIBVA_DRIVER_NAME=i965
+    exec ffmpeg \
+        -vaapi_device /dev/dri/renderD128 \
+        -video_size $SIZE -r $FPS \
+        -f x11grab \
+        -thread_queue_size 256 \
+        -i $DISPLAY \
+        -f alsa -i default \
+        -af acompressor=threshold=0.089:ratio=9:attack=200:release=1000 \
+        -vf "$FILTER" \
+        -c:v $ENCODER \
+        -c:a aac \
+        $DBG \
+        $DST
+    # exec ffmpeg \
+    #     -r 15 \
+    #     -f kmsgrab \
+    #     -thread_queue_size 256 \
+    #     -i - \
+    #     -vaapi_device /dev/dri/renderD128 \
+    #     -f alsa -i default \
+    #     -af acompressor=threshold=0.089:ratio=9:attack=200:release=1000 \
+    #     -vf 'hwmap=derive_device=vaapi,scale_vaapi=w=1920:h=1080:format=nv12' \
+    #     -tune zerolatency \
+    #     -c:v $ENCODER \
+    #     -c:a aac \
+    #     $DBG \
+    #     $DST
+fi
+# ffmpeg -framerate 60 -f kmsgrab -i - -vaapi_device /dev/dri/renderD128 -vf 'hwmap=derive_device=vaapi,scale_vaapi=w=1920:h=1080:format=nv12' -c:v h264_vaapi -qp:v 26 -bf 0 -tune zerolatency -f mpegts - | nc -l -p 9000
