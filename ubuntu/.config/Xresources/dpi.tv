@@ -1,6 +1,0 @@
-!-----------------------------------------------------------------
-! HiDPI (DO NOT MODIFY dpi file directly. It is managed by ~/.profile
-!-----------------------------------------------------------------
-Xft.dpi: 192
-Xcursor.size: 128
-rofi.dpi: 192
