@@ -1,6 +1,7 @@
 #!/bin/bash -ue
-WIDTH=${WIDTH-1920}
-HEIGHT=${HEIGHT-1080}
+# Google meet and Zoom max resolution is 720p
+WIDTH=${WIDTH-1280}
+HEIGHT=${HEIGHT-720}
 IP=${IP-}
 
 #----------------------------------------------------------------

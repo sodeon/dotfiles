@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-FPS=30
+FPS=15
 # SCALING=bilinear
 # WIDTH=1920
 # HEIGHT=1080

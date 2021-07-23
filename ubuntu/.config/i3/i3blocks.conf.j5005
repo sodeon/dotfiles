@@ -41,7 +41,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=5
+separator_block_width=20
 
 # [music]
 # command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
@@ -72,12 +72,9 @@ separator_block_width=5
 interval=2
 min_width=100
 align=right
-# color=#888888
-# min_width=1.0  |  35°   100%
-# align=right
 command=cpu_stat 2
 separator=false
-separator_block_width=5
+separator_block_width=7
 
 
 # Brightness
@@ -89,6 +86,7 @@ command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to
 interval=once
 signal=11
 separator=false
+separator_block_width=8
 
 # Volume indicator
 #
@@ -123,7 +121,7 @@ separator_block_width=12
 # Date Time
 #
 [time]
-command=date '+%m-%d %H:%M'
+command=date '+%-m-%d %H:%M'
 interval=5
 separator=false
 separator_block_width=5

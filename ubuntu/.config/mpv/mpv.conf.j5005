@@ -54,26 +54,64 @@ osd-align-y=bottom
 #------------------------------------------------------------------------------
 # log-file=~/log
 
-hwdec=auto # "auto-copy" has significant performance impact, halfing frame rate
 # gpu-api=vulkan
-# vulkan-async-compute=yes
-# vulkan-async-transfer=yes
-# vulkan-queue-count=1
-# dither=error-diffusion
+hwdec=auto # "auto-copy" has significant performance impact, halfing frame rate
+# dither=error-diffusion # Very high GPU usage requirements
 # deband=yes
 # deband-iterations=2
-# deband-threshold=20
-# deband-range=16
-# scale-clamp=0.2
 correct-downscaling=yes
 linear-downscaling=yes
 sigmoid-upscaling=yes
+blend-subtitles=no
+
+# vulkan-async-compute=yes
+# vulkan-async-transfer=yes
+# vulkan-queue-count=1
+# deband-threshold=20
+# deband-range=16
+# scale-clamp=0.2
 # video-sync=display-resample
 # tscale=box
 # tscale-window=quadric
 # tscale-radius=1.1
 # tscale-clamp=0.0
 # interpolation
-blend-subtitles=no
 # hdr-compute-peak=yes
 # tone-mapping=mobius
+
+
+############
+# Profiles #
+############
+# The following profile can be enabled on the command line with: --profile=eye-cancer
+
+# [audio-only]
+# vo=null
+# ytdl-format=bestaudio/best # force VP9 video for 60fps
+
+# [shader-liveaction]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shader-anime]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shaders-mixed]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/ravu-zoom-r3-rgb.hook"
+
+# [sharpening]
+# sigmoid-upscaling=no
+# glsl-shader="~~/shaders/adaptive-sharpen.glsl"
+
+# [default]
+# profile=shaders-liveaction
+# profile=shaders-mixed
+# profile=sharpening
+
+# SVP Settings
+# hr-seek-framedrop=no
+# no-resume-playback

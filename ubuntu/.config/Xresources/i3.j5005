@@ -1,4 +1,4 @@
-i3wm.i3block.fontSize: 11
+! i3wm.i3block.fontSize: 11
 
 ! Resize
 i3wm.resizeX: 64px or 6ppt	
@@ -14,7 +14,7 @@ i3wm.tmux.size: 40 ppt 44 ppt
 
 ! Rofi
 i3wm.rofi.combi.width: 20
-!i3wm.rofi.window.width: 40
+! i3wm.rofi.window.width: 40
 
 ! Gaps
 i3wm.toggleHGap: 116
