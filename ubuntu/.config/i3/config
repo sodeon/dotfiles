@@ -338,7 +338,7 @@ for_window [class="Brave-browser"              ] border none
 for_window [class="Firefox"                    ] border none
 for_window [class="Org.gnome.Nautilus"         ] border none
 for_window [class="Code"                       ] border none,    focus
-for_window [class="^zoom$" title="Zoom Meeting"]                 focus
+for_window [class="^zoom$" title="Zoom Meeting"]                 focus, layout tabbed
 for_window [class="Zathura"                    ] border none,    focus
 for_window [class="Sxiv"                       ] border none,    focus, fullscreen
 for_window [title="^LibreOffice "              ] border none,    focus

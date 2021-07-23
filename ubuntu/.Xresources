@@ -4,12 +4,6 @@
 ! urxvt Perl extension: https://github.com/muennich/urxvt-perls
 
 !-----------------------------------------------------------------
-! HiDPI
-!-----------------------------------------------------------------
-! #include ".config/Xresources/dpi.example"
-
-
-!-----------------------------------------------------------------
 ! Color scheme
 !-----------------------------------------------------------------
 ! special
@@ -53,16 +47,25 @@
 ! xterm
 !-----------------------------------------------------------------
 XTerm*faceName: Consolas NF
+! 24" 2K "
 XTerm*faceSize: 14
+! 32" 4K "
+! XTerm*faceSize: 18
 
 
 !-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
+! 24" 2K "
 URxvt.font: xft:Consolas NF:style=Book:size=14
 URxvt.boldFont: xft:Consolas NF:style=Bold:size=14
 URxvt.italicFont: xft:Consolas NF:style=Italic:size=14
 URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
+! 32" 4K "
+! URxvt.font: xft:Consolas NF:style=Book:size=18
+! URxvt.boldFont: xft:Consolas NF:style=Bold:size=18
+! URxvt.italicFont: xft:Consolas NF:style=Italic:size=18
+! URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=18
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0

@@ -19,7 +19,10 @@ FILE_CMD() {
 # chrome
 BROWSER_WIN_CLASS="Google-chrome"
 BROWSER_CMD() {
+    # 24" 2K
     google-chrome --force-dark-mode --force-device-scale-factor=0.84 # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+    # 32" 4K
+    # export GDK_SCALE=2; google-chrome --force-dark-mode
 }
 # chromium
 # BROWSER_WIN_CLASS="chromium-browser"

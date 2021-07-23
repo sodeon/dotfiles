@@ -40,25 +40,7 @@ fi
 # NOTE: this may duplicate functionalities in /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
 xrdb $HOME/.Xresources
 
-# HiDPI
-# TODO: Try to support per-minotor hidpi settings
-source source-display-monitor
-if  [[ $XDG_CURRENT_DESKTOP == "i3" ]] && [[ ${is_high_dpi-""} == "true" ]]; then
-    dpi_xresources="/tmp/Xresources.dpi"
-    echo "
-        Xft.dpi: 192
-        Xcursor.size: 128
-        rofi.dpi: 192
-    " > $dpi_xresources
-    xrdb -merge $dpi_xresources
-    export GDK_SCALE=2
-    export GDK_DPI_SCALE=0.5
-    export QT_AUTO_SCREEN_SET_FACTOR=0
-    export QT_SCALE_FACTOR=2
-    export QT_FONT_DPI=96
-fi
-
-[[ $XDG_CURRENT_DESKTOP == "i3" ]] && set-display-monitor # For other desktop environment, use its built-in mechanism
+[[ $XDG_CURRENT_DESKTOP == "i3" ]] && source set-display-monitor # For other desktop environment, use its built-in mechanism
 
 # urxvt daemon
 urxvtd -q -o -f

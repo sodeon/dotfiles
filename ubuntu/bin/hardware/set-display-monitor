@@ -1,7 +1,8 @@
 #!/bin/bash -ue
 
 source source-display-monitor -f
-exec_xrandr
+setup-xresources-and-env
+exec-xrandr
 
 
 

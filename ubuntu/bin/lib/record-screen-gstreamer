@@ -52,6 +52,7 @@ elif vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
 elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
     ENCODER=nvh265enc
     ENCODER_PARAMS=""
+    # ENCODER_PARAMS="preset=hq rc-mode=vbr"
 else # software mpeg4 (x264 has high CPU usage)
     ENCODER=avenc_mpeg4
     ENCODER_PARAMS="bitrate=30000000"
@@ -98,7 +99,7 @@ fi
 
 # Final pipeline
 pipeline="$video_pipeline $audio_pipeline $mic_pipeline"
-echo $pipeline
+# echo $pipeline
 
 
 #------------------------------------------------------------------------------
