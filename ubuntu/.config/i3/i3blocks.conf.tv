@@ -25,7 +25,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3blocks/$BLOCK_NAME
-separator_block_width=12
+separator_block_width=10
 markup=none
 
 # [debug]
@@ -41,15 +41,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=25
-
-# [music]
-# command=cmus-remote -Q | grep file | sed -r 's/^file.*\///' | sed -r 's/\.(mp3|aac|wma|flac)$//'
-# color=#888888
-# interval=5
-# signal=12
-# separator=false
-# separator_block_width=40
+separator_block_width=40
 
 # Network
 #
@@ -58,7 +50,6 @@ separator_block_width=25
 interval=5
 color=#888888
 separator=false
-separator_block_width=5
 
 [mem_stat]
 interval=5
@@ -66,75 +57,23 @@ command=mem_stat
 min_width=14.0G
 align=right
 separator=false
-separator_block_width=5
 
 [cpu_stat]
 interval=2
-min_width=195
+min_width=200
 align=right
 # color=#888888
 # min_width=1.0  |  35°   100%
 # align=right
 command=cpu_stat 2
 separator=false
-separator_block_width=25
 
-# # CPU frequency is not accurate. "lscpu" will raise CPU clock.
-# [cpu_freq]
-# interval=2
-# color=#888888
-# min_width=02.8
-# align=right
-# command=lscpu | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
-# # command=lscpu | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1fGHz\n", $1)}'
-# # separator=false
-# # separator_block_width=5
-
-# [cpu_temp]
-# interval=2
-# color=#888888
-# min_width=aa
-# align=right
-# command=sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
-# # command=sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/°C//'
-# separator=false
-# separator_block_width=5
-
-# [cpu_busy]
-# interval=2
-# min_width=00%
-# align=right
-# command=cpu_usage
-# separator=false
-# separator_block_width=5
-
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds. See the script for details.
-# [cpu_usage]
-# # label= 🖳  🖵 
-# interval=2
-# min_width=100.00%
-# align=right
-# separator=false
-# separator_block_width=5
-
-# Memory usage
-#
-# [memory]
-# interval=6
-# min_width=14.0G
-# align=right
-# separator=false
-# separator_block_width=12
-
-
-# Brightness (Disable: TV does not support brightness query)
+# Brightness
 #
 # [brightness]
 # label=☀
 # color=#66ff66
-# command=tail -2 /tmp/brightness || monitor-control b
+# command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 # interval=once
 # signal=11
 # separator=false
@@ -152,12 +91,6 @@ interval=once
 signal=10
 separator=false
 separator_block_width=12
-#[volume]
-#label=♪
-#instance=Master
-##instance=PCM
-#interval=once
-#signal=10
 
 # Battery indicator
 #
@@ -172,22 +105,8 @@ separator_block_width=12
 # Date Time
 #
 [time]
-command=date '+%m-%d %H:%M'
+command=date '+%-m-%d %H:%M'
 interval=5
-separator=false
-separator_block_width=5
-
-[record]
-command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
-color=#CC4444
-interval=once
-signal=20
-
-# [memory]
-# label=SWAP
-# instance=swap
-# separator=false
-# interval=30
 
 # Disk usage
 #
@@ -224,15 +143,6 @@ signal=20
 # Support multiple VPN, with colors.
 #[openvpn]
 #interval=20
-
-# Temperature
-#
-# Support multiple chips, though lm-sensors.
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-#[temperature]
-#label=TEMP
-#interval=10
 
 # Generic media player support
 #

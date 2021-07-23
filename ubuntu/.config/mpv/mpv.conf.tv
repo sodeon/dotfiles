@@ -79,25 +79,26 @@ osd-align-y=bottom
 
 # gpu-api=vulkan
 hwdec=auto-copy
-# vulkan-async-compute=yes
-# vulkan-async-transfer=yes
-# vulkan-queue-count=1
-# dither=error-diffusion
+# dither=error-diffusion # Very high GPU usage requirements
 # deband=yes
 # deband-iterations=2
-# deband-threshold=20
-# deband-range=16
-# scale-clamp=0.2
 # correct-downscaling=yes
 # linear-downscaling=yes
 # sigmoid-upscaling=yes
+blend-subtitles=no
+
+# vulkan-async-compute=yes
+# vulkan-async-transfer=yes
+# vulkan-queue-count=1
+# deband-threshold=20
+# deband-range=16
+# scale-clamp=0.2
 # video-sync=display-resample
 # tscale=box
 # tscale-window=quadric
 # tscale-radius=1.1
 # tscale-clamp=0.0
 # interpolation
-blend-subtitles=no
 # hdr-compute-peak=yes
 # tone-mapping=mobius
 

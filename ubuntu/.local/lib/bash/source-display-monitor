@@ -7,32 +7,64 @@ cached_spec=/tmp/display1
 # If cached spec exist, use it.
 if [ -f $cached_spec ]; then
     source $cached_spec
-    source ~/.config/hardware/$model
+    source ~/.config/hardware/"$model"
     return 0
 fi
 
 # Read panel model information and cache it for later use
-read_display_connection() {
+read-display-connection() {
     local ddc_info="`ddcutil detect`"
 
-    model=`echo "$ddc_info" | grep "Model:" | awk '{print $2}'`
-    i2c_bus=`echo "$ddc_info" | grep "I2C bus" | awk '{print $3}' | sed 's/.*-//'`
+    model=`echo "$ddc_info" | grep "Model:" | awk '{print $NF}'`
+    i2c_bus=`echo "$ddc_info" | grep "I2C bus" | awk '{print $NF}' | sed 's/.*-//'`
 }
 
-read_monitor_spec() { 
+read-monitor-spec() { 
     local xrandr_info=`xrandr` # Store xrandr result for more intormation parsing
     interface=`echo "$xrandr_info" | grep -w connected | awk '{print $1}'`
 
-    [ -f ~/.config/hardware/$model ] && source ~/.config/hardware/$model || return 1; 
+    [ -f ~/.config/hardware/"$model" ] && source ~/.config/hardware/"$model" || return 1; 
 }
 
-cache_display_spec() {
-    echo "model=$model
+cache-display-spec() {
+    echo "model=\"$model\"
     i2c_bus=$i2c_bus" > $cached_spec
     echo "interface=$interface" >> $cached_spec
 }
 
-exec_xrandr() {
+
+setup-xresources-and-env() {
+    # [[ ! $XDG_CURRENT_DESKTOP == "i3" ]] && return 0 # This script already should only be used in i3 environment. Other desktop environment has its own display monitor configurations.
+    if [[ ${is_high_dpi-""} == "true" ]]; then
+        dpi_xresources="/tmp/Xresources.dpi"
+        echo "
+            Xft.dpi: 192
+            Xcursor.size: 128
+            rofi.dpi: 192
+        " > $dpi_xresources
+        xrdb -merge $dpi_xresources
+        export GDK_SCALE=3       # UI element scaling
+        export GDK_DPI_SCALE=0.5 # font scaling
+        export QT_AUTO_SCREEN_SET_FACTOR=0
+        export QT_SCALE_FACTOR=2
+        export QT_FONT_DPI=96
+    elif [ ${QT_SCALE_FACTOR-0} -eq 2 ]; then # Only modify X resources and environment variables when not in normal DPI
+        dpi_xresources="/tmp/Xresources.dpi"
+        echo "
+            Xft.dpi: 96
+            Xcursor.size: 64
+            rofi.dpi: 96
+        " > $dpi_xresources
+        xrdb -merge $dpi_xresources
+        export GDK_SCALE=1       # UI element scaling
+        export GDK_DPI_SCALE=1   # font scaling
+        export QT_AUTO_SCREEN_SET_FACTOR=0
+        export QT_SCALE_FACTOR=1
+        export QT_FONT_DPI=96
+    fi
+}
+
+exec-xrandr() {
     local cmd="xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate"
     eval $cmd
 }
@@ -40,8 +72,8 @@ exec_xrandr() {
 model=""
 i2c_bus=""
 interface=""
-read_display_connection && read_monitor_spec && cache_display_spec || return 1
-# exec_xrandr
+read-display-connection && read-monitor-spec && cache-display-spec || return 1
+# exec-xrandr
 
 
 #------------------------------------------------------------------------------

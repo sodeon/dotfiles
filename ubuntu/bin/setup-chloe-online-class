@@ -1,31 +1,29 @@
 #!/bin/bash -ue
+WIDTH=${WIDTH-1280}
+HEIGHT=${HEIGHT-720}
+IP=${IP-"galaxy-note3"}
+
 #----------------------------------------------------------------
 # Camera and microphone
 #----------------------------------------------------------------
 # connect-phonecam
-/mnt/d/code/ipwebcam-gst/setup-videochat.sh -w 1920 -h 1080 -i galaxy-note3
+[ -z $IP ] && params="" || params="-i $IP"
+$HOME/code/ipwebcam-gst/setup-videochat.sh -w $WIDTH -h $HEIGHT $params
 
 
 #----------------------------------------------------------------
 # Screen recording
 #----------------------------------------------------------------
 # Combined audio channel of sound output and mcirophone
-speaker=`pacmd list-sources | grep -e 'name:.*alsa' | awk '{print $2}' | sed -e 's/<//' -e 's/>//'`
-pacmd unload-module module-null-sink sink_name=SpeakerAndMic >/dev/null
-pacmd load-module module-null-sink sink_name=SpeakerAndMic
-pacmd load-module module-loopback sink=SpeakerAndMic source=$speaker
-# pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo.monitor
-# pacmd load-module module-loopback sink=SpeakerAndMic source=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1.monitor
-if [ ${1-} != "--no-mic" ]; then
-    pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor.echo-cancel
-    # pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor
-    # pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam_echo_cancel.monitor
-fi
-
-# Record destination
-mount | grep -q andy-desktop || wake-mount andy-desktop
-
-pgrep simplescreenrecorder || simplescreenrecorder --start-hidden 2> /dev/null &
+# speaker=`pacmd list-sources | grep -e 'name:.*alsa' | awk '{print $2}' | sed -e 's/<//' -e 's/>//'`
+# pacmd unload-module module-null-sink sink_name=SpeakerAndMic >/dev/null
+# pacmd load-module module-null-sink sink_name=SpeakerAndMic
+# pacmd load-module module-loopback sink=SpeakerAndMic source=$speaker
+# if [[ ${1-} != "--no-mic" ]]; then
+#     pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor.echo-cancel
+#     # pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam.monitor
+#     # pacmd load-module module-loopback sink=SpeakerAndMic source=ipwebcam_echo_cancel.monitor
+# fi
 
 echo "Setup complete. Press enter to exit..."
 read
@@ -34,7 +32,6 @@ read
 #----------------------------------------------------------------
 # Cleanup
 #----------------------------------------------------------------
-pkill simplescreen
+# pkill simplescreen
 pacmd unload-module module-null-sink
-# pacmd unload-module module-null-sink sink_name=SpeakerAndMic
-/mnt/d/code/ipwebcam-gst/remove-videochat.sh
+$HOME/code/ipwebcam-gst/remove-videochat.sh

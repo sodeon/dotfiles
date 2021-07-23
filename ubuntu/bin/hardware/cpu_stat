@@ -1,0 +1,51 @@
+#!/bin/bash
+
+[ $# -ne 0 ] && interval=$1 || interval=1
+usage_warn=45
+usage_crit=75
+usage_warn_color=#C8D627
+usage_crit_color=#FFFF00
+temp_warn=65
+temp_crit=85
+temp_warn_color=#FF7070
+temp_crit_color=#FF0000
+
+cpu_usage() {
+    local idle_pct=`mpstat $interval 1 | grep Average | awk '{printf("%0.f\n" ,$NF)}'`
+    local busy_pct=`bc <<< "100 - $idle_pct"`
+    echo "$busy_pct"
+}
+
+cpu_info=`lscpu`
+cpu_freq() {
+    echo "$cpu_info" | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
+}
+
+cpu_temp() {
+    if echo "$cpu_info" | grep -q AMD; then
+        sensors | grep 'Tdie' | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
+    else
+        sensors | grep 'Package id 0' | awk '{print $4}' | sed -e 's/+//' -e 's/\..*//'
+        # sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
+    fi
+}
+
+
+usage=`cpu_usage`
+freq=`cpu_freq`
+temp=`cpu_temp`
+
+full_text="$usage%   $temp°  |  $freq"
+echo "$full_text
+$usage%"
+if [ $temp -ge $temp_crit ]; then
+    echo $temp_crit_color
+elif [ $temp -ge $temp_warn ] ; then
+    echo $temp_warn_color
+elif [ $usage -ge $usage_crit ]; then
+    echo $usage_crit_color
+elif [ $usage -ge $usage_warn ]; then
+    echo $usage_warn_color
+else
+    echo "#888888"
+fi

@@ -1,6 +1,25 @@
 #!/bin/bash
 config=$HOME/.config/record-screen.rc
-[ -f $config ] && . $config
+[ -f $config ] && source $config
+
+
+#------------------------------------------------------------------------------
+# Default parameters if not provided
+#------------------------------------------------------------------------------
+FPS=${FPS-30}
+MIC_PULSE_SRC=${MIC_PULSE_SRC-"ipwebcam.monitor.echo-cancel"}
+
+dst=${DST-""}
+if [ -z $dst ]; then
+    file_name="recording-`date '+%Y-%m-%d_%H:%M:%S'`"
+    if [ -d $HOME/Videos/Streaming ]; then
+        dst="$HOME/Videos/Streaming/$file_name"
+    elif [ -d $HOME/Videos ]; then
+        dst="$HOME/Videos/$file_name"
+    else
+        dst="$HOME/$file_name"
+    fi
+fi
 
 
 #------------------------------------------------------------------------------
@@ -9,7 +28,8 @@ config=$HOME/.config/record-screen.rc
 bin=`echo $0 | sed 's/^.*\///'`
 is-recording() { pgrep $bin | grep -v "^$$"; }
 if is-recording; then
-    notify-send -t 2000 -u low 'Recording' 'Done'
+    dst_folder=`echo $dst | sed 's/\(.*\/\).*/\1/'`
+    notify-send -t 10000 -u low 'Recording Done' "$dst_folder"
     pkill -15 gst-launch-1.0
     pkill -RTMIN+20 i3blocks
     pkill -15 $bin
@@ -24,12 +44,15 @@ fi
 if [ ! -z ${ENCODER-""} ]; then # Manual encoder settings
     true
 elif vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
-    export LIBVA_DRIVER_NAME=i965
+    # https://blogs.igalia.com/vjaquez/2020/01/
+    export GST_VAAPI_ALL_DRIVERS=1
+    # export LIBVA_DRIVER_NAME=i965
     ENCODER=vaapih264enc
     ENCODER_PARAMS="bitrate=20000 quality-level=2"
 elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
     ENCODER=nvh265enc
     ENCODER_PARAMS=""
+    # ENCODER_PARAMS="preset=hq rc-mode=vbr"
 else # software mpeg4 (x264 has high CPU usage)
     ENCODER=avenc_mpeg4
     ENCODER_PARAMS="bitrate=30000000"
@@ -50,7 +73,7 @@ video_src_pipeline="\
 video_sink_pipeline="\
     ! videoconvert ! queue \
     ! $ENCODER $ENCODER_PARAMS \
-    ! filesink location=$DST.mp4"
+    ! filesink location=$dst.mp4"
 video_pipeline="$video_src_pipeline $video_scaling_pipeline $video_sink_pipeline"
 
 # Audio and mic pipelines
@@ -59,30 +82,30 @@ if [ ! -z ${AUDIO_PULSE_SRC-""} ]; then
 else
     device_name=`pacmd list-sinks | grep --after-context=1 \* | grep name | sed -e 's/.*<//' -e 's/>//'`
     audio_device="device=$device_name.monitor"
-    echo $audio_device
 fi
 audio_pipeline="\
     pulsesrc $audio_device \
     ! queue ! audioconvert ! queue \
     ! wavenc \
-    ! filesink location=$DST.wav"
+    ! filesink location=$dst.wav"
 mic_pipeline=""
 if pacmd list-sources | grep -q $MIC_PULSE_SRC; then
     mic_pipeline="\
         pulsesrc device=$MIC_PULSE_SRC \
         ! queue ! audioconvert ! queue \
         ! wavenc \
-        ! filesink location=$DST.mic.wav"
+        ! filesink location=$dst.mic.wav"
 fi
 
 # Final pipeline
 pipeline="$video_pipeline $audio_pipeline $mic_pipeline"
+# echo $pipeline
 
 
 #------------------------------------------------------------------------------
 # Start recording
 #------------------------------------------------------------------------------
 pkill -RTMIN+20 i3blocks
-notify-send.sh -r 20 -t 2000 -u low 'Recording' 'Start'
+notify-send.sh -r 20 -t 2000 -u low 'Start Recording'
 gst-launch-1.0 $pipeline
 [ $? -eq 0 ] || notify-send.sh -r 20 -t 2000 -u critical "Recording Failed" "gstreamer Error"

@@ -1,9 +1,9 @@
 #!/bin/bash 
 
 FPS=30
-# SCALING=bilinear
-# WIDTH=1920
-# HEIGHT=1080
+SCALING=bilinear
+WIDTH=1920
+HEIGHT=1080
 # ENCODER=x264enc
 # ENCODER_PARAMS="bitrate=200000"
 
