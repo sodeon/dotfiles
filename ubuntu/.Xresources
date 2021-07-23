@@ -66,6 +66,11 @@ URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
 ! URxvt.boldFont: xft:Consolas NF:style=Bold:size=18
 ! URxvt.italicFont: xft:Consolas NF:style=Italic:size=18
 ! URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=18
+! 65" 4K "
+! URxvt.font: xft:Consolas NF:style=Book:size=20
+! URxvt.boldFont: xft:Consolas NF:style=Bold:size=20
+! URxvt.italicFont: xft:Consolas NF:style=Italic:size=20
+! URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=20
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
