@@ -43,8 +43,6 @@ signal=13
 separator=false
 separator_block_width=40
 
-# Network
-#
 [bandwidth]
 #instance=eth0
 interval=5
@@ -60,16 +58,12 @@ separator=false
 
 [cpu_stat]
 interval=2
-min_width=200
+# min_width=200
+min_width=100%   1.0  |  35°
 align=right
-# color=#888888
-# min_width=1.0  |  35°   100%
-# align=right
 command=cpu_stat 2
 separator=false
 
-# Brightness
-#
 # [brightness]
 # label=☀
 # color=#66ff66
@@ -78,11 +72,6 @@ separator=false
 # signal=11
 # separator=false
 
-# Volume indicator
-#
-# The first parameter sets the step (and units to display)
-# The second parameter overrides the mixer selection
-# See the script for details.
 [audio]
 label=♪
 color=#66ff66
@@ -91,6 +80,20 @@ interval=once
 signal=10
 separator=false
 separator_block_width=12
+
+# Date Time
+#
+[time]
+command=date '+%-m-%d %H:%M'
+interval=5
+separator=false
+separator_block_width=5
+
+[record]
+command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
+color=#CC4444
+interval=once
+signal=20
 
 # Battery indicator
 #
@@ -101,12 +104,6 @@ separator_block_width=12
 #interval=30
 #separator=false
 #separator_block_width=18
-
-# Date Time
-#
-[time]
-command=date '+%-m-%d %H:%M'
-interval=5
 
 # Disk usage
 #
@@ -134,9 +131,6 @@ interval=5
 ##instance=wlp3s0
 #interval=10
 #separator=false
-
-#[load_average]
-#interval=2
 
 # OpenVPN support
 #

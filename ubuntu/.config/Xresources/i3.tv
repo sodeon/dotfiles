@@ -10,7 +10,7 @@ i3wm.floating.deltaY: 64px
 
 ! Pre-defined app size
 i3wm.cmus.size: 60 ppt 80 ppt
-i3wm.tmux.size: 44 ppt 44 ppt
+i3wm.tmux.size: 49 ppt 44 ppt
 
 ! Rofi
 i3wm.rofi.combi.width: 27

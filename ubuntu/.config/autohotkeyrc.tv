@@ -13,8 +13,9 @@ NOTIFICATION_TIMEOUT=1400
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
 
 FILE_CMD() {
-    mount | grep /nas/c || wake-mount nas
-    urxvtc -e ranger ~/Videos &
+    urxvtc -e ranger ~ &
+    # mount | grep /nas/c || wake-mount nas
+    # urxvtc -e ranger ~/Videos &
 }
 
 # chrome
