@@ -10,6 +10,7 @@ autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80%
 
 # Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
 # Andy reference: https://wiki.archlinux.org/index.php/Mpv
+# vo=vaapi
 vo=gpu
 # profile=gpu-hq
 

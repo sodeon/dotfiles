@@ -1,11 +1,12 @@
 #!/bin/bash 
 
-FPS=15
+FPS=30
 # SCALING=bilinear
 # WIDTH=1920
 # HEIGHT=1080
 # ENCODER=x264enc
 # ENCODER_PARAMS="bitrate=200000"
+# PARSER="h264parse"
 
 # AUDIO_PULSE_SRC=
 MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel

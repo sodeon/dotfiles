@@ -48,14 +48,18 @@ elif vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
     export GST_VAAPI_ALL_DRIVERS=1
     # export LIBVA_DRIVER_NAME=i965
     ENCODER=vaapih264enc
-    ENCODER_PARAMS="bitrate=20000 quality-level=2"
+    ENCODER_PARAMS="quality-level=2 cabac=true rate-control=vbr"
+    # ENCODER_PARAMS="bitrate=20000 quality-level=2"
+    PARSER=h264parse
 elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
     ENCODER=nvh265enc
     ENCODER_PARAMS=""
+    PARSER=h265parse
     # ENCODER_PARAMS="preset=hq rc-mode=vbr"
 else # software mpeg4 (x264 has high CPU usage)
     ENCODER=avenc_mpeg4
     ENCODER_PARAMS="bitrate=30000000"
+    PARSER=mpeg4videoparse
 fi
 
 # Automatic scaling
@@ -72,8 +76,9 @@ video_src_pipeline="\
     ! video/x-raw,framerate=$FPS/1"
 video_sink_pipeline="\
     ! videoconvert ! queue \
-    ! $ENCODER $ENCODER_PARAMS \
-    ! filesink location=$dst.mp4"
+    ! $ENCODER $ENCODER_PARAMS ! $PARSER \
+    ! avimux \
+    ! filesink location=$dst.avi"
 video_pipeline="$video_src_pipeline $video_scaling_pipeline $video_sink_pipeline"
 
 # Audio and mic pipelines
@@ -107,5 +112,5 @@ pipeline="$video_pipeline $audio_pipeline $mic_pipeline"
 #------------------------------------------------------------------------------
 pkill -RTMIN+20 i3blocks
 notify-send.sh -r 20 -t 2000 -u low 'Start Recording'
-gst-launch-1.0 $pipeline
+gst-launch-1.0 -e -t $pipeline
 [ $? -eq 0 ] || notify-send.sh -r 20 -t 2000 -u critical "Recording Failed" "gstreamer Error"

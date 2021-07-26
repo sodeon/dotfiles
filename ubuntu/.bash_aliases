@@ -73,7 +73,7 @@ alias ta='task add'
 # OS dependent implementation
 #-----------------------------------------------------
 alias suspend='systemctl suspend'
-# alias shutdown='shutdown -h now'
+alias shutdown-='shutdown -h now'
 
 alias du='ncdu --exclude /mnt --exclude /nas' # Do not include ntfs partitions
 # alias du='gdu --ignore-dirs /mnt' # Not as robst as ncdu, but probably faster

@@ -20,12 +20,14 @@ FILE_CMD() {
 BROWSER_WIN_CLASS="chromium-browser"
 BROWSER_CMD() { 
     # LIBVA_DRIVER_NAME=iHD `# https://github.com/intel/intel-vaapi-driver/issues/493` \
+    # LIBVA_DRIVER_NAME=i965
     chromium --oauth2-client-id=77185425430.apps.googleusercontent.com --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT `# Chrome sync. Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087` \
              --enable-features=VaapiVideoDecoder --ignore-gpu-blocklist --enable-zero-copy `# Hardware video acceleration. https://bbs.archlinux.org/viewtopic.php?id=244031&p=21` \
+             --use-gl=desktop `# Use iHD and not i965 for hardware video driver` \
              --force-dark-mode --force-device-scale-factor=0.84 \
              --allow-insecure-localhost \
              --process-per-site `# Reduce memory usage. By default, Chromium uses a separate OS process for each instance of a visited web site.` \
-             --flag-switches-begin --disable-smooth-scrolling --flag-switches-end
+             # --flag-switches-begin --disable-smooth-scrolling --flag-switches-end
 }
 # chrome
 # BROWSER_WIN_CLASS="Google-chrome"

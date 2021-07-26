@@ -2,7 +2,7 @@
 
 source source-display-monitor -f
 setup-xresources-and-env
-exec-xrandr
+[ -f $cached_spec ] && exec-xrandr
 
 
 

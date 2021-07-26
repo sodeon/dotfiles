@@ -17,7 +17,7 @@ TRAPWINCH() { drawline="${(r:$COLUMNS::─:)}" }
 #%{$fg[$CARETCOLOR]%}$%{$reset_color%} '
 PROMPT='%{$FG[008]%}${drawline}%{$reset_color%}
 ${ret_status}%{$fg[yellow]%}%~%{$reset_color%}
-%{$fg[$white]%}%{$reset_color%} '
+%{$fg[yellow]%}%{$reset_color%} '
 #╭─${ret_status}%{$fg[yellow]%}%~%{$reset_color%}
 #╰─%{$fg[$CARETCOLOR]%}%{$reset_color%}'
 #PROMPT2='%{$fg[white]%}%{$reset_color%}'
