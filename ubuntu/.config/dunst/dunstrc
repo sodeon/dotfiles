@@ -33,6 +33,8 @@
     geometry = "200x10-10+27"
     # 32" 4K
     # geometry = "400x10-10+54"
+    # 65" 4K
+    # geometry = "360x10-0+54"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -91,6 +93,7 @@
 
     font = Ubuntu 13 # 24" 2K
     # font = Ubuntu 16 # 32" 4K
+    # font = Ubuntu 18 # 65" 4K
     # font = Monospace 15
 
     # The spacing between lines.  If the height is smaller than the

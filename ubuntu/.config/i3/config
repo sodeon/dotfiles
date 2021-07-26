@@ -325,6 +325,7 @@ bindsym $mod+Return exec $term -cd $(xcwd)
 assign [title="ranger"       ] $ws3
 assign [class="Code"         ] $ws4
 assign [class="^zoom$"       ] $ws5
+assign [class="^mpv$"        ] $ws9
 assign [class="Sxiv"         ] $ws9
 assign [class="Zathura"      ] $ws9
 assign [title="^LibreOffice "] $ws9 # LibreOffice has compatibility issues with "class/instance". Adding a space in the end will let splash screen shown in calling workspace
@@ -359,13 +360,14 @@ bindsym $mod+Shift+m [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"                             ] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
-for_window [instance="^cmus$"                             ] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
-for_window [class="mpv"         instance="gl"             ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
-for_window [class="mpv"         instance="^mpv-web-video$"] border none   , focus, fullscreen
-for_window [                    instance="^rpiplay$"      ] border none   , focus, fullscreen
-assign     [class="mpv"         instance="^mpv-web-video$"] $ws9
-assign     [class="^GStreamer$" instance="^rpiplay$"      ] $ws9
+for_window [instance="^tmux$"] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^cmus$"] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
+for_window [class="mpv"      ] border none   , focus, fullscreen
+# for_window [                    instance="^rpiplay$"      ] border none   , focus, fullscreen
+# assign     [class="^GStreamer$" instance="^rpiplay$"      ] $ws9
+# for_window [class="mpv"         instance="gl"             ] border pixel 3, floating enable, sticky enable       , move scratchpad, scratchpad show
+# for_window [class="mpv"         instance="^mpv-web-video$"] border none   , focus, fullscreen
+# assign     [class="mpv"         instance="^mpv-web-video$"] $ws9
 
 
 #--------------------------------------------------------------------------------

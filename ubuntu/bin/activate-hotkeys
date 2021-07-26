@@ -100,9 +100,11 @@ bind-hotkeys() {
     # echo "$inputs" | grep -q "Designer Keyboard" && cat ~/.config/xbindkeys/microsoft-designer-keyboard >> /tmp/xbindkeysrc
 
     # Mouse keybindings
-    echo "$inputs" | grep -q -e "Razer Basilisk.*pointer" \
-                             -e "Logitech USB Receiver" && \
-        ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
+    # echo "$inputs" | grep -q -e "Razer Basilisk.*pointer" \
+    #                          -e "Logitech USB Receiver"   \
+    #                          -e "Logitech G602"        && \
+    #     ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
+    [ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc
     
     pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
     xbindkeys -f /tmp/xbindkeysrc
