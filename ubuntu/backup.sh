@@ -64,7 +64,6 @@ if [ -d ~/code/panasonic-viera ]; then
 	cp -rf ~/code/panasonic-viera/panasonic_viera/*.py apps/panasonic-viera/panasonic_viera
 fi
 
-
 #
 # VSCode extensions
 #

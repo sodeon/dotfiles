@@ -20,7 +20,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3blocks/$BLOCK_NAME
-separator_block_width=20
+separator_block_width=5
 markup=none
 
 [window]
@@ -29,7 +29,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=40
+separator_block_width=20
 
 [bandwidth]
 #instance=eth0
@@ -46,19 +46,22 @@ separator=false
 
 [cpu_stat]
 interval=2
+# min_width=100
 min_width=100%   35°  |  1.0
 align=right
 command=cpu_stat 2
 separator=false
+separator_block_width=7
 
-# [brightness]
-# label=☀
-# color=#66ff66
-# command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
-# interval=once
-# signal=11
-# separator=false
-# separator_block_width=16
+
+[brightness]
+label=☀
+color=#66ff66
+command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+interval=once
+signal=11
+separator=false
+separator_block_width=8
 
 [audio]
 label=♪

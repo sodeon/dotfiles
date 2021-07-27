@@ -10,36 +10,14 @@ autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80%
 
 # Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
 # Andy reference: https://wiki.archlinux.org/index.php/Mpv
+# vo=vaapi
 vo=gpu
-profile=gpu-hq
+# profile=gpu-hq
 
 # Scaling
-scale=ewa_lanczossharp
-cscale=ewa_lanczossharp
-tscale=oversample
-
-# ytdl-format=bestaudio/best # force VP9 video for 60fps
-# af=acompressor # compress audio dynamic range
-
-
-##################
-# Other settings #
-##################
-# Pretend to be a web browser. Might fix playback with some streaming sites, but also will break with shoutcast streams.
-#user-agent="Mozilla/5.0"
-
-#cache-default=153600 # 150MB input cache. For network streams only.
-#cache=153600 # 150MB input cache for everything, even local files.
-#cache-pause=no
-
-# Read ahead about 5 seconds of audio and video packets.
-#demuxer-readahead-secs=5.0
-# Raise readahead from demuxer-readahead-secs to this value if a cache is active.
-#cache-secs=50.0
-
-# Change subtitle encoding. For Arabic subtitles use 'cp1256' (You can add '+' in front of the codepage to force it.)
-# If the file seems to be valid UTF-8, prefer UTF-8.
-#sub-codepage=cp1256
+# scale=ewa_lanczossharp
+# cscale=ewa_lanczossharp
+# tscale=oversample
 
 
 #------------------------------------------------------------------------------
@@ -50,7 +28,7 @@ tscale=oversample
 input-ipc-server=/tmp/mpvsocket
 
 # Youtube download settings
-ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
+ytdl-format=bestvideo[height<=1440][vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
 
 force-seekable=yes
 
@@ -78,10 +56,10 @@ osd-align-y=bottom
 # log-file=~/log
 
 # gpu-api=vulkan
-hwdec=auto-copy
-dither=error-diffusion # Very high GPU usage requirements
-deband=yes
-deband-iterations=2
+hwdec=auto # "auto-copy" has significant performance impact, halfing frame rate
+# dither=error-diffusion # Very high GPU usage requirements
+# deband=yes
+# deband-iterations=2
 correct-downscaling=yes
 linear-downscaling=yes
 sigmoid-upscaling=yes
@@ -118,9 +96,9 @@ blend-subtitles=no
 # glsl-shader="~~/shaders/KrigBilateral.glsl"
 
 # [shader-anime]
-glsl-shaders-clr
-glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
-glsl-shader="~~/shaders/KrigBilateral.glsl"
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
 
 # [shaders-mixed]
 # glsl-shaders-clr

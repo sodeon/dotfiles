@@ -15,7 +15,7 @@
 # }
 # chrome
 BROWSER_WIN_CLASS="Google-chrome"
-WS1_CMD() {
+WS1_CMD() { 
     # 24" 2K
     google-chrome --force-dark-mode --force-device-scale-factor=0.84 # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
     # 32" 4K
@@ -27,19 +27,10 @@ WS1_CMD() {
 #     brave-browser --force-dark-mode --force-device-scale-factor=0.84"
 # }
 
-# WS4_NAME="4: "
-# WS4_CMD() { true; }
-
 
 #------------------------------------------------------------------------------
 # rofi menu entries
 #------------------------------------------------------------------------------
-declare -A F10_ENTRIES=(
-    [1. PC Gaming          ]=lutris
-    [2. Retro Arcade       ]=mame
-    [3. Moonlight Streaming]=moonlight
-)
-# WOL_WIDTH=15
 declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
