@@ -44,7 +44,7 @@ backup_list=(
     # examples
     .config/autohotkeyrc.example
     .config/dotfiles/dotfilesrc.example
-    .config/i3/{config,i3blocks.conf.example}
+    .config/i3/{config,config.monitor.pc,config.monitor.tv,i3blocks.conf.example}
     .config/Xresources/i3.example
 )
 
@@ -53,7 +53,7 @@ machine_suffix_backup_list=(
     .config/autohotkeyrc
     .config/record-screen.rc
     .config/mpv/mpv.conf
-    .config/i3/i3blocks.conf
+    .config/i3/{config.monitor,i3blocks.conf}
     .config/dotfiles/dotfilesrc
     .config/Xresources/{i3,i3.ew3270u}
     # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.

@@ -29,7 +29,8 @@ restore-p() {
 #------------------------------------------------------------------------------
 # Restore core
 #------------------------------------------------------------------------------
-[[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+[[ ! -f ~/.config/Xresources/i3     ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+[[ ! -f ~/.config/i3/config.monitor ]] && cp .config/i3/config.monitor.pc   ~/.config/i3/config.monitor
 
 for item in ${wipe_then_backup_list[@]}; do
     rm -rf "$HOME/$item"
@@ -52,16 +53,7 @@ fi
 #
 # Self built binaries
 #
-# if [ ! -d /usr/lib/x86_64-linux-gnu/rofi ]; then
-# 	sudo mkdir -p /usr/lib/x86_64-linux-gnu/rofi
-# fi
-# sudo cp -rf ./apps/rofi-plugins/* /usr/lib/x86_64-linux-gnu/rofi
-# if [ ! -d /usr/share/rofi-emoji/ ]; then
-# 	sudo mkdir -p /usr/share/rofi-emoji/
-# fi
-# sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
-# if [ -d ~/code/sxiv ]; then
-#     cp -rf apps/sxiv ~/code
-# fi
-
-# sudo cp apps/sxiv/sxiv `which sxiv`
+sudo mkdir -p /usr/lib/x86_64-linux-gnu/rofi
+sudo cp -rf ./apps/rofi-plugins/* /usr/lib/x86_64-linux-gnu/rofi
+sudo mkdir -p /usr/share/rofi-emoji/
+sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
