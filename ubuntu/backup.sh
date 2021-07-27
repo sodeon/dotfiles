@@ -57,6 +57,12 @@ if [ -d ~/code/sxiv ]; then
 	cp -p ~/code/sxiv/sxiv.1   apps/sxiv
 	cp -p ~/code/sxiv/exec/*   apps/sxiv/exec
 fi
+if [ -d ~/code/panasonic-viera ]; then
+	cp     ~/code/panasonic-viera/setup.py             apps/panasonic-viera
+	cp     ~/code/panasonic-viera/setup.cfg            apps/panasonic-viera
+	cp     ~/code/panasonic-viera/requirements.txt     apps/panasonic-viera
+	cp -rf ~/code/panasonic-viera/panasonic_viera/*.py apps/panasonic-viera/panasonic_viera
+fi
 
 #
 # VSCode extensions
