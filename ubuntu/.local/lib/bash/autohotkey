@@ -6,6 +6,8 @@ NOTIFICATION_TIMEOUT=1400
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
 
+SUSPEND_PRE_CMD() { true; }
+
 declare -A F4_ENTRIES=(
     [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
 )
@@ -488,6 +490,7 @@ suspend() {
     notify-send.sh -u critical -r 99 "Preparing to suspend..."
     sleep 0.7
     notify-send.sh --close=99
+    SUSPEND_PRE_CMD
     systemctl suspend
 }
 
