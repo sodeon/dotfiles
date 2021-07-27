@@ -1,5 +1,8 @@
 i3wm.i3block.fontSize: 11
 
+! Worksapce names
+i3wm.ws4.name: "4: 4 "
+
 ! Resize
 i3wm.resizeX: 64px or 6ppt	
 i3wm.resizeY: 64px or 6ppt

@@ -2,9 +2,14 @@ echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bas
 echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-ZSH_THEME="andy"
-# ZSH_THEME="robbyrussell" # default
+# Theme
+if [ ! -z $SSH_CONNECTION ] && [ -f $ZSH/themes/andy-mod.zsh-theme ]; then
+    ZSH_THEME="andy-mod" ||
+elif [ -f $ZSH/themes/andy.zsh-theme     ]; then
+    ZSH_THEME="andy"
+else
+    ZSH_THEME="robbyrussell" # Default. Could also set "random"
+fi
 
 # Setting this variable when ZSH_THEME=random cause zsh load theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )

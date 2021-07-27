@@ -1,7 +1,39 @@
 #!/bin/bash
 #-----------------------------------------------------------------------------------------------
-# Parameters
+# Sensible default variables and overrides
 #-----------------------------------------------------------------------------------------------
+NOTIFICATION_TIMEOUT=1400
+ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+BROWSER_WIN_CLASS="Google-chrome"
+
+SUSPEND_PRE_CMD() { true; }
+
+declare -A F4_ENTRIES=(
+    [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+)
+declare -A F10_ENTRIES=(
+    [1. PC Gaming          ]=lutris
+    [2. Retro Arcade       ]=mame
+    [3. Moonlight Streaming]=moonlight
+     # "ppsspp" "desmune"
+)
+declare -A POWER_ENTRIES=(
+    [1. Display Standby]="xset dpms force off"
+    [2. Suspend        ]="systemctl suspend"
+    [3. Reboot         ]="reboot"
+    [4. Shutdown       ]="shutdown -h now"
+)
+declare -A BLUETOOTH_ENTRIES=(
+    [1. Power On/Off        ]="toggle-bluetooth"
+    [2. Headset Conn/Disconn]="bluetooth-quick-connect"
+)
+declare -A WOL_ENTRIES=(
+    [1. NAS  ]="wake-on-lan nas"
+    [2. TV   ]="wake-on-lan tv"
+    [3. J5005]="wake-on-lan j5005"
+)
+
+# Default overrides
 source $HOME/.config/autohotkeyrc
 
 
@@ -313,51 +345,67 @@ mediaPlayerFullscreen() {
 workspacePicker() { i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi; }
 
 F1() {
-    i3-msg 'workspace number "1: Web "'
+    i3-msg 'workspace number '${WS1_NAME-"1: Web "}
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 1) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
-            BROWSER_CMD
+            WS1_CMD || \
+            google-chrome --force-dark-mode --force-device-scale-factor=0.84 # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
         fi
     fi
 }
 
 F2() {
-    i3-msg 'workspace number "2: Term "'
+    i3-msg 'workspace number '${WS2_NAME-"2: Term "}
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 2) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
+            WS2_CMD || \
             urxvtc &
         fi
     fi
 }
 
 F3() {
-    i3-msg 'workspace number "3: File "'
+    i3-msg 'workspace number '${WS3_NAME-"3: File "}
 
     # If workspace 3 has no ranger instance, create one
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 3) .focused' | grep 'true'; then
-        if ! isWinActive ranger ahk_command; then
-            FILE_CMD
+        if ! xdotool getactivewindow; then
+            WS3_CMD || \
+            urxvtc -e ranger $HOME # ranger default editor: $HOME/.selected_editor; (or export VISUAL=vim;)
         fi
     fi
 }
 
 F4() {
-    i3-msg 'workspace number "4: Code "'
+    i3-msg 'workspace number '${WS4_NAME-"4: Code "}
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
+            WS4_CMD || \
             simple-rofi Program ${F4_WIDTH-30} F4_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi
 }
 
+F5() {
+    i3-msg 'workspace number '${WS5_NAME-"5: Meeting "}
+
+    if i3-msg -t get_workspaces | jq '.[] | select(.num == 5) .focused' | grep 'true'; then
+        if ! xdotool getactivewindow; then
+            WS5_CMD || \
+            zoom
+        fi
+    fi
+}
+
 F10() {
-    i3-msg 'workspace number "10: G "'
+    i3-msg 'workspace number '${WS10_NAME-"10: G "}
 
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 10) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
+            WS10_CMD || \
             simple-rofi Program ${F10_WIDTH-28} F10_ENTRIES || i3-msg "workspace back_and_forth"
         fi
     fi
@@ -419,6 +467,14 @@ display-input() {
     if [[ $1 != "toggle" ]]; then
         ddcutil setvcp $feature_id $1
     else
+        if [ -z $DISPLAY_INPUTS ]; then
+            DISPLAY_INPUTS=( # $ddcutil capabilities | grep --after-context=10 Input
+                0x1  # D-Sub
+                0xf  # DP
+                0x11 # HDMI-1
+                0x12 # HDMI-2
+            )
+        fi
         cur_input=`ddcutil getvcp $feature_id | awk '{print $NF}' | sed -e 's/.*=//' -e 's/)//'` # Get current input ID
         DISPLAY_INPUTS[${#DISPLAY_INPUTS[@]}]=${DISPLAY_INPUTS[0]}
         hit=0
@@ -434,7 +490,7 @@ suspend() {
     notify-send.sh -u critical -r 99 "Preparing to suspend..."
     sleep 0.7
     notify-send.sh --close=99
-    tv-power off
+    SUSPEND_PRE_CMD
     systemctl suspend
 }
 
@@ -443,8 +499,8 @@ display-standby() {
     xset dpms force off
 }
 
-bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC; }
-# bluetooth-quick-connect() { toggle-bluetooth device $QUICK_CONNECT_MAC true; }
+bluetooth-quick-connect() { toggle-bluetooth device ${QUICK_CONNECT_MAC-"94:DB:56:AE:BE:C5"}; }
+# bluetooth-quick-connect() { toggle-bluetooth device ${QUICK_CONNECT_MAC-"94:DB:56:AE:BE:C5"} true; }
 
 power-menu() {
     simple-rofi Menu ${POWER_WIDTH-23} POWER_ENTRIES
