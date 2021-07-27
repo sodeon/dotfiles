@@ -38,4 +38,4 @@ i3wm.ws10.verticalGap: 100
 i3wm.hardware.bluetoothEnable: true
 i3wm.hardware.autoSuspend.enable: false
 i3wm.hardware.autoSuspend.timeInSec: 1800
-i3wm.hardware.autoScreenOff.enable: true
+i3wm.hardware.autoScreenOff.enable: false

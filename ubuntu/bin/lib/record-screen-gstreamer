@@ -76,9 +76,10 @@ video_src_pipeline="\
     ! video/x-raw,framerate=$FPS/1"
 video_sink_pipeline="\
     ! videoconvert ! queue \
-    ! $ENCODER $ENCODER_PARAMS ! $PARSER \
-    ! avimux \
+    ! $ENCODER $ENCODER_PARAMS \
     ! filesink location=$dst.avi"
+    # ! $ENCODER $ENCODER_PARAMS ! $PARSER \
+    # ! avimux \
 video_pipeline="$video_src_pipeline $video_scaling_pipeline $video_sink_pipeline"
 
 # Audio and mic pipelines
