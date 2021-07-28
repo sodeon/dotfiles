@@ -1,8 +1,0 @@
-#!/bin/bash -ue
-if [ $# -eq 1 ] && [ $1 == "disable" ]; then
-    rm /tmp/prevent-tv-off
-    echo TV power will be automatically managed.
-else
-    touch /tmp/prevent-tv-off
-    echo TV auto power off disabled.
-fi
