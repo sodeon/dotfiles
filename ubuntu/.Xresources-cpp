@@ -17,21 +17,18 @@
     #define XTERM_FACE_SIZE 14
     #define URXVT_FONT_SIZE 14
     #define ROFI_FONT_SIZE  14
-    #define ROFI_ELEMENT_PADDING 10px
     #define DUNST_GEOMETRY 200x10-10+27
     #define DUNST_FONT Ubuntu 13
 #elif defined SCREEN_32_4K
     #define XTERM_FACE_SIZE 18
     #define URXVT_FONT_SIZE 18
     #define ROFI_FONT_SIZE  20
-    #define ROFI_ELEMENT_PADDING 25px
     #define DUNST_GEOMETRY 400x10-10+54
     #define DUNST_FONT Ubuntu 16
 #elif defined SCREEN_65_4K
     #define XTERM_FACE_SIZE 20
     #define URXVT_FONT_SIZE 20
     #define ROFI_FONT_SIZE  20
-    #define ROFI_ELEMENT_PADDING 25px
     #define DUNST_GEOMETRY 360x10-0+54
     #define DUNST_FONT Ubuntu 18
 #endif
@@ -156,7 +153,6 @@ URxvt.keysym.Control-Y: perl:keyboard-select:activate
 ! Rofi and dunst
 !-----------------------------------------------------------------
 rofi.font: Ubuntu ROFI_FONT_SIZE
-rofi.vars.elementPadding: ROFI_ELEMENT_PADDING
 
 dunst.font: DUNST_FONT
 dunst.geometry: DUNST_GEOMETRY

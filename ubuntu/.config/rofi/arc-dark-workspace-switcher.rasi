@@ -61,7 +61,7 @@
 }
 #element {
     border:  0;
-    padding: @elementPadding ;
+    padding: 0.5em ;
 }
 #element.normal.normal {
     background-color: @normal-background;
