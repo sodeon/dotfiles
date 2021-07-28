@@ -1,4 +1,10 @@
 #!/bin/bash
+# Resolution and screen size dependent config files:
+#   .Xresources
+#   .config/rofi/config
+#   .config/rofi/arc-dark-workspace-switcher.rasi
+#   .config/dunst/dunstrc
+
 wipe_then_backup_list=(
     bin
     .local/lib/bash
