@@ -19,7 +19,7 @@ backup_list=(
     .zshrc
     .profile
     .Xmodmap
-    .Xresources
+    .Xresources-cpp
     .xbindkeysrc
     .lesskey
     .imwheelrc
@@ -61,6 +61,6 @@ machine_suffix_backup_list=(
     .config/mpv/mpv.conf
     .config/i3/{config.monitor,i3blocks.conf}
     .config/dotfiles/dotfilesrc
-    .config/Xresources/{i3,i3.ew3270u}
+    .config/Xresources/{profile,i3,i3.ew3270u}
     # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.
 )

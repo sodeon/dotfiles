@@ -1,0 +1,13 @@
+[Unit]
+Description=Dunst notification daemon
+Documentation=man:dunst(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.Notifications
+ExecStart=bash -c "/usr/bin/dunst -geometry $(xgetres dunst.geometry) -font \"$(xgetres dunst.font)\""
+
+[Install]
+WantedBy=default.target
+
