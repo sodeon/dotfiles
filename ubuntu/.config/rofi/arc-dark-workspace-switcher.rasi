@@ -62,6 +62,12 @@
 #element {
     border:  0;
     padding: 25px ;
+    // 24" 2K
+    // padding: 10px ;
+    // 32" 4K
+    // padding: 25px ;
+    // 65" 4K
+    padding: 25px ;
 }
 #element.normal.normal {
     background-color: @normal-background;
