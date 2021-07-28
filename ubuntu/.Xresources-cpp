@@ -1,7 +1,38 @@
-! Reload Xresources: xrdb ~/.Xresources
+! Reload Xresources: xrdb ~/.Xresources-cpp
 ! get xft font name: fc-list
 ! sample urxvt config: https://addy-dclxvi.github.io/post/configuring-urxvt/
 ! urxvt Perl extension: https://github.com/muennich/urxvt-perls
+
+!-----------------------------------------------------------------
+! Defines
+!-----------------------------------------------------------------
+#include ".config/Xresources/profile"
+
+! Profiles and sensible defaults
+#if !defined(SCREEN_24_2K) && !defined(SCREEN_32_4K) && !defined(SCREEN_65_4K)
+    #define SCREEN_24_2K
+#endif
+
+#if defined SCREEN_24_2K
+    #define XTERM_FACE_SIZE 14
+    #define URXVT_FONT_SIZE 14
+    #define ROFI_FONT_SIZE  14
+    #define DUNST_GEOMETRY 200x10-10+27
+    #define DUNST_FONT Ubuntu 13
+#elif defined SCREEN_32_4K
+    #define XTERM_FACE_SIZE 18
+    #define URXVT_FONT_SIZE 18
+    #define ROFI_FONT_SIZE  20
+    #define DUNST_GEOMETRY 400x10-10+54
+    #define DUNST_FONT Ubuntu 16
+#elif defined SCREEN_65_4K
+    #define XTERM_FACE_SIZE 20
+    #define URXVT_FONT_SIZE 20
+    #define ROFI_FONT_SIZE  20
+    #define DUNST_GEOMETRY 360x10-0+54
+    #define DUNST_FONT Ubuntu 18
+#endif
+
 
 !-----------------------------------------------------------------
 ! Color scheme
@@ -47,30 +78,16 @@
 ! xterm
 !-----------------------------------------------------------------
 XTerm*faceName: Consolas NF
-! 24" 2K "
-XTerm*faceSize: 14
-! 32" 4K "
-! XTerm*faceSize: 18
+XTerm*faceSize: XTERM_FACE_SIZE
 
 
 !-----------------------------------------------------------------
 ! URxvt Appearance
 !-----------------------------------------------------------------
-! 24" 2K "
-! URxvt.font: xft:Consolas NF:style=Book:size=14
-! URxvt.boldFont: xft:Consolas NF:style=Bold:size=14
-! URxvt.italicFont: xft:Consolas NF:style=Italic:size=14
-! URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=14
-! 32" 4K "
-! URxvt.font: xft:Consolas NF:style=Book:size=18
-! URxvt.boldFont: xft:Consolas NF:style=Bold:size=18
-! URxvt.italicFont: xft:Consolas NF:style=Italic:size=18
-! URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=18
-! 65" 4K "
-URxvt.font: xft:Consolas NF:style=Book:size=20
-URxvt.boldFont: xft:Consolas NF:style=Bold:size=20
-URxvt.italicFont: xft:Consolas NF:style=Italic:size=20
-URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=20
+URxvt.font: xft:Consolas NF:style=Book:size=URXVT_FONT_SIZE
+URxvt.boldFont: xft:Consolas NF:style=Bold:size=URXVT_FONT_SIZE
+URxvt.italicFont: xft:Consolas NF:style=Italic:size=URXVT_FONT_SIZE
+URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=URXVT_FONT_SIZE
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
@@ -130,6 +147,15 @@ URxvt.matcher.rend.2: Book
 ! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
 URxvt.keysym.Control-Y: perl:keyboard-select:activate
+
+
+!-----------------------------------------------------------------
+! Rofi and dunst
+!-----------------------------------------------------------------
+rofi.font: Ubuntu ROFI_FONT_SIZE
+
+dunst.font: DUNST_FONT
+dunst.geometry: DUNST_GEOMETRY
 
 
 !-----------------------------------------------------------------

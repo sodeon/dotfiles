@@ -5,8 +5,8 @@ rofi.modi: calc
 rofi.combi-modi: drun,ssh,run,emoji
 
 rofi.theme: arc-dark-custom
-rofi.font: Ubuntu 20
-!rofi.font: System San Francisco Display 15
+! rofi.font: Ubuntu 14 # Set from Xresources
+! rofi.font: System San Francisco Display 15
 
 
 !-------------------------------------------------------------------------------------
