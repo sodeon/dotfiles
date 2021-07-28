@@ -1,0 +1,22 @@
+#!/usr/bin/bash -ue
+
+# tv=192.168.0.106 # Wired
+tv=192.168.0.108 # Wireless
+
+if [ $1 == "on" ]; then
+    cmd='turn_on'
+elif [ $1 == "off" ]; then
+    cmd='turn_off'
+else
+    exit 1 # Error. Support on/off arguments only
+fi
+
+for i in 0 1 2 3 4 5; do
+    # When triggered by resuming from sleep, network may not be available. Add service polling to alleviate.
+    if ip -brief addr | grep -q UP; then
+        python3 -m panasonic_viera $tv $cmd
+        # python3 -m panasonic_viera $tv $@
+        exit
+    fi
+    sleep 1
+done

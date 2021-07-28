@@ -1,25 +1,31 @@
-Go to "optional" to install items useful for your system
-Check backup.sh and search for ".example" for config tuning
+## Setup/plugins that needs additional steps after provisioning
+
+Configs not backed up
+    Start w/ i3: $toggle-window-manager
+    Theme and icons: $lxappearnce
+
+Vim plugin install:
+    open vim and :PlugInstall
+
+Tmux plugin install:
+    (ctrl+e I) to download and install plugins
+    During plugin installation, tmux will NOT tell you progress and shows nothing.
+
+vscode plugin install
+
+## Setup/plugins that needs additional steps after provisioning (ONLY for new machine, old machine covered by "private-dotfiles" repository)
+
+Proprietary drivers:
+    $sudo ubuntu-drivers install # Auto-detect and install (e.g. NVIDIA proprietary driver)
 
 Config:
+    Check backup.sh and search for ".example" for config tuning
     ~/.config/dotfiles
         dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
     ~/.config/hardware
         gpurc/external-displayrc/internal-displayrc: display resolution, hidpi settings, brightness and color temperatures
     ~/.config/Xresources
         i3: config i3 settings
-
-Vim:
-    open vim and :PlugInstall
-    # copy ~/.vim to /c/Users/Andy
-
-Tmux:
-    (ctrl+e I) to download and install plugins
-
-ssh:
-    Ubuntu already has ssh server and related ssh tools setup
-    Copy ssh key to remote machine
-    e.g. $ssh-copy-id -i ~/.ssh/id_rsa.pub andy@192.168.0.102
 
 System:
     Remove snapd (https://www.kevin-custer.com/blog/disabling-snaps-in-ubuntu-20-04/)
@@ -94,8 +100,6 @@ Performance:
             # Disable kernel messages on screen by outputing in non-existent tty
             GRUB_CMDLINE_LINUX="console=ttyS0"
         - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
-    Logging optimizations:
-        - See `usage/systemd-journald.md`
     Reduce boot memory usage and boot time by removing gnome dependency
         - Disable gnome-online-account (https://superuser.com/questions/1576565/how-to-remove-gnome-online-accounts-integration)
             $sudp apt remove gnome-online-account

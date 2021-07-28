@@ -56,7 +56,7 @@ load-module module-bluetooth-discover a2dp_config="ldac_eqmid=sq"
 ```bash
 pactl list                   # list everything, bluetooth audio is usually listed as the last card
 pactl list | grep a2dp       # code used and parameters surrounding the codec
-pactl list | grep ad2p_codec # exact codec name. e.g. LDAC
+pactl list | grep a2dp_codec # exact codec name. e.g. LDAC
 ```
 Open `Bluetooth Manager` and see the upload speed to check bitrate
 

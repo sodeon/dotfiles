@@ -29,7 +29,8 @@ restore-p() {
 #------------------------------------------------------------------------------
 # Restore core
 #------------------------------------------------------------------------------
-[[ ! -f ~/.config/Xresources/i3  ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+[[ ! -f ~/.config/Xresources/i3     ]] && cp .config/Xresources/i3.example  ~/.config/Xresources/i3
+[[ ! -f ~/.config/i3/config.monitor ]] && cp .config/i3/config.monitor.pc   ~/.config/i3/config.monitor
 
 for item in ${wipe_then_backup_list[@]}; do
     rm -rf "$HOME/$item"

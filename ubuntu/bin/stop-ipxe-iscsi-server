@@ -1,0 +1,23 @@
+#!/bin/bash -ue
+
+# Disconnect iscsi node locally
+sudo iscsiadm -m session >/dev/null 2>&1 && sudo iscsiadm -m node -U all >/dev/null # No need to start iscsid.service. It will be started automatically by iscsiadm
+
+# Stop services for PXE boot
+sudo systemctl stop isc-dhcp-server.service # DHCP
+sudo systemctl stop tftpd-hpa.service # TFTP
+
+# Stop services for iPXE
+sudo systemctl stop nginx.service # HTTP
+
+# Stop iscsi target server
+mount | grep -q windows      && sudo umount /mnt/windows      # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+sudo systemctl stop rtslib-fb-targetctl.service # save/load iscsi target config upon start/boot/reboot
+sudo systemctl stop targetclid.service # iscsi target
+
+# Stop network share (OS in iscsi usually connects to both iscsi target and network share)
+sudo systemctl stop smbd.service  # samba/cifs network share
+
+# Stop mouse/keyboard sharing
+if pgrep barrier >/dev/null; then pkill barrier >/dev/null; fi

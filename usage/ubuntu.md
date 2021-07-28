@@ -47,9 +47,3 @@ sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
 - **`whereis`**: Searches $PATH for executable, source and man
 - **`apropos`**: Searches the man page with more fidelity than whatis (Meaning "related to").
 - **`whatis`**: Searches the man one-line descriptions.
-
-## Ubuntu 19.10 Workarounds
-- [Default sink device does not match default sound device](https://askubuntu.com/questions/71863/how-to-change-pulseaudio-sink-with-pacmd-set-default-sink-during-playback)
-  ```bash
-  pacmd set-default-sink 1  # /etc/pulse/default.pa
-  ```

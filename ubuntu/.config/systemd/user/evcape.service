@@ -8,7 +8,7 @@ Description=evcape
 # Alt+Tab
 # Mouse: inner thumb button to differnt mouse mode toggle (f16 and f17)
 # Key list: https://hackage.haskell.org/package/evdev-2.0.0.1/docs/Evdev-Codes.html
-ExecStart=/usr/local/bin/evcape.py \
+ExecStart=evcape.py \
     --timeout 170 \
     press:capslock,release:capslock=press:esc,release:esc \
     press:leftctrl,release:leftctrl=press:leftctrl,press:z,release:z,release:leftctrl \
