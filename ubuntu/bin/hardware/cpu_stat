@@ -5,8 +5,8 @@ usage_warn=45
 usage_crit=75
 usage_warn_color=#C8D627
 usage_crit_color=#FFFF00
-temp_warn=60
-temp_crit=70
+temp_warn=65
+temp_crit=85
 temp_warn_color=#FF7070
 temp_crit_color=#FF0000
 
@@ -25,7 +25,8 @@ cpu_temp() {
     if echo "$cpu_info" | grep -q AMD; then
         sensors | grep 'Tdie' | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
     else
-        sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
+        sensors | grep 'Package id 0' | awk '{print $4}' | sed -e 's/+//' -e 's/\..*//'
+        # sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
     fi
 }
 

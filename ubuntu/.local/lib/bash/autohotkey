@@ -342,7 +342,7 @@ mediaPlayerFullscreen() {
     # i3-msg '[class="^mpv"] scratchpad show' && sleep 1.5 && i3-msg '[class="^mpv"] fullscreen'
 }
 
-workspacePicker() { i3-switch-workspace -monitor -3 -width -17 -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi; }
+workspacePicker() { i3-switch-workspace -monitor -3 -width -17 $ROFI_STYLES; }
 
 F1() {
     i3-msg 'workspace number '${WS1_NAME-"1: Web "}
