@@ -45,7 +45,8 @@ if [[ ! -z ${1-} ]]; then
     for item in ${machine_suffix_backup_list[@]}; do
         # shopt -s extglob
         # echo "$item" "$item.$1"
-        cp -rf "$item.$1" "$HOME/$item"
+        [ -f "$item.$1" ] && cp -p -rf "$item.$1" "$HOME/$item"
+        [ -d "$item.$1" ] && cp -p -rf "$item.$1" "$HOME/$item"
         # shopt -u extglob
     done
 fi
