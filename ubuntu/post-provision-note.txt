@@ -26,3 +26,85 @@ Config:
         gpurc/external-displayrc/internal-displayrc: display resolution, hidpi settings, brightness and color temperatures
     ~/.config/Xresources
         i3: config i3 settings
+
+System:
+    Remove snapd (https://www.kevin-custer.com/blog/disabling-snaps-in-ubuntu-20-04/)
+        Find installed snap packages: $snap list
+        Remove snap packages ("core" cannot be removed): $sudo snap remove {packages}
+        Remove snap: $sudo apt purge snapd
+        Remove snap related directories: $rm -rf ~/snap; sudo rm -rf /snap /var/snap /var/lib/snapd
+        (If needed, re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator)
+    # Power off HDD when idling:
+    #     Go to gnome-disks' settings to do so. Not enabled by default.
+    Optional settings:
+        Input method:
+            # Set system input method preference to fcitx
+            Add input method from fcitx configuration
+            # Adjust input method trigger shortcut (e.g. RAlt)
+        Adjust time display format (if not set, it is based on location set during installation)
+
+System (TV):
+    Disable swapfile: 
+        * Comment "/swapfile" line in "/etc/fstab"
+        * After reboot: $sudo rm /swapfile
+    Disable bootloader (grub):
+        * Directly boot to linux kernel (EFISTUB): 
+        * Skipping grub boot loader save 5 sec boot time when OS is on USB disk with Xeon E3-1231 v3
+        * https://drak.li/linux/2017/11/12/efistub.html
+        * Might be better, but not used. https://github.com/pbatard/efifs
+    Decrease chrome I/O to improve USB flash endurance:
+        * Youtube video will be stored in ~/.cache/chrome/Default/Cache; ~300KB/s for 1080p
+        * Always (every 2sec) writing to profile in ~/.config/google-chrome/Default; ~50KB/s
+        * $install-google-chrome-profile-sync.sh # in ./optional/tv
+    Allow mnt accessible by user: sudo chown $USER:root /mnt
+    Remove more packages: firefox, whoopsie libxcb1-dev (package used for building i3)
+        mesa-vdpau-drivers:amd64
+        mesa-vdpau-drivers:amd64
+        mesa-vdpau-drivers:amd64
+        mesa-va-drivers:amd64
+        mesa-vulkan-drivers:i386
+        mesa-vulkan-drivers:amd64
+    Disable apt update
+        $sudo systemctl mask apt-daily.timer
+        $sudo systemctl mask apt-daily-upgrade.timer
+
+System (Laptop):
+    Modify close lid behavior: $sudo vim /etc/systemd/logind.conf
+        HandleLidSwitch=suspend
+        HandleLidSwitch=ignore
+    Auto-mount network drives
+        Modify /etc/fstab:
+            sodeon@192.168.0.102:/ /mnt/andy-desktop fuse.sshfs noauto,x-systemd.automount,_netdev,users,IdentityFile=/home/andy/.ssh/id_rsa,allow_other,reconnect 0 0
+        NOTE: If network drive is not always available, recommend not to auto-mount.
+              If network drive is not available at the time of access, process hanged to wait timeout.
+              Some commands like df implicitly accessed network drives.
+    Wake-on-lan:
+        Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
+        Step 2: Trigger suspended system to wakeup (by sending magic packet)
+            $sudo apt install wakeonlan
+            $wakeonlan <mac address> # mac address can be found by "$ip a".
+        Extra step: To debug, monitor if receiving magic packet
+            $sudo apt install ngrep
+            $ngrep '\xff{6}(.{6})\1{15}' -x port 9
+
+Performance:
+    Disable unused services: $sudo systemctl mask {service} # Use mask, not disable. Disable will be auto-enabled if requested by apps.
+        - services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
+    Boot optimization:
+        - Boot time analysis: 
+            $systemd-analyze time/blame/plot; (plot will draw svg)
+        - Skip grub (save 2s): Set boot device in bios directly. Bios should see 2 ubuntu bootables: grub and ubuntu
+        - /etc/default/grub (sudo update-grub after editing)
+            # Disable splash screen (doing so also disables plymouth service which does nothing but takes a long time)
+            GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+            # Disable kernel messages on screen by outputing in non-existent tty
+            GRUB_CMDLINE_LINUX="console=ttyS0"
+        - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
+    Reduce boot memory usage and boot time by removing gnome dependency
+        - Disable gnome-online-account (https://superuser.com/questions/1576565/how-to-remove-gnome-online-accounts-integration)
+            $sudp apt remove gnome-online-account
+            $sudo rm /usr/share/applications/gnome-online-accounts-panel.desktop
+        - Disable trackers (https://www.linuxuprising.com/2019/07/how-to-completely-disable-tracker.html?m=1)
+            $systemctl --user mask tracker-extract.service tracker-miner-fs.service tracker-store.service tracker-writeback.service
+        - Disable gvfs (gnome virtual filesystem): $systemctl --user stop gvfs-daemon.service
+        - Disable dual GPU detection and services: $sudo systemctl mask switcheroo-control.service

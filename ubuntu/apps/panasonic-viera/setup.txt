@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+sudo python3 setup.py build install

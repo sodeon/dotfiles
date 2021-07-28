@@ -1,0 +1,44 @@
+i3wm.i3block.fontSize: 11
+
+! Worksapce names
+i3wm.ws4.name: "4: 4 "
+
+! Resize
+i3wm.resizeX: 64px or 6ppt	
+i3wm.resizeY: 64px or 6ppt
+
+! Floating window movement width
+i3wm.floating.deltaX: 64px
+i3wm.floating.deltaY: 64px
+
+! Pre-defined app size
+i3wm.cmus.size: 60 ppt 80 ppt
+i3wm.tmux.size: 49 ppt 44 ppt
+
+! Rofi
+i3wm.rofi.combi.width: 27
+!i3wm.rofi.window.width: 40
+
+! Gaps
+i3wm.toggleHGap: 116
+i3wm.hGapStep: 32
+i3wm.vGapStep: 32
+
+! i3wm.ws1.horizontalGap:  116
+i3wm.ws2.horizontalGap:  116
+! i3wm.ws3.horizontalGap:  116
+i3wm.ws4.horizontalGap:  0
+i3wm.ws5.horizontalGap:  116
+i3wm.ws6.horizontalGap:  116
+i3wm.ws7.horizontalGap:  116
+i3wm.ws8.horizontalGap:  116
+! i3wm.ws9.horizontalGap:  116
+i3wm.ws10.horizontalGap: 116
+
+!i3wm.ws10.verticalGap: 280
+!
+! Hardware control when booting
+i3wm.hardware.bluetoothEnable: true
+i3wm.hardware.autoSuspend.enable: true
+i3wm.hardware.autoSuspend.timeInSec: 1800
+i3wm.hardware.autoScreenOff.enable: false

@@ -1,0 +1,13 @@
+Build from intel-undervolt: https://github.com/kitsunyan/intel-undervolt
+    $./configure --enable-systemd && make && sudo make install
+Modify undervolt values:
+    /etc/intel-undervolt.conf
+Trial run:
+    $sudo intel-undervolt read # get current undervolt settings
+    $sudo intel-undervolt apply
+    $sudo intel-undervolt measure # measure CPU power consumption
+Enable systemd service (after finding stable settings):
+    $sudo systmctl enable intel-undervolt
+    $sudo systmctl start  intel-undervolt
+
+More documentation: https://miloserdov.org/?p=1932

@@ -1,0 +1,34 @@
+#!/bin/bash -ue
+
+WS3_CMD() {
+    urxvtc -e ranger ~ &
+    # mount | grep /nas/c || wake-mount nas
+    # urxvtc -e ranger ~/Videos &
+}
+WS4_NAME="4: 4 "
+WS4_CMD() { true; }
+
+SUSPEND_PRE_CMD() { tv-power off; }
+    
+# chrome
+BROWSER_WIN_CLASS="Google-chrome"
+WS1_CMD() {
+    google-chrome --force-dark-mode --force-device-scale-factor=2 --disk-cache-dir=/tmp/google-chrome-cache & # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+}
+
+
+#------------------------------------------------------------------------------
+# rofi menu entries
+#------------------------------------------------------------------------------
+declare -A F10_ENTRIES=(
+    [Moonlight Streaming]=moonlight
+    # [1. Moonlight Streaming]=moonlight
+    # [2. Retro Arcade       ]=mame
+)
+
+WOL_WIDTH=23
+declare -A WOL_ENTRIES=(
+    [1. NAS         ]="wake-mount nas"
+    [2. ANDY-DESKTOP]="wake-mount andy-desktop"
+    [3. J5005       ]="wake-mount j5005"
+)

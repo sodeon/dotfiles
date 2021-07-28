@@ -21,7 +21,6 @@ backup_list=(
     .local/share/applications
     .oh-my-zsh/{themes/andy.zsh-theme,plugins/sd/sd.plugin.zsh}
 
-    .config/profile_vars
     .config/htop
     .config/dunst
     .config/rofi
@@ -50,6 +49,7 @@ backup_list=(
 
 # Files and directories to backup with machine name as file name suffix.
 machine_suffix_backup_list=(
+    .config/profile_vars
     .config/autohotkeyrc
     .config/record-screen.rc
     .config/mpv/mpv.conf

@@ -1,0 +1,140 @@
+#include=/path/to/the/file/you/want/to/include
+
+##################
+# Video settings #
+##################
+fs=yes # Start in fullscreen mode
+geometry=100%:100% # bottom right corner
+autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80% of the screen size
+#ontop=yes
+
+# Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
+# Andy reference: https://wiki.archlinux.org/index.php/Mpv
+vo=gpu
+profile=gpu-hq
+
+# Scaling
+scale=ewa_lanczossharp
+cscale=ewa_lanczossharp
+tscale=oversample
+
+# ytdl-format=bestaudio/best # force VP9 video for 60fps
+# af=acompressor # compress audio dynamic range
+
+
+##################
+# Other settings #
+##################
+# Pretend to be a web browser. Might fix playback with some streaming sites, but also will break with shoutcast streams.
+#user-agent="Mozilla/5.0"
+
+#cache-default=153600 # 150MB input cache. For network streams only.
+#cache=153600 # 150MB input cache for everything, even local files.
+#cache-pause=no
+
+# Read ahead about 5 seconds of audio and video packets.
+#demuxer-readahead-secs=5.0
+# Raise readahead from demuxer-readahead-secs to this value if a cache is active.
+#cache-secs=50.0
+
+# Change subtitle encoding. For Arabic subtitles use 'cp1256' (You can add '+' in front of the codepage to force it.)
+# If the file seems to be valid UTF-8, prefer UTF-8.
+#sub-codepage=cp1256
+
+
+#------------------------------------------------------------------------------
+# Personal customizations
+# https://mpv.io/manual/master/
+#------------------------------------------------------------------------------
+# Allow outside script to control mpv (e.g. SVP)
+input-ipc-server=/tmp/mpvsocket
+
+# Youtube download settings
+ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
+
+force-seekable=yes
+
+slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
+alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
+
+sub-font-size=40
+sub-margin-y=30
+
+volume-max=200              # maximum volume in %, everything above 100 results in amplification
+
+osd-font-size=32
+osd-on-seek=msg-bar
+osd-bar-align-y=0.783
+osd-bar-w=55
+osd-bar-h=2
+osd-border-size=1
+osd-align-x=center
+osd-align-y=bottom
+
+
+#------------------------------------------------------------------------------
+# From https://github.com/tsubajashi/mpv-settings
+#------------------------------------------------------------------------------
+# log-file=~/log
+
+# gpu-api=vulkan
+hwdec=auto-copy
+# dither=error-diffusion # Very high GPU usage requirements
+# deband=yes
+# deband-iterations=2
+# correct-downscaling=yes
+# linear-downscaling=yes
+# sigmoid-upscaling=yes
+blend-subtitles=no
+
+# vulkan-async-compute=yes
+# vulkan-async-transfer=yes
+# vulkan-queue-count=1
+# deband-threshold=20
+# deband-range=16
+# scale-clamp=0.2
+# video-sync=display-resample
+# tscale=box
+# tscale-window=quadric
+# tscale-radius=1.1
+# tscale-clamp=0.0
+# interpolation
+# hdr-compute-peak=yes
+# tone-mapping=mobius
+
+
+############
+# Profiles #
+############
+# The following profile can be enabled on the command line with: --profile=eye-cancer
+
+# [audio-only]
+# vo=null
+# ytdl-format=bestaudio/best # force VP9 video for 60fps
+
+# [shader-liveaction]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shader-anime]
+glsl-shaders-clr
+glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
+glsl-shader="~~/shaders/KrigBilateral.glsl"
+
+# [shaders-mixed]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/ravu-zoom-r3-rgb.hook"
+
+# [sharpening]
+# sigmoid-upscaling=no
+# glsl-shader="~~/shaders/adaptive-sharpen.glsl"
+
+# [default]
+# profile=shaders-liveaction
+# profile=shaders-mixed
+# profile=sharpening
+
+# SVP Settings
+# hr-seek-framedrop=no
+# no-resume-playback

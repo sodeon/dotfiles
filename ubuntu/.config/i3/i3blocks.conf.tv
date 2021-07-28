@@ -1,0 +1,129 @@
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/share/i3blocks/$BLOCK_NAME
+separator_block_width=20
+markup=none
+
+[window]
+command=xdotool getactivewindow getwindowname || echo ""
+color=#aadddd
+interval=once
+signal=13
+separator=false
+separator_block_width=40
+
+[bandwidth]
+#instance=eth0
+interval=5
+color=#888888
+separator=false
+
+[mem_stat]
+interval=5
+command=mem_stat
+min_width=14.0G
+align=right
+separator=false
+
+[cpu_stat]
+interval=2
+min_width=100%   35°  |  1.0
+align=right
+command=cpu_stat 2
+separator=false
+
+# [brightness]
+# label=☀
+# color=#66ff66
+# command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+# interval=once
+# signal=11
+# separator=false
+# separator_block_width=16
+
+[audio]
+label=♪
+color=#66ff66
+command=[ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
+interval=once
+signal=10
+separator=false
+separator_block_width=12
+
+[time]
+command=date '+%-m-%d %H:%M'
+interval=5
+separator=false
+
+[record]
+command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
+color=#CC4444
+interval=once
+signal=20
+
+# [debug]
+# interval=1
+# command=xdotool getactivewindow
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+#[battery]
+#label=⚡
+##instance=1
+#interval=30
+#separator=false
+#separator_block_width=18
+
+# Network interface monitoring
+#
+# If the instance is not specified, use the interface used for default route.
+# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+## IP address
+#[iface]
+##instance=wlan0
+#color=#00FF00
+#interval=10
+#separator=false
+
+#[wifi]
+##instance=wlp3s0
+#interval=10
+#separator=false
+
+# OpenVPN support
+#
+# Support multiple VPN, with colors.
+#[openvpn]
+#interval=20
+
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+# [mediaplayer]
+# # instance=cmus
+# color=#888888
+# interval=5
+# signal=12
+# separator=false
+# separator_block_width=40

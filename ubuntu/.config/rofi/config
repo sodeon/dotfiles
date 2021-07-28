@@ -9,6 +9,8 @@ rofi.theme: arc-dark-custom
 rofi.font: Ubuntu 14
 ! 32" 4K
 ! rofi.font: Ubuntu 20
+! 65" 4K
+! rofi.font: Ubuntu 20
 !rofi.font: System San Francisco Display 15
 
 
