@@ -51,13 +51,13 @@ apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk m
 apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
 apt-force install iperf3 sysbench # Benchmark
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
-apt-force install taskwarrior # task management tool
+# apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
-apt-force install cmake make build-essential autotools-dev # build tools
+# apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
-apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
+# apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
@@ -65,18 +65,18 @@ apt-force install rxvt-unicode xsel xclip # xsel/xclip: system clipboard for urx
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and hotkey helpers.
-apt-force install ddcutil # monitor brightness control
+# apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
-apt-force install gdb gcc g++ # build tools
-apt-force install qbittorrent
+# apt-force install gdb gcc g++ # build tools
+# apt-force install qbittorrent
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 apt-force install zathura # pdf reader
-apt-force install libreoffice
+# apt-force install libreoffice
 apt-force install unrar p7zip
-apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
+# apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
 # apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install numlockx
@@ -85,7 +85,7 @@ apt-force install wakeonlan ethtool
 apt-force install lm-sensors # Hardware sensors. $sensors to read temperatures/voltages
 
 # light: LCD blacklight control for laptop panel. For external monitor, use ddccontrol.
-sudo apt install light
+# sudo apt install light
 
 # From Ubuntu apt - i3
 # apt-force install xautolock # Automatic suspend/lock (marked as legacy, replaced by xidlehook that correctly supports Chrome Youtube)
@@ -137,21 +137,25 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
-apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
-cd-temp
-apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
-          libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
-          libstartup-notification0-dev libxcb-randr0-dev \
-          libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
-          libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-          autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
-git clone https://www.github.com/Airblader/i3-gaps i3-gaps
-cd i3-gaps
-rm -rf build/ && mkdir -p build && cd build
-meson ..
-ninja
+# TODO: Use pre-built binary from other machines
+# apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
+# cd-temp
+# apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+#           libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
+#           libstartup-notification0-dev libxcb-randr0-dev \
+#           libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
+#           libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+#           autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
+# git clone https://www.github.com/Airblader/i3-gaps i3-gaps
+# cd i3-gaps
+# rm -rf build/ && mkdir -p build && cd build
+# meson ..
+# ninja
+# sudo meson install
+# cd-before-temp
+cd ../../i3/build
 sudo meson install
-cd-before-temp
+cd -
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
@@ -161,6 +165,9 @@ sudo install -Dm 0755 ./apps/unclutter /usr/bin/
 sh <(curl -L https://nixos.org/nix/install) # Install nix
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # Load nix executable path
 nix-env -iA nixpkgs.xidlehook # Install xidlehook
+
+# Panasonic Viera TV remote control
+pip3 install xmltodict pycrypto aiohttp
 
 # Set urxvt as default terminal
 echo 2 | sudo update-alternatives --config x-terminal-emulator # select urxvt as default terminal
@@ -205,6 +212,7 @@ xdg-mime default ranger.desktop inode/directory
 
 # Disable error reporting
 sudo systemctl mask apport # Program crash report
+sudo systemctl mask apparmor
 sudo systemctl mask whoopsie # Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
