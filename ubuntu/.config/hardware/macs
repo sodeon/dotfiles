@@ -1,9 +1,10 @@
 macs=(
     [andy-desktop]=00:d8:61:a3:8b:de
-    [nas]=d0:50:99:2f:43:26
     [tv]=2c:fd:a1:58:32:5e
+    [nas]=d0:50:99:2f:43:26
     [g3258]=d0:50:99:2f:43:26
-    [acer-nitro]=20:6a:8a:a0:12:b3
+    [j5005]=54:48:10:bc:21:c5
+    [router]=20:6a:8a:a0:12:b3
 )
 
 # If the device is not on the default network, specify its subnet
