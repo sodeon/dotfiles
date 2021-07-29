@@ -336,6 +336,23 @@ toggleFullscreen() {
     #i3-msg "fullscreen toggle"
 }
 
+i3toggleFullscreen() {
+    if isWinActive $BROWSER_WIN_CLASS; then
+        xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
+        # if (isWinActive ^YouTube ahk_title); then
+        #     xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
+        # elif (isWinActive YouTube ahk_title); then
+        #     xte 'keyup f' 'keyup Alt_L' 'key f' 'keydown Alt_L' 
+        # else
+        #     xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
+        # fi
+    elif isWinActive Code; then # Toggle zen mode for vscode
+        xdotool keyup f keyup Alt_L key ctrl+shift+z keydown Alt_L
+    else
+        i3-msg "fullscreen toggle"
+    fi
+}
+
 mediaPlayerFullscreen() {
     i3-msg '[class="^mpv"] fullscreen toggle, scratchpad show'
     # i3-msg '[class="^mpv"] fullscreen toggle' && i3-msg '[class=mpv] scratchpad show'

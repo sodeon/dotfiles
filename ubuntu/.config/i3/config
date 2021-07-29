@@ -219,8 +219,8 @@ bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow   width
 # bindsym $mod+v split h
 
 # Full screen (maximize)
-bindsym $mod+f exec --no-startup-id i3-msg "fullscreen toggle"
-# bindsym $mod+f exec --no-startup-id autohotkey toggleFullscreen
+# bindsym $mod+f exec --no-startup-id i3-msg "fullscreen toggle"
+bindsym $mod+f exec --no-startup-id autohotkey i3toggleFullscreen
 # Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
 bindsym $mod+a layout toggle split
 bindsym $mod+s layout toggle stacking split
