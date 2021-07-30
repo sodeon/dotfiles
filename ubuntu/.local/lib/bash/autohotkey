@@ -27,10 +27,15 @@ declare -A BLUETOOTH_ENTRIES=(
     [1. Power On/Off        ]="toggle-bluetooth"
     [2. Headset Conn/Disconn]="bluetooth-quick-connect"
 )
-declare -A WIFI_ENTRIES=(
-    [1. Connect Phonecam   ]="connect-phonecam"
-    [2. Disconnect Phonecam]="disconnect-phonecam"
-)
+if [ -f /tmp/connect-phonecam-ready ]; then
+    declare -A WIFI_ENTRIES=(
+        [1. Disconnect Phonecam (usb)]="disconnect-phonecam"
+    )
+else
+    declare -A WIFI_ENTRIES=(
+        [1. Connect Phonecam (usb)]="connect-phonecam"
+    )
+fi
 declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
@@ -532,7 +537,7 @@ bluetooth-menu() {
 }
 
 wifi-menu() {
-    simple-rofi WIFI ${WIFI_WIDTH-28} WIFI_ENTRIES
+    simple-rofi WIFI ${WIFI_WIDTH-32} WIFI_ENTRIES
 }
 
 wol-menu() {
