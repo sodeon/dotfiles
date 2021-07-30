@@ -1,0 +1,9 @@
+#!/bin/bash -ue
+
+#----------------------------------------------------------------
+# Cleanup
+#----------------------------------------------------------------
+# pkill simplescreen
+pacmd unload-module module-null-sink
+$HOME/code/ipwebcam-gst/remove-videochat.sh
+notify-send.sh -t 2000 -u  low "Camera" "Disconnected"

@@ -32,3 +32,14 @@ declare -A WOL_ENTRIES=(
     [2. ANDY-DESKTOP]="wake-mount andy-desktop"
     [3. J5005       ]="wake-mount j5005"
 )
+WIFI_WIDTH=42
+PHONECAM="galaxy-note3"
+if [ -f /tmp/connect-phonecam-ready ]; then
+    declare -A WIFI_ENTRIES=(
+        [1. Disconnect Phonecam ($PHONECAM)]="disconnect-phonecam"
+    )
+else
+    declare -A WIFI_ENTRIES=(
+        [1. Connect Phonecam ($PHONECAM)]="connect-phonecam $PHONECAM"
+    )
+fi

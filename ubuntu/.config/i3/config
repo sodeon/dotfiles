@@ -162,8 +162,9 @@ bindsym $mode+x exec --no-startup-id xte 'keyup x' 'key l'
 bindsym $mode+b       exec --no-startup-id autohotkey bluetooth-quick-connect
 bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
 
-# Wake on lan
-bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+# Wake on lan and WIFI control
+bindsym $mode+n       exec --no-startup-id autohotkey wol-menu
+bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
 
 # Laptop
 bindsym           XF86Display        exec --no-startup-id set-display-monitor

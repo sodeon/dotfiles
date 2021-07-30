@@ -2,7 +2,7 @@
 # Google meet and Zoom max resolution is 720p
 WIDTH=${WIDTH-1280}
 HEIGHT=${HEIGHT-720}
-IP=${IP-}
+IP=${1-}
 
 #----------------------------------------------------------------
 # Camera and microphone
