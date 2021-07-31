@@ -1,1 +1,0 @@
-hardware/disable-gemini-lake-termal-limit.sh

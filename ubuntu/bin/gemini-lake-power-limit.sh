@@ -1,0 +1,1 @@
+hardware/gemini-lake-power-limit.sh

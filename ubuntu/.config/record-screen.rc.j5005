@@ -14,3 +14,12 @@ MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
 DST="/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
 
 ping -c1 andy-desktop >/dev/null && mount | grep -q /nas/andy-desktop || wake-mount andy-desktop
+
+# Contrain TDP during recording.
+# If TDP unconstrained, temperature will hover around 72~78 degree with Zoom meeting.
+# If TDP constrained  , temperature will hover around 60~65 degree with Zoom meeting..
+if [[ `pgrep -f $0` != "$$" ]]; then
+    gemini-lake-power-limit.sh disable
+else
+    gemini-lake-power-limit.sh enable
+fi
