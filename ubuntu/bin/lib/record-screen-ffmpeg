@@ -5,7 +5,7 @@ DISPLAY=${DISPLAY-:0}
 # ENCODER=${ENCODER-h264_vaapi}
 ENCODER=${ENCODER-hevc_vaapi}
 FILTER=${FILTER-hwupload,scale_vaapi=format=nv12}
-DST=${DST-"/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`.mp4"}
+DST=${DST-"/net/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`.mp4"}
 DBG=${DBG-""}
 # DBG=${DBG-"-v verbose"}
 

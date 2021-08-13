@@ -11,9 +11,9 @@ FPS=15
 # AUDIO_PULSE_SRC=
 MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
 
-DST="/nas/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
+DST="/net/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
 
-ping -c1 andy-desktop >/dev/null && mount | grep -q /nas/andy-desktop || wake-mount andy-desktop
+ping -c1 andy-desktop >/dev/null && mount | grep -q /net/andy-desktop || wake-mount andy-desktop
 
 # Contrain TDP during recording.
 # If TDP unconstrained, temperature will hover around 72~78 degree with Zoom meeting.

@@ -39,8 +39,8 @@ Mod3+b:2
 "xte 'mouseup 2' 'key e'"
 Mod3+Mod5+b:2
 
-# Switch sound device
-"switch-sound-output && pkill -RTMIN+10 i3blocks"
+# Mute/unmute (Switch sound device: "switch-sound-output && pkill -RTMIN+10 i3blocks")
+"autohotkey volume toggle && pkill -RTMIN+10 i3blocks"
 Mod5+b:2
 
 
