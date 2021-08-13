@@ -1,8 +1,6 @@
 #!/bin/bash -ue
 suspendTime=$1
 
-pgrep xidlehook && pkill xidlehook
-
 # Pre-conditions:
 #   qbittorrent not executive
 #   No active ssh connection
@@ -10,11 +8,19 @@ suspend_cmd="pgrep qbittorrent ||
              ss | awk '{print \$5 }' | grep -q -i ssh ||
              systemctl suspend"
 
-# No detection for full screen: when powering off display without leaving full screen, we still want system to suspend.
-xidlehook \
-    --socket=/tmp/xidlehook.sock \
-    --not-when-audio \
-    --timer $suspendTime \
-        "$suspend_cmd" \
-        ""
-# xidlehook --timer $suspendTime "pgrep qbittorrent || systemctl suspend" "" --not-when-audio --not-when-fullscreen
+if [ `hostname` != "andy-j5005" ]; then
+    pgrep xidlehook && pkill xidlehook
+
+    # No detection for full screen: when powering off display without leaving full screen, we still want system to suspend.
+    xidlehook \
+        --socket=/tmp/xidlehook.sock \
+        --not-when-audio \
+        --timer $suspendTime \
+            "$suspend_cmd" \
+            ""
+else
+    pgrep xautolock && pkill xautolock
+
+    suspendTime=`bc<<<"$suspendTime/60"`
+    xautolock -time $suspendTime -locker "ip link | grep enp | grep -q DOWN || $suspend_cmd" -detectsleep -noclose
+fi
