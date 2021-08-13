@@ -1,18 +1,51 @@
 #!/bin/bash
 
-device_num=`pacmd list-cards | grep active | wc -l`
-# If there is only one audio device, try to switch profiles instead.
+profiles=(
+    analog-stereo
+    hdmi-stereo
+)
+descriptions=(
+    [analog-stereo]="Built-in Speakers"
+    [hdmi-stereo]="HDMI"
+)
+
+
+#------------------------------------------------------------------------------
+# If there is only one audio device, switch between profiles
+#------------------------------------------------------------------------------
+pacmd_cards=`pacmd list-cards`
+device_num=`echo "$pacmd_cards" | grep active | wc -l`
 if [ $device_num -eq 1 ]; then
-    if pacmd list-cards | grep active | grep hdmi; then
-        pactl set-card-profile 0 output:analog-stereo
-        notify-send.sh -r 80 --expire-time=2000 Audio "Built-in Speakers"
-    else
-        pactl set-card-profile 0 output:hdmi-stereo
-        notify-send.sh -r 80 --expire-time=2000 Audio HDMI
-    fi
+    active_profile=`echo "$pacmd_cards" | grep active | sed -e 's/^.*<output://' -e 's/>.*$//'`
+    profiles=( ${profiles[@]} ${profiles[@]} ) # Duplicate array to allow selection to loop through entire profiles after hit detected
+    hit=0
+    for (( i=0; i<${#profiles[@]}; ++i )); do
+        profile=${profiles[$i]}
+        [[ $active_profile == $profile ]] \
+            && hit=1 \
+            && continue
+        [ $hit -eq 1 ] \
+            && echo "$pacmd_cards" | grep output: | grep $profile \
+            && pactl set-card-profile 0 output:$profile \
+            && notify-send.sh -r 80 --expire-time=2000 Audio ${descriptions[$profile]} \
+            && exit
+    done
+    notify-send.sh -r 80 --expire-time=2000 Audio "${descriptions[$active_profile]} (Same)"
     exit
+    # if pacmd list-cards | grep active | grep hdmi; then
+    #     pactl set-card-profile 0 output:analog-stereo
+    #     notify-send.sh -r 80 --expire-time=2000 Audio "Built-in Speakers"
+    # else
+    #     pactl set-card-profile 0 output:hdmi-stereo
+    #     notify-send.sh -r 80 --expire-time=2000 Audio HDMI
+    # fi
+    # exit
 fi
 
+
+#------------------------------------------------------------------------------
+# If there are more than one audio devices, switch between devices.
+#------------------------------------------------------------------------------
 # Get the target (input or output) from the filename and exit otherwise
 IFS=''
 grep_index="egrep '^[*\ ]*index:\ +[[:digit:]]+$' | egrep -o '[[:digit:]]+'"
@@ -126,6 +159,9 @@ while read line; do
     if [[ "$line" =~ ^$'\t'{2}alsa.card_name\ =\ \"(.*)\"$ ]]; then
         alsa_card_name=${BASH_REMATCH[1]}
         message="$message_base $id - $alsa_card_name"
+    elif [[ "$line" =~ ^$'\t'{2}bluez.alias\ =\ \"(.*)\"$ ]]; then
+        bluetooth_device_name=${BASH_REMATCH[1]}
+        message="$message_base $id - $bluetooth_device_name"
     fi
     if [[ "$line" =~ ^$'\t'{2}device.icon_name\ =\ \"(.*)\"$ ]]; then
         device_icon_name=${BASH_REMATCH[1]}

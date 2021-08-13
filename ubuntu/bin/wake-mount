@@ -33,32 +33,32 @@ case $remote in
     nas)
         username=root
         src_list=(
-            "/"
+            # "/"
             "/mnt/d"
             "/mnt/e"
             "/mnt/f"
         )
         dst_list=(
-            "/nas/nas"
-            "/nas/d"
-            "/nas/e"
-            "/nas/f"
+            # "/net/nas"
+            "/net/nas/d"
+            "/net/nas/e"
+            "/net/nas/f"
         )
         ;;
     andy-desktop)
         username=andy
         src_list=("/")
-        dst_list=("/nas/andy-desktop")
+        dst_list=("/net/andy-desktop")
         ;;
     tv)
         username=andy
         src_list=("/")
-        dst_list=("/nas/tv")
+        dst_list=("/net/tv")
         ;;
     j5005)
         username=andy
         src_list=("/")
-        dst_list=("/nas/j5005")
+        dst_list=("/net/j5005")
         ;;
 esac
 

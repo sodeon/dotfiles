@@ -2,7 +2,7 @@
 
 WS3_CMD() {
     urxvtc -e ranger ~ &
-    # mount | grep /nas/c || wake-mount nas
+    # mount | grep /net/nas/d || wake-mount nas
     # urxvtc -e ranger ~/Videos &
 }
 WS4_NAME="4: 4 "

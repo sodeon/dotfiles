@@ -11,6 +11,9 @@ SUSPEND_PRE_CMD() { true; }
 declare -A F4_ENTRIES=(
     [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
 )
+declare -A F5_ENTRIES=(
+    [Zoom Meeting]="zoom"
+)
 declare -A F10_ENTRIES=(
     [1. PC Gaming          ]=lutris
     [2. Retro Arcade       ]=mame
@@ -421,7 +424,7 @@ F5() {
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 5) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
             WS5_CMD || \
-            zoom
+            simple-rofi Program ${F5_WIDTH-25} F5_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi
 }
