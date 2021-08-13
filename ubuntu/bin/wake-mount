@@ -33,16 +33,16 @@ case $remote in
     nas)
         username=root
         src_list=(
-            # "/"
+            "/"
             "/mnt/d"
             "/mnt/e"
             "/mnt/f"
         )
         dst_list=(
-            # "/net/nas"
-            "/net/nas/d"
-            "/net/nas/e"
-            "/net/nas/f"
+            "/net/nas"
+            "/nas/d"
+            "/nas/e"
+            "/nas/f"
         )
         ;;
     andy-desktop)
