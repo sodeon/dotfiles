@@ -7,6 +7,7 @@ rc="$HOME/.config/hardware/$model"
 if [ $1 = "bs" ]; then
     if [ $is_gaming_mode = true ]; then
 		is_gaming_mode=false
+		# is_reading_mode=true
     elif [ $is_reading_mode = true ]; then
 		is_reading_mode=false
     else
@@ -17,6 +18,7 @@ fi
 if [ $1 = "bg" ]; then
     if [ $is_gaming_mode = true ]; then
 		is_gaming_mode=false
+		is_reading_mode=true
     else
 		is_gaming_mode=true
     fi
@@ -124,8 +126,21 @@ case "$1" in
 		ddcutil setvcp $color_temperature_feature_id $temperature $brightness_feature_id $brightness $contrast_feature_id $contrast --bus $i2c_bus
 
         display-mode
-        ([ $mode = "gaming"  ] && sed -i s/is_gaming_mode=.*/is_gaming_mode="true"/   $rc) || (sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc && \
-        ([ $mode = "reading" ] && sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc  ||  sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc))
+        case $mode in
+            "gaming")
+                sed -i s/is_gaming_mode=.*/is_gaming_mode="true"/   $rc
+                ;;
+            "reading")
+                sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc
+                sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc
+                ;;
+            *) # Video mode
+                sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc
+                sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc
+                ;;
+        esac
+        # ([ $mode = "gaming"  ] && sed -i s/is_gaming_mode=.*/is_gaming_mode="true"/   $rc) || (sed -i s/is_gaming_mode=.*/is_gaming_mode="false"/   $rc && \
+        # ([ $mode = "reading" ] && sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc  ||  sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc))
         if [[ $contrast == "50" ]]; then
             echo "$brightness"
         else
