@@ -12,8 +12,6 @@ alias o='xdg-open'
 alias t='touch'
 alias v='vim'
 alias d='vimdiff'
-alias m='man'
-alias b='br'
 alias p='python3'
 alias s='systemctl'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
@@ -54,7 +52,7 @@ alias lcc="lossless-concat"
 #-----------------------------------------------------
 # Docker
 #-----------------------------------------------------
-alias D='docker'
+alias d.='docker'
 alias dr='docker run -i -t --rm'
 alias de='docker exec -i -t'
 alias di='docker image'
@@ -72,12 +70,12 @@ alias ta='task add'
 #-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
-alias suspend='systemctl suspend'
-alias shutdown-='shutdown -h now'
+alias suspend.='systemctl suspend'
+alias shutdown.='shutdown -h now'
 
-alias du='ncdu --exclude /mnt --exclude /net' # Do not include ntfs and non-local partitions
+alias du.='ncdu --exclude /mnt --exclude /net' # Do not include ntfs and non-local partitions
 # alias du='gdu --ignore-dirs /mnt' # Not as robst as ncdu, but probably faster
-alias df-="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' -e '\/mmcblk[0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
+alias df.="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' -e '\/mmcblk[0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)
