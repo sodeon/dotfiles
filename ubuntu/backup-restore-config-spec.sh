@@ -38,11 +38,13 @@ backup_list=(
     .config/mpv/{scripts,shaders}
     .config/sxiv
     .config/systemd/user
-    .config/hardware
+    .config/hardware/macs
+    # .config/hardware
 
     .config/broot/conf.hjson
     .config/mpv/input.conf
-    .config/cmus/{autosave,rc}
+    .config/cmus/rc
+    # .config/cmus/{autosave,rc}
     .config/Code/User/{settings.json,keybindings.json}
     .config/MangoHud/MangoHud.conf
 
