@@ -159,9 +159,9 @@ deleteWord() {
 
 deleteWordAfter() {
 	if isWinActive URxvt; then
-        xte 'keyup i' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+        xte 'keyup slash' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
 	else
-        xte 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
+        xte 'keyup slash' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
 }
 
@@ -172,6 +172,14 @@ deleteLine() {
 	else
         # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
         xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
+	fi
+}
+
+deleteFirstWord() {
+	if isWinActive URxvt; then
+        xte 'keyup i' 'key Home' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+	else
+        xte 'keyup i' 'key Home' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
 }
 

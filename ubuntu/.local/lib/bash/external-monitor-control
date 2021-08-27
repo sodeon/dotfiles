@@ -7,7 +7,7 @@ rc="$HOME/.config/hardware/$model"
 if [ $1 = "bs" ]; then
     if [ $is_gaming_mode = true ]; then
 		is_gaming_mode=false
-		# is_reading_mode=true
+		is_reading_mode=true
     elif [ $is_reading_mode = true ]; then
 		is_reading_mode=false
     else
@@ -18,7 +18,7 @@ fi
 if [ $1 = "bg" ]; then
     if [ $is_gaming_mode = true ]; then
 		is_gaming_mode=false
-		is_reading_mode=true
+		is_reading_mode=false
     else
 		is_gaming_mode=true
     fi

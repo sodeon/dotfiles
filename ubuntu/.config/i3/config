@@ -86,9 +86,10 @@ bindsym $mod+Shift+r restart
 # Typing assist
 #--------------------------------------------------------------------------------
 # Delete word/line (delete line only functional for terminal and vim)
-bindsym $mode+p exec --no-startup-id autohotkey deleteWord
-bindsym $mode+i exec --no-startup-id autohotkey deleteWordAfter
-bindsym $mode+u exec --no-startup-id autohotkey deleteLine
+bindsym $mode+p     exec --no-startup-id autohotkey deleteWord
+bindsym $mode+i     exec --no-startup-id autohotkey deleteFirstWord
+bindsym $mode+u     exec --no-startup-id autohotkey deleteLine
+bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
 
 # Move back/forward a word
 bindsym $mode+r       exec --no-startup-id xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
