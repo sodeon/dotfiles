@@ -1,0 +1,15 @@
+#!/bin/bash 
+
+FPS=60
+# SCALING=bilinear
+# WIDTH=1920
+# HEIGHT=1080
+# ENCODER=x264enc
+# ENCODER_PARAMS="bitrate=200000"
+
+# AUDIO_PULSE_SRC=
+MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
+
+DST="/net/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
+
+# (ping -c1 andy-desktop >/dev/null && mount | grep -q /net/andy-desktop) || wake-mount andy-desktop

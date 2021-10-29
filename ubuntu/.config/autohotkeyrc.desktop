@@ -1,5 +1,9 @@
 #!/bin/bash -ue
 
+# vivaldi
+BROWSER_WIN_CLASS="Vivaldi-stable"
+WS1_CMD() { vivaldi --force-dark-mode; }
+
 # chromium
 # BROWSER_WIN_CLASS="chromium-browser"
 # WS1_CMD() { 
@@ -14,13 +18,13 @@
 #              # --flag-switches-begin --disable-smooth-scrolling --flag-switches-end
 # }
 # chrome
-BROWSER_WIN_CLASS="Google-chrome"
-WS1_CMD() { 
-    # 24" 2K
-    google-chrome --force-dark-mode --force-device-scale-factor=0.84 # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
-    # 32" 4K
-    # export GDK_SCALE=2; google-chrome --force-dark-mode
-}
+# BROWSER_WIN_CLASS="Google-chrome"
+# WS1_CMD() { 
+#     # 24" 2K
+#     google-chrome --force-dark-mode --force-device-scale-factor=0.84 # Chrome has a bug that won't enable dark mode for webpages on Linux: https://bugs.chromium.org/p/chromium/issues/detail?id=889087
+#     # 32" 4K
+#     # export GDK_SCALE=2; google-chrome --force-dark-mode
+# }
 # brave
 # BROWSER_WIN_CLASS="Brave-browser"
 # WS1_CMD() { 
@@ -35,4 +39,12 @@ declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
     [3. J5005]="wake-on-lan j5005"
+)
+
+declare -A F10_ENTRIES=(
+    [1. PC Gaming   ]=lutris
+    [2. Retro Arcade]=mame
+    [3. PlayStation Portable]="flatpak run org.ppsspp.PPSSPP"
+    [4. PlayStation]="duckstation"
+     # "ppsspp" "desmune"
 )
