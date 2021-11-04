@@ -65,6 +65,7 @@ apt-force install rxvt-unicode xsel xclip # xsel/xclip: system clipboard for urx
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and hotkey helpers.
+apt-force install gparted
 apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods

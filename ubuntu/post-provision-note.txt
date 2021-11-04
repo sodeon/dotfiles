@@ -22,8 +22,6 @@ Config:
     Check backup.sh and search for ".example" for config tuning
     ~/.config/dotfiles
         dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
-    ~/.config/hardware
-        gpurc/external-displayrc/internal-displayrc: display resolution, hidpi settings, brightness and color temperatures
     ~/.config/Xresources
         i3: config i3 settings
 
