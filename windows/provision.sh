@@ -38,17 +38,14 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
-apt-force install python-pip
+apt-force install python3-pip python2
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
-#apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
-apt-force install zsh tmux fasd highlight dos2unix # cmd utilities and environment, fd-find is only available from Ubuntu 19.04
-wget -O $tmp/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
-sudo dpkg -i $tmp/fd.deb
-sudo ln -s /usr/bin/fd /usr/bin/fdfind
+apt-force install zsh tmux fasd fd-find highlight dos2unix # cmd utilities and environment
+apt-force install ripgrep
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
-apt-force install htop # system monitor
+apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
@@ -61,7 +58,10 @@ apt-force install linux-tools-generic linux-tools-common # Performance counter (
 apt-force autoremove
 
 # oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+mkdir -p ~/.oh-my-zsh/plugins
+cp -rf .oh-my-zsh/plugins/sd ~/.oh-my-zsh/plugins
 
 wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
 mkdir -p ~/.oh-my-zsh/plugins/calc
@@ -69,23 +69,25 @@ sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
 chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
 chmod -w ~/.oh-my-zsh/plugins/calc
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+cd-temp
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+cp -rf zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+cd-before-temp
 
 # fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+cd-temp
+git clone --depth 1 https://github.com/junegunn/fzf.git
+cp -rf fzf ~/.fzf
 yes | ~/.fzf/install
-
-# ripgrep
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb
-sudo dpkg -i ripgrep_11.0.1_amd64.deb
-rm ripgrep_11.0.1_amd64.deb
+cd-before-temp
 
 # vim/gvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo $WINHOME/vimfiles/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # tmux
+mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #
@@ -104,13 +106,6 @@ chmod +x ./restore.sh && ./restore.sh
 # git
 git config --global credential.helper 'cache --timeout=7200'
 git config --global diff.tool vimdiff
-
-# Add files icons to ranger
-cd-temp
-git clone https://github.com/alexanderjeurissen/ranger_devicons
-cd ranger_devicons
-make install
-cd-before-temp
 
 
 #------------------------------------------------------------------------------
