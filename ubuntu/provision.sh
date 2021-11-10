@@ -39,7 +39,6 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
-apt-force install debian-goodies # ex: To list installed packages by size, "dpigs -H"
 apt-force install python3-pip python2
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
@@ -48,8 +47,6 @@ apt-force install ripgrep
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
-apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
-apt-force install iperf3 sysbench # Benchmark
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
@@ -61,10 +58,12 @@ apt-force install linux-tools-generic linux-tools-common # Performance counter (
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
+apt-force install debian-goodies # ex: To list installed packages by size, "dpigs -H"
 apt-force install rxvt-unicode xsel xclip # xsel/xclip: system clipboard for urxvt
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and hotkey helpers.
+apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
 apt-force install gparted smartmontools # Disk utilities
 apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
