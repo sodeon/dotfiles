@@ -42,9 +42,10 @@ declare -A WOL_ENTRIES=(
 )
 
 declare -A F10_ENTRIES=(
-    [1. PC Gaming   ]=lutris
-    [2. Retro Arcade]=mame
-    [3. PlayStation Portable]="flatpak run org.ppsspp.PPSSPP"
-    [4. PlayStation]="duckstation"
-     # "ppsspp" "desmune"
+    [1. PC Gaming           ]=lutris
+    [2. Retroarch           ]="/mnt/d/emulators/RetroArch-Linux-x86_64/RetroArch-Linux-x86_64.AppImage"
+    [3. PlayStation Portable]="ppsspp-emu.ppsspp-sdl"
+    [4. PlayStation         ]="/mnt/d/emulators/duckstation-qt-x64.AppImage"
+    # [2. Retro Arcade]=mame
+     # "desmune"
 )

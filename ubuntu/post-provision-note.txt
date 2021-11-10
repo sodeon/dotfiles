@@ -23,23 +23,21 @@ Config:
     ~/.config/dotfiles
         dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
     ~/.config/Xresources
-        i3: config i3 settings
+        i3, i3blocks.conf: config i3 settings
+        profile: screen size
+    ~/.config/autohotkeyrc
+    ~/.config/record-screen.rc
+    ~/.config/mpv/mpv.conf
 
 System:
-    Remove snapd (https://www.kevin-custer.com/blog/disabling-snaps-in-ubuntu-20-04/)
-        Find installed snap packages: $snap list
-        Remove snap packages ("core" cannot be removed): $sudo snap remove {packages}
-        Remove snap: $sudo apt purge snapd
-        Remove snap related directories: $rm -rf ~/snap; sudo rm -rf /snap /var/snap /var/lib/snapd
-        (If needed, re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator)
-    # Power off HDD when idling:
-    #     Go to gnome-disks' settings to do so. Not enabled by default.
-    Optional settings:
-        Input method:
-            # Set system input method preference to fcitx
-            Add input method from fcitx configuration
-            # Adjust input method trigger shortcut (e.g. RAlt)
-        Adjust time display format (if not set, it is based on location set during installation)
+    Power off HDD when idling:
+        Go to gnome-disks' settings to do so. Not enabled by default.
+    # Remove snapd (https://www.kevin-custer.com/blog/disabling-snaps-in-ubuntu-20-04/)
+    #     Find installed snap packages: $snap list
+    #     Remove snap packages ("core" cannot be removed): $sudo snap remove {packages}
+    #     Remove snap: $sudo apt purge snapd
+    #     Remove snap related directories: $rm -rf ~/snap; sudo rm -rf /snap /var/snap /var/lib/snapd
+    #     (If needed, re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator)
 
 System (TV):
     Disable swapfile: 
@@ -79,7 +77,6 @@ System (Laptop):
     Wake-on-lan:
         Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
         Step 2: Trigger suspended system to wakeup (by sending magic packet)
-            $sudo apt install wakeonlan
             $wakeonlan <mac address> # mac address can be found by "$ip a".
         Extra step: To debug, monitor if receiving magic packet
             $sudo apt install ngrep
@@ -99,10 +96,10 @@ Performance:
             GRUB_CMDLINE_LINUX="console=ttyS0"
         - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
     Reduce boot memory usage and boot time by removing gnome dependency
+        - Disable dual GPU detection and services: $sudo systemctl mask switcheroo-control.service
         - Disable gnome-online-account (https://superuser.com/questions/1576565/how-to-remove-gnome-online-accounts-integration)
             $sudp apt remove gnome-online-account
             $sudo rm /usr/share/applications/gnome-online-accounts-panel.desktop
         - Disable trackers (https://www.linuxuprising.com/2019/07/how-to-completely-disable-tracker.html?m=1)
             $systemctl --user mask tracker-extract.service tracker-miner-fs.service tracker-store.service tracker-writeback.service
         - Disable gvfs (gnome virtual filesystem): $systemctl --user stop gvfs-daemon.service
-        - Disable dual GPU detection and services: $sudo systemctl mask switcheroo-control.service
