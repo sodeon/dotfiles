@@ -177,6 +177,10 @@ cd -
 #    In chrome: ctrl+space to play by mpv
 pip3 install git+git://github.com/thann/play-with-mpv --user 
 
+# Youtube download
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+
 
 #------------------------------------------------------------------------------
 # Remove Ubuntu installed software
