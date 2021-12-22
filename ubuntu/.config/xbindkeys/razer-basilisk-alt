@@ -25,80 +25,60 @@ b:3
 #---------------------------------------------------------------------------------------------------
 # Middle button
 #---------------------------------------------------------------------------------------------------
-# Re-enable Chrome dark reader extension
-"xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
+# Go to top of the site
+"xte 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode"
 b:2
-# Close all notifications
-# "activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
-# b:2
+"xte 'key e'; activate-hotkeys toggle-mouse-mode"
+Mod3+b:2
 
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
 #---------------------------------------------------------------------------------------------------
-# New: Page up/down
-"xte 'mouseup 4' 'key Prior'"
-b:4
-"xte 'mouseup 5' 'key Next'"
-b:5
-
-# Half page up/down
-"xte 'mouseup 4'; autohotkey pageup"
-Mod3+b:4
-"xte 'mouseup 5'; autohotkey pagedown"
-Mod3+b:5
-
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+b:4
-"xte 'key End'"
-Mod3+Mod5+b:5
+# Volume
+"xte 'mouseup 4'; autohotkey volume up"
+Mod5+b:4
+"xte 'mouseup 5'; autohotkey volume down"
+Mod5+b:5
 
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
-#   XF86Launch7 (F16): Factory default to "Back"
-#   XF86Launch8 (F17): Factory default to "Forward"
-#   XF86Launch9 (F18): Factory default to "DPI trigger"
+#   XF86Launch7 (F16, c:197): Factory default to "Back"
+#   XF86Launch8 (F17, c:198): Factory default to "Forward"
+#   XF86Launch9 (F18, c:200): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
-"activate-hotkeys toggle-mouse-mode"
-c:197
-# XF86Launch7 # Work with xcape but does not work with evcape
+# Re-open closed tab
+"xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L'; activate-hotkeys toggle-mouse-mode"
+c:198
 
 # Redefine: Forward
 "activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-c:198
+c:197
 
-# Redefine: Workspace picker
-"activate-hotkeys toggle-mouse-mode; autohotkey workspacePicker"
-c:196
+# Close all notifications
+"activate-hotkeys toggle-mouse-mode; xte 'keydown Alt_L' 'key BackSpace' 'keyup Alt_L'"
+c:200
 
 
 #---------------------------------------------------------------------------------------------------
 # Buttons under scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Go to top of the site
-"xte 'mouseup 8' 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode"
-b:8+Release
-
-# Re-open closed tab
-"xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L'; activate-hotkeys toggle-mouse-mode"
-Mod3+b:8+Release
-
-
-#---------------------------------------------------------------------------------------------------
-# Top buttons (G602 only) 
-# c:191: XF86Launch6 (G602: left   top button)
-# c:192: XF86Launch4 (G602: buttom top button)
-#---------------------------------------------------------------------------------------------------
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
+"touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
 c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
+"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll; xte 'keyup XF86Launch6'" # Long press
+c:193
+
+# Re-enable Chrome dark reader extension
+"xte 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
 Mod3+c:192
 
+"xte 'keydown l';"
+b:9
+"xte 'keyup l';"
+b:9+Release
+"xte 'keydown j';"
+Mod3+b:9
+"xte 'keyup j';"
+Mod3+b:9+Release
 
-#---------------------------------------------------------------------------------------------------
-# Legacy
-#---------------------------------------------------------------------------------------------------
-# Go up one leve of the site
-# "xte 'mouseup 8' 'key g' 'key u'; activate-hotkeys toggle-mouse-mode"

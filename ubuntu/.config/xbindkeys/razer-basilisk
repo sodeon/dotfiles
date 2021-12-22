@@ -1,25 +1,19 @@
 #---------------------------------------------------------------------------------------------------
 # Hotkey rule:
 # Mod5     : Hardware control (volume, brightness)
-# Mod3     : shifted version  of non-mod function
-# Mod3+Mod5: shifted version2 of non-mod function with less used fequency than mod3
+# Mod3     : Shifted version  of non-mod function
+# Mod3+Mod5: Shifted version2 of non-mod function with less used fequency than mod3
 #---------------------------------------------------------------------------------------------------
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
-# Next/prev tab
-# "xdotool key control+Prior" # For some reason, it stops to work after some software update
-"xte 'keydown Control_L' 'key Prior' 'keyup Control_L'"
+"xdotool key control+Prior" # Prev tab
 Mod3+b:1
-# "xdotool key control+Next"
-"xte 'keydown Control_L' 'key Next' 'keyup Control_L'"
+"xdotool key control+Next" # Next tab
 Mod3+b:3
 
-# Move tab
-# "xdotool key --clearmodifiers control+shift+Prior"
-"xte 'keyup Hyper_L' 'keyup XF86Launch5' 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' 'keydown Hyper_L' 'keydown XF86Launch5'"
+"xdotool key --clearmodifiers control+shift+Prior" # Move tab left
 Mod3+Mod5+b:1
-# "xdotool key --clearmodifiers control+shift+Next"
-"xte 'keyup Hyper_L' 'keyup XF86Launch5' 'keydown Control_L' 'keydown Shift_L' 'key Next'  'keyup Shift_L' 'keyup Control_L' 'keydown Hyper_L' 'keydown XF86Launch5'"
+"xdotool key --clearmodifiers control+shift+Next" # Move tab right
 Mod3+Mod5+b:3
 
 # Brightness
@@ -34,104 +28,67 @@ Mod5+b:3
 #---------------------------------------------------------------------------------------------------
 "autohotkey toggleFullscreen"
 Mod3+b:2
-
-# Detach tab
-"xte 'mouseup 2' 'key e'"
+"xte 'mouseup 2' 'key e'" # Detach tab
 Mod3+Mod5+b:2
 
-# Mute/unmute (Switch sound device: "switch-sound-output && pkill -RTMIN+10 i3blocks")
-"autohotkey volume toggle && pkill -RTMIN+10 i3blocks"
+"autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
 Mod5+b:2
 
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Half page up/down
-"xte 'mouseup 4'; autohotkey pageup"
-Mod3+b:4
-"xte 'mouseup 5'; autohotkey pagedown"
-Mod3+b:5
-
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+b:4
-"xte 'key End'"
-Mod3+Mod5+b:5
-
-# Volume (only place where hypershift is binded)
+# Volume
 "xte 'mouseup 4'; autohotkey volume up"
 Mod5+b:4
 "xte 'mouseup 5'; autohotkey volume down"
 Mod5+b:5
 
-# Brightness mode
-"autohotkey brightness toggle"
-Mod5+b:8
-
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
-#   XF86Launch7 (F16): Factory default to "Back"
-#   XF86Launch8 (F17): Factory default to "Forward"
-#   XF86Launch9 (F18): Factory default to "DPI trigger"
+#   F16 (XF86Launch7, c:197): Factory default to "Back"
+#   F17 (XF86Launch8, c:198): Factory default to "Forward"
+#   F18 (XF86Launch9, c:196): Factory default to "DPI trigger"
 #---------------------------------------------------------------------------------------------------
-"activate-hotkeys toggle-mouse-mode"
-c:197
+"autohotkey closeTabOrWindow"
+c:198
 # XF86Launch7 # Work with xcape but does not work with evcape
 
-# Back
-"xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
-c:198
+"xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'" # Back
+c:197
 
-# Switch to last workspace
-"xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'"
+"touch /tmp/short-pressing; xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'; sleep 0.33; rm /tmp/short-pressing" # Click: Switch to last workspace
+c:200
+"sleep 0.18; [ -f /tmp/short-pressing ] || autohotkey workspacePicker" # Long press
 c:196
-
-# Workspace picker
-"autohotkey workspacePicker"
-c:193
-
 
 #---------------------------------------------------------------------------------------------------
 # Buttons under scroll wheel
 #---------------------------------------------------------------------------------------------------
-# Close/new/detach tab
-"autohotkey closeTabOrWindow"
-b:8
-"xdotool mouseup 8 key ctrl+t"
-Mod3+b:8
-"xte 'keyup XF86Launch5' 'keydown Control_L' 'key r' 'keyup Control_L' 'keydown XF86Launch5'" # Reload web page
-Mod3+Mod5+b:8
+"touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
+c:192
+"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll; xte 'keyup XF86Launch6'" # Long press
+c:193
 
-# Right/left
-"xte 'keydown Right'"
+"xdotool keyup XF86Launch6 key ctrl+t" # New tab
+Mod3+c:193
+"xte 'keyup XF86Launch5' 'keyup XF86Launch6' 'keydown Control_L' 'key r' 'keyup Control_L' 'keyup XF86Launch5'" # Reload web page
+Mod3+Mod5+c:193
+
+"autohotkey brightness toggle" # Brightness mode
+Mod5+c:193
+"switch-sound-output && pkill -RTMIN+10 i3blocks" # Switch audio device
+Mod5+b:9
+
+"xte 'keydown Right'" # Right
 b:9
 "xte 'keyup Right'"
 b:9+Release
-"xte 'keydown Left'"
+"xte 'keydown Left'" # Left
 Mod3+b:9
 "xte 'keyup Left'"
 Mod3+b:9+Release
-
-# Open Vivaldi side panel
-"xte 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'"
+"xte 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'" # Open Vivaldi side panel
 Mod3+Mod5+b:9
 
-
-#---------------------------------------------------------------------------------------------------
-# Top buttons (G602 only) 
-# c:191: XF86Launch6 (G602: left   top button)
-# c:192: XF86Launch4 (G602: buttom top button)
-#---------------------------------------------------------------------------------------------------
-"xte 'keyup XF86Launch6'; autohotkey toggleFullscreen"
-c:191
-
-"xte 'keyup XF86Launch4' 'key e'"
-c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod5+c:192
-"xte 'keyup XF86Launch4' 'mouseclick 8'"
-Mod3+Mod5+c:192

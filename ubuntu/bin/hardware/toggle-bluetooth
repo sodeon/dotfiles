@@ -30,13 +30,13 @@ enable-bluetooth() {
 
 case "$command" in
     toggle)
-        is-bluetooth-enabled && (disable-bluetooth && notify-send "Bluetooth disabled") || (enable-bluetooth && notify-send "Bluetooth enabled")
+        is-bluetooth-enabled && (disable-bluetooth && notify-send "Bluetooth Disabled") || (enable-bluetooth && notify-send "Bluetooth Enabled")
         ;;
     enable)
-        enable-bluetooth  && notify-send -u low "Bluetooth enabled"
+        enable-bluetooth  && notify-send -u low "Bluetooth Enabled"
         ;;
     disable)
-        disable-bluetooth && notify-send -u low "Bluetooth disabled"
+        disable-bluetooth && notify-send -u low "Bluetooth Disabled"
         ;;
     device)
         mac=$2

@@ -14,9 +14,12 @@ ExecStart=evcape.py \
     press:leftctrl,release:leftctrl=press:leftctrl,press:z,release:z,release:leftctrl \
     press:leftmeta,release:leftmeta=press:leftmeta,press:f12,release:f12,release:leftmeta \
     press:leftalt,release:leftalt=press:leftalt,press:tab,release:tab,release:leftalt \
+    press:f15,release:f15=press:f14,release:f14 \
     press:f16,release:f16=press:f19,release:f19 \
-    press:f17,release:f17=press:f20,release:f20
+    press:f17,release:f17=press:f20,release:f20 \
+    press:f18,release:f18=press:f22,release:f22
 Restart=always
 
 [Install]
 WantedBy=default.target
+

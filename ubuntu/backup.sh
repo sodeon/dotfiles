@@ -69,4 +69,11 @@ fi
 #
 which code >/dev/null && code --list-extensions > vscode-extensions.list
 
+
+#
+# Discard trivial changes
+#
+rm -f .local/share/applications/wine-extension-*
+rm -f .local/share/applications/mimeinfo.cache
+
 exit 0

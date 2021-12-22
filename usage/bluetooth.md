@@ -19,11 +19,12 @@ Bluetooth device stores pairing MAC address and pairing key. To make the device 
     - Use `psexec -s -i regedit.exe` to access. Reg keys are invisible without using `psexec`.
     - Pairing key is value of`[device MAC]` key. No reboot needed after changing key value.
 - Bluetooth low energy (BLE) devices (https://unix.stackexchange.com/questions/402488/dual-boot-bluetooth-le-low-energy-device-pairing)
-    IRK  : IdentityResolvingKey
-    CSRK : LocalSignatureKey
-    LTK  : LongTermKey
-    ERand: Rand (byte reverse -> hex to dec). Byte reverse example: ab cd ef -> ef cd ab
-    EDIV : EDiv (hex to dec)
+    IRK         : IdentityResolvingKey
+    CSRK        : LocalSignatureKey
+    CSRKInbound : RemoteSignatureKey
+    LTK         : LongTermKey
+    ERand       : Rand (byte reverse -> hex to dec). Byte reverse example : ab cd ef -> ef cd ab
+    EDIV        : EDiv (hex to dec)
 
 ## Add Bluetooth Audio Codec To Pulseaudio
 

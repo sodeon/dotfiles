@@ -277,7 +277,8 @@ set_from_resource $ws9  i3wm.ws9.name  "9: Viewer "
 set_from_resource $ws10 i3wm.ws10.name "10: G "
 
 # Switch to workspace
-bindsym $mod+Tab workspace back_and_forth
+# bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Tab exec --no-startup-id i3-msg "workspace back_and_forth" && (xdotool getactivewindow) || (i3-msg "workspace back_and_forth" && i3-msg "workspace next")
 bindsym $mod+1   exec autohotkey F1 
 bindsym $mod+2   exec autohotkey F2
 bindsym $mod+3   exec autohotkey F3

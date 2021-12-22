@@ -1,0 +1,17 @@
+# Half page up/down
+"xte 'mouseup 4'; autohotkey pageup"
+b:4
+"xte 'mouseup 5'; autohotkey pagedown"
+b:5
+
+# New: Page up/down
+"xte 'mouseup 4' 'key Prior'"
+Mod3+b:4
+"xte 'mouseup 5' 'key Next'"
+Mod3+b:5
+
+# Home/End
+"xte 'key Home'"
+Mod3+Mod5+b:4
+"xte 'key End'"
+Mod3+Mod5+b:5

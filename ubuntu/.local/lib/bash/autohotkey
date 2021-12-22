@@ -467,9 +467,9 @@ toggleMouseMode() {
 #-----------------------------------------------------------------------------------------------
 volume() {
     if [ $1 = "up" ]; then
-        amixer -D pulse set Master 3%+
+        amixer -D pulse set Master 5%+
     elif [ $1 = "down" ]; then
-        amixer -D pulse set Master 3%-
+        amixer -D pulse set Master 5%-
     elif [ $1 = "toggle" ]; then
         amixer -D pulse set Master toggle
     fi
