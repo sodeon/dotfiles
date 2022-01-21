@@ -28,7 +28,7 @@ Mod5+b:3
 #---------------------------------------------------------------------------------------------------
 "autohotkey toggleFullscreen"
 Mod3+b:2
-"xte 'mouseup 2' 'key F4'; activate-hotkeys toggle-mouse-mode" # Open Vivaldi side panel
+"xte 'mouseup 2' 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'" # Open Vivaldi side panel
 Mod3+Mod5+b:2
 
 "autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
@@ -37,6 +37,8 @@ Mod5+b:2
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
+#   F23 (c:201): Scroll up
+#   F24 (c:202): Scroll down
 #---------------------------------------------------------------------------------------------------
 # Volume
 "autohotkey volume up"
@@ -47,24 +49,31 @@ Mod5+c:202
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
-#   F16 (XF86Launch7, c:197): Factory default to "Back"
-#   F17 (XF86Launch8, c:198): Factory default to "Forward"
-#   F18 (XF86Launch9, c:196): Factory default to "DPI trigger"
+#   F16 (XF86Launch7, c:197): Front thumb button
+#   F17 (XF86Launch8, c:198): Rear  thumb button
 #---------------------------------------------------------------------------------------------------
 "autohotkey closeTabOrWindow"
 c:198
-# XF86Launch7 # Work with xcape but does not work with evcape
 
 "xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Left' 'keyup Alt_L'" # Back
 c:197
 
+
+#---------------------------------------------------------------------------------------------------
+# Trigger buttons
+#   F18 (XF86Launch9, c:196): DPI trigger button
+#---------------------------------------------------------------------------------------------------
 "touch /tmp/short-pressing; xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Tab' 'keyup Alt_L'; sleep 0.33; rm /tmp/short-pressing" # Click: Switch to last workspace
 c:200
 "sleep 0.18; [ -f /tmp/short-pressing ] || autohotkey workspacePicker" # Long press
 c:196
 
+
 #---------------------------------------------------------------------------------------------------
-# Buttons under scroll wheel
+# Buttons beneath scroll wheel
+#   F15 (XF86Launch6, c:193): front
+#     F14 (XF86Launch4, c:192): evcape generated dummy key
+#   Mouse button 5 (b:9): rear
 #---------------------------------------------------------------------------------------------------
 "touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
 c:192
