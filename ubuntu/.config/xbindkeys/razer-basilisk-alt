@@ -16,17 +16,20 @@
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
 # Zoom
-"xdotool key --clearmodifiers control+minus"
-b:1
-"xdotool key --clearmodifiers control+equal"
-b:3
+# "xdotool key --clearmodifiers control+minus"
+# b:1
+# "xdotool key --clearmodifiers control+equal"
+# b:3
 
 
 #---------------------------------------------------------------------------------------------------
 # Middle button
 #---------------------------------------------------------------------------------------------------
-"xte 'mouseup 5' 'key F4'; activate-hotkeys toggle-mouse-mode" # Open Vivaldi side panel
+"xte 'mouseup 2'; autohotkey playPause"
 b:2
+
+"autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
+Mod5+b:2
 
 
 #---------------------------------------------------------------------------------------------------
@@ -36,16 +39,17 @@ b:2
 c:201
 "xte 'key Right'" # Right
 c:202
-# "xte 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode" # Go to top of the site
-# c:201
-# "xte 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
-# c:202
 
 # Volume
 "autohotkey volume up"
 Mod5+c:201
 "autohotkey volume down"
 Mod5+c:202
+
+"xte 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode" # Go to top of the site
+Mod3+c:201
+"xte 'mouseup 2' 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
+Mod3+c:202
 
 
 #---------------------------------------------------------------------------------------------------
@@ -88,7 +92,5 @@ Mod3+c:192
 # "xte 'keyup j';"
 # Mod3+b:9+Release
 
-# "xte 'mouseup 9' 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode" # Go to top of the site
+# "xte 'mouseup 9' 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
 # b:9
-"xte 'mouseup 9' 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
-b:9

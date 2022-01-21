@@ -28,7 +28,7 @@ Mod5+b:3
 #---------------------------------------------------------------------------------------------------
 "autohotkey toggleFullscreen"
 Mod3+b:2
-"xte 'mouseup 2' 'key e'" # Detach tab
+"xte 'mouseup 2' 'key F4'; activate-hotkeys toggle-mouse-mode" # Open Vivaldi side panel
 Mod3+Mod5+b:2
 
 "autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
@@ -89,6 +89,4 @@ b:9+Release
 Mod3+b:9
 "xte 'keyup Left'"
 Mod3+b:9+Release
-# "xte 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'" # Open Vivaldi side panel
-# Mod3+Mod5+b:9
 
