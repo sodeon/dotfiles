@@ -36,7 +36,7 @@ WS1_CMD() { vivaldi --force-dark-mode; }
 # rofi menu entries
 #------------------------------------------------------------------------------
 declare -A WOL_ENTRIES=(
-    [1. NAS  ]="wake-on-lan nas"
+    [1. NAS  ]="wake-mount  nas"
     [2. TV   ]="wake-on-lan tv"
     [3. J5005]="wake-on-lan j5005"
 )

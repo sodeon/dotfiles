@@ -25,21 +25,27 @@ b:3
 #---------------------------------------------------------------------------------------------------
 # Middle button
 #---------------------------------------------------------------------------------------------------
-# Go to top of the site
-"xte 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode"
+"xte 'mouseup 5' 'key F4'; activate-hotkeys toggle-mouse-mode" # Open Vivaldi side panel
 b:2
-"xte 'key e'; activate-hotkeys toggle-mouse-mode"
-Mod3+b:2
 
 
 #---------------------------------------------------------------------------------------------------
 # Scroll wheel
 #---------------------------------------------------------------------------------------------------
+"xte 'key Left'" # Left
+c:201
+"xte 'key Right'" # Right
+c:202
+# "xte 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode" # Go to top of the site
+# c:201
+# "xte 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
+# c:202
+
 # Volume
-"xte 'mouseup 4'; autohotkey volume up"
-Mod5+b:4
-"xte 'mouseup 5'; autohotkey volume down"
-Mod5+b:5
+"autohotkey volume up"
+Mod5+c:201
+"autohotkey volume down"
+Mod5+c:202
 
 
 #---------------------------------------------------------------------------------------------------
@@ -66,19 +72,23 @@ c:200
 #---------------------------------------------------------------------------------------------------
 "touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
 c:192
-"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll; xte 'keyup XF86Launch6'" # Long press
+"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch6'" # Long press
 c:193
 
 # Re-enable Chrome dark reader extension
 "xte 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
 Mod3+c:192
 
-"xte 'keydown l';"
-b:9
-"xte 'keyup l';"
-b:9+Release
-"xte 'keydown j';"
-Mod3+b:9
-"xte 'keyup j';"
-Mod3+b:9+Release
+# "xte 'keydown l';"
+# b:9
+# "xte 'keyup l';"
+# b:9+Release
+# "xte 'keydown j';"
+# Mod3+b:9
+# "xte 'keyup j';"
+# Mod3+b:9+Release
 
+# "xte 'mouseup 9' 'key g' 'keydown Shift_L' 'key u' 'keyup Shift_L'; activate-hotkeys toggle-mouse-mode" # Go to top of the site
+# b:9
+"xte 'mouseup 9' 'key e'; activate-hotkeys toggle-mouse-mode" # Detach tab
+b:9

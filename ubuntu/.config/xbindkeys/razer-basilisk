@@ -39,10 +39,10 @@ Mod5+b:2
 # Scroll wheel
 #---------------------------------------------------------------------------------------------------
 # Volume
-"xte 'mouseup 4'; autohotkey volume up"
-Mod5+b:4
-"xte 'mouseup 5'; autohotkey volume down"
-Mod5+b:5
+"autohotkey volume up"
+Mod5+c:201
+"autohotkey volume down"
+Mod5+c:202
 
 
 #---------------------------------------------------------------------------------------------------
@@ -89,6 +89,6 @@ b:9+Release
 Mod3+b:9
 "xte 'keyup Left'"
 Mod3+b:9+Release
-"xte 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'" # Open Vivaldi side panel
-Mod3+Mod5+b:9
+# "xte 'keyup XF86Launch5' 'key F4' 'keydown XF86Launch5'" # Open Vivaldi side panel
+# Mod3+Mod5+b:9
 

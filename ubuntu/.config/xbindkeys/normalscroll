@@ -1,18 +1,24 @@
+"xte 'mouseclick 4'"
+c:201
+"xte 'mouseclick 5'"
+c:202
+
+# Half page up/down
+"autohotkey pageup"
+Mod3+c:201
+"autohotkey pagedown"
+Mod3+c:202
+
+# Home/End
+"xte 'key Home'"
+Mod3+Mod5+c:201
+"xte 'key End'"
+Mod3+Mod5+c:202
+
+
 # imwheel
 # "xte 'mouseup 4' 'key Up' 'key Up' 'key Up'"
 # b:4
 # "xte 'mouseup 5' 'key Down' 'key Down' 'key Down'"
 # b:5
-
-# Half page up/down
-"xte 'mouseup 4'; autohotkey pageup"
-Mod3+b:4
-"xte 'mouseup 5'; autohotkey pagedown"
-Mod3+b:5
-
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+b:4
-"xte 'key End'"
-Mod3+Mod5+b:5
 
