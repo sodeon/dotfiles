@@ -87,7 +87,8 @@ bindsym $mod+Shift+r restart
 #--------------------------------------------------------------------------------
 # Delete word/line (delete line only functional for terminal and vim)
 bindsym $mode+p     exec --no-startup-id autohotkey deleteWord
-bindsym $mode+i     exec --no-startup-id autohotkey deleteFirstWord
+bindsym $mode+i     exec --no-startup-id autohotkey deleteWordAfter
+# bindsym $mode+i     exec --no-startup-id autohotkey deleteFirstWord
 bindsym $mode+u     exec --no-startup-id autohotkey deleteLine
 bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
 
@@ -278,7 +279,7 @@ set_from_resource $ws10 i3wm.ws10.name "10: G "
 
 # Switch to workspace
 # bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+Tab exec --no-startup-id i3-msg "workspace back_and_forth" && (xdotool getactivewindow) || (i3-msg "workspace back_and_forth" && i3-msg "workspace next")
+bindsym $mod+Tab exec --no-startup-id autohotkey altTab
 bindsym $mod+1   exec autohotkey F1 
 bindsym $mod+2   exec autohotkey F2
 bindsym $mod+3   exec autohotkey F3

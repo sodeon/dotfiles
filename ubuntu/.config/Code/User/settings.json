@@ -29,7 +29,6 @@
     "workbench.tips.enabled": false,
     "workbench.editor.tabCloseButton": "off",
     "workbench.editor.tabSizing": "shrink",
-    "workbench.activityBar.visible": false,
     "workbench.commandPalette.preserveInput": true,
     "workbench.editor.enablePreview": true,
     "workbench.editor.enablePreviewFromQuickOpen": false,

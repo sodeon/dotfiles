@@ -96,13 +96,13 @@ bind-hotkeys() {
     #                          -e "Logitech G602"        && \
     #     ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
     if [ -f $mouse_alt   ]; then
-        cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc
+        cat ~/.config/xbindkeys/mouse-alt        >> /tmp/xbindkeysrc
     else
-        cat ~/.config/xbindkeys/razer-basilisk     >> /tmp/xbindkeysrc
+        cat ~/.config/xbindkeys/mouse            >> /tmp/xbindkeysrc
         if [ -f $hyperscroll ]; then
-            cat ~/.config/xbindkeys/hyperscroll    >> /tmp/xbindkeysrc
+            cat ~/.config/xbindkeys/hyperscroll  >> /tmp/xbindkeysrc
         else
-            cat ~/.config/xbindkeys/normalscroll   >> /tmp/xbindkeysrc
+            cat ~/.config/xbindkeys/normalscroll >> /tmp/xbindkeysrc
         fi
     fi
     

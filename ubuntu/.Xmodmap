@@ -86,7 +86,7 @@ keycode 20 = minus underscore  F11
 keycode 21 = equal plus        F12
 
 ! Remove duplicate keys
-keycode 191 = XF86Shop NoSymbol
+! keycode 191 = XF86Shop NoSymbol
 keycode 229 = NoSymbol NoSymbol
 
 ! Pause/Scroll_Lock/Print

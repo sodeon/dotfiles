@@ -159,9 +159,9 @@ deleteWord() {
 
 deleteWordAfter() {
 	if isWinActive URxvt; then
-        xte 'keyup slash' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+        xte 'keyup slash' 'keyup i' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
 	else
-        xte 'keyup slash' 'keydown Control_L' 'key Delete' 'keyup Control_L'
+        xte 'keyup slash' 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
 }
 
@@ -339,21 +339,25 @@ resizeWindow() {
     fi
 }
 
+altTab() {
+    i3-msg "workspace back_and_forth" && (xdotool getactivewindow) || (i3-msg "workspace back_and_forth" && i3-msg "workspace next")
+}
+
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
     if (isWinActive $BROWSER_WIN_CLASS); then
         if (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
-            xte 'key f'
+            xdotool key --clearmodifiers f
+            # xte 'key f'
         else
-            xte 'key F11'
-            # i3-msg "fullscreen toggle"
+            xdotool key --clearmodifiers F11
+            # xte 'key F11'
         fi
     elif isWinActive Code; then # Toggle zen mode for vscode
-        xdotool key ctrl+shift+z
+        xdotool key --clearmodifiers ctrl+shift+z
     else
         i3-msg "fullscreen toggle"
     fi
-    #i3-msg "fullscreen toggle"
 }
 
 i3toggleFullscreen() {
