@@ -1,21 +1,14 @@
 #---------------------------------------------------------------------------------------------------
-# Hotkey rule:
-# Mod5     : Hardware control (volume, brightness)
-# Mod3     : Shifted version  of non-mod function
-# Mod3+Mod5: Shifted version2 of non-mod function with less used fequency than mod3
-# Mod4     : Scroll pressed version
-#---------------------------------------------------------------------------------------------------
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
-"xdotool key control+Prior" # Prev tab
-Mod3+b:1
-"xdotool key control+Next" # Next tab
-Mod3+b:3
+# Brightness
+"autohotkey brightness down"
+Mod5+b:1
+"autohotkey brightness up"
+Mod5+b:3
 
-"xdotool key --clearmodifiers control+shift+Prior" # Move tab left
-Mod3+Mod5+b:1
-"xdotool key --clearmodifiers control+shift+Next" # Move tab right
-Mod3+Mod5+b:3
+"autohotkey workspacePicker" # Workspace picker
+Mod4+b:3
 
 
 #---------------------------------------------------------------------------------------------------
@@ -23,8 +16,13 @@ Mod3+Mod5+b:3
 #   F13 (c:191): Press scroll click
 #   F22 (c:200): Click scroll click (evcape)
 #---------------------------------------------------------------------------------------------------
-"xdotool keyup XF86TouchpadOn key --clearmodifiers F4" # Open Vivaldi side panel
-Mod3+Mod5+c:200
+"xte 'mouseclick 2'"
+c:200
+
+"xte 'keyup XF86TouchpadOn' 'mouseclick 2'; sleep 0.1; xdotool key --clearmodifiers ctrl+Next"
+Mod3+c:200
+"autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
+Mod5+c:200
 
 
 #---------------------------------------------------------------------------------------------------
@@ -32,6 +30,26 @@ Mod3+Mod5+c:200
 #   F23 (c:201): Scroll up
 #   F24 (c:202): Scroll down
 #---------------------------------------------------------------------------------------------------
+# Home/End
+"xte 'key Home'"
+Mod3+Mod5+c:201
+"xte 'key End'"
+Mod3+Mod5+c:202
+
+"autohotkey toggleFullscreen" # Toggle full screen
+Mod4+c:201
+"autohotkey altTab" # Switch to last workspace
+Mod4+c:202
+
+# Volume
+"autohotkey volume up"
+Mod5+c:201
+"autohotkey volume down"
+Mod5+c:202
+
+# Too uncomfortable to use
+# Mod3+Mod4+c:201
+# Mod3+Mod4+c:202
 
 
 #---------------------------------------------------------------------------------------------------
@@ -39,18 +57,8 @@ Mod3+Mod5+c:200
 #   F16 (XF86Launch8, c:197): Front thumb button
 #   F17 (XF86Launch9, c:198): Rear  thumb button
 #---------------------------------------------------------------------------------------------------
-"autohotkey closeTabOrWindow"
-c:197
-"xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Left' 'keyup Alt_L'" # Back
-c:198
-
-"autohotkey nextTrack"
-Mod5+c:198
-
-"xdotool keyup XF86Launch8 key --clearmodifiers g+U" # Go to top of the site
-Mod4+c:197
-"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+r" # Reload web page
-Mod4+c:198
+"autohotkey playPause"
+Mod3+c:197
 
 
 #---------------------------------------------------------------------------------------------------
@@ -58,8 +66,11 @@ Mod4+c:198
 #   F15 (XF86Launch5, c:193): Press front button
 #   F14 (XF86Launch4, c:192): Click front button (evcape)
 #---------------------------------------------------------------------------------------------------
-"xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t" # New tab
-Mod3+c:193
-"xdotool keyup XF86Launch5 key --clearmodifiers e" # Detach tab
-Mod3+Mod5+c:193
+"touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
+c:192
+"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll; xte 'keyup XF86Launch5'" # Long press
+c:193
+
+"autohotkey brightness toggle" # Brightness mode
+Mod5+c:193
 

@@ -21,32 +21,17 @@ Mod3+b:1
 "xdotool key --clearmodifiers control+equal"
 Mod3+b:3
 
-# Brightness
-"autohotkey brightness down"
-Mod5+b:1
-"autohotkey brightness up"
-Mod5+b:3
-
-"autohotkey workspacePicker" # Workspace picker
-Mod4+b:3
-
+# Mod3+Mod5+b:1
+# Mod3+Mod5+b:3
 
 #---------------------------------------------------------------------------------------------------
 # Middle button
 #   F13 (c:191): Press scroll click
 #   F22 (c:200): Click scroll click (evcape)
 #---------------------------------------------------------------------------------------------------
-"xte 'mouseup 2'; autohotkey playPause; activate-hotkeys toggle-mouse-mode"
-c:200
-
-"autohotkey toggleFullscreen"
-Mod3+c:200
 # Re-enable Chrome dark reader extension
 "xte 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'; activate-hotkeys toggle-mouse-mode; xte 'mouseup 2' 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L'"
 Mod3+Mod5+c:200
-
-"autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
-Mod5+c:200
 
 
 #---------------------------------------------------------------------------------------------------
@@ -64,45 +49,30 @@ Mod3+c:201
 "xdotool type lll" # Seek forward (mid step)
 Mod3+c:202
 
-# Volume
-"autohotkey volume up"
-Mod5+c:201
-"autohotkey volume down"
-Mod5+c:202
-
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+c:201
-"xte 'key End'"
-Mod3+Mod5+c:202
-
-"i3-msg 'workspace prev'"
-Mod4+c:201
-"autohotkey altTab" # Switch to last workspace
-Mod4+c:202
-
 
 #---------------------------------------------------------------------------------------------------
 # Thumb buttons
-#   F16 (XF86Launch7, c:197): Front thumb button
-#   F17 (XF86Launch8, c:198): Rear  thumb button
+#   F16 (XF86Launch8, c:197): Front thumb button
+#   F17 (XF86Launch9, c:198): Rear  thumb button
 #---------------------------------------------------------------------------------------------------
-# Forward
-"activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch8' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-c:197
-
 # Re-open closed tab
 "xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L'; activate-hotkeys toggle-mouse-mode"
+c:197
+# Forward
+"activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
 c:198
 
+"autohotkey prevTrack; activate-hotkeys toggle-mouse-mode"
+Mod5+c:198
+
+# Mod4+c:197
+# Mod4+c:198
 
 #---------------------------------------------------------------------------------------------------
 # Buttons beneath scroll wheel
-#   F15 (XF86Launch6, c:193): Press front button
+#   F15 (XF86Launch5, c:193): Press front button
 #   F14 (XF86Launch4, c:192): Click front button (evcape)
 #---------------------------------------------------------------------------------------------------
-"touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
-c:192
-"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch6'" # Long press
-c:193
+# Mod3+c:193
+# Mod3+Mod5+c:193
 

@@ -95,6 +95,7 @@ bind-hotkeys() {
     #                          -e "Logitech USB Receiver"   \
     #                          -e "Logitech G602"        && \
     #     ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
+    cat ~/.config/xbindkeys/mouse-common         >> /tmp/xbindkeysrc
     if [ -f $mouse_alt   ]; then
         cat ~/.config/xbindkeys/mouse-alt        >> /tmp/xbindkeysrc
     else

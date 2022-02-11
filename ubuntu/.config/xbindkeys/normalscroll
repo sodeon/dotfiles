@@ -9,12 +9,6 @@ Mod3+c:201
 "autohotkey pagedown"
 Mod3+c:202
 
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+c:201
-"xte 'key End'"
-Mod3+Mod5+c:202
-
 
 # imwheel
 # "xte 'mouseup 4' 'key Up' 'key Up' 'key Up'"

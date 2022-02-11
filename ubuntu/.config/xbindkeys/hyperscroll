@@ -10,8 +10,3 @@ Mod3+c:201
 "xte 'key Next'"
 Mod3+c:202
 
-# Home/End
-"xte 'key Home'"
-Mod3+Mod5+c:201
-"xte 'key End'"
-Mod3+Mod5+c:202

@@ -9,7 +9,7 @@ Description=evcape
 # Mouse: inner thumb button to differnt mouse mode toggle (f16 and f17)
 # Key list: https://hackage.haskell.org/package/evdev-2.0.0.1/docs/Evdev-Codes.html
 ExecStart=evcape.py \
-    --timeout 170 \
+    --timeout 200 \
     press:capslock,release:capslock=press:esc,release:esc \
     press:leftctrl,release:leftctrl=press:leftctrl,press:z,release:z,release:leftctrl \
     press:leftmeta,release:leftmeta=press:leftmeta,press:f12,release:f12,release:leftmeta \
