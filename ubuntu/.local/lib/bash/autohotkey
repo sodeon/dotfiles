@@ -559,6 +559,14 @@ wol-menu() {
     simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
+gaming() {
+    source source-display-monitor # TODO: This extracts is_gaming_mode variable
+    [ $is_gaming_mode ==  "true" ] && rm -f /tmp/gaming_mode || touch /tmp/gaming_mode
+    activate-hotkeys
+
+    brightness gaming
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Execute

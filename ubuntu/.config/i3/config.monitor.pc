@@ -6,5 +6,6 @@ bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness do
 bindsym $mode+Shift+f              exec --no-startup-id autohotkey brightness up
 bindsym $mode+Shift+v              exec --no-startup-id autohotkey brightness down
 bindsym $mode+Shift+c              exec --no-startup-id autohotkey brightness toggle
-bindsym $mode+Control+c            exec --no-startup-id autohotkey brightness gaming
+# bindsym $mode+Control+c            exec --no-startup-id autohotkey brightness gaming
+bindsym $mode+Control+c            exec --no-startup-id autohotkey gaming
 bindsym $mode+Shift+g              exec --no-startup-id autohotkey display-input toggle

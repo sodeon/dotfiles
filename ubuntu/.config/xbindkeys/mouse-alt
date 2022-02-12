@@ -73,6 +73,9 @@ Mod5+c:198
 #   F15 (XF86Launch5, c:193): Press front button
 #   F14 (XF86Launch4, c:192): Click front button (evcape)
 #---------------------------------------------------------------------------------------------------
+"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-mouse-mode; xte 'keyup XF86Launch5'" # Long press
+c:193
+
 # Mod3+c:193
 # Mod3+Mod5+c:193
 

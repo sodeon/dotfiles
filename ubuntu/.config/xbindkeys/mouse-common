@@ -68,8 +68,6 @@ Mod3+c:197
 #---------------------------------------------------------------------------------------------------
 "touch /tmp/short-pressing; activate-hotkeys toggle-mouse-mode; sleep 0.33; rm /tmp/short-pressing;" # Click
 c:192
-"sleep 0.18; [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll; xte 'keyup XF86Launch5'" # Long press
-c:193
 
 "autohotkey brightness toggle" # Brightness mode
 Mod5+c:193
