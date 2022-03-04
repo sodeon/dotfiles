@@ -44,12 +44,12 @@ c:197
 "xte 'keyup XF86Launch9' 'keydown Alt_L' 'key Left' 'keyup Alt_L'" # Back
 c:198
 
-"autohotkey nextTrack"
+"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+9" # Go to rightmost tab
 Mod5+c:198
 
 "xdotool keyup XF86Launch8 key --clearmodifiers g+U" # Go to top of the site
 Mod4+c:197
-"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+r" # Reload web page
+"xdotool keyup XF86Launch9 key --clearmodifiers e" # Detach tab
 Mod4+c:198
 
 
@@ -63,6 +63,6 @@ c:193
 
 "xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t" # New tab
 Mod3+c:193
-"xdotool keyup XF86Launch5 key --clearmodifiers e" # Detach tab
+"xdotool keyup XF86Launch5 key --clearmodifiers ctrl+r" # Reload web page
 Mod3+Mod5+c:193
 

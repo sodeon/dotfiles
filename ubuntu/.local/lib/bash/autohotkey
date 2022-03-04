@@ -243,6 +243,7 @@ pause() { # Pause if there is any playing media
 }
 
 playPause() { # Play, pause toggle
+    # if cmus-remote -Q | grep -q -e "status playing"; then # Ubuntu cmus is not compiled with mpris support
     if cmus-remote -Q | grep -q -e "status playing" -e "status paused"; then # Ubuntu cmus is not compiled with mpris support
 		cmus-remote -u && pkill -RTMIN+12 i3blocks
     else
@@ -465,6 +466,12 @@ toggleMouseMode() {
     activate-hotkeys
 }
 
+notify-activate-hotkeys() {
+    notify-send.sh -t 0 -r 19 -u normal "Activating Hotkeys..."
+    activate-hotkeys
+    notify-send.sh --close=19
+}
+
 
 #-----------------------------------------------------------------------------------------------
 # Hardware control
@@ -559,12 +566,12 @@ wol-menu() {
     simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
-gaming() {
-    source source-display-monitor # TODO: This extracts is_gaming_mode variable
-    [ $is_gaming_mode ==  "true" ] && rm -f /tmp/gaming_mode || touch /tmp/gaming_mode
-    activate-hotkeys
-
+gaming-mode() {
     brightness gaming
+
+    source source-display-monitor # TODO: This extracts is_gaming_mode variable
+    [ $is_gaming_mode ==  "true" ] && touch /tmp/gaming_mode || rm -f /tmp/gaming_mode
+    activate-hotkeys
 }
 
 

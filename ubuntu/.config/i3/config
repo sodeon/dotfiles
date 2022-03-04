@@ -138,15 +138,6 @@ bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
 bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
 bindsym $mode+space    exec --no-startup-id autohotkey playPause
 
-# Volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
-bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
-bindsym XF86AudioMute        exec --no-startup-id autohotkey volume toggle
-bindsym $mode+f              exec --no-startup-id autohotkey volume up
-bindsym $mode+v              exec --no-startup-id autohotkey volume down
-bindsym $mode+c              exec --no-startup-id autohotkey volume toggle
-bindsym $mode+g              exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
-
 # Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
 # Use keycode to avoid conflict with layer1 activated by pressing $mode
 bindcode $mode+114     exec --no-startup-id autohotkey nextTrack
@@ -155,6 +146,19 @@ bindcode $mode+105     exec --no-startup-id autohotkey nextTrack
 bindcode $mode+134     exec --no-startup-id autohotkey prevTrack
 bindcode $mode+111     exec --no-startup-id autohotkey volume up
 bindcode $mode+116     exec --no-startup-id autohotkey volume down
+
+# Media control with left hand only
+bindsym  $mode+e       exec --no-startup-id autohotkey nextTrack
+bindsym  $mode+Shift+e exec --no-startup-id autohotkey prevTrack
+
+# Volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+bindsym XF86AudioMute        exec --no-startup-id autohotkey volume toggle
+bindsym $mode+f              exec --no-startup-id autohotkey volume up
+bindsym $mode+v              exec --no-startup-id autohotkey volume down
+bindsym $mode+c              exec --no-startup-id autohotkey volume toggle
+bindsym $mode+g              exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
 
 # Seek forward/backward
 bindsym $mode+z exec --no-startup-id xte 'keyup z' 'key j'
@@ -173,6 +177,12 @@ bindsym           XF86Display        exec --no-startup-id set-display-monitor
 bindsym --release XF86ScreenSaver    exec --no-startup-id xset dpms force off
 bindsym           XF86TouchpadToggle exec --no-startup-id toggle-touchpad
 bindsym           XF86Bluetooth      exec --no-startup-id toggle-bluetooth
+
+# Re-activate hotkeys (workaround bugs if there is any...)
+bindsym           $mod+z             exec --no-startup-id autohotkey notify-activate-hotkeys
+
+# Mouse hotkeys and modes
+# include ./mouse/config
 
 
 #--------------------------------------------------------------------------------

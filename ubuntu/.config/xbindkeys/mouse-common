@@ -19,7 +19,7 @@ Mod4+b:3
 "xte 'mouseclick 2'"
 c:200
 
-"xte 'keyup XF86TouchpadOn' 'mouseclick 2'; sleep 0.1; xdotool key --clearmodifiers ctrl+Next"
+"xte 'keyup XF86TouchpadOn' 'mouseclick 2'; sleep 0.03; xdotool key --clearmodifiers ctrl+Next"
 Mod3+c:200
 "autohotkey volume toggle && pkill -RTMIN+10 i3blocks" # Mute/unmute
 Mod5+c:200
@@ -41,15 +41,22 @@ Mod4+c:201
 "autohotkey altTab" # Switch to last workspace
 Mod4+c:202
 
+# Go to right/left most tab
+"xdotool key --clearmodifiers Left"
+Mod3+Mod4+c:201
+"xdotool key --clearmodifiers Right"
+Mod3+Mod4+c:202
+
 # Volume
 "autohotkey volume up"
 Mod5+c:201
 "autohotkey volume down"
 Mod5+c:202
 
-# Too uncomfortable to use
-# Mod3+Mod4+c:201
-# Mod3+Mod4+c:202
+"autohotkey prevTrack"
+Mod5+Mod4+c:201
+"autohotkey nextTrack"
+Mod5+Mod4+c:202
 
 
 #---------------------------------------------------------------------------------------------------
@@ -60,6 +67,9 @@ Mod5+c:202
 "autohotkey playPause"
 Mod3+c:197
 
+# Mod3+Mod4+c:197
+# "autohotkey notify-activate-hotkeys" # Re-activate hotkeys (workaround bugs if there is any...)
+# Mod5+Mod4+c:198
 
 #---------------------------------------------------------------------------------------------------
 # Buttons beneath scroll wheel

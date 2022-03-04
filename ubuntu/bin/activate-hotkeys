@@ -37,7 +37,7 @@ setup-keymap() {
     fi
 
     # Right ctrl/os to right/left
-    if echo "$inputs" | grep -q "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
+    if echo "$inputs" | grep -q -e "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
         right-ctrl-os-as-right-left
         xmodmap -e 'remove control = Right'
         xmodmap -e 'remove mod4    = Left'
@@ -61,6 +61,7 @@ bind-dualkeys() {
 }
 
 bind-hotkeys() {
+    # return
     echo "" > /tmp/xbindkeysrc
 
     if [ -f $gaming_mode ]; then
