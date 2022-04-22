@@ -242,13 +242,47 @@ pause() { # Pause if there is any playing media
     fi
 }
 
+isCmusPlaying()  { cmus-remote -Q          | grep -q -e "status playing"; }
+isMprisPlaying() { mpris2controller Status | grep -q -e "Playing";        }
+isCmusPaused()   { cmus-remote -Q          | grep -q -e "status paused";  }
+isMprisPaused()  { mpris2controller Status | grep -q -e "Paused";         }
+
+lastPlayer="/tmp/last-player"
 playPause() { # Play, pause toggle
-    # if cmus-remote -Q | grep -q -e "status playing"; then # Ubuntu cmus is not compiled with mpris support
-    if cmus-remote -Q | grep -q -e "status playing" -e "status paused"; then # Ubuntu cmus is not compiled with mpris support
+    if isMprisPlaying; then
+        mpris2controller PlayPause
+    elif isCmusPlaying; then
 		cmus-remote -u && pkill -RTMIN+12 i3blocks
-    else
+    elif isCmusPaused; then
+		cmus-remote -u && pkill -RTMIN+12 i3blocks
+    elif isMprisPaused; then
         mpris2controller PlayPause
     fi
+
+    # if isMprisPlaying  || (isMprisPaused && grep -q "mpris" $lastPlayer); then
+    #     mpris2controller PlayPause
+    #     echo mpris > $lastPlayer
+    # elif isCmusPlaying || (isCmusPaused  && grep -q "cmus"  $lastPlayer); then
+		# cmus-remote -u && pkill -RTMIN+12 i3blocks
+    #     echo cmus > $lastPlayer
+    # elif isCmusPaused; then
+		# cmus-remote -u && pkill -RTMIN+12 i3blocks
+    #     echo cmus > $lastPlayer
+    # fi
+}
+
+cmusPlayPause() { # Play, pause toggle
+    if !(isCmusPlaying) && isMprisPlaying; then
+        mpris2controller PlayPause
+    fi
+    cmus-remote -u && pkill -RTMIN+12 i3blocks
+}
+
+mprisPlayPause() { # Play, pause toggle
+    if isCmusPlaying && !(isMprisPlaying); then
+        cmus-remote -u && pkill -RTMIN+12 i3blocks
+    fi
+    mpris2controller PlayPause
 }
 
 nextTrack() {

@@ -1,0 +1,5 @@
+#!/bin/bash -ue
+
+# /usr/bin/qbittorrent &
+# sleep 3
+pgrep qbittorrent | xargs -I '{}' caffeinate --pid '{}' --socket /tmp/xidlehook.sock

@@ -131,12 +131,14 @@ bindsym ctrl+$mod+r exec record-screen
 include config.monitor
 
 # Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
-bindsym XF86AudioPlay  exec --no-startup-id autohotkey playPause
-bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
-# bindsym XF86AudioPause exec --no-startup-id autohotkey pause
-bindsym XF86AudioNext  exec --no-startup-id autohotkey nextTrack
-bindsym XF86AudioPrev  exec --no-startup-id autohotkey prevTrack
-bindsym $mode+space    exec --no-startup-id autohotkey playPause
+bindsym XF86AudioPlay        exec --no-startup-id autohotkey playPause
+bindsym XF86AudioPause       exec --no-startup-id autohotkey playPause
+bindsym Shift+XF86AudioPlay  exec --no-startup-id autohotkey cmusPlayPause
+bindsym Shift+XF86AudioPause exec --no-startup-id autohotkey cmusPlayPause
+bindsym XF86AudioNext        exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPrev        exec --no-startup-id autohotkey prevTrack
+bindsym $mode+space          exec --no-startup-id autohotkey mprisPlayPause
+bindsym $mode+Shift+space    exec --no-startup-id autohotkey cmusPlayPause
 
 # Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
 # Use keycode to avoid conflict with layer1 activated by pressing $mode
@@ -241,8 +243,8 @@ bindsym $mod+d layout toggle tabbed   split
 # Equal width/height
 bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
 
-# Floating
-bindsym $mod+Shift+space floating toggle
+# Floating (window will remain in fullscreen mode even entering floating state)
+bindsym $mod+Shift+space fullscreen disable, floating toggle
 bindsym $mod+space       focus mode_toggle
 # bindsym $mod+space focus mode_toggle; exec --no-startup-id autohotkey floatingToggled
 

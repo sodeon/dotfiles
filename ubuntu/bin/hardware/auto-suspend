@@ -4,11 +4,13 @@ suspendTime=$1
 pgrep xidlehook && pkill xidlehook
 
 # Pre-conditions:
-#   qbittorrent not executive
+#   qbittorrent not running
 #   No active ssh connection
-suspend_cmd="pgrep qbittorrent ||
-             ss | awk '{print \$5 }' | grep -q -i ssh ||
+suspend_cmd="ss | awk '{print \$5 }' | grep -q -i ssh ||
              systemctl suspend"
+# suspend_cmd="pgrep qbittorrent ||
+#              ss | awk '{print \$5 }' | grep -q -i ssh ||
+#              systemctl suspend"
 
 # No detection for full screen: when powering off display without leaving full screen, we still want system to suspend.
 xidlehook \

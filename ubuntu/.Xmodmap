@@ -90,3 +90,6 @@ keycode 21 = equal plus        F12
 ! keycode 35 = bracketright braceright Scroll_Lock Scroll_Lock
 ! keycode 51 = backslash    bar        Pause       Pause
 
+! keycode 201 = backslash    bar        Pause       Pause
+keycode 202 = XF86WWAN
+keycode 254 = 

@@ -37,15 +37,15 @@ setup-keymap() {
     fi
 
     # Right ctrl/os to right/left
-    if echo "$inputs" | grep -q -e "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
+    # if echo "$inputs" | grep -q -e "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
         right-ctrl-os-as-right-left
         xmodmap -e 'remove control = Right'
         xmodmap -e 'remove mod4    = Left'
-    else
-        default-right-ctrl-os
-        xmodmap -e 'add control = Control_R'
-        xmodmap -e 'add mod4    = Super_R'
-    fi
+    # else
+    #     default-right-ctrl-os
+    #     xmodmap -e 'add control = Control_R'
+    #     xmodmap -e 'add mod4    = Super_R'
+    # fi
 }
 
 
@@ -53,6 +53,7 @@ setup-keymap() {
 # Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
 #------------------------------------------------------------------------------
 bind-dualkeys() {
+    # systemctl --user restart evcape
     if [ -f $gaming_mode ]; then
         systemctl --user stop    evcape
     else
@@ -64,9 +65,10 @@ bind-hotkeys() {
     # return
     echo "" > /tmp/xbindkeysrc
 
-    if [ -f $gaming_mode ]; then
-        cat ~/.config/xbindkeys/mouse-gaming     >> /tmp/xbindkeysrc
-    elif [ -f $mouse_alt ]; then
+    # if [ -f $gaming_mode ]; then
+    #     cat ~/.config/xbindkeys/mouse-gaming     >> /tmp/xbindkeysrc
+    # elif [ -f $mouse_alt ]; then
+    if [ -f $mouse_alt ]; then
         cat ~/.config/xbindkeys/mouse-common     >> /tmp/xbindkeysrc
         cat ~/.config/xbindkeys/mouse-alt        >> /tmp/xbindkeysrc
     else
@@ -90,7 +92,7 @@ bind-hotkeys() {
 mouse-notification() {
     if [ -f $mouse_alt ]; then
         notify-send.sh -t 0 -r 10 -u critical "Alt  |  Media"
-        notify-send.sh --close=13
+        # notify-send.sh --close=13
     else
         notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
         if [ -f $hyperscroll ]; then
