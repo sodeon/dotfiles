@@ -22,8 +22,10 @@ cpu_freq() {
 }
 
 cpu_temp() {
-    if echo "$cpu_info" | grep -q AMD; then
-        sensors | grep 'Tdie' | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
+    if echo "$cpu_info" | grep -q "AMD Ryzen"; then
+        sensors | grep 'Tccd1' | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
+    elif echo "$cpu_info" | grep -q "AMD"; then
+        sensors | grep 'Tdie'  | awk '{print $2}' | sed -e 's/+//' -e 's/\..*//'
     else
         sensors | grep 'Package id 0' | awk '{print $4}' | sed -e 's/+//' -e 's/\..*//'
         # sensors | grep 'Core 0' | awk '{print $3}' | sed -e 's/+//' -e 's/\..*//'
@@ -32,19 +34,20 @@ cpu_temp() {
 
 
 usage=`cpu_usage`
-freq=`cpu_freq`
+# freq=`cpu_freq`
 temp=`cpu_temp`
 
-full_text="$usage%   $temp°  |  $freq"
+full_text="$usage%   $temp°"
+# full_text="$usage%   $temp°  |  $freq"
 echo "$full_text
 $usage%"
-if [ $temp -ge $temp_crit ]; then
+if [[ $temp -ge $temp_crit ]]; then
     echo $temp_crit_color
-elif [ $temp -ge $temp_warn ] ; then
+elif [[ $temp -ge $temp_warn ]] ; then
     echo $temp_warn_color
-elif [ $usage -ge $usage_crit ]; then
+elif [[ $usage -ge $usage_crit ]]; then
     echo $usage_crit_color
-elif [ $usage -ge $usage_warn ]; then
+elif [[ $usage -ge $usage_warn ]]; then
     echo $usage_warn_color
 else
     echo "#888888"

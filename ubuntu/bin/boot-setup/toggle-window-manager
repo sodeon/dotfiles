@@ -1,7 +1,8 @@
 #!/bin/bash -ue
 
 file="/var/lib/AccountsService/users/$USER"
-pattern="XSession="
+pattern="Session="
+# pattern="XSession="
 declare -a options=(gnome-xorg i3)
 
 

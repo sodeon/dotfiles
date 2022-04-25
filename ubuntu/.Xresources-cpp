@@ -16,19 +16,16 @@
 #if defined SCREEN_24_2K
     #define XTERM_FACE_SIZE 14
     #define URXVT_FONT_SIZE 14
-    #define ROFI_FONT_SIZE  14
     #define DUNST_GEOMETRY 160-0+27
     #define DUNST_FONT Ubuntu 13
 #elif defined SCREEN_32_4K
     #define XTERM_FACE_SIZE 18
     #define URXVT_FONT_SIZE 18
-    #define ROFI_FONT_SIZE  20
     #define DUNST_GEOMETRY 400x10-10+54
     #define DUNST_FONT Ubuntu 16
 #elif defined SCREEN_65_4K
     #define XTERM_FACE_SIZE 20
     #define URXVT_FONT_SIZE 20
-    #define ROFI_FONT_SIZE  20
     #define DUNST_GEOMETRY 360x10-0+54
     #define DUNST_FONT Ubuntu 18
 #endif
@@ -116,8 +113,6 @@ URxvt.keysym.Control-V: eval:paste_clipboard
 ! Scroll one line
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
-! URxvt.keysym.Prior: perl:scroll-page:pageup
-! URxvt.keysym.Next: perl:scroll-page:pagedown
 
 ! Move cursor forward/backward one word (this is xterm behavior)
 URxvt.keysym.Control-Right: \033[1;5C
@@ -127,8 +122,7 @@ URxvt.keysym.Control-Left: \033[1;5D
 !-----------------------------------------------------------------
 ! URxvt plugins
 !-----------------------------------------------------------------
-! URxvt.perl-ext-common: default,matcher,keyboard-select,scroll-page
-URxvt.perl-ext-common: default,matcher,keyboard-select
+URxvt.perl-ext-common: default,matcher,keyboard-select,selection-to-clipboard
 
 ! Search
 URxvt.searchable-scrollback: C-F
@@ -150,10 +144,8 @@ URxvt.keysym.Control-Y: perl:keyboard-select:activate
 
 
 !-----------------------------------------------------------------
-! Rofi and dunst
+! dunst
 !-----------------------------------------------------------------
-rofi.font: Ubuntu ROFI_FONT_SIZE
-
 dunst.font: DUNST_FONT
 dunst.geometry: DUNST_GEOMETRY
 

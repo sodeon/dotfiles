@@ -126,20 +126,21 @@ focus() {
     if [[ ! -z ${TMUX-} ]] && exists_another_pane_in_direction $@; then
         case $1 in
             left)
-                tmux select-pane -L
+                (sleep 0.01; tmux select-pane -L) &
                 ;;
             down)
-                tmux select-pane -D
+                (sleep 0.01; tmux select-pane -D) &
                 ;;
             up)
-                tmux select-pane -U
+                (sleep 0.01; tmux select-pane -U) &
                 ;;
             right)
-                tmux select-pane -R
+                (sleep 0.01; tmux select-pane -R) &
                 ;;
         esac
     elif [[ ${XDG_CURRENT_DESKTOP-} == 'i3' ]]; then
-        i3-msg -q focus $@
+        # i3-msg -q focus $@
+        (sleep 0.01; i3-msg -q focus $@) & # Send to background prevents focus lost characters ("^[[O") from showing. This seems to be a feature of DEC private mode's focus reporting.
     elif [[ ! -z ${SSH_CLIENT-} ]]; then
         echo "focus $@" | nc -q0 localhost $port
     fi

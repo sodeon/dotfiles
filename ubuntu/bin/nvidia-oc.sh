@@ -1,9 +1,14 @@
 #!/bin/bash -ue
 #------------------------------------------------------------------------------
 # Pre-requisite
-# https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Overclocking_and_cooling
 #------------------------------------------------------------------------------
-# nvidia-xconfig --cool-bits=12
+# https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Overclocking_and_cooling
+# nvidia-xconfig --cool-bits=8
+
+# https://github.com/NVIDIA/nvidia-settings/issues/65#issuecomment-832921061
+# Add folliwng to /etc/X11/Xwrapper.config:
+#     allowed_users=anybody
+#     needs_root_rights=yes
 
 
 #------------------------------------------------------------------------------

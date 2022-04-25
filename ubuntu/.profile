@@ -50,5 +50,4 @@ xrdb -merge $HOME/.Xresources-cpp
 urxvtd -q -o -f
 
 # play-with-mpv &
-lesskey # Additional "less" keybindings
 if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

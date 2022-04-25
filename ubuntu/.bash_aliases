@@ -62,17 +62,10 @@ alias dco='docker-compose'
 
 
 #-----------------------------------------------------
-# Taskwarrior
-#-----------------------------------------------------
-alias T='task'
-alias ta='task add'
-
-
-#-----------------------------------------------------
 # OS dependent implementation
 #-----------------------------------------------------
 alias suspend.='systemctl suspend'
-alias shutdown.='shutdown -h now'
+# alias shutdown.='shutdown -h now'
 
 alias du.='ncdu --exclude /mnt --exclude /net' # Do not include ntfs and non-local partitions
 # alias du='gdu --ignore-dirs /mnt' # Not as robust as ncdu, but probably faster

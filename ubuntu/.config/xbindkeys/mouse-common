@@ -64,15 +64,15 @@ Mod5+Mod4+c:202
 #   F16 (XF86Launch8, c:197): Front thumb button
 #   F17 (XF86Launch9, c:198): Rear  thumb button
 #---------------------------------------------------------------------------------------------------
-"autohotkey mprisPlayPause"
+"autohotkey playPause"
 Mod3+c:197
-"autohotkey cmusPlayPause"
+"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+9" # Go to rightmost tab
 Mod5+c:198
 
-"xdotool keyup XF86Launch8 key --clearmodifiers ctrl+9" # Go to rightmost tab
-Mod3+Mod4+c:197
-"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+1" # Go to rightmost tab
-Mod5+Mod4+c:198
+# "xdotool keyup XF86Launch8 key --clearmodifiers ctrl+9" # Go to rightmost tab
+# Mod3+Mod4+c:197
+# "xdotool keyup XF86Launch9 key --clearmodifiers ctrl+1" # Go to leftmost tab
+# Mod5+Mod4+c:198
 
 
 #---------------------------------------------------------------------------------------------------

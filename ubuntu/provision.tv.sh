@@ -39,7 +39,6 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
-apt-force install debian-goodies # ex: To list installed packages by size, "dpigs -H"
 apt-force install python3-pip python2
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
@@ -48,8 +47,7 @@ apt-force install ripgrep
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
 apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
-apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
-apt-force install iperf3 sysbench # Benchmark
+# apt-force install iperf3 sysbench # Benchmark
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 # apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
@@ -61,10 +59,12 @@ apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
+apt-force install debian-goodies # ex: To list installed packages by size, "dpigs -H"
 apt-force install rxvt-unicode xsel xclip # xsel/xclip: system clipboard for urxvt
 apt-force install xcwd # xcwd: let terminal opened with working directory of focus window
 apt-force install sshfs
 apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and hotkey helpers.
+apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
 # apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
@@ -130,6 +130,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# MISC app setup
+tldr -u # Build TLDR database
+sudo mv /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste.bak # Ubuntu 22.04 adds confirm-paste into "default" URXVT perl extensions
+
 #
 # Bash library
 #
@@ -138,24 +142,13 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
 # TODO: Use pre-built binary from other machines
-# apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
-# cd-temp
-# apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
-#           libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
-#           libstartup-notification0-dev libxcb-randr0-dev \
-#           libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
-#           libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-#           autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
-# git clone https://www.github.com/Airblader/i3-gaps i3-gaps
-# cd i3-gaps
-# rm -rf build/ && mkdir -p build && cd build
-# meson ..
-# ninja
-# sudo meson install
-# cd-before-temp
-cd ../../i3/build
+cd-temp
+apt-force install libxcb-xrm0 meson
+# apt-force install autoconf libxcb-xrm0 automake meson
+# TODO: Get pre-built i3 and go to i3 directory
+cd build
 sudo meson install
-cd -
+cd-before-temp
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes
@@ -211,9 +204,8 @@ git config --global diff.tool vimdiff
 xdg-mime default ranger.desktop inode/directory
 
 # Disable error reporting
-sudo systemctl mask apport # Program crash report
-sudo systemctl mask apparmor
-sudo systemctl mask whoopsie # Ubuntu error reporting
+sudo systemctl mask apport apport-autoreport # Program crash report
+sudo systemctl mask whoopsie whoopsie.path# Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
 # Additional fonts
@@ -259,7 +251,7 @@ rm -rf $tmp
 #------------------------------------------------------------------------------
 figlet "Success"
 echo "* ./post-provision-note.txt: Non-scripted optional provisions"
-echo "* ./optional/: Scripted optional provision"
+# echo "* ./optional/: Scripted optional provision"
 echo "* ../usage/: Software documentation"
 echo ""
 echo "* Reboot system for new settings to take effect."

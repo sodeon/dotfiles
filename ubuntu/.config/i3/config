@@ -133,12 +133,9 @@ include config.monitor
 # Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
 bindsym XF86AudioPlay        exec --no-startup-id autohotkey playPause
 bindsym XF86AudioPause       exec --no-startup-id autohotkey playPause
-bindsym Shift+XF86AudioPlay  exec --no-startup-id autohotkey cmusPlayPause
-bindsym Shift+XF86AudioPause exec --no-startup-id autohotkey cmusPlayPause
 bindsym XF86AudioNext        exec --no-startup-id autohotkey nextTrack
 bindsym XF86AudioPrev        exec --no-startup-id autohotkey prevTrack
-bindsym $mode+space          exec --no-startup-id autohotkey mprisPlayPause
-bindsym $mode+Shift+space    exec --no-startup-id autohotkey cmusPlayPause
+bindsym $mode+space          exec --no-startup-id autohotkey playPause
 
 # Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
 # Use keycode to avoid conflict with layer1 activated by pressing $mode
@@ -191,10 +188,9 @@ bindsym           $mod+z             exec --no-startup-id autohotkey notify-acti
 # App launcher and workspace picker
 #--------------------------------------------------------------------------------
 # Not directly typed, but used by xcape binding
-set_from_resource $rofiCombiWidth i3wm.rofi.combi.width 20
 # Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
 #     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
-bindsym mod4+F12 exec rofi -show combi  -lines 5 -width $rofiCombiWidth -sidebar-mode 
+bindsym mod4+F12 exec rofi -show combi  -sidebar-mode 
 
 bindsym mod4+Tab exec autohotkey workspacePicker
 

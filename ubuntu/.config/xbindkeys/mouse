@@ -7,9 +7,11 @@
 #---------------------------------------------------------------------------------------------------
 # Left/right clicks
 #---------------------------------------------------------------------------------------------------
-"xdotool key control+Prior" # Prev tab
+# "xdotool key control+Prior" # Prev tab
+"xte 'keydown Control_L' 'key Prior' 'keyup Control_L'" # Prev tab
 Mod3+b:1
-"xdotool key control+Next" # Next tab
+# "xdotool key control+Next" # Next tab
+"xte 'keydown Control_L' 'key Next' 'keyup Control_L'" # Prev tab
 Mod3+b:3
 
 "xdotool key --clearmodifiers control+shift+Prior" # Move tab left

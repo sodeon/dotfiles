@@ -3,7 +3,7 @@
 # Sensible default variables and overrides
 #-----------------------------------------------------------------------------------------------
 NOTIFICATION_TIMEOUT=1400
-ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme arc-dark-workspace-switcher.rasi"
+ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme Arc-Dark.workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
 
 SUSPEND_PRE_CMD() { true; }
@@ -227,79 +227,22 @@ scroll() {
 }
 
 play() { # Play if there is any paused media
-    if cmus-remote -Q | grep -q "status paused"; then # Ubuntu cmus is not compiled with mpris support
-		cmus-remote -p && pkill -RTMIN+12 i3blocks
-    elif mpris2controller Status | grep -q "Paused"; then
+    if mpris2controller Status | grep -q "Paused"; then
         mpris2controller PlayPause
     fi
 }
 
 pause() { # Pause if there is any playing media
-    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
-		cmus-remote -U && pkill -RTMIN+12 i3blocks
-    elif mpris2controller Status | grep -q "Playing"; then
+    if mpris2controller Status | grep -q "Playing"; then
         mpris2controller PlayPause
     fi
 }
 
-isCmusPlaying()  { cmus-remote -Q          | grep -q -e "status playing"; }
-isMprisPlaying() { mpris2controller Status | grep -q -e "Playing";        }
-isCmusPaused()   { cmus-remote -Q          | grep -q -e "status paused";  }
-isMprisPaused()  { mpris2controller Status | grep -q -e "Paused";         }
+playPause() { mpris2controller PlayPause; }
 
-lastPlayer="/tmp/last-player"
-playPause() { # Play, pause toggle
-    if isMprisPlaying; then
-        mpris2controller PlayPause
-    elif isCmusPlaying; then
-		cmus-remote -u && pkill -RTMIN+12 i3blocks
-    elif isCmusPaused; then
-		cmus-remote -u && pkill -RTMIN+12 i3blocks
-    elif isMprisPaused; then
-        mpris2controller PlayPause
-    fi
+nextTrack() { mpris2controller Next     ; }
+prevTrack() { mpris2controller Previous ; }
 
-    # if isMprisPlaying  || (isMprisPaused && grep -q "mpris" $lastPlayer); then
-    #     mpris2controller PlayPause
-    #     echo mpris > $lastPlayer
-    # elif isCmusPlaying || (isCmusPaused  && grep -q "cmus"  $lastPlayer); then
-		# cmus-remote -u && pkill -RTMIN+12 i3blocks
-    #     echo cmus > $lastPlayer
-    # elif isCmusPaused; then
-		# cmus-remote -u && pkill -RTMIN+12 i3blocks
-    #     echo cmus > $lastPlayer
-    # fi
-}
-
-cmusPlayPause() { # Play, pause toggle
-    if !(isCmusPlaying) && isMprisPlaying; then
-        mpris2controller PlayPause
-    fi
-    cmus-remote -u && pkill -RTMIN+12 i3blocks
-}
-
-mprisPlayPause() { # Play, pause toggle
-    if isCmusPlaying && !(isMprisPlaying); then
-        cmus-remote -u && pkill -RTMIN+12 i3blocks
-    fi
-    mpris2controller PlayPause
-}
-
-nextTrack() {
-    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
-		cmus-remote -n && pkill -RTMIN+12 i3blocks
-    else
-        mpris2controller Next
-    fi
-}
-
-prevTrack() {
-    if cmus-remote -Q | grep -q "status playing"; then # Ubuntu cmus is not compiled with mpris support
-		cmus-remote -r && pkill -RTMIN+12 i3blocks
-    else
-        mpris2controller Previous
-    fi
-}
 
 #
 # i3 and VIM navigation integration (navigation/movement/resizing)

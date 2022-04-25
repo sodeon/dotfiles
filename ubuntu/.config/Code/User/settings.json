@@ -111,7 +111,7 @@
     "diffEditor.renderIndicators": false,
 
     "window.zoomLevel": 1,
-    "window.menuBarVisibility": "hidden",
+    "window.menuBarVisibility": "toggle",
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.enableMenuBarMnemonics": false, // Disable showing menu bar when pressing alt
     "window.customMenuBarAltFocus": false,
@@ -291,4 +291,5 @@
     "powermode.enableStatusBarComboTimer": false,
     "powermode.enableStatusBarComboCounter": false,
     "update.showReleaseNotes": false,
+    "workbench.activityBar.visible": false,
 }

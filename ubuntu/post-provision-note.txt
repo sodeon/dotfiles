@@ -11,33 +11,27 @@ Tmux plugin install:
     (ctrl+e I) to download and install plugins
     During plugin installation, tmux will NOT tell you progress and shows nothing.
 
-vscode plugin install
+VSCode plugin install
 
 ## Setup/plugins that needs additional steps after provisioning (ONLY for new machine, old machine covered by "private-dotfiles" repository)
 
 Proprietary drivers:
     $sudo ubuntu-drivers install # Auto-detect and install (e.g. NVIDIA proprietary driver)
 
-Config:
+Config (applicable if you do not have previous machine backup):
     Check backup.sh and search for ".example" for config tuning
-    ~/.config/dotfiles
-        dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
-    ~/.config/Xresources
-        i3, i3blocks.conf: config i3 settings
-        profile: screen size
     ~/.config/autohotkeyrc
-    ~/.config/record-screen.rc
+    ~/.config/dotfiles/dotfilesrc: profile used by backup.sh and restore.sh. REMEMBER TO RUN restore.sh AFTER CHANGING THIS
+    ~/.config/Xresources
+        i3: config i3 settings
+        profile: screen size
+    ~/.config/i3/i3blocks
     ~/.config/mpv/mpv.conf
+    ~/.config/record-screen.rc
 
 System:
     Power off HDD when idling:
         Go to gnome-disks' settings to do so. Not enabled by default.
-    # Remove snapd (https://www.kevin-custer.com/blog/disabling-snaps-in-ubuntu-20-04/)
-    #     Find installed snap packages: $snap list
-    #     Remove snap packages ("core" cannot be removed): $sudo snap remove {packages}
-    #     Remove snap: $sudo apt purge snapd
-    #     Remove snap related directories: $rm -rf ~/snap; sudo rm -rf /snap /var/snap /var/lib/snapd
-    #     (If needed, re-install snap packages using apt: $apt install gnome-system-monitor gnome-logs gnome-characters gnome-calculator)
 
 System (TV):
     Disable swapfile: 
@@ -74,17 +68,8 @@ System (Laptop):
         NOTE: If network drive is not always available, recommend not to auto-mount.
               If network drive is not available at the time of access, process hanged to wait timeout.
               Some commands like df implicitly accessed network drives.
-    Wake-on-lan:
-        Step 1: Enable wake-on-lan on bios (Power On By PCIE). No additional software required. Ubuntu already has network driver support.
-        Step 2: Trigger suspended system to wakeup (by sending magic packet)
-            $wakeonlan <mac address> # mac address can be found by "$ip a".
-        Extra step: To debug, monitor if receiving magic packet
-            $sudo apt install ngrep
-            $ngrep '\xff{6}(.{6})\1{15}' -x port 9
 
 Performance:
-    Disable unused services: $sudo systemctl mask {service} # Use mask, not disable. Disable will be auto-enabled if requested by apps.
-        - services: cups, cups-browsed (bonjour printing), openvpn, vsftpd (ftp), snapd, snapd.seeded (snap packages)
     Boot optimization:
         - Boot time analysis: 
             $systemd-analyze time/blame/plot; (plot will draw svg)
@@ -94,12 +79,3 @@ Performance:
             GRUB_CMDLINE_LINUX_DEFAULT="quiet"
             # Disable kernel messages on screen by outputing in non-existent tty
             GRUB_CMDLINE_LINUX="console=ttyS0"
-        - Risky (save 2s): $sudo systemctl mask NetworkManager-wait-online.service
-    Reduce boot memory usage and boot time by removing gnome dependency
-        - Disable dual GPU detection and services: $sudo systemctl mask switcheroo-control.service
-        - Disable gnome-online-account (https://superuser.com/questions/1576565/how-to-remove-gnome-online-accounts-integration)
-            $sudp apt remove gnome-online-account
-            $sudo rm /usr/share/applications/gnome-online-accounts-panel.desktop
-        - Disable trackers (https://www.linuxuprising.com/2019/07/how-to-completely-disable-tracker.html?m=1)
-            $systemctl --user mask tracker-extract.service tracker-miner-fs.service tracker-store.service tracker-writeback.service
-        - Disable gvfs (gnome virtual filesystem): $systemctl --user stop gvfs-daemon.service

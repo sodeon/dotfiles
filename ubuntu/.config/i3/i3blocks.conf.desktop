@@ -46,7 +46,8 @@ separator=false
 
 [cpu_stat]
 interval=2
-min_width=100%   35°  |  1.0
+# min_width=100%   35°  |  1.0
+min_width=100%   35°
 align=right
 command=cpu_stat 2
 separator=false
