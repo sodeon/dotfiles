@@ -24,7 +24,6 @@ cd-before-temp() {
 # Pre-software-installation Config
 #------------------------------------------------------------------------------
 # temporary folder during provisioning
-# rm -rf ~/.oh-mh-zsh ~/.fzf ~/.tmux
 rm -rf $tmp
 mkdir -p $tmp
 
@@ -44,18 +43,20 @@ apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fd-find highlight dos2unix # cmd utilities and environment (fasd: not fitting into workflow)
 apt-force install ripgrep
+apt-force install fzf
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
-apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat
-# apt-force install iperf3 sysbench # Benchmark
+apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat, mpstat
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 # apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh mtr # network utilities
-# apt-force install cmake make build-essential autotools-dev # build tools
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 # apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
+# apt-force install iperf3 sysbench # Benchmark
+# apt-force install cmake make build-essential autotools-dev # build tools
+# apt-force install gdb gcc g++ # build tools
 
 # From Ubuntu apt - WSL not usable
 # apt-force install aptitude # apt package manager
@@ -65,10 +66,10 @@ apt-force install xcwd # xcwd: let terminal opened with working directory of foc
 apt-force install sshfs
 apt-force install xbindkeys xautomation xdotool xkbset evtest # key mapping and hotkey helpers.
 apt-force install hardinfo # device manager (conveinient tool without using lspci/lscpu/lsusb/lsblk/...)
+apt-force install gparted smartmontools # Disk utilities
 # apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
-# apt-force install gdb gcc g++ # build tools
 # apt-force install qbittorrent
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
@@ -78,14 +79,11 @@ apt-force install zathura # pdf reader
 apt-force install unrar p7zip
 # apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
-# apt-force install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell # gnome customizations
 apt-force install numlockx
 apt-force install wakeonlan ethtool
 # apt-force install blueman
 apt-force install lm-sensors # Hardware sensors. $sensors to read temperatures/voltages
-
-# light: LCD blacklight control for laptop panel. For external monitor, use ddccontrol.
-# sudo apt install light
+# sudo apt install light # light: LCD blacklight control for laptop panel. For external monitor, use ddccontrol.
 
 # From Ubuntu apt - i3
 # apt-force install xautolock # Automatic suspend/lock (marked as legacy, replaced by xidlehook that correctly supports Chrome Youtube)
@@ -94,7 +92,7 @@ apt-force install dunst # Lightweight notification for i3
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3
 apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
-# apt-force install compton # compton: transition/transparency effect
+# apt-force install picom # picom: window compositor providing transition/transparency/... effects
 
 apt-force autoremove
 
@@ -104,23 +102,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 mkdir -p ~/.oh-my-zsh/plugins
 cp -rf .oh-my-zsh/plugins/sd ~/.oh-my-zsh/plugins
 
-wget https://raw.githubusercontent.com/arzzen/calc.plugin.zsh/master/calc.plugin.zsh
-mkdir -p ~/.oh-my-zsh/plugins/calc
-sudo mv calc.plugin.zsh ~/.oh-my-zsh/plugins/calc
-chmod -x ~/.oh-my-zsh/plugins/calc/calc.plugin.zsh
-chmod -w ~/.oh-my-zsh/plugins/calc
-
 cd-temp
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 cp -rf zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-cd-before-temp
-
-# fzf
-cd-temp
-git clone --depth 1 https://github.com/junegunn/fzf.git
-cp -rf fzf ~/.fzf
-yes | ~/.fzf/install
 cd-before-temp
 
 # vim/gvim
@@ -172,11 +157,6 @@ cd apps/sxiv
 sudo make install
 cd -
 
-# Youtube played by mpv (to enable hardware video acceleration)
-#    Install Chrome "play with mpv" extension
-#    In chrome: ctrl+space to play by mpv
-# pip3 install git+git://github.com/thann/play-with-mpv --user 
-
 
 #------------------------------------------------------------------------------
 # Remove Ubuntu installed software
@@ -205,7 +185,7 @@ xdg-mime default ranger.desktop inode/directory
 
 # Disable error reporting
 sudo systemctl mask apport apport-autoreport # Program crash report
-sudo systemctl mask whoopsie whoopsie.path# Ubuntu error reporting
+sudo systemctl mask whoopsie whoopsie.path # Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
 # Additional fonts
