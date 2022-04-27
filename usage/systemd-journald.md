@@ -23,7 +23,7 @@
   ```
   ```bash
   Storage=auto      # Log to disk if possible (default). 
-                    # Log to /var/log/journald if directory writable.
+                    # Log to /var/log/journal if directory writable.
   SystemMaxUse=500M # Up to 500MB of disk for logging. (default: 10% disk space)
   ```
   ```bash

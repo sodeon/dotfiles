@@ -44,6 +44,7 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 
 alias mount-android="jmtpfs /mnt/temp; cd /mnt/temp"
 alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
+alias mount-usb="sudo mount /dev/sdc1 /mnt/temp -o uid=1000,user; ; cd /mnt/temp"
 
 alias ytdl="youtube-dl"
 alias lc="lossless-cut"

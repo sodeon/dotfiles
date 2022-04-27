@@ -4,16 +4,17 @@
 GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
 
-if [[ -x /usr/bin/os-prober ]]; then
+if grep -q ^\s*GRUB_DISABLE_OS_PROBER\s*=\s*false /etc/default/grub; then
     warn "Disabling GRUB boot menu ..."
     sudo sed -i -re 's/^(\s*GRUB_TIMEOUT\s*=\s*)"?[0-9]+"?/\10/' /etc/default/grub
-    sudo chmod -x /usr/bin/os-prober
+    sudo sed -i -re 's/^(\s*GRUB_DISABLE_OS_PROBER\s*=\s*)false/\1true/' /etc/default/grub
+    sudo sed -i -re 's/^(\s*GRUB_TERMINAL\s*=\s*.*)/# \1/' /etc/default/grub
     sudo update-grub
-    # grep -P '^\s*GRUB_DEFAULT\s*=\s*0' /etc/default/grub || warn "Warning: GRUB_DEFAULT is not 0. GRUB may not allow disabling grub menu for non-default boot entry."
-    warn "Warning: GRUB only allows disabling grub menu when last booting to linux."
+    # warn "Warning: GRUB only allows disabling grub menu when last booting to linux."
 else
     warn "Enabling GRUB boot menu ..."
     sudo sed -i -re 's/^(\s*GRUB_TIMEOUT\s*=\s*)"?[0-9]+"?/\1'$GRUB_TIMEOUT'/' /etc/default/grub
-    sudo chmod +x /usr/bin/os-prober
+    sudo sed -i -re 's/^(\s*GRUB_DISABLE_OS_PROBER\s*=\s*)true/\1false/' /etc/default/grub
+    sudo sed -i -re 's/^#\s*(GRUB_TERMINAL\s*=\s*.*)/\1/' /etc/default/grub
     sudo update-grub
 fi

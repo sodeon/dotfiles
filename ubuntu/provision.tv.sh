@@ -50,7 +50,7 @@ apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk m
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 # apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
-apt-force install curl wget ssh mtr # network utilities
+apt-force install curl wget ssh traceroute mtr # network utilities
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 # apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
