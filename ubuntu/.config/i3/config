@@ -44,7 +44,8 @@ bar {
 	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
 	font pango:Ubuntu $i3blockFontSize
 	colors {
-		set $bar-bg-color            #2f343f
+		# set $bar-bg-color            #2f343f
+		set $bar-bg-color            #222222
 		set $bar-inactive-bg-color   #000000
 		set $bar-text-color          #f3f4f5
 		set $bar-inactive-text-color #676e7d
@@ -93,10 +94,10 @@ bindsym $mode+u     exec --no-startup-id autohotkey deleteLine
 bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
 
 # Move back/forward a word
-bindsym $mode+r       exec --no-startup-id xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $mode+Shift+r exec --no-startup-id xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
-bindsym $mode+t       exec --no-startup-id xte 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
-bindsym $mode+Shift+t exec --no-startup-id xte 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
+bindsym $mode+r       exec --no-startup-id autohotkey previousWord
+bindsym $mode+Shift+r exec --no-startup-id autohotkey previousWord
+bindsym $mode+t       exec --no-startup-id autohotkey nextWord
+bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
 
 # Caps lock (original caps lock is used for dual purpose of ctrl and escape)
 bindsym $mode+Tab exec --no-startup-id xte 'keyup Tab' 'key Caps_Lock'

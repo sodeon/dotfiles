@@ -2,10 +2,32 @@
 
 # vivaldi
 BROWSER_WIN_CLASS="Vivaldi-stable"
-WS1_CMD() { vivaldi --force-dark-mode; }
+WS1_CMD() { 
+    vivaldi \
+    --force-dark-mode \
+    --enable-quic \
+    --ignore-gpu-blocklist \
+    --enable-gpu-rasterization \
+    --enable-zero-copy \
+    --enable-features=VaapiVideoDecoder \
+    --disable-features=UseChromeOSDirectVideoDecoder \
+    --use-gl=desktop
+}
 
 # chromium
 # BROWSER_WIN_CLASS="chromium-browser"
+# WS1_CMD() { 
+#     export VDPAU_VIDEO_DEBUG=1
+#     vivaldi \
+#     --force-dark-mode \
+#     --ignore-gpu-blocklist \
+#     --enable-gpu-rasterization \
+#     --enable-zero-copy \
+#     --disable-gpu-driver-bug-workarounds \
+#     --enable-features=VaapiVideoDecoder \
+#     --disable-features=UseSkiaRenderer,UseChromeOSDirectVideoDecoder \
+#     --use-gl=desktop > ~/temp.txt
+# }
 # WS1_CMD() { 
 #     # LIBVA_DRIVER_NAME=iHD `# https://github.com/intel/intel-vaapi-driver/issues/493` \
 #     # LIBVA_DRIVER_NAME=i965

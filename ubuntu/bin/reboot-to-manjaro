@@ -1,0 +1,5 @@
+#!/bin/bash -ue
+
+bootEntry=`efibootmgr | awk '/Manjaro/ {print $1}' | sed -r 's/Boot//' | sed -r 's/\*//'`
+sudo efibootmgr -n $bootEntry > /dev/null
+reboot
