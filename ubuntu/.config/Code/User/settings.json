@@ -37,7 +37,7 @@
     "workbench.statusBar.visible": true,
     "workbench.tree.renderIndentGuides": "always",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
+    "workbench.colorTheme": "Aramok's Black",
     "workbench.colorCustomizations": {
         "statusBar.background": "#011627",
         "statusBar.foreground": "#eee"

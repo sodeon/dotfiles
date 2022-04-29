@@ -49,6 +49,9 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
+" Split '=' as part of valid file/dir path
+set isfname-==
+
 
 "-----------------------------------------------------------------------------
 " Looks
@@ -88,7 +91,7 @@ set tw=500
 " Editor tabs, TabLineFill ctermbg must uses different color than ctermfg in order to take effect in urxvt
 hi TabLineFill ctermfg=Black    ctermbg=White
 hi TabLine     ctermfg=DarkGrey ctermbg=Black cterm=NONE
-hi TabLineSel  ctermfg=White    ctermbg=DarkGrey
+hi TabLineSel  ctermfg=White    ctermbg=Black
 "hi Title ctermfg=LightBlue ctermbg=Black
 
 " Set block cursor during insert mode

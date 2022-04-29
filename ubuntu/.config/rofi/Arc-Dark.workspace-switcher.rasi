@@ -60,7 +60,7 @@ listview {
     fixed-height: 0;
     border:       2px 0px 0px ;
     border-color: @separatorcolor;
-    spacing:      2px ;
+    spacing:      0px ;
     // scrollbar:    true;
     scrollbar:    false;
     // padding:      2px 0px 0px ;
@@ -70,7 +70,7 @@ listview {
 }
 element {
     border:  0;
-    padding: 1px ;
+    padding: 7px ;
 }
 element-text {
     background-color: inherit;
