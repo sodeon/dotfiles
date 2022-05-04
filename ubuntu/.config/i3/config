@@ -45,9 +45,10 @@ bar {
 	font pango:Ubuntu $i3blockFontSize
 	colors {
 		# set $bar-bg-color            #2f343f
-		set $bar-bg-color            #222222
+		set $bar-bg-color            #000000
 		set $bar-inactive-bg-color   #000000
-		set $bar-text-color          #f3f4f5
+		# set $bar-text-color          #f3f4f5
+		set $bar-text-color          #ffffff
 		set $bar-inactive-text-color #676e7d
 		set $bar-urgent-bg-color     #000000
         set $bar-urgent-text-color   #ff7777
@@ -479,6 +480,7 @@ exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking
 #
 # Startup programs
 #
+exec        --no-startup-id start-compositor
 exec        --no-startup-id mpris2controller &
 exec        --no-startup-id pgrep dunst || dunst &
 exec_always --no-startup-id pgrep start-ssh-feed || start-ssh-feedback-listener-server &

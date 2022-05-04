@@ -5,8 +5,8 @@ usage_warn=45
 usage_crit=75
 usage_warn_color=#C8D627
 usage_crit_color=#FFFF00
-temp_warn=65
-temp_crit=85
+temp_warn=62
+temp_crit=82
 temp_warn_color=#FF7070
 temp_crit_color=#FF0000
 
@@ -18,7 +18,10 @@ cpu_usage() {
 
 cpu_info=`lscpu`
 cpu_freq() {
-    echo "$cpu_info" | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
+    cpupower frequency-info | grep 'asserted by call to kernel' | awk '{print $4}'
+
+    # Incompatible with Ubuntu 22.04 `lscpu` which no longer reports current CPU frequency
+    # echo "$cpu_info" | grep 'CPU MHz:' | sed -r -e 's/CPU MHz:\s*//' -e 's/\..*//' -e 's/([0-9][0-9][0-9]$)/.\1/' | awk '{printf("%0.1f\n", $1)}'
 }
 
 cpu_temp() {

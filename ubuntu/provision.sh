@@ -92,7 +92,7 @@ apt-force install dunst # Lightweight notification for i3
 apt-force install rofi rofi-dev qalc # rofi: launcher, rofi-dev: used by rofi plugins, qalc: rofi calculator
 apt-force install lxappearance # Apply GTK theme in i3
 apt-force install flameshot pulsemixer # flameshot: screenshot, pulsemixer: current audio for i3blocks
-# apt-force install picom # picom: window compositor providing transition/transparency/... effects
+apt-force install picom hsetroot # picom: window compositor providing transition/transparency/... effects, hsetroot: set background color
 
 apt-force autoremove
 

@@ -1,0 +1,4 @@
+#!/bin/bash -ue
+
+hsetroot -solid '#000000' # Black background
+picom -b # Picom cmopositor in daemon mode
