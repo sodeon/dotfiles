@@ -71,3 +71,6 @@ declare -A F10_ENTRIES=(
     # [2. Retro Arcade]=mame
      # "desmune"
 )
+
+BLUETOOTH_ENTRIES[3. Enco Air2 Conn/Disconn]="toggle-bluetooth device Enco Air2"
+# BT_QUICK_CONNECT_DEVICE="Enco Air2"

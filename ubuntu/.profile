@@ -47,7 +47,7 @@ xrdb -merge $HOME/.Xresources-cpp
 [[ $XDG_CURRENT_DESKTOP == "i3" ]] && source set-display-monitor # For other desktop environment, use its built-in mechanism
 
 # urxvt daemon
-urxvtd -q -o -f
+# urxvtd -q -o -f
 
 # play-with-mpv &
 if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

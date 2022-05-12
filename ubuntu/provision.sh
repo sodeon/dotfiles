@@ -203,8 +203,8 @@ cd-before-temp
 
 # Enable command line LCD panel backlight control
 sudo usermod -a -G video $USER
-sudo usermod -a -G i2c $USER
-sudo usermod -a -G disk $USER
+sudo usermod -a -G i2c   $USER
+sudo usermod -a -G disk  $USER
 
 # evcape (xcape equivalent, but works in both X11 and Wayland)
 apt-force install python3-evdev python3-pyudev python3-six
@@ -212,8 +212,8 @@ cd-temp
 git clone https://github.com/wbolster/evcape
 sudo cp -f ./evcape/evcape.py /usr/local/bin
 cd-before-temp
-sudo adduser $USER input
 sudo addgroup --system uinput
+sudo adduser $USER input
 sudo adduser $USER uinput
 sudo mkdir -p /etc/udev/rules.d/
 echo 'KERNEL=="uinput", GROUP="uinput", MODE:="0660"' | sudo tee /etc/udev/rules.d/99-uinput.rules > /dev/null

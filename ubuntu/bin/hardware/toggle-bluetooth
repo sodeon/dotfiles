@@ -39,17 +39,17 @@ case "$command" in
         disable-bluetooth && notify-send -u low "Bluetooth Disabled"
         ;;
     device)
-        mac=$2
-        auto_off=${3-false}
-        # TODO: Error check MAC address
+        device="${@:2}"
+        mac=`bluetoothctl devices | grep "$device" | awk '{print $2}'` # TODO: Error check device existence
+        # auto_off=${3-false}
         if bluetoothctl info $mac | grep -q 'Connected: yes'; then
-            notify-send.sh -t 0 -r 30 -u low "Disconnecting Bluetooth Device..."
-            bluetoothctl disconnect $mac && notify-send.sh -t 5000 -r 30 -u normal "Device Disconnected" "$mac" || notify-send.sh -t 5000 -r 30 -u critical "Disconnection Failed" "$mac"
-            [ $auto_off == "true" ] && (has-connected-device || disable-bluetooth) # Automatically turn off bluetooth there is no more connected bluetooth device
+            notify-send.sh -t 0 -r 30 -u low "Disconnecting..." "$device"
+            bluetoothctl disconnect $mac && notify-send.sh -t 5000 -r 30 -u normal "Disconnected" "$device" || notify-send.sh -t 5000 -r 30 -u critical "Disconnection Failed" "$device"
+            # [ $auto_off == "true" ] && (has-connected-device || disable-bluetooth) # Automatically turn off bluetooth there is no more connected bluetooth device
         else                                                         
-            notify-send.sh -t 0 -r 30 -u low "Connecting Bluetooth Device..."
+            notify-send.sh -t 0 -r 30 -u low "Connecting..." "$device"
             has-connected-device || enable-bluetooth
-            bluetoothctl connect    $mac && notify-send.sh -t 5000 -r 30 -u normal "Device Connected"    "$mac" || notify-send.sh -t 5000 -r 30 -u critical "Connection Failed"    "$mac"
+            bluetoothctl connect    $mac && notify-send.sh -t 5000 -r 30 -u normal "Connected"    "$device" || notify-send.sh -t 5000 -r 30 -u critical "Connection Failed"    "$device"
         fi
         ;;
     *)

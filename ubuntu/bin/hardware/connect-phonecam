@@ -8,11 +8,11 @@ IP=${1-""}
 # Camera and microphone
 #----------------------------------------------------------------
 # connect-phonecam
+params="-t " # Workaround bugs with some versions of gstreamer1.0: https://github.com/umlaeute/v4l2loopback/issues/83
 if [ -z $IP ]; then # USB adb
-    params=""
     IP=adb-cam
 else # IP webcam
-    params="-i $IP"
+    params+="-i $IP"
     if ! ping -c1 $IP >/dev/null; then
         notify-send.sh -t 4000 -u  critical "Camera" "$IP not online"
         exit 1

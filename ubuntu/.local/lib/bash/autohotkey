@@ -6,6 +6,8 @@ NOTIFICATION_TIMEOUT=1400
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme Arc-Dark.workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
 
+BT_QUICK_CONNECT_DEVICE='WH-1000XM4'
+
 SUSPEND_PRE_CMD() { true; }
 
 declare -A F4_ENTRIES=(
@@ -27,8 +29,8 @@ declare -A POWER_ENTRIES=(
     [4. Shutdown       ]="shutdown -h now"
 )
 declare -A BLUETOOTH_ENTRIES=(
-    [1. Power On/Off        ]="toggle-bluetooth"
-    [2. Headset Conn/Disconn]="bluetooth-quick-connect"
+    [1. Power On/Off                         ]="toggle-bluetooth"
+    [2. $BT_QUICK_CONNECT_DEVICE Conn/Disconn]="bluetooth-quick-connect"
 )
 if [ -f /tmp/connect-phonecam-ready ]; then
     declare -A WIFI_ENTRIES=(
@@ -257,8 +259,22 @@ pause() { # Pause if there is any playing media
 
 playPause() { mpris2controller PlayPause; }
 
-nextTrack() { mpris2controller Next     ; }
-prevTrack() { mpris2controller Previous ; }
+nextTrack() { 
+    # In practical usage, if listening to music, "next track" means next track for music, not video
+    if cmus-remote --query | grep -q "status playing"; then
+        cmus-remote --next
+    else
+        mpris2controller Next
+    fi
+}
+prevTrack() { 
+    # In practical usage, if listening to music, "prev track" means prev track for music, not video
+    if cmus-remote --query | grep -q "status playing"; then
+        cmus-remote --prev
+    else
+        mpris2controller Previous
+    fi
+}
 
 
 #
@@ -541,8 +557,7 @@ display-standby() {
     xset dpms force off
 }
 
-bluetooth-quick-connect() { toggle-bluetooth device ${QUICK_CONNECT_MAC-"94:DB:56:AE:BE:C5"}; }
-# bluetooth-quick-connect() { toggle-bluetooth device ${QUICK_CONNECT_MAC-"94:DB:56:AE:BE:C5"} true; }
+bluetooth-quick-connect() { toggle-bluetooth device "$BT_QUICK_CONNECT_DEVICE"; }
 
 power-menu() {
     simple-rofi Menu ${POWER_WIDTH-23} POWER_ENTRIES

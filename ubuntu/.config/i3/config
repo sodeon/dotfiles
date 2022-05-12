@@ -323,7 +323,7 @@ bindsym $mod+slash       scratchpad show
 # Application window/workspace settings
 #--------------------------------------------------------------------------------
 # Terminal
-set $term urxvtc
+set $term terminal
 bindsym $mod+Return exec $term -cd $(xcwd)
 
 # Bind application to workspace
