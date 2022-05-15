@@ -2,6 +2,18 @@
 
 app=$1
 title=${2-$app}
+transparency=${3-ff} # From 00 to ff. 00 is full transparency. ff is no transparency.
 
-(i3-msg "[instance=\"^$app$\"] scratchpad show") \
-    || (urxvtc -name $app -title "$title" -e $app && i3-msg "[instance=\"^$app$\"] scratchpad show, move position center")
+if i3-msg "[instance=\"^$app$\"] scratchpad show"; then
+    true
+else
+    if [ $transparency == "ff" ]; then
+        urxvtc                                                     -name $app -title "$title" -e $app
+    else
+        urxvt  -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 -name $app -title "$title" -e $app &
+    fi
+    while !(i3-msg "[instance=\"^$app$\"] scratchpad show, move position center"); do true; done
+fi
+
+# (i3-msg "[instance=\"^$app$\"] scratchpad show") \
+#     || (urxvtc -name $app -title "$title" -e $app && i3-msg "[instance=\"^$app$\"] scratchpad show, move position center")

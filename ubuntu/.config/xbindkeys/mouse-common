@@ -68,11 +68,11 @@ Mod5+Mod4+c:202
 Mod3+c:197
 "xdotool keyup XF86Launch9 key --clearmodifiers ctrl+9" # Go to rightmost tab
 Mod5+c:198
+"xdotool keyup XF86Launch9 key --clearmodifiers ctrl+1" # Go to leftmost tab
+Mod5+Mod4+c:198
 
 # "xdotool keyup XF86Launch8 key --clearmodifiers ctrl+9" # Go to rightmost tab
 # Mod3+Mod4+c:197
-# "xdotool keyup XF86Launch9 key --clearmodifiers ctrl+1" # Go to leftmost tab
-# Mod5+Mod4+c:198
 
 
 #---------------------------------------------------------------------------------------------------

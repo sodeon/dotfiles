@@ -17,6 +17,9 @@ i3wm.toggleHGap: 116
 i3wm.hGapStep: 32
 i3wm.vGapStep: 32
 
+! Transparency
+! i3wm.notebook.transparency: 44
+
 ! i3wm.ws1.horizontalGap:  116
 i3wm.ws2.horizontalGap:  116
 ! i3wm.ws3.horizontalGap:  116

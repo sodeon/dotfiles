@@ -357,7 +357,8 @@ for_window [class="qBittorrent"         ]                        floating enable
 # Floating application
 #--------------------------------------------------------------------------------
 # Notebook and cmus uses lazy execution (won't execute until first accessing)
-bindsym $mod+n exec i3-floating-singleton tmux "Notebook"
+set_from_resource $notebookTransparency i3wm.notebook.transparency 44
+bindsym $mod+n exec i3-floating-singleton tmux "Notebook"     $notebookTransparency
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
 bindsym $mod+Shift+m workspace number $ws9
 bindsym $mod+Control+m exec open-clipboard-with-mpv
@@ -365,7 +366,7 @@ bindsym $mod+Control+m exec open-clipboard-with-mpv
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt
 set_from_resource $cmusSize i3wm.cmus.size 80 ppt 80 ppt
-for_window [instance="^tmux$"] border pixel 3, floating enable, resize set $tmuxSize, move scratchpad
+for_window [instance="^tmux$"] border pixel 0, floating enable, resize set $tmuxSize, move scratchpad
 for_window [instance="^cmus$"] border pixel 0, floating enable, resize set $cmusSize, move scratchpad
 for_window [class="mpv"      ] border none   , focus, fullscreen
 # for_window [                    instance="^rpiplay$"      ] border none   , focus, fullscreen
@@ -455,7 +456,7 @@ mode " " {
 # i3 config
 #
 exec i3-msg 'workspace $ws2; exec $term'
-exec --no-startup-id xsetroot -solid "#000000" # Black background
+# exec --no-startup-id xsetroot -solid "#000000" # Black background
 exec_always --no-startup-id i3-watch-window & # Let status bar show window title. When i3 reload, i3-msg subscribe process be will automatically terminated.
 
 #
@@ -480,7 +481,7 @@ exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking
 #
 # Startup programs
 #
-exec        --no-startup-id start-compositor
+exec_always --no-startup-id start-compositor &
 exec        --no-startup-id mpris2controller &
 exec        --no-startup-id pgrep dunst || dunst &
 exec_always --no-startup-id pgrep start-ssh-feed || start-ssh-feedback-listener-server &
