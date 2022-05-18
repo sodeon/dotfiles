@@ -82,6 +82,12 @@ color=#CC4444
 interval=once
 signal=20
 
+[caffeine]
+command=sleep 0.25 && pgrep caffeinate >/dev/null && echo 😎 || echo "" # Wait a small amount of time for caffeinate command to launch
+color=#44AADD
+interval=once
+signal=21
+
 # [debug]
 # interval=1
 # command=xdotool getactivewindow

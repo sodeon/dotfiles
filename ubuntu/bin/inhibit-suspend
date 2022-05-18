@@ -2,4 +2,8 @@
 
 # /usr/bin/qbittorrent &
 # sleep 3
+pkill -RTMIN+21 i3blocks
 pgrep qbittorrent | xargs -I '{}' caffeinate --pid '{}' --socket /tmp/xidlehook.sock
+
+sleep 1
+pkill -RTMIN+21 i3blocks
