@@ -59,6 +59,7 @@ alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasin
 
 sub-font-size=40
 sub-margin-y=30
+sub-border-size=0
 
 volume-max=200              # maximum volume in %, everything above 100 results in amplification
 
@@ -67,7 +68,7 @@ osd-on-seek=msg-bar
 osd-bar-align-y=0.783
 osd-bar-w=55
 osd-bar-h=2
-osd-border-size=1
+osd-border-size=0
 osd-align-x=center
 osd-align-y=bottom
 
@@ -79,7 +80,7 @@ osd-align-y=bottom
 
 # gpu-api=vulkan
 hwdec=auto-copy
-dither=error-diffusion # Very high GPU usage requirements
+# dither=error-diffusion # Very high GPU usage requirements. Geforce 2070 can handle up to 1440p, not 4K.
 deband=yes
 deband-iterations=2
 correct-downscaling=yes
@@ -112,15 +113,24 @@ blend-subtitles=no
 # vo=null
 # ytdl-format=bestaudio/best # force VP9 video for 60fps
 
-# [shader-liveaction]
-# glsl-shaders-clr
-# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
-# glsl-shader="~~/shaders/KrigBilateral.glsl"
 
-# [shader-anime]
+#------------------------------------------------------------------------------
+# Scaler quality
+# https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/
+# https://github.com/po5/mpv-config/blob/master/mpv.conf
+#------------------------------------------------------------------------------
+[shader-liveaction]
+glsl-shaders-clr
+glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
+glsl-shader="~~/shaders/KrigBilateral.glsl"
+profile-cond=(width <= 1920 and container_fps <= 30) or (width <= 1280)
+
+[shader-anime]
 glsl-shaders-clr
 glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
 glsl-shader="~~/shaders/KrigBilateral.glsl"
+profile-cond=(width > 1920) or (width > 1280 and container_fps > 30)
 
 # [shaders-mixed]
 # glsl-shaders-clr

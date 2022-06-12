@@ -192,7 +192,7 @@ bindsym           $mod+z             exec --no-startup-id autohotkey notify-acti
 # Not directly typed, but used by xcape binding
 # Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
 #     If using mod+F12, mod+h/j/k/l followed by mod4/super will result in the alt key triggerd by mod4(xcape) missing
-bindsym mod4+F12 exec rofi -show combi  -sidebar-mode 
+bindsym mod4+F12 exec rofi -show combi -sidebar-mode 
 
 bindsym mod4+Tab exec autohotkey workspacePicker
 
@@ -338,8 +338,9 @@ assign [class="^Desmume$"    ] $ws10
 assign [class="^Lutris$"     ] $ws10
 assign [class="^mame$"       ] $ws10
 
-for_window [class="URxvt" title="ranger"] border pixel 2, focus
+for_window [class="URxvt" title="ranger"] border pixel 2
 for_window [class="Google-chrome"       ] border none
+for_window [class="Vivaldi-stable"      ] border none
 for_window [class="Brave-browser"       ] border none
 for_window [class="Firefox"             ] border none
 for_window [class="Org.gnome.Nautilus"  ] border none
@@ -348,8 +349,8 @@ for_window [class="^zoom$"              ]                 focus, layout tabbed
 for_window [class="Zathura"             ] border none,    focus
 for_window [class="Sxiv"                ] border none,    focus, fullscreen
 for_window [title="^LibreOffice "       ] border none,    focus
-for_window [class="^Lutris$"            ] border none,    focus
-for_window [class="^mame$"              ] border none,    focus
+for_window [class="^Lutris$"            ] border none
+for_window [class="^mame$"              ] border none
 for_window [class="qBittorrent"         ]                        floating enable, move center
 
 
@@ -360,8 +361,9 @@ for_window [class="qBittorrent"         ]                        floating enable
 set_from_resource $notebookTransparency i3wm.notebook.transparency 44
 bindsym $mod+n exec i3-floating-singleton tmux "Notebook"     $notebookTransparency
 bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
-bindsym $mod+Shift+m workspace number $ws9
-bindsym $mod+Control+m exec open-clipboard-with-mpv
+# bindsym $mod+Shift+m workspace number $ws9
+bindsym $mod+Shift+m exec open-clipboard-with-mpv
+# bindsym $mod+Control+m exec open-clipboard-with-mpv
 # bindsym $mod+Shift+m [class="^mpv"] scratchpad show
 
 set_from_resource $tmuxSize i3wm.tmux.size 60 ppt 70 ppt

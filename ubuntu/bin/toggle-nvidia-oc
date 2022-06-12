@@ -10,6 +10,8 @@
 #     allowed_users=anybody
 #     needs_root_rights=yes
 
+cmd=${1-""}
+
 #------------------------------------------------------------------------------
 # GeForce RTX 2070
 #------------------------------------------------------------------------------
@@ -42,15 +44,28 @@ set-perf-clock-offset() {
     nvidia-settings -a "[gpu:$gpu]/GPUMemoryTransferRateOffset[$level]=$mem_offset"
 }
 
+enable-oc() {
+    set-power-limit $pl
+    set-perf-clock-offset $level $core_offset $mem_offset
+}
+
+disable-oc() {
+    set-power-limit $default_pl
+    set-perf-clock-offset $level 0 0
+}
+
 
 
 #------------------------------------------------------------------------------
 # Main
 #------------------------------------------------------------------------------
-if at-default-clock; then
-    set-power-limit $pl
-    set-perf-clock-offset $level $core_offset $mem_offset
+# if at-default-clock || [[ $cmd == "on" ]]; then
+if   [[ $cmd == "on"  ]]; then
+    enable-oc
+elif [[ $cmd == "off" ]]; then
+    disable-oc
+elif at-default-clock; then
+    enable-oc
 else
-    set-power-limit $default_pl
-    set-perf-clock-offset $level 0 0
+    disable-oc
 fi

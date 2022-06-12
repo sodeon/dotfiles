@@ -16,7 +16,8 @@ Bluetooth device stores pairing MAC address and pairing key. To make the device 
        ```
     - Restart bluetooth: `sudo systemctl restart bluetooth`
 - Windows: 
-    - Use `psexec -s -i regedit.exe` to access. Reg keys are invisible without using `psexec`.
+    - Navigate to "PSTools" directory.
+    - Use `./PsExec.exe -s -i regedit.exe` to access. Reg keys are invisible without using `psexec`.
     - Pairing key is value of`[device MAC]` key. No reboot needed after changing key value.
 - Bluetooth low energy (BLE) devices (https://unix.stackexchange.com/questions/402488/dual-boot-bluetooth-le-low-energy-device-pairing)
     IRK         : IdentityResolvingKey

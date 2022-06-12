@@ -2,8 +2,11 @@
 
 # vivaldi
 BROWSER_WIN_CLASS="Vivaldi-stable"
+    # --force-device-scale-factor=1 `# 24" 1080p` \
+    # --force-device-scale-factor=2 `# 32" 4K`    \
 WS1_CMD() { 
     vivaldi \
+    --force-device-scale-factor=2 `# 32" 4K` \
     --force-dark-mode \
     --enable-quic \
     --ignore-gpu-blocklist \
@@ -66,8 +69,8 @@ declare -A WOL_ENTRIES=(
 declare -A F10_ENTRIES=(
     [1. PC Gaming           ]=lutris
     [2. Retroarch           ]="/mnt/d/emulators/RetroArch-Linux-x86_64/RetroArch-Linux-x86_64.AppImage"
-    [3. PlayStation Portable]="ppsspp-emu.ppsspp-sdl"
-    [4. PlayStation         ]="/mnt/d/emulators/duckstation-qt-x64.AppImage"
+    # [3. PlayStation Portable]="ppsspp-emu.ppsspp-sdl"
+    # [4. PlayStation         ]="/mnt/d/emulators/duckstation-qt-x64.AppImage"
     # [2. Retro Arcade]=mame
      # "desmune"
 )

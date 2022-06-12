@@ -40,9 +40,10 @@ window {
     // border:           1;
     // padding:          5;
     border:           0;
-    padding:          10;
+    padding:          1em;
 
-    width: 450;
+    // width: 450; // 24" 1080p
+    width: 1100; // 32" 4K
 }
 mainbox {
     border:  0;
@@ -64,13 +65,13 @@ listview {
     // scrollbar:    true;
     scrollbar:    false;
     // padding:      2px 0px 0px ;
-    padding:      2px 0px 8px ;
+    padding:      0.05em 0px 0.5em;
 
     lines: 5;
 }
 element {
     border:  0;
-    padding: 1px ;
+    padding: 0.22em;
 }
 element-text {
     background-color: inherit;
@@ -127,7 +128,7 @@ button.selected {
 inputbar {
     spacing:    0;
     text-color: @normal-foreground;
-    padding:    1px ;
+    padding:    0.22em;
 }
 case-indicator {
     spacing:    0;

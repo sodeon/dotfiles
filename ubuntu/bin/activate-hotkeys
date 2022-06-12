@@ -6,7 +6,6 @@ mouse_alt="/tmp/mouse-alt"
 hyperscroll="/tmp/hyperscroll"
 keyboard_alt="/tmp/keyboard-alt"
 keyboard_mouse="/tmp/keyboard-mouse"
-gaming_mode="/tmp/gaming_mode"
 
 
 #------------------------------------------------------------------------------
@@ -30,7 +29,13 @@ setup-keymap() {
     xmodmap ~/.Xmodmap
 
     # Grave esc swap
-    if echo "$inputs" | grep -q -e "SN TECH" -e "EK820" -e "SONiX USB DEVICE Keyboard" -e "RK-G68" -e "Akko keyboard"; then # Dareu EK820 and Rapoo V860-61
+    if echo "$inputs" | grep -q \
+        -e "SN TECH" \
+        -e "SINO WEALTH" \
+        -e "EK820" \
+        -e "SONiX USB DEVICE Keyboard" \
+        -e "RK-G68" \
+        -e "Akko keyboard"; then # Dareu EK820, RoyalKludge RK68 and Rapoo V860-61
         swap-esc-grave
     else
         default-esc-grave
@@ -53,21 +58,13 @@ setup-keymap() {
 # Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
 #------------------------------------------------------------------------------
 bind-dualkeys() {
-    # systemctl --user restart evcape
-    if [ -f $gaming_mode ]; then
-        systemctl --user stop    evcape
-    else
-        systemctl --user restart evcape
-    fi
+    systemctl --user restart evcape
 }
 
 bind-hotkeys() {
     # return
     echo "" > /tmp/xbindkeysrc
 
-    # if [ -f $gaming_mode ]; then
-    #     cat ~/.config/xbindkeys/mouse-gaming     >> /tmp/xbindkeysrc
-    # elif [ -f $mouse_alt ]; then
     if [ -f $mouse_alt ]; then
         cat ~/.config/xbindkeys/mouse-common     >> /tmp/xbindkeysrc
         cat ~/.config/xbindkeys/mouse-alt        >> /tmp/xbindkeysrc
@@ -171,6 +168,16 @@ toggle-keyboard-alt() {
         xmodmap ~/.config/Xmodmap/layer1
         notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
     fi
+}
+
+game-mode() {
+    systemctl --user stop evcape
+
+    pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
+    # echo "" > /tmp/xbindkeysrc
+    # cat ~/.config/xbindkeys/mouse-gaming >> /tmp/xbindkeysrc
+    # pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
+    # xbindkeys -f /tmp/xbindkeysrc
 }
 
 

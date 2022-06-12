@@ -1,8 +1,10 @@
 configuration {
     modi: "calc";
     combi-modi: "drun,ssh,run,emoji";
-	font: "Ubuntu 14";
-	// font: "Ubuntu 20"; // 32" and 65" 4K
+	font: "Ubuntu 33";
+	// font: "Ubuntu 14"; // 24" 1080p
+	// font: "Ubuntu 33"; // 32" 4K
+	// font: "Ubuntu 20"; // 65" 4K
 /*	location: 0;*/
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/

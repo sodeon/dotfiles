@@ -20,7 +20,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3blocks/$BLOCK_NAME
-separator_block_width=5
+separator_block_width=25
 markup=none
 
 [window]
@@ -29,7 +29,7 @@ color=#aadddd
 interval=once
 signal=13
 separator=false
-separator_block_width=20
+# separator_block_width=30
 
 [bandwidth]
 #instance=eth0
@@ -51,7 +51,7 @@ min_width=100%   35°
 align=right
 command=cpu_stat 2
 separator=false
-separator_block_width=7
+# separator_block_width=7
 
 [brightness]
 label=☀
@@ -60,7 +60,7 @@ command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to
 interval=once
 signal=11
 separator=false
-separator_block_width=8
+# separator_block_width=8
 
 [audio]
 label=♪
@@ -69,7 +69,7 @@ command=[ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volum
 interval=once
 signal=10
 separator=false
-separator_block_width=12
+# separator_block_width=12
 
 [time]
 command=date '+%-m-%d %H:%M'

@@ -9,7 +9,6 @@
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
     "editor.minimap.showSlider": "always",
-    "editor.renderIndentGuides": true,
     "editor.tabCompletion": "on",
     "editor.renderLineHighlight": "none",
     "editor.lineNumbers": "on",
@@ -292,4 +291,5 @@
     "powermode.enableStatusBarComboCounter": false,
     "update.showReleaseNotes": false,
     "workbench.activityBar.visible": false,
+    "editor.guides.indentation": true,
 }

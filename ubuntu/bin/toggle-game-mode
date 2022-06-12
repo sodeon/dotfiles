@@ -1,0 +1,43 @@
+#!/bin/bash -u
+cmd=${1-""}
+
+# Game mode:
+# 1. Disable compositor to improve display latency.
+# 2. Disable fractional scaling in X11 which has a larger internal resolution.
+# 3. Overclock GPU (currently done at boot time).
+# 4. Disable keyboard macros to improve latency and reduce context switches.
+
+start-game-mode() {
+    # toggle-nvidia-oc on & > /dev/null
+    kill-compositor
+    xrandr --output $interface --mode $resolution --scale 1x1    --rate $refresh_rate # Disable fractional scaling and return to native display resolution
+    activate-hotkeys game-mode &
+    notify-send.sh -t 5000 -r 19 "Game Mode" "Enabled"
+}
+
+stop-game-mode() {
+    activate-hotkeys &
+    xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate
+    start-compositor
+    # toggle-nvidia-oc off & > /dev/null
+    notify-send.sh -t 5000 -r 19 "Game Mode" "Disabled"
+}
+
+
+source source-display-monitor
+if $is_game_mode; then
+    if [[ $cmd == "on" ]]; then
+        start-game-mode
+    else
+        monitor-control bg >/dev/null && (pkill -RTMIN+11 i3blocks &)
+        stop-game-mode
+    fi
+else
+    if [[ $cmd == "off" ]]; then
+        stop-game-mode
+    else
+        monitor-control bg >/dev/null && (pkill -RTMIN+11 i3blocks &)
+        start-game-mode
+    fi
+fi
+

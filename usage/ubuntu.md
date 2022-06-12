@@ -47,3 +47,7 @@ sudo cat /proc/sys/vm/vfs_cache_pressure # default: 100
 - **`whereis`**: Searches $PATH for executable, source and man
 - **`apropos`**: Searches the man page with more fidelity than whatis (Meaning "related to").
 - **`whatis`**: Searches the man one-line descriptions.
+
+## HIDPI Cursor Theme
+- https://github.com/manu-mannattil/adwaita-cursors
+- https://github.com/clayrisser/breeze-hacked-cursor-theme

@@ -19,15 +19,53 @@
     #define DUNST_GEOMETRY 160-0+27
     #define DUNST_FONT Ubuntu 13
 #elif defined SCREEN_32_4K
-    #define XTERM_FACE_SIZE 18
-    #define URXVT_FONT_SIZE 18
-    #define DUNST_GEOMETRY 400x10-10+54
-    #define DUNST_FONT Ubuntu 16
+    #define XTERM_FACE_SIZE 14
+    #define URXVT_FONT_SIZE 14
+    #define DUNST_GEOMETRY 340-16+54
+    #define DUNST_FONT Ubuntu 13
 #elif defined SCREEN_65_4K
     #define XTERM_FACE_SIZE 20
     #define URXVT_FONT_SIZE 20
     #define DUNST_GEOMETRY 360x10-0+54
     #define DUNST_FONT Ubuntu 18
+#endif
+
+#if defined FONT_FIRA
+    #define MONO_FONT FiraCode Nerd Font Mono
+    #define MONO_FONT_STYLE Light
+    #define MONO_FONT_BOLD_STYLE Regular
+    #define MONO_FONT_ITALIC_STYLE Light
+    #define MONO_FONT_BOLD_ITALIC_STYLE Medium
+#elif defined FONT_INCONSOLATA
+    #define MONO_FONT InconsolataLGC Nerd Font Mono
+    #define MONO_FONT_STYLE Medium
+    #define MONO_FONT_BOLD_STYLE Bold
+    #define MONO_FONT_ITALIC_STYLE Italic
+    #define MONO_FONT_BOLD_ITALIC_STYLE BoldItalic
+#elif defined FONT_ROBOTO
+    #define MONO_FONT RobotoMono Nerd Font
+    #define MONO_FONT_STYLE Light
+    #define MONO_FONT_BOLD_STYLE Regular
+    #define MONO_FONT_ITALIC_STYLE Light Italic
+    #define MONO_FONT_BOLD_ITALIC_STYLE Italic
+#elif defined FONT_HACK
+    #define MONO_FONT Hack Nerd Font Mono
+    #define MONO_FONT_STYLE Regular
+    #define MONO_FONT_BOLD_STYLE Bold
+    #define MONO_FONT_ITALIC_STYLE Italic
+    #define MONO_FONT_BOLD_ITALIC_STYLE Italic Bold
+#elif defined FONT_CONSOLAS
+    #define MONO_FONT Consolas NF
+    #define MONO_FONT_STYLE Book
+    #define MONO_FONT_BOLD_STYLE Bold
+    #define MONO_FONT_ITALIC_STYLE Italic
+    #define MONO_FONT_BOLD_ITALIC_STYLE Bold
+#else
+    #define MONO_FONT Monospace
+    #define MONO_FONT_STYLE Regular
+    #define MONO_FONT_BOLD_STYLE Bold
+    #define MONO_FONT_ITALIC_STYLE Italic
+    #define MONO_FONT_BOLD_ITALIC_STYLE Bold
 #endif
 
 
@@ -74,7 +112,7 @@
 !-----------------------------------------------------------------
 ! xterm
 !-----------------------------------------------------------------
-XTerm*faceName: Consolas NF
+XTerm*faceName: MONO_FONT
 XTerm*faceSize: XTERM_FACE_SIZE
 
 
@@ -90,10 +128,10 @@ XTerm*faceSize: XTERM_FACE_SIZE
 ! Xft.antialias: 1
 ! Xft.rgba: rgb
 
-URxvt.font: xft:Consolas NF:style=Book:size=URXVT_FONT_SIZE
-URxvt.boldFont: xft:Consolas NF:style=Bold:size=URXVT_FONT_SIZE
-URxvt.italicFont: xft:Consolas NF:style=Italic:size=URXVT_FONT_SIZE
-URxvt.boldItalicfont: xft:Consolas NF:style=Bold Italic:size=URXVT_FONT_SIZE
+URxvt.font: xft:MONO_FONT:style=MONO_FONT_STYLE:size=URXVT_FONT_SIZE
+URxvt.boldFont: xft:MONO_FONT:style=MONO_FONT_BOLD_STYLE:size=URXVT_FONT_SIZE
+URxvt.italicFont: xft:MONO_FONT:style=MONO_FONT_ITALIC_STYLE:size=URXVT_FONT_SIZE
+URxvt.boldItalicfont: xft:MONO_FONT:style=MONO_FONT_BOLD_ITALIC_STYLE Italic:size=URXVT_FONT_SIZE
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
@@ -164,7 +202,7 @@ dunst.geometry: DUNST_GEOMETRY
 !-----------------------------------------------------------------
 Sxiv.foreground: #aaaaaa
 Sxiv.background: #000000
-Sxiv.font: xft:Consolas NF:style=Book:size=14
+Sxiv.font: xft:MONO_FONT:style=MONO_FONT_STYLE:size=URXVT_FONT_SIZE
 
 
 !-----------------------------------------------------------------

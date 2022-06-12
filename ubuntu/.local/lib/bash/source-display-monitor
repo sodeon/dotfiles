@@ -37,17 +37,30 @@ setup-xresources-and-env() {
     # [[ ! $XDG_CURRENT_DESKTOP == "i3" ]] && return 0 # This script already should only be used in i3 environment. Other desktop environment has its own display monitor configurations.
     if [[ ${is_high_dpi-""} == "true" ]]; then
         dpi_xresources="/tmp/Xresources.dpi"
+        # 1.5 mangification. Good quality. Low GPU demand with 5K rendering.
         echo "
-            Xft.dpi: 192
-            Xcursor.size: 128
-            rofi.dpi: 192
+            Xft.dpi: 214
+            Xcursor.size: 54
+            rofi.dpi: 214
         " > $dpi_xresources
         xrdb -merge $dpi_xresources
-        export GDK_SCALE=3       # UI element scaling
+        export GDK_SCALE=2       # UI element scaling
         export GDK_DPI_SCALE=0.5 # font scaling
         export QT_AUTO_SCREEN_SET_FACTOR=0
         export QT_SCALE_FACTOR=2
-        export QT_FONT_DPI=96
+        export QT_FONT_DPI=112
+        # 1.5 magnification. Great quality. High GPU demand with 8K rendering.
+        # echo "
+        #     Xft.dpi: 320
+        #     Xcursor.size: 80
+        #     rofi.dpi: 320
+        # " > $dpi_xresources
+        # xrdb -merge $dpi_xresources
+        # export GDK_SCALE=3       # UI element scaling
+        # export GDK_DPI_SCALE=0.33 # font scaling
+        # export QT_AUTO_SCREEN_SET_FACTOR=0
+        # export QT_SCALE_FACTOR=3
+        # export QT_FONT_DPI=104
     elif [ ${QT_SCALE_FACTOR-0} -eq 2 ]; then # Only modify X resources and environment variables when not in normal DPI
         dpi_xresources="/tmp/Xresources.dpi"
         echo "

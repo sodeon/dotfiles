@@ -1,3 +1,9 @@
-#define SCREEN_24_2K
-! #define SCREEN_32_4K
+! #define SCREEN_24_2K
+#define SCREEN_32_4K
 ! #define SCREEN_65_4K
+
+#define FONT_FIRA
+! #define FONT_INCONSOLATA
+! #define FONT_ROBOTO
+! #define FONT_HACK
+! #define FONT_CONSOLAS

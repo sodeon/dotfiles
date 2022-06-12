@@ -372,6 +372,10 @@ toggleFullscreen() {
 }
 
 i3toggleFullscreen() {
+    xte 'keyup f'
+    toggleFullscreen
+    exit 0
+
     if isWinActive $BROWSER_WIN_CLASS; then
         xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
         # if (isWinActive ^YouTube ahk_title); then
@@ -511,7 +515,7 @@ brightness() {
         monitor-control bd | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     elif [ $1 = "toggle" ]; then
         monitor-control bs | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
-    elif [ $1 = "gaming" ]; then
+    elif [ $1 = "game" ]; then
         monitor-control bg | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     else
         monitor-control b  | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
@@ -575,13 +579,13 @@ wol-menu() {
     simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
-gaming-mode() {
-    brightness gaming
+# game-mode() {
+#     brightness game
 
-    source source-display-monitor # TODO: This extracts is_gaming_mode variable
-    [ $is_gaming_mode ==  "true" ] && touch /tmp/gaming_mode || rm -f /tmp/gaming_mode
-    activate-hotkeys
-}
+#     source source-display-monitor # TODO: This extracts is_game_mode variable
+#     [[ $is_game_mode ==  "true" ]] && touch /tmp/game_mode || rm -f /tmp/game_mode
+#     activate-hotkeys
+# }
 
 
 #-----------------------------------------------------------------------------------------------
