@@ -1,6 +1,6 @@
 ! #define HORIZONTAL_GAP 380
 ! #define HORIZONTAL_GAP 265
-#define HORIZONTAL_GAP 246
+#define HORIZONTAL_GAP 128
 
 ! i3wm.i3block.fontSize: 18
 

@@ -30,6 +30,7 @@ check-and-handle-empty-workspace() {
     # When empty workspace is detected, it tries to jump to different workspace as following order: last workspace -> terminal workspace (-> any remaining available workspace, path never reached)
     # NOTE: This behavior is designed for only one floating window in use
     if isWorkspaceEmpty; then # Check if workspace is empty
+        sleep 0.05 # WORKAROUND: vivaldi closing last window on a workspace will close all windows on all workspaces if last active workspace is also browser window
         i3-msg "workspace back_and_forth"
         try-focus-non-floating # Again, try to focus non-floating window after switching workspace.
         if isWorkspaceEmpty; then # Check if workspace is empty

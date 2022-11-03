@@ -1,0 +1,32 @@
+#!/bin/bash -ue
+
+need_loading=""
+fold-action  () { echo ☎; } # 🖧
+expand-action() { /usr/share/i3blocks/bandwidth; }
+rclick-action() { i3-widget btop -p 4; }
+
+
+#-------------------------------------------------------------------------------
+# Template
+#-------------------------------------------------------------------------------
+# Fold/expand status
+file_name=`echo $0 | sed 's/^.*\///'`
+token="/tmp/$file_name"
+
+
+if [[ "$BLOCK_BUTTON" = 1 ]]; then
+    if [ -f $token ]; then
+        rm $token
+    else
+        touch $token
+        [ ! -z $need_loading ] && echo "Loading..." && exit
+    fi
+elif [[ "$BLOCK_BUTTON" = 3 ]]; then
+    rclick-action
+fi
+
+if [ -f $token ]; then
+    expand-action
+else
+    fold-action
+fi

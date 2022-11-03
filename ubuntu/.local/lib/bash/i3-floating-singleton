@@ -1,16 +1,19 @@
-#!/bin/bash -u
+#!/bin/bash
 
 app=$1
 title=${2-$app}
 transparency=${3-ff} # From 00 to ff. 00 is full transparency. ff is no transparency.
+[ $# -gt 3 ] && args="${@:3}" || args=""
 
 if i3-msg "[instance=\"^$app$\"] scratchpad show"; then
     true
 else
-    if [ $transparency == "ff" ]; then
-        urxvtc                                                     -name $app -title "$title" -e $app
-    else
+    if [[ $transparency == "ff" ]]; then
+        urxvtc                                                     -name $app -title "$title" -e $app "$args"
+    elif [[ $app == "tmux" ]]; then # tmux has problem accepting $args on 22.04
         urxvt  -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 -name $app -title "$title" -e $app &
+    else
+        urxvt  -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 -name $app -title "$title" -e $app "$args" &
     fi
     while !(i3-msg "[instance=\"^$app$\"] scratchpad show, move position center"); do true; done
 fi

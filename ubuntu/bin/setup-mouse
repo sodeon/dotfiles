@@ -1,0 +1,76 @@
+#!/bin/bash -u
+cmd=${1-""}
+
+urgency=low
+has_supported_input=""
+xinput=`xinput`
+upower=`upower --dump`
+
+has-input() { echo "$xinput" | grep -q "$1" && has_supported_input=1 && return 0 || return 1; }
+has-supported-input() { [ ! -z $has_supported_input ]; }
+
+upower-battery() {
+    echo "$upower" | grep --after-context=13 -e "$1"  | grep percentage | awk '{print $2}'
+}
+
+
+#------------------------------------------------------------------------------
+# Argument parsing
+#------------------------------------------------------------------------------
+case "$cmd" in
+    game-mode)
+        profile="Game"
+        ;;
+    battery-level)
+        profile=""
+        ;;
+    *)
+        profile="Home/Work"
+esac
+
+
+#------------------------------------------------------------------------------
+# Sony WH-1000XM4
+if echo "$upower" | grep -q "WH-1000XM4" && [[ $cmd == "battery-level" ]]; then
+    battery_level=`upower-battery "WH-1000XM4"`
+    info=""
+    notify-send.sh -u $urgency "Sony WH-1000XM4 ($battery_level)" "$info"
+fi
+
+
+#------------------------------------------------------------------------------
+# SteelSeries Aerox 5
+if has-input 'Aerox 5 Wireless'; then # Aerox 5 2.4GHz
+    battery_level=`$HOME/bin/hardware/setup-aerox-5 $@ | sed 's/^.*]\s*\([0-9]\+\) %/\1%/'`
+    [[ $battery_level == "630%" ]] && info="2.4GHz Not Connected" && urgency="critical" || info="$profile"
+    notify-send.sh -u $urgency "SteelSeries Aerox 5 ($battery_level)" "$info"
+fi
+if has-input 'Aerox 5 WL'; then # Aerox 5 bluetooth
+    battery_level=`upower-battery "Aerox 5 WL"`
+    [[ $profile != "" ]] && info="Not Supported In Bluetooth" || info="$profile"
+    notify-send.sh -u $urgency "SteelSeries Aerox 5 ($battery_level)" "$info"
+fi
+
+
+#------------------------------------------------------------------------------
+# G Pro Wireless
+if has-input "Logitech G Pro"; then
+    battery_level=`upower-battery "G Pro Wireless"`
+    info=""
+    notify-send.sh -u $urgency "Logitech G Pro ($battery_level)" "$info"
+fi
+
+
+#------------------------------------------------------------------------------
+# No supported devices
+if ! has-supported-input && [[ $cmd != "battery-level" ]]; then
+    urgency="critical"
+    notify-send.sh -u $urgency "No Supported Mouse Connected"
+fi
+
+
+#------------------------------------------------------------------------------
+# Legacy
+# aerox5_mac="55:F5:4B:9A:28:47"
+# battery_level=`bluetoothctl info $aerox5_mac | rg 'Battery Percentage' | sed -e 's/^.*(//' -e 's/)$//'`%
+

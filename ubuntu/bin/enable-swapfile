@@ -1,0 +1,8 @@
+#!/bin/bash -ue
+size="2G"
+
+# https://linuxize.com/post/create-a-linux-swap-file/
+sudo fallocate -l $size /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile

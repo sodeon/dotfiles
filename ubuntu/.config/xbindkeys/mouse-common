@@ -31,9 +31,9 @@ Mod5+c:200
 #   F24 (c:202): Scroll down
 #---------------------------------------------------------------------------------------------------
 # Home/End
-"xte 'key Home'"
+"xte 'keyup XF86TouchpadOff' 'key Home'"
 Mod3+Mod5+c:201
-"xte 'key End'"
+"xte 'keyup XF86WWAN'        'key End'"
 Mod3+Mod5+c:202
 
 "autohotkey toggleFullscreen" # Toggle full screen

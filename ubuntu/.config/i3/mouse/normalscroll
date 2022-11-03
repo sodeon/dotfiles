@@ -1,0 +1,7 @@
+201 -> xte 'mouseclick 4'
+202 -> xte 'mouseclick 5'
+
+# Half page up/down
+$s1+201 -> xte $scru-up && autohotkey halfPageUp
+$s1+202 -> xte $scrd-up && autohotkey halfPageDown
+

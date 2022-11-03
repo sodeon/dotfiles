@@ -1,0 +1,11 @@
+# Middle button
+# c 191 -> xte 'mouseclick 2' # xte generated middle cannot be recognized in games
+# c 200 -> xte 'mouseclick 2' # evcape is disabled in game mode
+
+# Scroll wheel
+201         -> xte 'mouseclick 4'
+202         -> xte 'mouseclick 5'
+Shift+201   -> xte 'mouseclick 4'
+Shift+202   -> xte 'mouseclick 5'
+Control+201 -> xte 'mouseclick 4'
+Control+202 -> xte 'mouseclick 5'

@@ -1,6 +1,6 @@
-https://www.youtube.com/watch?v=ABrO2kdXCWE
-https://ls4every1.blogspot.com/2020/07/smooth-video-project-4-installing_18.html
-
+# Latest      : https://www.svp-team.com/wiki/SVP:Linux
+# Ubuntu 20.04: https://ls4every1.blogspot.com/2020/07/smooth-video-project-4-installing_18.html
+#               https://www.youtube.com/watch?v=ABrO2kdXCWE
 
 sudo apt update
 sudo apt install g++
@@ -11,15 +11,16 @@ sudo apt install libqt5concurrent5 libqt5svg5 libqt5qml5
 # sudo add-apt-repository ppa:rvm/smplayer
 # sudo apt update
 # sudo apt install smplayer smplayer-themes smplayer-skins
-sudo apt install g++ make autoconf automake libtool pkg-config nasm git
-git clone https://github.com/sekrit-twc/zimg.git
-cd zimg 
-./autogen.sh
-./configure
-make -j4
-sudo make install
-cd ..
-sudo apt install cython3
+sudo apt install g++ make autoconf automake libtool pkg-config nasm git # nasm used for mpv build
+# git clone https://github.com/sekrit-twc/zimg.git
+# cd zimg 
+# ./autogen.sh
+# ./configure
+# make -j4
+# sudo make install
+# cd ..
+sudo apt install libzimg-dev cython3
+# git clone --branch R50 https://github.com/vapoursynth/vapoursynth.git
 git clone --branch R50 https://github.com/vapoursynth/vapoursynth.git
 cd vapoursynth
 ./autogen.sh

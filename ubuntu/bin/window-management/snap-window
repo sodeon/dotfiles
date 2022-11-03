@@ -33,6 +33,10 @@ case $direction in
     "right")
         [[ `expr $y + $height / 2` -le `expr $displayHeight / 2` ]] && newY=0
         ;;
+    "center")
+        newX=`expr $newX / 2`
+        newY=`expr $newY / 2`
+        ;;
     "")
         # If no direction is provided, snap to nearest corner. Use center of mass to determine which corner to snap.
         [[ `expr $x + $width  / 2` -le `expr $displayWidth  / 2` ]] && newX=0

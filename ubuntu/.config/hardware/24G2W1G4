@@ -4,7 +4,6 @@
 resolution="1920x1080"
 scale="1x1"
 refresh_rate=120
-# refresh_rate=60
 is_high_dpi=false
 
 # Monitor spec

@@ -1,0 +1,16 @@
+{
+    "mapping": {
+        "1,29,1": [
+            "if_single(k(XF86Eject), h(Control_L), 250)",
+            "keyboard"
+        ],
+        "1,56,1": [
+            "if_single(modify(Alt_L, k(KEY_TAB)), h(Alt_L), 250)",
+            "keyboard"
+        ],
+        "1,125,1": [
+            "if_single(modify(Super_L, k(F12)), h(Super_L), 250)",
+            "keyboard"
+        ]
+    }
+}

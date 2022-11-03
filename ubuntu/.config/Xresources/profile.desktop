@@ -1,4 +1,5 @@
 ! #define SCREEN_24_2K
+! #define SCREEN_27_4K
 #define SCREEN_32_4K
 ! #define SCREEN_65_4K
 

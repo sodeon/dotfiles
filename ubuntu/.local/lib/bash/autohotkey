@@ -2,6 +2,8 @@
 #-----------------------------------------------------------------------------------------------
 # Sensible default variables and overrides
 #-----------------------------------------------------------------------------------------------
+VOLUME_STEP=4
+
 NOTIFICATION_TIMEOUT=1400
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme Arc-Dark.workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
@@ -45,6 +47,15 @@ declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
     [3. J5005]="wake-on-lan j5005"
+)
+declare -A MOUSE_PROFILE_ENTRIES=(
+    [1. Home/Office  ]="setup-mouse"
+    [2. Game         ]="setup-mouse game-mode"
+    # [3. Battery Level]="setup-mouse battery-level"
+)
+declare -A QUICK_COMMAND_ENTRIES=(
+    [Show Battery Levels]="setup-mouse battery-level"
+    [Web Browser        ]="F1"
 )
 
 # Default overrides
@@ -103,11 +114,31 @@ isWorkspaceEmpty() {
     (! xdotool getactivewindow) || isActiveWinFloating
 }
 
+hasMultipleWindows() {
+    cur_id=$(xdotool getactivewindow)
+    i3-msg "focus left"
+    new_id=$(xdotool getactivewindow)
+    if [[ $cur_id == $new_id ]]; then
+        return 1
+    else
+        i3-msg "focus right"
+        return 0
+    fi
+}
+
+isWebVideo() {
+    isWinActive '\sYouTube' ahk_title || isWinActive '\sTwitch' ahk_title || isWinActive '_哔哩哔哩_bilibili' ahk_title || isWinActive '^Netflix' ahk_title
+}
+
 # xdotool with the ability to bypass i3 keygrabbing
 xdotool-forward() {
     i3-msg 'mode " "'
     xdotool $@
     i3-msg 'mode "default"'
+}
+
+xte-iso() {
+    xte 'keyup ISO_Level3_Shift' "$@" 'keydown ISO_Level3_Shift'
 }
 
 wake-on-lan() {
@@ -170,15 +201,15 @@ nextWord() {
 
 deleteWord() {
 	if isWinActive URxvt; then
-        xte 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
+        xte-iso 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
 	else
-        xte 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
+        xte-iso 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
 	fi
 }
 
 deleteWordAfter() {
 	if isWinActive URxvt; then
-        xte 'keyup slash' 'keyup i' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+        xte-iso 'keyup slash' 'keyup i' 'key Escape' 'key d' # escape->d is the same as alt+d in terminal
 	else
         xte 'keyup slash' 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
@@ -190,13 +221,14 @@ deleteLine() {
         xte 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
 	else
         # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
-        xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
+        # xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
+        xte 'keyup u' 'key Home' 'keydown Shift_L' 'key End' 'keyup Shift_L' 'key BackSpace'
 	fi
 }
 
 deleteFirstWord() {
 	if isWinActive URxvt; then
-        xte 'keyup i' 'key Home' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+        xte-iso 'keyup i' 'key Home' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
 	else
         xte 'keyup i' 'key Home' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
@@ -217,8 +249,10 @@ closeTabOrWindow() {
 #     fi
 # }
 
-pageup() {
-    if isWinActive $BROWSER_WIN_CLASS || isWinActive VIM$ ahk_title; then
+halfPageUp() {
+    if isWinActive $BROWSER_WIN_CLASS; then
+        xdotool key v
+    elif isWinActive VIM$ ahk_title; then
         xdotool key ctrl+b
     elif isWinActive URxvt; then
 		xdotool key shift+Prior
@@ -227,8 +261,10 @@ pageup() {
     fi
 }
 
-pagedown() {
-    if isWinActive $BROWSER_WIN_CLASS || isWinActive VIM$ ahk_title; then
+halfPageDown() {
+    if isWinActive $BROWSER_WIN_CLASS; then
+        xdotool key c
+    elif isWinActive VIM$ ahk_title; then
         xdotool key ctrl+f
     elif isWinActive URxvt; then
 		xdotool key shift+Next
@@ -245,6 +281,11 @@ scroll() {
     fi
 }
 
+normalScroll() {
+    infiniteScroll stop || \
+        (activate-hotkeys is-hyperscroll && activate-hotkeys scroll-mode normal)
+}
+
 play() { # Play if there is any paused media
     if mpris2controller Status | grep -q "Paused"; then
         mpris2controller PlayPause
@@ -257,7 +298,13 @@ pause() { # Pause if there is any playing media
     fi
 }
 
-playPause() { mpris2controller PlayPause; }
+playPause() { 
+    if mpris2controller Status | grep -q "Stopped"; then
+        cmus-remote --pause
+    else
+        mpris2controller PlayPause;
+    fi
+}
 
 nextTrack() { 
     # In practical usage, if listening to music, "next track" means next track for music, not video
@@ -354,15 +401,48 @@ altTab() {
     i3-msg "workspace back_and_forth" && (xdotool getactivewindow) || (i3-msg "workspace back_and_forth" && i3-msg "workspace next")
 }
 
+toggleMaximizedSingleWindow() {
+    # Toggle fullscreen if it is video/image. Toggle gaps if others.
+    if (isWinActive $BROWSER_WIN_CLASS); then
+        if isWebVideo; then
+            xdotool keyup XF86Launch7 key --clearmodifiers f
+        else
+            i3-msg "gaps horizontal current toggle `xgetres i3wm.toggleHGap`"
+        fi
+    elif isWinActive Code; then # Toggle zen mode for vscode
+        xdotool key --clearmodifiers ctrl+shift+z
+    elif isWinActive mpv || isWinActive Sxiv; then
+        i3-msg "fullscreen toggle"
+    else
+        i3-msg "gaps horizontal current toggle `xgetres i3wm.toggleHGap`"
+    fi
+}
+
+isFullscreen() {
+    xprop -id $(xdotool getactivewindow) | grep -q _NET_WM_STATE_FULLSCREEN
+}
+
+toggleMaximized() {
+    if isFullscreen; then
+        toggleFullscreen
+        # i3-msg "layout toggle stacking split"
+    elif hasMultipleWindows; then
+        toggleFullscreen
+        # i3-msg "layout toggle stacking split"
+    else
+        toggleMaximizedSingleWindow
+    fi
+}
+
+
 # Use app's built-in fullscreen mode if available
 toggleFullscreen() {
     if (isWinActive $BROWSER_WIN_CLASS); then
-        if (isWinActive YouTube ahk_title || isWinActive Twitch ahk_title || isWinActive bilibili ahk_title || isWinActive Netflix ahk_title); then
-            xdotool key --clearmodifiers f
-            # xte 'key f'
+        if isWebVideo; then
+            xdotool keyup XF86Launch7 key --clearmodifiers f
         else
-            xdotool key --clearmodifiers F11
-            # xte 'key F11'
+            xdotool keyup XF86Launch7 key --clearmodifiers ctrl+shift+minus
+            # xdotool key --clearmodifiers F11
         fi
     elif isWinActive Code; then # Toggle zen mode for vscode
         xdotool key --clearmodifiers ctrl+shift+z
@@ -378,13 +458,6 @@ i3toggleFullscreen() {
 
     if isWinActive $BROWSER_WIN_CLASS; then
         xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
-        # if (isWinActive ^YouTube ahk_title); then
-        #     xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
-        # elif (isWinActive YouTube ahk_title); then
-        #     xte 'keyup f' 'keyup Alt_L' 'key f' 'keydown Alt_L' 
-        # else
-        #     xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
-        # fi
     elif isWinActive Code; then # Toggle zen mode for vscode
         xdotool keyup f keyup Alt_L key ctrl+shift+z keydown Alt_L
     else
@@ -398,7 +471,116 @@ mediaPlayerFullscreen() {
     # i3-msg '[class="^mpv"] scratchpad show' && sleep 1.5 && i3-msg '[class="^mpv"] fullscreen'
 }
 
+toggleQBittorrent() {
+    if isWinActive qbittorrent; then
+        i3-msg "kill"
+    else
+        qbittorrent
+    fi
+}
+
+# videoOrNotebook() {
+#     # Switch to "viewer" worksapce if existed -> Show video floating window if existed -> show notebook
+#     notebookTransparency=`xgetres i3wm.notebook.transparency || echo 44`
+#     if i3-msg -t get_workspaces | grep -q '"num":9',; then
+#         i3-msg 'workspace number 9'
+#     else
+#         i3-msg '[class="^mpv"] scratchpad show' \
+#             || i3-floating-singleton tmux "Notebook" $notebookTransparency
+#     fi
+# }
+
+toggleFullscreenVideo() {
+    i3-msg -t get_tree | grep -q '"class":"mpv"' || return
+
+    # If video is running on the dedicate workspace
+    if i3-msg -t get_workspaces | grep -q '"num":9',; then
+        i3-msg 'workspace number 9'
+    else # If video is already a mini player, move to the dedicate workspace
+        i3-msg '[class="^mpv"] floating toggle, fullscreen enable'
+        i3-msg '[class="^mpv"] move workspace "9: Viewer "'
+        i3-msg 'workspace number 9'
+    fi
+}
+
+toggleMiniVideo() {
+    # i3-msg -t get_tree | grep -q '"class":"mpv"' || return
+    if i3-msg -t get_tree | grep -q '"class":"mpv"'; then
+        # If video is running on the dedicate workspace, switch to mini player
+        if i3-msg -t get_workspaces | grep -q '"num":9',; then
+            i3-msg '[class="^mpv"] fullscreen disable, floating toggle, move scratchpad' 
+            if i3-msg -t get_workspaces | grep -q '"num":9',; then # If current workspace is on dedicate video workspace, it is empty now
+                i3-msg 'workspace back_and_forth'
+            fi
+            i3-msg '[class="^mpv"] scratchpad show, sticky enable, focus mode_toggle'
+        else # If video is already a mini player, toggle visibility 
+            i3-msg '[class="^mpv"] scratchpad show, sticky enable, focus mode_toggle'
+        fi
+    else
+        if (isWinActive $BROWSER_WIN_CLASS) && isWebVideo; then
+            xdotool keyup m key --clearmodifiers alt+p
+        # else
+        #     notify-send.sh "Cannot Toggle Mini Player"
+        fi
+    fi
+}
+
+toggleVideo() {
+    if i3-msg -t get_workspaces | grep -q '"num":9',; then
+        toggleFullscreenVideo
+    else
+        toggleMiniVideo
+    fi
+}
+
+toggleVideoSize() {
+    if i3-msg -t get_workspaces | grep -q '"num":9'; then
+        toggleMiniVideo
+    elif ! i3-msg -t get_tree | grep -q '"class":"mpv"'; then
+        toggleMiniVideo
+    else
+        toggleFullscreenVideo
+    fi
+}
+
+openBrowserVideoInMpv() {
+    xdotool keyup p keyup XF86Launch4 type --clearmodifiers yy # Copy URL
+    pause     # Pause current video
+    sleep 0.4 # Give vimium time to copy URL to clipboard
+    open-clipboard-with-mpv
+}
+
 workspacePicker() { i3-switch-workspace -monitor -3 -width -17 $ROFI_STYLES; }
+
+infiniteScroll() {
+    cmd=${1-""}
+    case $cmd in
+        stop)
+            notify-send.sh --close=20
+            infinite-scroll $@
+            ;;
+        down|up)
+            notify-send.sh -t 0 -r 20 -u low "Scrolling"
+            infinite-scroll $@
+            ;;
+        pause)
+            infinite-scroll pause
+            result=$?
+            case $result in
+                0)
+                    notify-send.sh -t 0 -r 20 -u low "Pause Scrolling"
+                    ;;
+                1)
+                    notify-send.sh -t 0 -r 20 -u low "Scrolling"
+                    ;;
+            esac
+            exit $result
+            ;;
+        *)
+            infinite-scroll $@
+            ;;
+    esac
+}
 
 F1() {
     i3-msg 'workspace number '${WS1_NAME-"1: Web "}
@@ -492,9 +674,9 @@ notify-activate-hotkeys() {
 #-----------------------------------------------------------------------------------------------
 volume() {
     if [ $1 = "up" ]; then
-        amixer -D pulse set Master 5%+
+        amixer -D pulse set Master $VOLUME_STEP%+
     elif [ $1 = "down" ]; then
-        amixer -D pulse set Master 5%-
+        amixer -D pulse set Master $VOLUME_STEP%-
     elif [ $1 = "toggle" ]; then
         amixer -D pulse set Master toggle
     fi
@@ -579,6 +761,30 @@ wol-menu() {
     simple-rofi Machine ${WOL_WIDTH-15} WOL_ENTRIES
 }
 
+mouse-profile-menu() {
+    simple-rofi "Mouse Profile" 15 MOUSE_PROFILE_ENTRIES
+}
+
+quick-cmds-menu() {
+    # simple-rofi "Apps" 15 QUICK_COMMAND_ENTRIES # -monitor -3
+
+    local title="Apps"
+    local width="15"
+    # declare -A entries=("${QUICK_COMMAND_ENTRIES[@]}")
+
+    # Sort rofi entries. Bash associative array key sequence is random
+    local pre_sort=""
+    for entry in "${!QUICK_COMMAND_ENTRIES[@]}"; do
+        pre_sort=$pre_sort"$entry\n"
+    done
+    local rofiEntries=`printf "$pre_sort" | sort -k 1 -n`
+
+    selection=`printf "$rofiEntries" | rofi -p "$title" -i -width -$width $ROFI_STYLES -monitor -3` 
+
+    [ -z $selection ] && return 1
+    ${QUICK_COMMAND_ENTRIES["$selection"]}
+}
+
 # game-mode() {
 #     brightness game
 
@@ -586,6 +792,29 @@ wol-menu() {
 #     [[ $is_game_mode ==  "true" ]] && touch /tmp/game_mode || rm -f /tmp/game_mode
 #     activate-hotkeys
 # }
+
+on-192-click() {
+    infinite-scroll is-scrolling && infiniteScroll stop && exit
+    activate-hotkeys is-hyperscroll && activate-hotkeys toggle-hyperscroll && exit
+    activate-hotkeys toggle-mouse-mode
+    # if activate-hotkeys is-hyperscroll; then
+    #     activate-hotkeys toggle-hyperscroll
+    # else
+    #     activate-hotkeys toggle-mouse-mode
+    # fi
+    is-double-click 192
+    case $? in
+        0) # Cancel action
+            ;;
+        1) # Single click with delayed action
+            # activate-hotkeys toggle-mouse-mode
+            ;;
+        2) # Double click
+            activate-hotkeys mouse-mode normal
+            activate-hotkeys toggle-hyperscroll
+            ;;
+    esac
+}
 
 
 #-----------------------------------------------------------------------------------------------

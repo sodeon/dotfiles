@@ -372,6 +372,7 @@ let g:switch_custom_definitions =
     \ ]
 
 " Commentary
+setlocal commentstring=#\ %s
 au FileType xdefaults       setlocal commentstring=!\ %s
 au FileType markdown        setlocal commentstring=<!--\ %s\ -->
 au FileType cpp             setlocal commentstring=//\ %s

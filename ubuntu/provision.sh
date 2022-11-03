@@ -46,11 +46,12 @@ apt-force install ripgrep
 apt-force install fzf
 # apt-force install python-pygments # cat with color
 # pip install pygments # cat with color
-apt-force install htop iftop iotop nmon sysstat # cpu/memory, network and disk monitor. sysstat: iostat, mpstat
+apt-force install htop iftop iotop nmon sysstat btop # cpu/memory, network and disk monitor. sysstat: iostat, mpstat
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
 # apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh traceroute mtr # network utilities
+apt-force install ncal # calendar
 apt-force install neofetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
@@ -74,6 +75,7 @@ apt-force install qbittorrent
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
+apt-force install mcomix # image viewer for file fomats not supported by sxiv (e.g. HEIC used by Apple)
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar p7zip
@@ -134,9 +136,9 @@ apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
           libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
           libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
           autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
-git clone https://www.github.com/Airblader/i3-gaps i3-gaps
-git checkout gaps
+git clone https://github.com/Airblader/i3 i3-gaps
 cd i3-gaps
+git checkout gaps
 rm -rf build/ && mkdir -p build && cd build
 meson ..
 ninja
@@ -168,7 +170,7 @@ cd -
 #------------------------------------------------------------------------------
 # Ubuntu data collection service
 apt-force purge ubuntu-report popularity-contest
-
+-gaps
 # Ubuntu auto-update (this service does not work in i3)
 apt-force purge unattended-upgrades
 
@@ -177,7 +179,7 @@ apt-force purge unattended-upgrades
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-chmod +x ./restore.sh && ./restore.sh
+hmod +x ./restore.sh && ./restore.sh
 
 # git
 git config --global credential.helper 'cache --timeout=7200'
@@ -194,6 +196,7 @@ sudo systemctl mask whoopsie whoopsie.path # Ubuntu error reporting
 sudo systemctl mask kerneloops # Kernel debug message reporting
 
 # Additional fonts
+# TODO: Add more fonts (e.g. Fira Code Nerd)
 cd-temp
 git clone https://github.com/Znuff/consolas-powerline.git
 mkdir -p ~/.fonts
@@ -218,10 +221,19 @@ sudo adduser $USER uinput
 sudo mkdir -p /etc/udev/rules.d/
 echo 'KERNEL=="uinput", GROUP="uinput", MODE:="0660"' | sudo tee /etc/udev/rules.d/99-uinput.rules > /dev/null
 # sudo echo uinput > /etc/modules-load.d/uinput.conf
-systemctl --user enable evcape
+# systemctl --user enable evcape
 
-# Keyboard setup upon plugging
-sudo cp apps/90-keyboards.rules /etc/udev/rules.d
+# Keyboard setup
+sudo ./apps/keyboard-config/install.sh
+
+# Replace pulseaudio with pipewire (https://gist.github.com/the-spyke/2de98b22ff4f978ebf0650c90e82027e?permalink_comment_id=4142023)
+# apt-force install libfdk-aac2 libldacbt-{abr,enc}2 libopenaptx0 # Bluetooth codecs for AAC/LDAC/AptX
+# apt-force install libspa-0.2-bluetooth libspa-0.2-jack pipewire-audio-client-libraries # pipewire bluetooth and jack clients
+# apt-force install wireplumber pipewire-media-session- # WirePlumber as default pipewire manager
+# apt-force remove pulseaudio-module-bluetooth
+# sudo cp /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/
+# sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-x86_64-linux-gnu.conf /etc/ld.so.conf.d/
+# systemctl --user --now enable wireplumber.service
 
 
 #------------------------------------------------------------------------------

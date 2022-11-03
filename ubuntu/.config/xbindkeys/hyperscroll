@@ -1,12 +1,12 @@
 # Half page up/down
-"autohotkey pageup"
+"xte 'keyup XF86TouchpadOff'; autohotkey pageup"
 c:201
-"autohotkey pagedown"
+"xte 'keyup XF86WWAN'       ; autohotkey pagedown"
 c:202
 
 # New: Page up/down
-"xte 'key Prior'"
+"xte 'keyup XF86TouchpadOff' 'key Prior'"
 Mod3+c:201
-"xte 'key Next'"
+"xte 'keyup XF86WWAN'        'key Next'"
 Mod3+c:202
 

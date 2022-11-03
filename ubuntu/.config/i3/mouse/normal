@@ -1,0 +1,49 @@
+#---------------------------------------------------------------------------------------------------
+# Modifiers:
+# $s1 : Shifted version1
+# $s2 : Hardware control (volume, brightness)
+# $sb : Shifted version2 by pressing both $s1 and $s2. Hence $sb (b as both)
+# $sm : Middle button pressed version
+#---------------------------------------------------------------------------------------------------
+# Left/right clicks
+$s1+button1 -> xte 'keydown Control_L' 'key Prior' 'keyup Control_L' # Prev tab
+$s1+button3 -> xte 'keydown Control_L' 'key Next'  'keyup Control_L' # Next tab
+
+$sb+button1 -> xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' $sb-down # Move tab left
+$sb+button3 -> xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Next'  'keyup Shift_L' 'keyup Control_L' $sb-down # Move tab right
+
+# Middle button
+$sb+200 -> xdotool key --clearmodifiers ctrl+shift+4 # Open Vivaldi side panel
+# $sb+200 -> xdotool key --clearmodifiers F4 # Open Vivaldi side panel
+
+# Thumb buttons
+197 -> autohotkey closeTabOrWindow
+198 -> xte 'keyup XF86Launch9' 'mouseclick 8' # Back
+
+$sm+197 -> xdotool key --clearmodifiers g+U # Go to top of the site
+$sm+198 -> xdotool key --clearmodifiers e   # Detach tab
+
+# Buttons beneath scroll wheel
+# 193 -> sleep 0.25 && [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll && xte 'keyup XF86Launch5' # Long press
+# 193 -> sleep 0.18 && [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll && xte 'keyup XF86Launch5' # Long press
+
+
+#---------------------------------------------------------------------------------------------------
+# Middle button
+#   F13 (c:191): Press scroll click
+#   F22 (c:200): Click scroll click (evcape)
+#
+# Scroll wheel
+#   F23 (c:201): Scroll up
+#   F24 (c:202): Scroll down
+#
+# Thumb buttons
+#   F16 (XF86Launch8, c:197): Front thumb button
+#   F17 (XF86Launch9, c:198): Rear  thumb button
+#
+# Buttons beneath scroll wheel
+#   F15 (XF86Launch5, c:193): Press front button
+#   F14 (XF86Launch4, c:192): Click front button (evcape)
+#
+# Trigger botton
+#   F18 (XF86Launch7, c:196)

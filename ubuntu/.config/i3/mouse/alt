@@ -1,0 +1,22 @@
+# Left/right clicks
+# $s1+button1 -> xdotool key --clearmodifiers control+minus
+# $s1+button3 -> xdotool key --clearmodifiers control+equal
+
+# Middle button
+# $sb+200 -> xte 'keydown Alt_L' 'keydown Shift_L' 'key d' 'keyup Shift_L' 'keyup Alt_L' # Enable/disable browser dark mode (Disabled: difficult to press)
+
+# Scroll wheel
+201 -> xte $scru-up 'key Left'  # Left
+202 -> xte $scrd-up 'key Right' # Right
+
+$s1+201 -> xte $scru-up 'key j' 'key j' 'key j' # Seek backward (mid step)
+$s1+202 -> xte $scrd-up 'key l' 'key l' 'key l' # Seek forward (mid step)
+
+# Thumb buttons
+# 197 -> xte 'mouseup 8' 'keydown Control_L' 'keydown Shift_L' 'key t' 'keyup Shift_L' 'keyup Control_L' && activate-hotkeys toggle-mouse-mode # Re-open closed tab
+# 198 -> activate-hotkeys toggle-mouse-mode && xte 'keyup XF86Launch9' 'mouseclick 9' # Forward
+
+# Buttons beneath scroll wheel
+# 193 -> sleep 0.25 && [ -f /tmp/short-pressing ] || activate-hotkeys toggle-mouse-mode && xte 'keyup XF86Launch5' # Long press, Steelseries
+# 193 -> sleep 0.18 && [ -f /tmp/short-pressing ] || activate-hotkeys toggle-mouse-mode && xte 'keyup XF86Launch5' # Long press, Razer
+

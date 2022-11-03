@@ -1,0 +1,28 @@
+{
+    "mapping": {
+        "1,183,1": [
+            "if_single(k(XF86TouchpadOn), h(XF86Launch3), 250)",
+            "keyboard"
+        ],
+        "1,186,1": [
+            "if_single(k(XF86Launch8), h(XF86Launch6), 250)",
+            "keyboard"
+        ],
+        "1,187,1": [
+            "if_single(k(XF86Launch9), h(XF86Finance), 250)",
+            "keyboard"
+        ],
+        "1,185,1": [
+            "if_single(k(XF86Launch4), h(XF86Launch5), 250)",
+            "keyboard"
+        ],
+        "1,188,1": [
+            "if_single(k(XF86AudioPause), h(XF86Launch7), 250)",
+            "keyboard"
+        ],
+        "1,56,1": [
+            "if_single(modify(Alt_L, k(KEY_TAB)), h(Alt_L), 250)",
+            "keyboard"
+        ]
+    }
+}

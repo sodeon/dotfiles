@@ -1,0 +1,12 @@
+# Monitor brightness/input
+XF86MonBrightnessUp        -> autohotkey brightness up
+XF86MonBrightnessDown      -> autohotkey brightness down
+Shift+XF86AudioRaiseVolume -> autohotkey brightness up
+Shift+XF86AudioLowerVolume -> autohotkey brightness down
+$mode+Shift+f              -> autohotkey brightness up
+$mode+Shift+v              -> autohotkey brightness down
+$mode+Shift+c              -> autohotkey brightness toggle
+$mode+Control+c            -> autohotkey brightness game
+# $mode+Control+c            -> autohotkey game-mode
+$mode+Shift+g              -> autohotkey display-input toggle
+

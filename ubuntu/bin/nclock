@@ -1,0 +1,25 @@
+#!/bin/bash -ue
+
+tick=0.333
+
+is-singleton() {
+    processes=`pgrep "$1"`
+    process_num=`echo "$processes" | wc -l`
+    [[ $process_num -eq 1 ]]
+}
+
+if ! is-singleton nclock; then
+    notify-send.sh -s 50
+    pkill nclock
+    exit
+fi
+
+while :; do
+    notify-send.sh -r 50 -u low -t 1000 `date +'%H:%M:%S'`
+    sleep $tick
+
+    # echo "Clock: "`date +'%H:%M:%S'`
+    # sleep $tick
+    # tput cuu1 # move cursor up by one line
+    # tput el # clear the line
+done

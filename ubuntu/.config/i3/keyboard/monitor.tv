@@ -1,0 +1,21 @@
+#--------------------------------------------------------------------------------
+# TV only key bindings (i3 does not allow duplicate keybindings. Comment out conflict keybindings)
+#--------------------------------------------------------------------------------
+# TV remote control (TV does not support ddcutil)
+$mode+Shift+h    -> panasonic-viera set_input hdmi1
+$mode+Shift+Left -> panasonic-viera set_input hdmi1
+# $mode+Shift+n    -> panasonic-viera launch_app netflix
+$mode+Shift+y    -> panasonic-viera launch_app youtube
+
+$mode+Shift+f    -> panasonic-viera volume_up
+$mode+Shift+v    -> panasonic-viera volume_down
+# $mode+Shift+c    -> panasonic-viera send_key info
+
+$mode+Shift+g    -> panasonic-viera send_key power
+
+# Bluetooth mouse reconnect (workaround mouse not able to reconnect after resume)
+$mode+Shift+q -> pgrep bluetoothctl || (notify-send.sh -t 0 -r 30 -u low "Connecting Mouse..." && bluetoothctl connect D2:79:84:6F:3B:04 && notify-send.sh -t 2000 -r 30 -u normal "Mouse Connected" || notify-send.sh -t 5000 -r 30 -u critical "Mouse Connection Failed")
+
+# $mode+b -> switch-bluetooth-device-host $mac andy-desktop
+
+

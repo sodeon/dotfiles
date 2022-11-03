@@ -1,0 +1,112 @@
+#!/bin/bash -u
+cmd=${1-"down"}
+# interval=${2-0.35} # time in second
+# step=${2-0.1}      # time in second
+
+default_interval=0.45
+default_step=0.1
+min_interval=0.1
+tick=0.05
+dir="/tmp/infinite-scroll"
+
+
+#------------------------------------------------------------------------------
+# Helper functions
+#------------------------------------------------------------------------------
+source-config() {
+    status=`cat $dir/status` # 3 types: running, pause, stopped
+    direction=`cat $dir/direction`
+    interval=`cat $dir/interval`
+    step=`cat $dir/step`
+}
+
+faster() {
+    interval=`echo "$interval - $step" | bc`
+    (( `echo "$interval < $min_interval" | bc` )) && interval=$min_interval
+    echo $interval > $dir/interval
+}
+
+slower() {
+    interval=`echo "$interval + $step" | bc`
+    echo $interval > $dir/interval
+}
+
+
+#------------------------------------------------------------------------------
+# Stop/faster/slower/status commands
+#------------------------------------------------------------------------------
+if [ ! -d "$dir" ]; then
+    mkdir -p "$dir"
+    echo stopped > $dir/status
+    echo down > $dir/direction
+    echo ${2-$default_interval} > $dir/interval
+    echo ${3-$default_step} > $dir/step
+fi
+source-config
+
+case $cmd in
+    pause)
+        [[ $status == "running" ]] && echo "pause"   > "$dir/status" && exit 0
+        [[ $status == "pause"   ]] && echo "running" > "$dir/status" && exit 1
+        # [[ $status == "stopped" ]]                                   && exit 2
+        exit 2
+        ;;
+    stop)
+        echo "stopped" > "$dir/status"
+        [[ $status != "stopped" ]]
+        exit
+        ;;
+    faster)
+        faster
+        exit
+        ;;
+    slower)
+        slower
+        exit
+        ;;
+    is-scrolling)
+        [[ $status != "stopped" ]]
+        exit
+        ;;
+    status)
+        echo $status
+        exit
+        ;;
+    up|down)
+        if [[ $status == "stopped" ]]; then # Start new infinite scroll loop
+            echo ${2-$default_interval} > $dir/interval
+            echo ${3-$default_step} > $dir/step
+        fi
+        echo $cmd > $dir/direction
+        echo running > $dir/status
+        [[ $status == "running" ]] && [[ $direction == $cmd ]] && faster
+        [[ $status == "running" ]] || [[ $status == "pause" ]] && exit # Prevent multiple instances
+        direction=$cmd
+        status=running
+        timer=$interval
+        ;;
+esac
+
+
+#------------------------------------------------------------------------------
+# Infinite scrolling
+#------------------------------------------------------------------------------
+while [[ $status == "running" ]] || [[ $status == "pause" ]]; do
+    source-config
+    if [[ $status == "running" ]]; then
+        if (( `echo "$timer >= $interval" | bc` )); then
+            timer=0
+            [[ $direction == "up" ]] \
+                && xte 'key Prior' \
+                || xte 'key Next'
+            # [[ $direction == "up" ]] \
+            #     && xte 'key b' \
+            #     || xte 'key f'
+            # [[ $direction == "up" ]] \
+            #     && xdotool key --clearmodifiers Prior \
+            #     || xdotool key --clearmodifiers Next
+        fi
+    fi
+    timer=`echo $timer + $tick | bc`
+    sleep $tick
+done

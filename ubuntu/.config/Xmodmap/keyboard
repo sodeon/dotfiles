@@ -1,0 +1,10 @@
+! Mouse direction
+keycode 43 = h H h H Left  Left
+keycode 44 = j J j J Down  Down
+keycode 45 = k K k K Up    Up
+keycode 46 = l L l L Right Right
+
+! Mouse keys
+keycode 40 = d D d D Right Right
+keycode 41 = f F f F
+keycode 42 = g G g G

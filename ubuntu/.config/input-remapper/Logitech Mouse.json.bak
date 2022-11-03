@@ -1,0 +1,20 @@
+{
+    "mapping": {
+        "2,8,1": [
+            "k(XF86TouchpadOff)",
+            "keyboard"
+        ],
+        "2,8,-1": [
+            "k(XF86WWAN)",
+            "keyboard"
+        ],
+        "2,11,120": [
+            "set(a, 1)",
+            "keyboard"
+        ],
+        "2,11,-120": [
+            "set(a, 1)",
+            "keyboard"
+        ]
+    }
+}

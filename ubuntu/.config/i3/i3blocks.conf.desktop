@@ -23,40 +23,61 @@ command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=25
 markup=none
 
+[blank]
+full_text=Clickable Blank Region
+min_width=9000
+command=i3block-onclick autohotkey workspacePicker; i3block-on-right-click autohotkey quick-cmds-menu
+separator=false
+color=#000000
+
 [window]
-command=xdotool getactivewindow getwindowname || echo ""
+command=i3block-onclick autohotkey workspacePicker; i3block-on-right-click autohotkey quick-cmds-menu; xdotool getactivewindow getwindowname || echo ""
 color=#aadddd
-interval=once
+interval=0
+# interval=once
 signal=13
 separator=false
 # separator_block_width=30
 
+# [input-battery]
+# command=echo "🖱️"`setup-mouse battery-level`
+# color=#cc8800
+# interval=3600
+# # signal=13
+# separator=false
+# # separator_block_width=30
+
 [bandwidth]
 #instance=eth0
+command=i3block-net
+# command=i3block-onclick i3-widget btop -p 4; /usr/share/i3blocks/bandwidth
+# command=i3block-onclick i3-widget iftop; /usr/share/i3blocks/bandwidth
 interval=5
 color=#888888
 separator=false
 
 [mem_stat]
 interval=5
-command=mem_stat
-min_width=14.0G
+command=i3block-mem
+# command=i3block-onclick i3-widget btop -p 3; mem_stat
+# command=NMON=d. i3block-onclick i3-widget nmon; mem_stat
+# min_width=14.0G
 align=right
 separator=false
 
 [cpu_stat]
 interval=2
-# min_width=100%   35°  |  1.0
-min_width=100%   35°
+# min_width=100%   35°
 align=right
-command=cpu_stat 2
+command=i3block-cpu
+# command=i3block-onclick monitor cpu; cpu_stat 2 | head -n 1
 separator=false
 # separator_block_width=7
 
 [brightness]
 label=☀
 color=#66ff66
-command=(tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+command=i3block-onclick autohotkey brightness game; i3block-on-right-click monitor gpu; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 interval=once
 signal=11
 separator=false
@@ -65,27 +86,28 @@ separator=false
 [audio]
 label=♪
 color=#66ff66
-command=[ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
+command=i3block-onclick switch-sound-output && pkill -RTMIN+10 i3blocks; i3block-on-right-click pavucontrol; [ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
 interval=once
 signal=10
 separator=false
 # separator_block_width=12
 
 [time]
-command=date '+%-m-%d %H:%M'
+command=i3block-onclick urxvtc -name invisible -e nclock; i3block-on-right-click i3-widget -h ncal -A 1; date '+%-m-%d %H:%M'
+# command=i3block-onclick i3-widget -h ncal -A 1; i3block-on-right-click urxvtc -name invisible -e nclock; date '+%-m-%d %H:%M'
 interval=5
 separator=false
 
 [record]
 command=sleep 0.25 && pgrep record-screen >/dev/null && pgrep gst-launch-1.0 >/dev/null && echo R || echo "" # Wait a small amount of time for gst-launch-1.0 command to launch
 color=#CC4444
-interval=once
+interval=0
 signal=20
 
 [caffeine]
 command=sleep 0.25 && pgrep caffeinate >/dev/null && echo 😎 || echo "" # Wait a small amount of time for caffeinate command to launch
 color=#44AADD
-interval=once
+interval=0
 signal=21
 
 # [debug]

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Resolution
+resolution="3840x2160"
+# scale="1.33333x1.33333" # 2/1.5=1.333 => scale 150%
+# scale="1.6x1.6" # 2/1.25=1.6 => scale 125%
+scale="1x1"
+refresh_rate=120
+is_high_dpi=true
+
+# Monitor spec
+brightness_feature_id=10
+contrast_feature_id=12
+color_temperature_feature_id=14
+
+# Brightness/color temperature control
+is_reading_mode=true
+is_game_mode=false
+
+brightness_step=5
+contrast_step=5
+
+reading_brightness=0
+reading_contrast=35
+color_temperature_reading=5 # 6500K
+
+video_brightness=0
+video_contrast=50
+color_temperature_video=6 # 7500K
+
+game_brightness=40
+game_contrast=50
+color_temperature_game=6 # 7500K
+game_refresh_rate=120
+
+# Color temperature
+# 5 : 6500K
+# 6 : 7500K
+# 8 : 9300K
+# 12: User 2 (often had problems switching to it)
+# Others has no effect

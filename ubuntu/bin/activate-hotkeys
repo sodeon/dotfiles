@@ -1,7 +1,5 @@
 #!/bin/bash -ue
 
-inputs=`xinput --list --short`
-
 mouse_alt="/tmp/mouse-alt"
 hyperscroll="/tmp/hyperscroll"
 keyboard_alt="/tmp/keyboard-alt"
@@ -22,14 +20,8 @@ setup-keymap() {
     [ -f $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
     [ -f $keyboard_mouse ] && rm  $keyboard_mouse && notify-send.sh --close=12
 
-    # Common key assignments
-    xmodmap ~/.config/Xmodmap/modifiers
-    xmodmap -e 'remove control = Mode_switch'
-    xmodmap -e 'add mod5 = Mode_switch'
-    xmodmap ~/.Xmodmap
-
     # Grave esc swap
-    if echo "$inputs" | grep -q \
+    if xinput --list --short | grep -q \
         -e "SN TECH" \
         -e "SINO WEALTH" \
         -e "EK820" \
@@ -40,17 +32,6 @@ setup-keymap() {
     else
         default-esc-grave
     fi
-
-    # Right ctrl/os to right/left
-    # if echo "$inputs" | grep -q -e "SONiX USB DEVICE Keyboard"; then # Rapoo V860-61
-        right-ctrl-os-as-right-left
-        xmodmap -e 'remove control = Right'
-        xmodmap -e 'remove mod4    = Left'
-    # else
-    #     default-right-ctrl-os
-    #     xmodmap -e 'add control = Control_R'
-    #     xmodmap -e 'add mod4    = Super_R'
-    # fi
 }
 
 
@@ -58,28 +39,22 @@ setup-keymap() {
 # Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
 #------------------------------------------------------------------------------
 bind-dualkeys() {
+    input-remapper-control --command autoload
     systemctl --user restart evcape
 }
 
 bind-hotkeys() {
-    # return
-    echo "" > /tmp/xbindkeysrc
+    [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP != "i3" ]] && return
 
     if [ -f $mouse_alt ]; then
-        cat ~/.config/xbindkeys/mouse-common     >> /tmp/xbindkeysrc
-        cat ~/.config/xbindkeys/mouse-alt        >> /tmp/xbindkeysrc
+        i3-msg -q "mode Alt"
     else
-        cat ~/.config/xbindkeys/mouse-common     >> /tmp/xbindkeysrc
-        cat ~/.config/xbindkeys/mouse            >> /tmp/xbindkeysrc
         if [ -f $hyperscroll ]; then
-            cat ~/.config/xbindkeys/hyperscroll  >> /tmp/xbindkeysrc
+            i3-msg -q "mode Hyperscroll"
         else
-            cat ~/.config/xbindkeys/normalscroll >> /tmp/xbindkeysrc
+            i3-msg -q "mode default"
         fi
     fi
-    
-    pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
-    xbindkeys -f /tmp/xbindkeysrc
 }
 
 
@@ -88,15 +63,15 @@ bind-hotkeys() {
 #------------------------------------------------------------------------------
 mouse-notification() {
     if [ -f $mouse_alt ]; then
-        notify-send.sh -t 0 -r 10 -u critical "Alt  |  Media"
+        notify-send.sh -t 0 -r 10 -u low "Alt"
         # notify-send.sh --close=13
     else
         notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
-        if [ -f $hyperscroll ]; then
-            notify-send.sh -t 0 -r 13 -u normal Hyperscroll
-        else
-            notify-send.sh --close=13
-        fi
+        # if [ -f $hyperscroll ]; then
+        #     notify-send.sh -t 0 -r 13 -u normal Hyperscroll
+        # else
+        #     notify-send.sh --close=13
+        # fi
     fi
 }
 
@@ -113,6 +88,7 @@ mouse-mode() {
 }
 
 toggle-mouse-mode() { [ -f $mouse_alt ] && mouse-mode normal || mouse-mode alt; }
+is-mouse-alt     () { [ -f $mouse_alt   ]; }
 
 
 scroll-mode() {
@@ -128,6 +104,7 @@ scroll-mode() {
 }
 
 toggle-hyperscroll() { [ -f $hyperscroll ] && scroll-mode normal || scroll-mode hyper; }
+is-hyperscroll    () { [ -f $hyperscroll ]; }
 
 
 #------------------------------------------------------------------------------
@@ -145,7 +122,7 @@ keyboard-mouse() {
             ;;
         "off")
             rm $keyboard_mouse
-            xmodmap ~/.Xmodmap
+            xmodmap ~/.config/Xmodmap/keyboard
             notify-send.sh --close=12 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
             ;;
         "toggle")
@@ -158,26 +135,23 @@ keyboard-mouse() {
     esac
 }
 
-toggle-keyboard-alt() {
-    if [ -f $keyboard_alt ]; then # Default layer
-        rm $keyboard_alt
-        xmodmap ~/.Xmodmap
-        notify-send.sh --close=11
-    else # Alternate layer (layer1)
-        touch $keyboard_alt
-        xmodmap ~/.config/Xmodmap/layer1
-        notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
-    fi
-}
+# toggle-keyboard-alt() {
+#     if [ -f $keyboard_alt ]; then # Default layer
+#         rm $keyboard_alt
+#         xmodmap ~/.Xmodmap
+#         notify-send.sh --close=11
+#     else # Alternate layer (layer1)
+#         touch $keyboard_alt
+#         xmodmap ~/.config/Xmodmap/layer1
+#         notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
+#     fi
+# }
 
 game-mode() {
+    input-remapper-control --command stop-all
     systemctl --user stop evcape
 
-    pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
-    # echo "" > /tmp/xbindkeysrc
-    # cat ~/.config/xbindkeys/mouse-gaming >> /tmp/xbindkeysrc
-    # pgrep xbindkeys > /dev/null && pkill xbindkeys # xbindkeys prevents multiple instance by itself
-    # xbindkeys -f /tmp/xbindkeysrc
+    i3-msg -q "mode Game"
 }
 
 
@@ -196,7 +170,6 @@ init() {
 
     # Setup one time
     bind-hotkeys
-    # [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP == "i3" ]] && bind-hotkeys # Disable xbindkeys: Both Ubuntu 19.4 and 19.10 has compatibility issues with xbindkeys.
 }
 
 if [ $# == 0 ]; then
@@ -209,12 +182,3 @@ fi
 #------------------------------------------------------------------------------
 # Legacy
 #------------------------------------------------------------------------------
-    # Mouse keybindings
-    # echo "$inputs" | grep -q -e "Razer Basilisk.*pointer" \
-    #                          -e "Logitech USB Receiver"   \
-    #                          -e "Logitech G602"        && \
-    #     ([ -f $mouse_alt ] && cat ~/.config/xbindkeys/razer-basilisk-alt >> /tmp/xbindkeysrc || cat ~/.config/xbindkeys/razer-basilisk >> /tmp/xbindkeysrc)
-
-        # pgrep --full evcape > /dev/null && pkill --full evcape || systemctl --user start evcape
-
-    # set-mouse-scroll-speed # When xbindkeys binds mouse buttons, imwheel won't work. Also vice versa.

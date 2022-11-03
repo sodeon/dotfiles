@@ -18,25 +18,28 @@ backup_list=(
     .gvimrc
     .zshrc
     .profile
-    .Xmodmap
+    # .Xmodmap
     .Xresources-cpp
-    .xbindkeysrc
+    # .xbindkeysrc
     .lesskey
-    .imwheelrc
+    # .imwheelrc
 
     .local/share/applications
     .oh-my-zsh/{themes/andy.zsh-theme,plugins/sd/sd.plugin.zsh}
 
+    .config/picom.conf
     .config/htop
     .config/dunst
     .config/rofi
     .config/ranger
     .config/zathura
-    .config/Xmodmap
-    .config/xbindkeys
-    .config/i3/layouts
+    # .config/Xmodmap/{keyboard,keyboard-mouse}
+    .config/input-remapper
+    # .config/xbindkeys
+    .config/i3/{keyboard,mouse,config.hotkeys,gen-config.hotkeys.sh,layouts}
     .config/mpv/{scripts,shaders}
     .config/sxiv
+    .config/mcomix
     .config/systemd/user
     .config/hardware/macs
     # .config/hardware
@@ -51,7 +54,7 @@ backup_list=(
     # examples
     .config/autohotkeyrc.example
     .config/dotfiles/dotfilesrc.example
-    .config/i3/{config,config.monitor.pc,config.monitor.tv,i3blocks.conf.example}
+    .config/i3/{config,config.hotkeys,i3blocks.conf.example}
     .config/Xresources/i3.example
 )
 
@@ -61,8 +64,8 @@ machine_suffix_backup_list=(
     .config/autohotkeyrc
     .config/record-screen.rc
     .config/mpv/mpv.conf
-    .config/i3/{config.monitor,i3blocks.conf}
+    .config/i3/{i3blocks.conf}
     .config/dotfiles/dotfilesrc
-    .config/Xresources/{profile,i3,i3.ew3270u}
+    .config/Xresources/{profile,i3,i3.24g2w1g4,i3.ew3270u}
     # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.
 )

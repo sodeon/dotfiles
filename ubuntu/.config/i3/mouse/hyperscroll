@@ -1,0 +1,13 @@
+# Half page up/down
+201 -> xte $scru-up 'key Prior'
+202 -> xte $scrd-up 'key Next'
+# 201 -> xte $scru-up && autohotkey halfPageUp
+# 202 -> xte $scrd-up && autohotkey halfPageDown
+
+# New: Page up/down
+$s1+201 -> xte $s1-up 'mouseclick 4' $s1-down 
+$s1+202 -> xte $s1-up 'mouseclick 5' $s1-down
+# $s1+201 -> xte $scru-up && autohotkey halfPageUp
+# $s1+202 -> xte $scrd-up && autohotkey halfPageDown
+# $s1+201 -> xte $scru-up 'key Prior' 'key Prior'
+# $s1+202 -> xte $scrd-up 'key Next'  'key Next'

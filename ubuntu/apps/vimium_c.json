@@ -1,12 +1,13 @@
 {
 	"name": "Vimium C",
-	"@time": "6/16/2021, 10:12:04 AM",
-	"time": 1623809524858,
+	"@time": "4/28/2022, 11:10:34 AM",
+	"time": 1651115434581,
 	"environment": {
-		"extension": "1.90.2",
+		"extension": "1.98.0",
 		"platform": "linux",
-		"chrome": 91
+		"chrome": "100"
 	},
+	"exclusionOnlyFirstMatch": true,
 	"exclusionRules": [
 		{
 			"passKeys": "0 1 2 3 4 5 6 7 8 9 < > f j k l m ",
@@ -22,7 +23,7 @@
 		},
 		{
 			"passKeys": "+ - < > f j k l m w ",
-			"pattern": "^https://www\\.bilibili\\.com/vide/*"
+			"pattern": "^https://www.bilibili.com/vide/*"
 		},
 		{
 			"passKeys": "' A H O Q S T W a d e g h j k l m o q r s t w x ",
@@ -37,26 +38,40 @@
 			"pattern": ":http://router:7681/"
 		}
 	],
-	"focusNewTabContent": false,
 	"grabBackFocus": true,
 	"keyMappings": [
+		"#! no-check",
 		"# default keymaps that will never be used",
 		"unmap J",
 		"unmap K",
 		"unmap L",
 		"unmap p",
 		"unmap i",
+		"unmap yf",
+		"unmap gn",
 		"unmap <a-t>",
 		"unmap <a-p>",
+		"unmap <a-s-r>",
+		"unmap <a-c>",
+		"unmap <a-f>",
+		"unmap <c-e>",
+		"",
+		"# Extension shortcuts",
+		"unmap <a-s-c>",
+		"# unmap <a-t>",
+		"# unmap <a-s-d>",
+		"# unmap <a-s-p>",
 		"",
 		"# Navigation",
 		"unmap f",
 		"unmap F",
 		"unmap b",
 		"map I enterInsertMode",
-		"map d LinkHints.activateMode",
-		"map D LinkHints.activateModeToOpenInNewTab",
-		"map <c-d> LinkHints.activateModeWithQueue",
+		"map d LinkHints.activate",
+		"map D LinkHints.activateOpenInNewTab",
+		"map <c-d> LinkHints.activateWithQueue",
+		"map yd LinkHints.activateCopyLinkUrl",
+		"map yt copyCurrentTitle",
 		"",
 		"#",
 		"map a goBack",
@@ -85,7 +100,8 @@
 		"map p togglePinTab",
 		"map ' Marks.activate",
 		"map gv enterVisualMode",
-		"map R toggleReaderMode",
+		"map gh LinkHints.unhoverLast",
+		"# map R toggleReaderMode",
 		"",
 		"# Links",
 		"# map h Vomnibar.activateHistoryInNewTab",

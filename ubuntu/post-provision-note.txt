@@ -1,5 +1,8 @@
 ## Setup/plugins that needs additional steps after provisioning
 
+Resolve dual boot time unsync issue:
+    $timedatectl set-local-rtc 1 # https://itsfoss.com/wrong-time-dual-boot
+
 Configs not backed up
     Start w/ i3: $toggle-window-manager
     Theme and icons: $lxappearnce

@@ -31,17 +31,21 @@ WS1_CMD() {
 # WS4_CMD() { true; }
 
 
+# VOLUME_STEP=5
+
+
 #------------------------------------------------------------------------------
 # rofi menu entries
 #------------------------------------------------------------------------------
-declare -A F10_ENTRIES=(
-    [1. PC Gaming          ]=lutris
-    [2. Retro Arcade       ]=mame
-    [3. Moonlight Streaming]=moonlight
-)
 # WOL_WIDTH=15
 declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-on-lan nas"
     [2. TV   ]="wake-on-lan tv"
     [3. J5005]="wake-on-lan j5005"
+)
+
+declare -A F10_ENTRIES=(
+    [1. PC Gaming          ]=lutris
+    [2. Retro Arcade       ]=mame
+    [3. Moonlight Streaming]=moonlight
 )

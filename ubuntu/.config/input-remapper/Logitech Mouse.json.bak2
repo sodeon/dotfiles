@@ -1,0 +1,28 @@
+{
+    "mapping": {
+        "1,187,1+2,8,1": [
+            "modify(XF86Finance, k(XF86TouchpadOff))",
+            "keyboard"
+        ],
+        "1,187,1+2,8,-1": [
+            "modify(XF86Finance, k(XF86WWAN))",
+            "keyboard"
+        ],
+        "1,183,1+2,8,1": [
+            "modify(XF86Launch3, k(XF86TouchpadOff))",
+            "keyboard"
+        ],
+        "1,183,1+2,8,-1": [
+            "modify(XF86Launch3, k(XF86WWAN))",
+            "keyboard"
+        ],
+        "1,186,1+2,8,1": [
+            "modify(XF86Launch6, k(XF86TouchpadOff))",
+            "keyboard"
+        ],
+        "1,186,1+2,8,-1": [
+            "modify(XF86Launch6, k(XF86WWAN))",
+            "keyboard"
+        ]
+    }
+}

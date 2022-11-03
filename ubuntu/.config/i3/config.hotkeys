@@ -1,0 +1,630 @@
+bindsym $mod+Shift+r restart
+bindsym $mode+p exec --no-startup-id autohotkey deleteWord
+bindsym $mode+u exec --no-startup-id autohotkey deleteLine
+bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
+bindsym $mode+r exec --no-startup-id autohotkey previousWord
+bindsym $mode+Shift+r exec --no-startup-id autohotkey previousWord
+bindsym $mode+t exec --no-startup-id autohotkey nextWord
+bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
+bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
+bindsym Mod4+x exec --no-startup-id autohotkey power-menu
+bindsym Print exec flameshot screen -p $HOME/Pictures
+bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
+bindsym $mode+bracketleft exec flameshot screen -p $HOME/Pictures
+bindsym Shift+$mode+bracketleft exec flameshot gui -p $HOME/Pictures -s 
+bindsym ctrl+$mod+r exec record-screen
+bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
+bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
+bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
+bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
+bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
+bindsym $mode+space exec --no-startup-id autohotkey playPause
+bindsym $mode+Shift+space exec --no-startup-id cmus-remote -u 
+bindsym $mode+e exec --no-startup-id autohotkey nextTrack
+bindsym $mode+Shift+e exec --no-startup-id autohotkey prevTrack
+bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+bindsym XF86AudioMute exec --no-startup-id autohotkey volume toggle
+bindsym $mode+f exec --no-startup-id autohotkey volume up
+bindsym $mode+v exec --no-startup-id autohotkey volume down
+bindsym $mode+c exec --no-startup-id autohotkey volume toggle
+bindsym $mode+g exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
+bindsym $mode+z exec --no-startup-id xte $mode-up 'keyup z' 'key j' $mode-down
+bindsym $mode+x exec --no-startup-id xte $mode-up 'keyup x' 'key l' $mode-down
+bindsym $mode+b exec --no-startup-id autohotkey bluetooth-quick-connect
+bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
+bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
+bindsym XF86Display exec --no-startup-id set-display-monitor
+bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
+bindsym XF86Bluetooth exec --no-startup-id toggle-bluetooth
+bindsym $mod+b exec --no-startup-id setup-mouse battery-level
+bindsym $mod+z exec --no-startup-id autohotkey mouse-profile-menu
+bindsym Mod4+F12 exec rofi -show combi -sidebar-mode 
+bindsym Mod4+Tab exec autohotkey workspacePicker
+bindsym $mod+grave kill
+bindsym $mod+Escape kill
+bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
+bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
+bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
+bindsym $mod+l exec --no-startup-id autohotkey focusWindow right
+bindsym $mod+Shift+h move left $floatingDeltaX
+bindsym $mod+Shift+j move down $floatingDeltaY
+bindsym $mod+Shift+k move up $floatingDeltaY
+bindsym $mod+Shift+l move right $floatingDeltaX
+bindsym $mod+Control+h exec --no-startup-id autohotkey resizeWindow shrink width $resizeX
+bindsym $mod+Control+k exec --no-startup-id autohotkey resizeWindow grow height $resizeY
+bindsym $mod+Control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow width $resizeX
+bindsym $mod+f exec --no-startup-id autohotkey i3toggleFullscreen
+bindsym $mod+a layout toggle split
+bindsym $mod+s layout toggle stacking split
+bindsym $mod+d layout toggle tabbed split
+bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
+bindsym $mod+Shift+space fullscreen disable, floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym Mod4+h exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+j exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+k exec --no-startup-id "snap-window up ; i3-msg 'focus mode_toggle'; snap-window up ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+l exec --no-startup-id "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+bindsym Mod4+slash exec --no-startup-id "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
+bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+bindsym $mod+Shift+BackSpace exec --no-startup-id dunstctl history-pop
+bindsym $mode+q exec --no-startup-id warpd --oneshot --click 1 --hint
+bindsym $mode+Shift+q exec --no-startup-id warpd --hint
+bindsym $mod+Tab exec --no-startup-id autohotkey normalScroll || autohotkey altTab
+bindsym $mod+1 exec autohotkey F1 
+bindsym $mod+2 exec autohotkey F2
+bindsym $mod+3 exec autohotkey F3
+bindsym $mod+4 exec autohotkey F4
+bindsym $mod+5 exec autohotkey F5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 exec autohotkey F10
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+slash move scratchpad
+bindsym $mod+slash scratchpad show
+bindsym $mod+Return exec $term -cd $(xcwd)
+bindsym $mod+n exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
+bindsym $mod+Shift+m exec --no-startup-id autohotkey toggleVideo
+bindsym $mod+Control+m exec --no-startup-id autohotkey toggleVideoSize
+bindsym $mod+r gaps horizontal current toggle $toggleHGap
+bindsym $mod+Control+Shift+h gaps horizontal current plus $hGapStep
+bindsym $mod+Control+Shift+l gaps horizontal current minus $hGapStep
+bindsym $mod+Control+Shift+j gaps vertical current plus $vGapStep
+bindsym $mod+Control+Shift+k gaps vertical current minus $vGapStep
+bindsym XF86MonBrightnessUp exec --no-startup-id autohotkey brightness up
+bindsym XF86MonBrightnessDown exec --no-startup-id autohotkey brightness down
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+bindsym $mode+Shift+f exec --no-startup-id autohotkey brightness up
+bindsym $mode+Shift+v exec --no-startup-id autohotkey brightness down
+bindsym $mode+Shift+c exec --no-startup-id autohotkey brightness toggle
+bindsym $mode+Control+c exec --no-startup-id autohotkey brightness game
+bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
+bindcode 201 exec --no-startup-id xte 'mouseclick 4'
+bindcode 202 exec --no-startup-id xte 'mouseclick 5'
+bindcode $s1+201 exec --no-startup-id xte $scru-up && autohotkey halfPageUp
+bindcode $s1+202 exec --no-startup-id xte $scrd-up && autohotkey halfPageDown
+bindsym --whole-window $s1+button1 exec --no-startup-id xte 'keydown Control_L' 'key Prior' 'keyup Control_L' 
+bindsym --whole-window $s1+button3 exec --no-startup-id xte 'keydown Control_L' 'key Next' 'keyup Control_L' 
+bindsym --whole-window $s2+button1 exec --no-startup-id autohotkey brightness down
+bindsym --whole-window $s2+button3 exec --no-startup-id autohotkey brightness up
+bindsym --whole-window $sb+button1 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+bindsym --whole-window $sb+button3 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Next' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+bindsym --whole-window $sm+button1 exec --no-startup-id xdotool key --clearmodifiers A 
+bindsym --whole-window $sm+button3 exec --no-startup-id xdotool key --clearmodifiers S 
+bindcode 200 exec --no-startup-id autohotkey infiniteScroll pause || ([ $? = 2 ] && xte 'mouseclick 2')
+bindcode $s1+200 exec --no-startup-id xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down 
+bindcode $s2+200 exec --no-startup-id autohotkey volume toggle && pkill -RTMIN+10 i3blocks 
+bindcode $sb+200 exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+4 
+bindcode $s2+201 exec --no-startup-id autohotkey volume up
+bindcode $s2+202 exec --no-startup-id autohotkey volume down
+bindcode $sb+201 exec --no-startup-id xte $scru-up 'key Home'
+bindcode $sb+202 exec --no-startup-id xte $scrd-up 'key End'
+bindcode $sm+201 exec --no-startup-id autohotkey toggleMaximized 
+bindcode $sm+202 exec --no-startup-id autohotkey altTab 
+bindcode $s1+$sm+201 exec --no-startup-id xdotool key --clearmodifiers ctrl+1 
+bindcode $s1+$sm+202 exec --no-startup-id xdotool key --clearmodifiers ctrl+9 
+bindcode $s2+$sm+201 exec --no-startup-id autohotkey prevTrack
+bindcode $s2+$sm+202 exec --no-startup-id autohotkey nextTrack
+bindcode $sb+$sm+201 exec --no-startup-id xte $scru-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 1' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+bindcode $sb+$sm+202 exec --no-startup-id xte $scrd-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 9' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+bindcode 192 exec --no-startup-id autohotkey on-192-click
+bindcode $s2+193 exec --no-startup-id autohotkey brightness toggle 
+bindcode $s1+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t 
+bindcode $sb+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+r 
+bindcode 197 exec --no-startup-id autohotkey closeTabOrWindow
+bindcode 198 exec --no-startup-id xte 'keyup XF86Launch9' 'mouseclick 8' 
+bindcode $mod+197 exec --no-startup-id xte 'mouseup 8' && xdotool key --clearmodifiers ctrl+shift+t 
+bindcode $mod+198 exec --no-startup-id xte 'mouseclick 9' 
+bindcode $s1+197 exec --no-startup-id autohotkey playPause
+bindcode $s2+198 exec --no-startup-id cmus-remote -u 
+bindcode $sm+197 exec --no-startup-id xdotool key --clearmodifiers g+U 
+bindcode $sm+198 exec --no-startup-id xdotool key --clearmodifiers e 
+bindsym --whole-window $mod+button3 exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+bindcode $mod+200 exec --no-startup-id autohotkey toggleQBittorrent
+bindcode $mod+201 exec --no-startup-id xte $scru-up && autohotkey infiniteScroll up
+bindcode $mod+202 exec --no-startup-id xte $scrd-up && autohotkey infiniteScroll down
+bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
+bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
+bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
+bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
+bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
+mode Hyperscroll {
+    bindsym $mod+Shift+r restart
+    bindsym $mode+p exec --no-startup-id autohotkey deleteWord
+    bindsym $mode+u exec --no-startup-id autohotkey deleteLine
+    bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
+    bindsym $mode+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+Shift+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+t exec --no-startup-id autohotkey nextWord
+    bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
+    bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
+    bindsym Mod4+x exec --no-startup-id autohotkey power-menu
+    bindsym Print exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
+    bindsym $mode+bracketleft exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+$mode+bracketleft exec flameshot gui -p $HOME/Pictures -s 
+    bindsym ctrl+$mod+r exec record-screen
+    bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
+    bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
+    bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
+    bindsym $mode+space exec --no-startup-id autohotkey playPause
+    bindsym $mode+Shift+space exec --no-startup-id cmus-remote -u 
+    bindsym $mode+e exec --no-startup-id autohotkey nextTrack
+    bindsym $mode+Shift+e exec --no-startup-id autohotkey prevTrack
+    bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+    bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+    bindsym XF86AudioMute exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+f exec --no-startup-id autohotkey volume up
+    bindsym $mode+v exec --no-startup-id autohotkey volume down
+    bindsym $mode+c exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+g exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
+    bindsym $mode+z exec --no-startup-id xte $mode-up 'keyup z' 'key j' $mode-down
+    bindsym $mode+x exec --no-startup-id xte $mode-up 'keyup x' 'key l' $mode-down
+    bindsym $mode+b exec --no-startup-id autohotkey bluetooth-quick-connect
+    bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
+    bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+    bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
+    bindsym XF86Display exec --no-startup-id set-display-monitor
+    bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
+    bindsym XF86Bluetooth exec --no-startup-id toggle-bluetooth
+    bindsym $mod+b exec --no-startup-id setup-mouse battery-level
+    bindsym $mod+z exec --no-startup-id autohotkey mouse-profile-menu
+    bindsym Mod4+F12 exec rofi -show combi -sidebar-mode 
+    bindsym Mod4+Tab exec autohotkey workspacePicker
+    bindsym $mod+grave kill
+    bindsym $mod+Escape kill
+    bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
+    bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
+    bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
+    bindsym $mod+l exec --no-startup-id autohotkey focusWindow right
+    bindsym $mod+Shift+h move left $floatingDeltaX
+    bindsym $mod+Shift+j move down $floatingDeltaY
+    bindsym $mod+Shift+k move up $floatingDeltaY
+    bindsym $mod+Shift+l move right $floatingDeltaX
+    bindsym $mod+Control+h exec --no-startup-id autohotkey resizeWindow shrink width $resizeX
+    bindsym $mod+Control+k exec --no-startup-id autohotkey resizeWindow grow height $resizeY
+    bindsym $mod+Control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+    bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow width $resizeX
+    bindsym $mod+f exec --no-startup-id autohotkey i3toggleFullscreen
+    bindsym $mod+a layout toggle split
+    bindsym $mod+s layout toggle stacking split
+    bindsym $mod+d layout toggle tabbed split
+    bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
+    bindsym $mod+Shift+space fullscreen disable, floating toggle
+    bindsym $mod+space focus mode_toggle
+    bindsym Mod4+h exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+j exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+k exec --no-startup-id "snap-window up ; i3-msg 'focus mode_toggle'; snap-window up ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+l exec --no-startup-id "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+slash exec --no-startup-id "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
+    bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+    bindsym $mod+Shift+BackSpace exec --no-startup-id dunstctl history-pop
+    bindsym $mode+q exec --no-startup-id warpd --oneshot --click 1 --hint
+    bindsym $mode+Shift+q exec --no-startup-id warpd --hint
+    bindsym $mod+Tab exec --no-startup-id autohotkey normalScroll || autohotkey altTab
+    bindsym $mod+1 exec autohotkey F1 
+    bindsym $mod+2 exec autohotkey F2
+    bindsym $mod+3 exec autohotkey F3
+    bindsym $mod+4 exec autohotkey F4
+    bindsym $mod+5 exec autohotkey F5
+    bindsym $mod+6 workspace number $ws6
+    bindsym $mod+7 workspace number $ws7
+    bindsym $mod+8 workspace number $ws8
+    bindsym $mod+9 workspace number $ws9
+    bindsym $mod+0 exec autohotkey F10
+    bindsym $mod+Shift+1 move container to workspace number $ws1
+    bindsym $mod+Shift+2 move container to workspace number $ws2
+    bindsym $mod+Shift+3 move container to workspace number $ws3
+    bindsym $mod+Shift+4 move container to workspace number $ws4
+    bindsym $mod+Shift+5 move container to workspace number $ws5
+    bindsym $mod+Shift+6 move container to workspace number $ws6
+    bindsym $mod+Shift+7 move container to workspace number $ws7
+    bindsym $mod+Shift+8 move container to workspace number $ws8
+    bindsym $mod+Shift+9 move container to workspace number $ws9
+    bindsym $mod+Shift+0 move container to workspace number $ws10
+    bindsym $mod+Shift+slash move scratchpad
+    bindsym $mod+slash scratchpad show
+    bindsym $mod+Return exec $term -cd $(xcwd)
+    bindsym $mod+n exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+    bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
+    bindsym $mod+Shift+m exec --no-startup-id autohotkey toggleVideo
+    bindsym $mod+Control+m exec --no-startup-id autohotkey toggleVideoSize
+    bindsym $mod+r gaps horizontal current toggle $toggleHGap
+    bindsym $mod+Control+Shift+h gaps horizontal current plus $hGapStep
+    bindsym $mod+Control+Shift+l gaps horizontal current minus $hGapStep
+    bindsym $mod+Control+Shift+j gaps vertical current plus $vGapStep
+    bindsym $mod+Control+Shift+k gaps vertical current minus $vGapStep
+    bindsym XF86MonBrightnessUp exec --no-startup-id autohotkey brightness up
+    bindsym XF86MonBrightnessDown exec --no-startup-id autohotkey brightness down
+    bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+    bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+f exec --no-startup-id autohotkey brightness up
+    bindsym $mode+Shift+v exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+c exec --no-startup-id autohotkey brightness toggle
+    bindsym $mode+Control+c exec --no-startup-id autohotkey brightness game
+    bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
+    bindcode 201 exec --no-startup-id xte $scru-up 'key Prior'
+    bindcode 202 exec --no-startup-id xte $scrd-up 'key Next'
+    bindcode $s1+201 exec --no-startup-id xte $s1-up 'mouseclick 4' $s1-down 
+    bindcode $s1+202 exec --no-startup-id xte $s1-up 'mouseclick 5' $s1-down
+    bindsym --whole-window $s1+button1 exec --no-startup-id xte 'keydown Control_L' 'key Prior' 'keyup Control_L' 
+    bindsym --whole-window $s1+button3 exec --no-startup-id xte 'keydown Control_L' 'key Next' 'keyup Control_L' 
+    bindsym --whole-window $s2+button1 exec --no-startup-id autohotkey brightness down
+    bindsym --whole-window $s2+button3 exec --no-startup-id autohotkey brightness up
+    bindsym --whole-window $sb+button1 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+    bindsym --whole-window $sb+button3 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Next' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+    bindsym --whole-window $sm+button1 exec --no-startup-id xdotool key --clearmodifiers A 
+    bindsym --whole-window $sm+button3 exec --no-startup-id xdotool key --clearmodifiers S 
+    bindcode 200 exec --no-startup-id autohotkey infiniteScroll pause || ([ $? = 2 ] && xte 'mouseclick 2')
+    bindcode $s1+200 exec --no-startup-id xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down 
+    bindcode $s2+200 exec --no-startup-id autohotkey volume toggle && pkill -RTMIN+10 i3blocks 
+    bindcode $sb+200 exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+4 
+    bindcode $s2+201 exec --no-startup-id autohotkey volume up
+    bindcode $s2+202 exec --no-startup-id autohotkey volume down
+    bindcode $sb+201 exec --no-startup-id xte $scru-up 'key Home'
+    bindcode $sb+202 exec --no-startup-id xte $scrd-up 'key End'
+    bindcode $sm+201 exec --no-startup-id autohotkey toggleMaximized 
+    bindcode $sm+202 exec --no-startup-id autohotkey altTab 
+    bindcode $s1+$sm+201 exec --no-startup-id xdotool key --clearmodifiers ctrl+1 
+    bindcode $s1+$sm+202 exec --no-startup-id xdotool key --clearmodifiers ctrl+9 
+    bindcode $s2+$sm+201 exec --no-startup-id autohotkey prevTrack
+    bindcode $s2+$sm+202 exec --no-startup-id autohotkey nextTrack
+    bindcode $sb+$sm+201 exec --no-startup-id xte $scru-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 1' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+    bindcode $sb+$sm+202 exec --no-startup-id xte $scrd-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 9' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+    bindcode 192 exec --no-startup-id autohotkey on-192-click
+    bindcode $s2+193 exec --no-startup-id autohotkey brightness toggle 
+    bindcode $s1+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t 
+    bindcode $sb+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+r 
+    bindcode 197 exec --no-startup-id autohotkey closeTabOrWindow
+    bindcode 198 exec --no-startup-id xte 'keyup XF86Launch9' 'mouseclick 8' 
+    bindcode $mod+197 exec --no-startup-id xte 'mouseup 8' && xdotool key --clearmodifiers ctrl+shift+t 
+    bindcode $mod+198 exec --no-startup-id xte 'mouseclick 9' 
+    bindcode $s1+197 exec --no-startup-id autohotkey playPause
+    bindcode $s2+198 exec --no-startup-id cmus-remote -u 
+    bindcode $sm+197 exec --no-startup-id xdotool key --clearmodifiers g+U 
+    bindcode $sm+198 exec --no-startup-id xdotool key --clearmodifiers e 
+    bindsym --whole-window $mod+button3 exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+    bindcode $mod+200 exec --no-startup-id autohotkey toggleQBittorrent
+    bindcode $mod+201 exec --no-startup-id xte $scru-up && autohotkey infiniteScroll up
+    bindcode $mod+202 exec --no-startup-id xte $scrd-up && autohotkey infiniteScroll down
+    bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
+    bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
+    bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+    bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
+    bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
+    bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
+}
+mode Alt {
+    bindsym $mod+Shift+r restart
+    bindsym $mode+p exec --no-startup-id autohotkey deleteWord
+    bindsym $mode+u exec --no-startup-id autohotkey deleteLine
+    bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
+    bindsym $mode+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+Shift+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+t exec --no-startup-id autohotkey nextWord
+    bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
+    bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
+    bindsym Mod4+x exec --no-startup-id autohotkey power-menu
+    bindsym Print exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
+    bindsym $mode+bracketleft exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+$mode+bracketleft exec flameshot gui -p $HOME/Pictures -s 
+    bindsym ctrl+$mod+r exec record-screen
+    bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
+    bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
+    bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
+    bindsym $mode+space exec --no-startup-id autohotkey playPause
+    bindsym $mode+Shift+space exec --no-startup-id cmus-remote -u 
+    bindsym $mode+e exec --no-startup-id autohotkey nextTrack
+    bindsym $mode+Shift+e exec --no-startup-id autohotkey prevTrack
+    bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+    bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+    bindsym XF86AudioMute exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+f exec --no-startup-id autohotkey volume up
+    bindsym $mode+v exec --no-startup-id autohotkey volume down
+    bindsym $mode+c exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+g exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
+    bindsym $mode+z exec --no-startup-id xte $mode-up 'keyup z' 'key j' $mode-down
+    bindsym $mode+x exec --no-startup-id xte $mode-up 'keyup x' 'key l' $mode-down
+    bindsym $mode+b exec --no-startup-id autohotkey bluetooth-quick-connect
+    bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
+    bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+    bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
+    bindsym XF86Display exec --no-startup-id set-display-monitor
+    bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
+    bindsym XF86Bluetooth exec --no-startup-id toggle-bluetooth
+    bindsym $mod+b exec --no-startup-id setup-mouse battery-level
+    bindsym $mod+z exec --no-startup-id autohotkey mouse-profile-menu
+    bindsym Mod4+F12 exec rofi -show combi -sidebar-mode 
+    bindsym Mod4+Tab exec autohotkey workspacePicker
+    bindsym $mod+grave kill
+    bindsym $mod+Escape kill
+    bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
+    bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
+    bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
+    bindsym $mod+l exec --no-startup-id autohotkey focusWindow right
+    bindsym $mod+Shift+h move left $floatingDeltaX
+    bindsym $mod+Shift+j move down $floatingDeltaY
+    bindsym $mod+Shift+k move up $floatingDeltaY
+    bindsym $mod+Shift+l move right $floatingDeltaX
+    bindsym $mod+Control+h exec --no-startup-id autohotkey resizeWindow shrink width $resizeX
+    bindsym $mod+Control+k exec --no-startup-id autohotkey resizeWindow grow height $resizeY
+    bindsym $mod+Control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+    bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow width $resizeX
+    bindsym $mod+f exec --no-startup-id autohotkey i3toggleFullscreen
+    bindsym $mod+a layout toggle split
+    bindsym $mod+s layout toggle stacking split
+    bindsym $mod+d layout toggle tabbed split
+    bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
+    bindsym $mod+Shift+space fullscreen disable, floating toggle
+    bindsym $mod+space focus mode_toggle
+    bindsym Mod4+h exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+j exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+k exec --no-startup-id "snap-window up ; i3-msg 'focus mode_toggle'; snap-window up ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+l exec --no-startup-id "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+slash exec --no-startup-id "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
+    bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+    bindsym $mod+Shift+BackSpace exec --no-startup-id dunstctl history-pop
+    bindsym $mode+q exec --no-startup-id warpd --oneshot --click 1 --hint
+    bindsym $mode+Shift+q exec --no-startup-id warpd --hint
+    bindsym $mod+Tab exec --no-startup-id autohotkey normalScroll || autohotkey altTab
+    bindsym $mod+1 exec autohotkey F1 
+    bindsym $mod+2 exec autohotkey F2
+    bindsym $mod+3 exec autohotkey F3
+    bindsym $mod+4 exec autohotkey F4
+    bindsym $mod+5 exec autohotkey F5
+    bindsym $mod+6 workspace number $ws6
+    bindsym $mod+7 workspace number $ws7
+    bindsym $mod+8 workspace number $ws8
+    bindsym $mod+9 workspace number $ws9
+    bindsym $mod+0 exec autohotkey F10
+    bindsym $mod+Shift+1 move container to workspace number $ws1
+    bindsym $mod+Shift+2 move container to workspace number $ws2
+    bindsym $mod+Shift+3 move container to workspace number $ws3
+    bindsym $mod+Shift+4 move container to workspace number $ws4
+    bindsym $mod+Shift+5 move container to workspace number $ws5
+    bindsym $mod+Shift+6 move container to workspace number $ws6
+    bindsym $mod+Shift+7 move container to workspace number $ws7
+    bindsym $mod+Shift+8 move container to workspace number $ws8
+    bindsym $mod+Shift+9 move container to workspace number $ws9
+    bindsym $mod+Shift+0 move container to workspace number $ws10
+    bindsym $mod+Shift+slash move scratchpad
+    bindsym $mod+slash scratchpad show
+    bindsym $mod+Return exec $term -cd $(xcwd)
+    bindsym $mod+n exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+    bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
+    bindsym $mod+Shift+m exec --no-startup-id autohotkey toggleVideo
+    bindsym $mod+Control+m exec --no-startup-id autohotkey toggleVideoSize
+    bindsym $mod+r gaps horizontal current toggle $toggleHGap
+    bindsym $mod+Control+Shift+h gaps horizontal current plus $hGapStep
+    bindsym $mod+Control+Shift+l gaps horizontal current minus $hGapStep
+    bindsym $mod+Control+Shift+j gaps vertical current plus $vGapStep
+    bindsym $mod+Control+Shift+k gaps vertical current minus $vGapStep
+    bindsym XF86MonBrightnessUp exec --no-startup-id autohotkey brightness up
+    bindsym XF86MonBrightnessDown exec --no-startup-id autohotkey brightness down
+    bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+    bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+f exec --no-startup-id autohotkey brightness up
+    bindsym $mode+Shift+v exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+c exec --no-startup-id autohotkey brightness toggle
+    bindsym $mode+Control+c exec --no-startup-id autohotkey brightness game
+    bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
+    bindcode 201 exec --no-startup-id xte $scru-up 'key Left' 
+    bindcode 202 exec --no-startup-id xte $scrd-up 'key Right' 
+    bindcode $s1+201 exec --no-startup-id xte $scru-up 'key j' 'key j' 'key j' 
+    bindcode $s1+202 exec --no-startup-id xte $scrd-up 'key l' 'key l' 'key l' 
+    bindsym --whole-window $s1+button1 exec --no-startup-id xte 'keydown Control_L' 'key Prior' 'keyup Control_L' 
+    bindsym --whole-window $s1+button3 exec --no-startup-id xte 'keydown Control_L' 'key Next' 'keyup Control_L' 
+    bindsym --whole-window $s2+button1 exec --no-startup-id autohotkey brightness down
+    bindsym --whole-window $s2+button3 exec --no-startup-id autohotkey brightness up
+    bindsym --whole-window $sb+button1 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+    bindsym --whole-window $sb+button3 exec --no-startup-id xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Next' 'keyup Shift_L' 'keyup Control_L' $sb-down 
+    bindsym --whole-window $sm+button1 exec --no-startup-id xdotool key --clearmodifiers A 
+    bindsym --whole-window $sm+button3 exec --no-startup-id xdotool key --clearmodifiers S 
+    bindcode 200 exec --no-startup-id autohotkey infiniteScroll pause || ([ $? = 2 ] && xte 'mouseclick 2')
+    bindcode $s1+200 exec --no-startup-id xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down 
+    bindcode $s2+200 exec --no-startup-id autohotkey volume toggle && pkill -RTMIN+10 i3blocks 
+    bindcode $sb+200 exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+4 
+    bindcode $s2+201 exec --no-startup-id autohotkey volume up
+    bindcode $s2+202 exec --no-startup-id autohotkey volume down
+    bindcode $sb+201 exec --no-startup-id xte $scru-up 'key Home'
+    bindcode $sb+202 exec --no-startup-id xte $scrd-up 'key End'
+    bindcode $sm+201 exec --no-startup-id autohotkey toggleMaximized 
+    bindcode $sm+202 exec --no-startup-id autohotkey altTab 
+    bindcode $s1+$sm+201 exec --no-startup-id xdotool key --clearmodifiers ctrl+1 
+    bindcode $s1+$sm+202 exec --no-startup-id xdotool key --clearmodifiers ctrl+9 
+    bindcode $s2+$sm+201 exec --no-startup-id autohotkey prevTrack
+    bindcode $s2+$sm+202 exec --no-startup-id autohotkey nextTrack
+    bindcode $sb+$sm+201 exec --no-startup-id xte $scru-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 1' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+    bindcode $sb+$sm+202 exec --no-startup-id xte $scrd-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 9' 'keyup Shift_L' 'keyup Control_L' $sb-down $sm-down 
+    bindcode 192 exec --no-startup-id autohotkey on-192-click
+    bindcode $s2+193 exec --no-startup-id autohotkey brightness toggle 
+    bindcode $s1+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t 
+    bindcode $sb+193 exec --no-startup-id xdotool keyup XF86Launch5 key --clearmodifiers ctrl+r 
+    bindcode 197 exec --no-startup-id autohotkey closeTabOrWindow
+    bindcode 198 exec --no-startup-id xte 'keyup XF86Launch9' 'mouseclick 8' 
+    bindcode $mod+197 exec --no-startup-id xte 'mouseup 8' && xdotool key --clearmodifiers ctrl+shift+t 
+    bindcode $mod+198 exec --no-startup-id xte 'mouseclick 9' 
+    bindcode $s1+197 exec --no-startup-id autohotkey playPause
+    bindcode $s2+198 exec --no-startup-id cmus-remote -u 
+    bindcode $sm+197 exec --no-startup-id xdotool key --clearmodifiers g+U 
+    bindcode $sm+198 exec --no-startup-id xdotool key --clearmodifiers e 
+    bindsym --whole-window $mod+button3 exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+    bindcode $mod+200 exec --no-startup-id autohotkey toggleQBittorrent
+    bindcode $mod+201 exec --no-startup-id xte $scru-up && autohotkey infiniteScroll up
+    bindcode $mod+202 exec --no-startup-id xte $scrd-up && autohotkey infiniteScroll down
+    bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
+    bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
+    bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+    bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
+    bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
+    bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
+}
+mode Game {
+    bindsym $mod+Shift+r restart
+    bindsym $mode+p exec --no-startup-id autohotkey deleteWord
+    bindsym $mode+u exec --no-startup-id autohotkey deleteLine
+    bindsym $mode+slash exec --no-startup-id autohotkey deleteWordAfter
+    bindsym $mode+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+Shift+r exec --no-startup-id autohotkey previousWord
+    bindsym $mode+t exec --no-startup-id autohotkey nextWord
+    bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
+    bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
+    bindsym Mod4+x exec --no-startup-id autohotkey power-menu
+    bindsym Print exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
+    bindsym $mode+bracketleft exec flameshot screen -p $HOME/Pictures
+    bindsym Shift+$mode+bracketleft exec flameshot gui -p $HOME/Pictures -s 
+    bindsym ctrl+$mod+r exec record-screen
+    bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
+    bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
+    bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
+    bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
+    bindsym $mode+space exec --no-startup-id autohotkey playPause
+    bindsym $mode+Shift+space exec --no-startup-id cmus-remote -u 
+    bindsym $mode+e exec --no-startup-id autohotkey nextTrack
+    bindsym $mode+Shift+e exec --no-startup-id autohotkey prevTrack
+    bindsym XF86AudioRaiseVolume exec --no-startup-id autohotkey volume up
+    bindsym XF86AudioLowerVolume exec --no-startup-id autohotkey volume down
+    bindsym XF86AudioMute exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+f exec --no-startup-id autohotkey volume up
+    bindsym $mode+v exec --no-startup-id autohotkey volume down
+    bindsym $mode+c exec --no-startup-id autohotkey volume toggle
+    bindsym $mode+g exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3blocks
+    bindsym $mode+z exec --no-startup-id xte $mode-up 'keyup z' 'key j' $mode-down
+    bindsym $mode+x exec --no-startup-id xte $mode-up 'keyup x' 'key l' $mode-down
+    bindsym $mode+b exec --no-startup-id autohotkey bluetooth-quick-connect
+    bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
+    bindsym $mode+n exec --no-startup-id autohotkey wol-menu
+    bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
+    bindsym XF86Display exec --no-startup-id set-display-monitor
+    bindsym XF86TouchpadToggle exec --no-startup-id toggle-touchpad
+    bindsym XF86Bluetooth exec --no-startup-id toggle-bluetooth
+    bindsym $mod+b exec --no-startup-id setup-mouse battery-level
+    bindsym $mod+z exec --no-startup-id autohotkey mouse-profile-menu
+    bindsym Mod4+F12 exec rofi -show combi -sidebar-mode 
+    bindsym Mod4+Tab exec autohotkey workspacePicker
+    bindsym $mod+grave kill
+    bindsym $mod+Escape kill
+    bindsym $mod+h exec --no-startup-id autohotkey focusWindow left
+    bindsym $mod+j exec --no-startup-id autohotkey focusWindow down
+    bindsym $mod+k exec --no-startup-id autohotkey focusWindow up
+    bindsym $mod+l exec --no-startup-id autohotkey focusWindow right
+    bindsym $mod+Shift+h move left $floatingDeltaX
+    bindsym $mod+Shift+j move down $floatingDeltaY
+    bindsym $mod+Shift+k move up $floatingDeltaY
+    bindsym $mod+Shift+l move right $floatingDeltaX
+    bindsym $mod+Control+h exec --no-startup-id autohotkey resizeWindow shrink width $resizeX
+    bindsym $mod+Control+k exec --no-startup-id autohotkey resizeWindow grow height $resizeY
+    bindsym $mod+Control+j exec --no-startup-id autohotkey resizeWindow shrink height $resizeY
+    bindsym $mod+Control+l exec --no-startup-id autohotkey resizeWindow grow width $resizeX
+    bindsym $mod+f exec --no-startup-id autohotkey i3toggleFullscreen
+    bindsym $mod+a layout toggle split
+    bindsym $mod+s layout toggle stacking split
+    bindsym $mod+d layout toggle tabbed split
+    bindsym $mod+equal resize set width 50ppt, resize set height 50ppt
+    bindsym $mod+Shift+space fullscreen disable, floating toggle
+    bindsym $mod+space focus mode_toggle
+    bindsym Mod4+h exec --no-startup-id "snap-window left ; i3-msg 'focus mode_toggle'; snap-window left ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+j exec --no-startup-id "snap-window down ; i3-msg 'focus mode_toggle'; snap-window down ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+k exec --no-startup-id "snap-window up ; i3-msg 'focus mode_toggle'; snap-window up ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+l exec --no-startup-id "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+    bindsym Mod4+slash exec --no-startup-id "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
+    bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+    bindsym $mod+Shift+BackSpace exec --no-startup-id dunstctl history-pop
+    bindsym $mode+q exec --no-startup-id warpd --oneshot --click 1 --hint
+    bindsym $mode+Shift+q exec --no-startup-id warpd --hint
+    bindsym $mod+Tab exec --no-startup-id autohotkey normalScroll || autohotkey altTab
+    bindsym $mod+1 exec autohotkey F1 
+    bindsym $mod+2 exec autohotkey F2
+    bindsym $mod+3 exec autohotkey F3
+    bindsym $mod+4 exec autohotkey F4
+    bindsym $mod+5 exec autohotkey F5
+    bindsym $mod+6 workspace number $ws6
+    bindsym $mod+7 workspace number $ws7
+    bindsym $mod+8 workspace number $ws8
+    bindsym $mod+9 workspace number $ws9
+    bindsym $mod+0 exec autohotkey F10
+    bindsym $mod+Shift+1 move container to workspace number $ws1
+    bindsym $mod+Shift+2 move container to workspace number $ws2
+    bindsym $mod+Shift+3 move container to workspace number $ws3
+    bindsym $mod+Shift+4 move container to workspace number $ws4
+    bindsym $mod+Shift+5 move container to workspace number $ws5
+    bindsym $mod+Shift+6 move container to workspace number $ws6
+    bindsym $mod+Shift+7 move container to workspace number $ws7
+    bindsym $mod+Shift+8 move container to workspace number $ws8
+    bindsym $mod+Shift+9 move container to workspace number $ws9
+    bindsym $mod+Shift+0 move container to workspace number $ws10
+    bindsym $mod+Shift+slash move scratchpad
+    bindsym $mod+slash scratchpad show
+    bindsym $mod+Return exec $term -cd $(xcwd)
+    bindsym $mod+n exec i3-floating-singleton tmux "Notebook" $notebookTransparency
+    bindsym $mod+m exec i3-floating-singleton cmus "Music Player"
+    bindsym $mod+Shift+m exec --no-startup-id autohotkey toggleVideo
+    bindsym $mod+Control+m exec --no-startup-id autohotkey toggleVideoSize
+    bindsym $mod+r gaps horizontal current toggle $toggleHGap
+    bindsym $mod+Control+Shift+h gaps horizontal current plus $hGapStep
+    bindsym $mod+Control+Shift+l gaps horizontal current minus $hGapStep
+    bindsym $mod+Control+Shift+j gaps vertical current plus $vGapStep
+    bindsym $mod+Control+Shift+k gaps vertical current minus $vGapStep
+    bindsym XF86MonBrightnessUp exec --no-startup-id autohotkey brightness up
+    bindsym XF86MonBrightnessDown exec --no-startup-id autohotkey brightness down
+    bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
+    bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+f exec --no-startup-id autohotkey brightness up
+    bindsym $mode+Shift+v exec --no-startup-id autohotkey brightness down
+    bindsym $mode+Shift+c exec --no-startup-id autohotkey brightness toggle
+    bindsym $mode+Control+c exec --no-startup-id autohotkey brightness game
+    bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
+    bindcode 201 exec --no-startup-id xte 'mouseclick 4'
+    bindcode 202 exec --no-startup-id xte 'mouseclick 5'
+    bindcode Shift+201 exec --no-startup-id xte 'mouseclick 4'
+    bindcode Shift+202 exec --no-startup-id xte 'mouseclick 5'
+    bindcode Control+201 exec --no-startup-id xte 'mouseclick 4'
+    bindcode Control+202 exec --no-startup-id xte 'mouseclick 5'
+}

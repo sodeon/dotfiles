@@ -39,14 +39,14 @@ Mod3+Mod5+c:200
 #   F23 (c:201): Scroll up
 #   F24 (c:202): Scroll down
 #---------------------------------------------------------------------------------------------------
-"xte 'key Left'" # Left
+"xte 'keyup XF86TouchpadOff' 'key Left'" # Left
 c:201
-"xte 'key Right'" # Right
+"xte 'keyup XF86WWAN'        'key Right'" # Right
 c:202
 
-"xdotool type jjj" # Seek backward (mid step)
+"xte 'keyup XF86TouchpadOff' 'key j' 'key j' 'key j'" # Seek backward (mid step)
 Mod3+c:201
-"xdotool type lll" # Seek forward (mid step)
+"xte 'keyup XF86WWAN'        'key l' 'key l' 'key l'" # Seek forward (mid step)
 Mod3+c:202
 
 

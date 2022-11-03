@@ -1,0 +1,33 @@
+#!/bin/bash -ue
+
+i3-widget2() {
+    app=$1
+    title=$app
+    instance=widget2
+    transparency=99
+
+    if i3-msg -t get_tree | grep -q '"instance":"'$instance'"'; then # If called again, toggle widget
+       i3-msg [instance=$instance] kill
+    else
+        urxvtc -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 \
+               -name $instance -title $title \
+               -e $app \
+            && while !(i3-msg "[instance=\"^$instance$\"] scratchpad show"); do true; done \
+            && autohotkey isWinActive $instance \
+            && snap-window right                \
+            && snap-window bottom
+    fi
+}
+
+
+while [[ ${1-""} != "" ]]; do
+    case $1 in
+        cpu)
+            i3-widget2 htop
+            ;;
+        gpu)
+            i3-widget nvtop
+            ;;
+    esac
+    shift
+done

@@ -8,14 +8,17 @@ cmd=${1-""}
 # 4. Disable keyboard macros to improve latency and reduce context switches.
 
 start-game-mode() {
+    game_refresh_rate=${game_refresh_rate-"$refresh_rate"}
     # toggle-nvidia-oc on & > /dev/null
     kill-compositor
-    xrandr --output $interface --mode $resolution --scale 1x1    --rate $refresh_rate # Disable fractional scaling and return to native display resolution
+    xrandr --output $interface --mode $resolution --scale 1x1    --rate $game_refresh_rate # Disable fractional scaling and return to native display resolution
     activate-hotkeys game-mode &
+    # setup-mouse      game-mode &
     notify-send.sh -t 5000 -r 19 "Game Mode" "Enabled"
 }
 
 stop-game-mode() {
+    # setup-mouse      &
     activate-hotkeys &
     xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate
     start-compositor
@@ -40,4 +43,3 @@ else
         start-game-mode
     fi
 fi
-

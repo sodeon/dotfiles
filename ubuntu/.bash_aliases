@@ -13,7 +13,9 @@ alias t='touch'
 alias v='vim'
 alias d='vimdiff'
 alias p='python3'
-alias s='systemctl'
+alias s='sudo systemctl'
+alias s.='systemctl --user'
+alias rgf='rg --fixed-strings'
 tabnew() { vim --remote-tab $@; fg; } # alias for vim "tabnew" command. Use in conjunction with ":Serve" in vim. 
                                       # It is not possible to create similar alias for "vs" or "sv"
 n() { touch $*; code $*; } # new and code

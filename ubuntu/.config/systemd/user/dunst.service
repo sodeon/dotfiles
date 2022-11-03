@@ -6,8 +6,7 @@ PartOf=graphical-session.target
 [Service]
 Type=dbus
 BusName=org.freedesktop.Notifications
-ExecStart=bash -c "/usr/bin/dunst -geometry $(xgetres dunst.geometry) -font \"$(xgetres dunst.font)\""
+ExecStart=/usr/bin/dunst
 
 [Install]
 WantedBy=default.target
-

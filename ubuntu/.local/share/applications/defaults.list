@@ -1,0 +1,6 @@
+[Default Applications]
+video/x-msvideo=org.gnome.Totem.desktop;svp-manager4.desktop
+video/x-matroska=org.gnome.Totem.desktop;svp-manager4.desktop
+video/webm=org.gnome.Totem.desktop;svp-manager4.desktop
+video/mpeg=org.gnome.Totem.desktop;svp-manager4.desktop
+video/mp4=org.gnome.Totem.desktop;svp-manager4.desktop

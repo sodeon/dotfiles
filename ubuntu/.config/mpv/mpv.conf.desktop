@@ -5,21 +5,32 @@
 ##################
 fs=yes # Start in fullscreen mode
 geometry=100%:100% # bottom right corner
-autofit-larger=50%x50% # Don't allow a new window to have a size larger than 80% of the screen size
+autofit-larger=32%x33% # Don't allow a new window to have a size larger than 80% of the screen size
+autofit-smaller=32%x33%
 #ontop=yes
 
 # Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
 # Andy reference: https://wiki.archlinux.org/index.php/Mpv
-vo=gpu
+vo=gpu-next
 profile=gpu-hq
 
 # Scaling
-scale=ewa_lanczossharp
-cscale=ewa_lanczossharp
+scale=ewa_lanczos 
+scale-blur=0.981251
+cscale=ewa_lanczos 
+cscale-blur=0.981251
 tscale=oversample
+# scale=ewa_lanczossharp
+# cscale=ewa_lanczossharp
 
 # ytdl-format=bestaudio/best # force VP9 video for 60fps
 # af=acompressor # compress audio dynamic range
+
+# HDR
+tone-mapping=bt.2446a
+tone-mapping-mode=luma
+# tone-mapping-max-boost=2
+gamut-mapping-mode=desaturate
 
 
 ##################
@@ -57,18 +68,24 @@ force-seekable=yes
 slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
 alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
 
-sub-font-size=40
+sub-file-paths=sub:Subs
+sub-font-size=48
+# sub-font-size=40
 sub-margin-y=30
 sub-border-size=0
+sub-scale-with-window=no
+sub-scale-by-window=yes
+
 
 volume-max=200              # maximum volume in %, everything above 100 results in amplification
 
-osd-font-size=32
+osd-font-size=30
+# osd-font-size=32
 osd-on-seek=msg-bar
 osd-bar-align-y=0.783
 osd-bar-w=55
 osd-bar-h=2
-osd-border-size=0
+osd-border-size=1
 osd-align-x=center
 osd-align-y=bottom
 
@@ -119,18 +136,22 @@ blend-subtitles=no
 # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/
 # https://github.com/po5/mpv-config/blob/master/mpv.conf
 #------------------------------------------------------------------------------
-[shader-liveaction]
 glsl-shaders-clr
 glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"
-# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
 glsl-shader="~~/shaders/KrigBilateral.glsl"
-profile-cond=(width <= 1920 and container_fps <= 30) or (width <= 1280)
 
-[shader-anime]
-glsl-shaders-clr
-glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
-glsl-shader="~~/shaders/KrigBilateral.glsl"
-profile-cond=(width > 1920) or (width > 1280 and container_fps > 30)
+# [shader-liveaction]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"
+# # glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+# profile-cond=(width <= 1920 and container_fps <= 30) or (width <= 1280)
+
+# [shader-anime]
+# glsl-shaders-clr
+# glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1_LineArt.glsl"
+# glsl-shader="~~/shaders/KrigBilateral.glsl"
+# profile-cond=(width > 1920) or (width > 1280 and container_fps > 30)
 
 # [shaders-mixed]
 # glsl-shaders-clr

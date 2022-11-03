@@ -14,8 +14,10 @@ set page-padding 1
 set scroll-page-aware true
 
 # Color
-set recolor-darkcolor  "#FFFFFF"
-set recolor-lightcolor "#333333"
+set recolor-darkcolor  "#D7D7D7"
+set recolor-lightcolor "#000000"
+# set recolor-darkcolor  "#FFFFFF"
+# set recolor-lightcolor "#333333"
 set recolor-keephue
 
 set selection-clipboard clipboard # Automatically copy selection to clipboard
@@ -24,10 +26,12 @@ set selection-clipboard clipboard # Automatically copy selection to clipboard
 #------------------------------------------------------------------------------
 # Key bindings
 #------------------------------------------------------------------------------
-map v     scroll full-up
-map c     scroll full-down
-map <C-b> scroll half-up
-map <C-f> scroll half-down
+map v     scroll half-up
+map c     scroll half-down
+map b     scroll full-up
+map f     scroll full-down
+map <C-b> scroll full-up
+map <C-f> scroll full-down
 
 map i     toggle_index
 map d     toggle_page_mode

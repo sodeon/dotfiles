@@ -1,0 +1,46 @@
+#!/bin/bash -u
+cmd=${1-""}
+
+if [[ $cmd == "game-mode" ]]; then
+    # dpi='1300, 1600, 2000, 900'
+    dpi='1600'
+    polling_rate=1000
+    mappings="buttons(layout=QWERTY;
+        scrollup=scrollup;
+        scrolldown=scrolldown;
+        button3=button3;
+        button4=button4;
+        button5=button5;
+        button6=pagedown;
+        button7=end;
+        button8=home;
+        button9=f1)"
+        # button8=dpi;
+else
+    # dpi='2000, 900, 1300'
+    dpi='1600'
+    polling_rate=250
+    mappings="buttons(layout=QWERTY;
+        scrollup=f23; 
+        scrolldown=f24; 
+        button3=f13; 
+        button4=f17; 
+        button5=f16; 
+        button6=f15; 
+        button7=f; 
+        button8=f18; 
+        button9=alt)"
+        # button8=dpi;
+fi
+mappings=`echo $mappings | sed 's/\n/ /'`
+
+[[ $cmd == "battery-level" ]] && rivalcfg --battery-level && exit 0 || true
+rivalcfg \
+    -b "$mappings"
+sleep 0.3
+rivalcfg \
+    -p "$polling_rate"            \
+    -s "$dpi"
+    # --top-color black --middle-color black --bottom-color black \
+    # -a off  `# reactive lighting` \
+    # -T 0    `# dim timer`         \

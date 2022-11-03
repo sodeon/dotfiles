@@ -9,25 +9,22 @@
 #include ".config/Xresources/profile"
 
 ! Profiles and sensible defaults
-#if !defined(SCREEN_24_2K) && !defined(SCREEN_32_4K) && !defined(SCREEN_65_4K)
+#if !defined(SCREEN_24_2K) && !defined(SCREEN_27_4K) && !defined(SCREEN_32_4K) && !defined(SCREEN_65_4K)
     #define SCREEN_24_2K
 #endif
 
 #if defined SCREEN_24_2K
     #define XTERM_FACE_SIZE 14
     #define URXVT_FONT_SIZE 14
-    #define DUNST_GEOMETRY 160-0+27
-    #define DUNST_FONT Ubuntu 13
+#elif defined SCREEN_27_4K
+    #define XTERM_FACE_SIZE 14
+    #define URXVT_FONT_SIZE 14
 #elif defined SCREEN_32_4K
     #define XTERM_FACE_SIZE 14
     #define URXVT_FONT_SIZE 14
-    #define DUNST_GEOMETRY 340-16+54
-    #define DUNST_FONT Ubuntu 13
 #elif defined SCREEN_65_4K
     #define XTERM_FACE_SIZE 20
     #define URXVT_FONT_SIZE 20
-    #define DUNST_GEOMETRY 360x10-0+54
-    #define DUNST_FONT Ubuntu 18
 #endif
 
 #if defined FONT_FIRA
@@ -188,13 +185,6 @@ URxvt.matcher.rend.2: -Uline
 ! Arbitrary select (after activating, vim like control and search)
 URxvt.keyboard-select.clipboard: true
 URxvt.keysym.Control-S: perl:keyboard-select:activate
-
-
-!-----------------------------------------------------------------
-! dunst
-!-----------------------------------------------------------------
-dunst.font: DUNST_FONT
-dunst.geometry: DUNST_GEOMETRY
 
 
 !-----------------------------------------------------------------

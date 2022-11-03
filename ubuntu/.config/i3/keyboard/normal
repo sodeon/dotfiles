@@ -1,0 +1,249 @@
+# Restart i3 config
+bindsym $mod+Shift+r restart
+
+#--------------------------------------------------------------------------------
+# Typing assist
+#--------------------------------------------------------------------------------
+# Delete word/line (delete line only functional for terminal and vim)
+$mode+p     -> autohotkey deleteWord
+$mode+u     -> autohotkey deleteLine
+$mode+slash -> autohotkey deleteWordAfter
+
+# Move back/forward a word
+$mode+r       -> autohotkey previousWord
+$mode+Shift+r -> autohotkey previousWord
+$mode+t       -> autohotkey nextWord
+$mode+Shift+t -> autohotkey nextWord
+
+# Caps lock (original caps lock is used for dual purpose of ctrl and escape) (for xmodmap Mode_switch layer)
+# $mode+Tab -> xte 'keyup Tab' 'key Caps_Lock'
+
+# Toggle keyboard layer (useful for 60% keyboards in for single hand usage)
+# $mod+backslash -> activate-hotkeys toggle-keyboard-alt
+
+
+#--------------------------------------------------------------------------------
+# PrintScreen/Pause, XF86 (volume, monitor brightness and media control), and hardware keys
+#--------------------------------------------------------------------------------
+# Power
+XF86PowerOff -> autohotkey suspend
+Mod4+x       -> autohotkey power-menu
+# --release Pause                 -> autohotkey display-standby
+# --release Shift+Pause           -> autohotkey suspend
+# --release $mode+backslash       -> autohotkey display-standby
+# --release $mode+Shift+backslash -> autohotkey suspend
+
+# Screenshot
+Print                   => flameshot screen -p $HOME/Pictures
+Shift+Print             => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
+$mode+bracketleft       => flameshot screen -p $HOME/Pictures
+Shift+$mode+bracketleft => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
+
+# Screen recording
+ctrl+$mod+r => record-screen
+
+# Media playback (XF86AudioPlay is the same as XF86AudioPlayPause. Therefore, it is implemented as a toggle between play and pause.)
+XF86AudioPlay          -> autohotkey playPause
+XF86AudioPause         -> autohotkey playPause
+XF86AudioNext          -> autohotkey nextTrack
+XF86AudioPrev          -> autohotkey prevTrack
+Shift+XF86AudioPause   -> cmus-remote -u  # play/pause
+XF86Eject              -> xdotool key --clearmodifiers ctrl+z # xcape lctrl
+
+# # Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
+# # $mode+Right     -> autohotkey nextTrack
+# # $mode+Left      -> autohotkey nextTrack
+# # Use keycode to avoid conflict with layer1 activated by pressing $mode (for xmodmap Mode_switch layer)
+# $mode+114     -> autohotkey nextTrack
+# $mode+113     -> autohotkey prevTrack
+# $mode+105     -> autohotkey nextTrack
+# $mode+134     -> autohotkey prevTrack
+# # $mode+111     -> autohotkey volume up
+# # $mode+116     -> autohotkey volume down
+
+# Media control with left hand only
+$mode+space       -> autohotkey playPause
+$mode+Shift+space -> cmus-remote -u  # play/pause
+$mode+e           -> autohotkey nextTrack
+$mode+Shift+e     -> autohotkey prevTrack
+
+# Volume
+XF86AudioRaiseVolume -> autohotkey volume up
+XF86AudioLowerVolume -> autohotkey volume down
+XF86AudioMute        -> autohotkey volume toggle
+$mode+f              -> autohotkey volume up
+$mode+v              -> autohotkey volume down
+$mode+c              -> autohotkey volume toggle
+$mode+g              -> switch-sound-output && pkill -RTMIN+10 i3blocks
+
+# Seek forward/backward. Chrome won't correctly recognize if using xkb layer to implement.
+$mode+z -> xte $mode-up 'keyup z' 'key j' $mode-down
+$mode+x -> xte $mode-up 'keyup x' 'key l' $mode-down
+
+# Bluetooth control
+$mode+b       -> autohotkey bluetooth-quick-connect
+$mode+Shift+b -> autohotkey bluetooth-menu
+
+# Wake on lan and WIFI control
+$mode+n       -> autohotkey wol-menu
+$mode+Shift+n -> autohotkey wifi-menu
+
+# Laptop
+XF86Display        -> set-display-monitor
+XF86TouchpadToggle -> toggle-touchpad
+XF86Bluetooth      -> toggle-bluetooth
+# --release XF86ScreenSaver -> xset dpms force off
+
+# Quick commands
+$mod+b -> setup-mouse battery-level
+$mod+z -> autohotkey mouse-profile-menu
+
+
+#--------------------------------------------------------------------------------
+# App launcher and workspace picker
+#--------------------------------------------------------------------------------
+# Not directly typed, but used by xcape binding
+# Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
+#     If using mod+F12, mod+h/j/k/l followed by Mod4/super will result in the alt key triggerd by Mod4(xcape) missing
+Mod4+F12 => rofi -show combi -sidebar-mode 
+
+Mod4+Tab => autohotkey workspacePicker
+
+
+#--------------------------------------------------------------------------------
+# Window management
+#--------------------------------------------------------------------------------
+# Kill focused window
+$mod+grave  kill
+$mod+Escape kill
+# $mod+F4     kill
+
+# Change focus (with vim integration)
+$mod+h -> autohotkey focusWindow left
+$mod+j -> autohotkey focusWindow down
+$mod+k -> autohotkey focusWindow up
+$mod+l -> autohotkey focusWindow right
+
+# Move focused window (Disable vim/i3/tmux integration. All these have different window movement mechanisms. Behavior after integration is just wierd and inconsistent.)
+$mod+Shift+h move left  $floatingDeltaX
+$mod+Shift+j move down  $floatingDeltaY
+$mod+Shift+k move up    $floatingDeltaY
+$mod+Shift+l move right $floatingDeltaX
+
+# Resize window
+$mod+Control+h -> autohotkey resizeWindow shrink width  $resizeX
+$mod+Control+k -> autohotkey resizeWindow grow   height $resizeY
+$mod+Control+j -> autohotkey resizeWindow shrink height $resizeY
+$mod+Control+l -> autohotkey resizeWindow grow   width  $resizeX
+
+# Make window a horizontal split container
+# $mod+s split v
+# Make window a vertical split container
+# $mod+v split h
+
+# Full screen (maximize)
+# $mod+f -> i3-msg "fullscreen toggle"
+$mod+f -> autohotkey i3toggleFullscreen
+# Change container layout (stacked, tabbed, toggle split). For my workflow, I only use split and stacked.
+$mod+a layout toggle split
+$mod+s layout toggle stacking split
+$mod+d layout toggle tabbed   split
+# Equal width/height
+$mod+equal resize set width 50ppt, resize set height 50ppt
+
+# Floating (window will remain in fullscreen mode even entering floating state)
+$mod+Shift+space fullscreen disable, floating toggle
+$mod+space       focus mode_toggle
+# $mod+space focus mode_toggle; -> autohotkey floatingToggled
+
+# Snap floating window position
+Mod4+h     -> "snap-window left  ; i3-msg 'focus mode_toggle'; snap-window left  ; i3-msg 'focus mode_toggle'"
+Mod4+j     -> "snap-window down  ; i3-msg 'focus mode_toggle'; snap-window down  ; i3-msg 'focus mode_toggle'"
+Mod4+k     -> "snap-window up    ; i3-msg 'focus mode_toggle'; snap-window up    ; i3-msg 'focus mode_toggle'"
+Mod4+l     -> "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+Mod4+slash -> "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
+# Mod4+Left  -> "snap-window left  ; i3-msg 'focus mode_toggle'; snap-window left  ; i3-msg 'focus mode_toggle'"
+# Mod4+Down  -> "snap-window down  ; i3-msg 'focus mode_toggle'; snap-window down  ; i3-msg 'focus mode_toggle'"
+# Mod4+Up    -> "snap-window up    ; i3-msg 'focus mode_toggle'; snap-window up    ; i3-msg 'focus mode_toggle'"
+# Mod4+Right -> "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
+# Legacy: Toggle floating window between bottom left and right (use snap floating window function instead)
+# Mod4+slash -> "toggle-window-snap-position; i3-msg 'focus mode_toggle'; toggle-window-snap-position; i3-msg 'focus mode_toggle'"
+
+# parent/child
+# $mod+p focus parent
+# $mod+c focus child
+
+# TODO: mark/unmark window
+
+# Notifications
+$mod+BackSpace       -> dunstctl close-all
+$mod+Shift+BackSpace -> dunstctl history-pop
+
+# Mousekeys
+$mode+q       -> warpd --oneshot --click 1 --hint
+$mode+Shift+q -> warpd                     --hint
+# $mode+q -> activate-hotkeys keyboard-mouse toggle
+
+
+#--------------------------------------------------------------------------------
+# Workspace management
+#--------------------------------------------------------------------------------
+# Switch to workspace
+# $mod+Tab workspace back_and_forth
+$mod+Tab -> autohotkey normalScroll || autohotkey altTab
+$mod+1   => autohotkey F1 
+$mod+2   => autohotkey F2
+$mod+3   => autohotkey F3
+$mod+4   => autohotkey F4
+$mod+5   => autohotkey F5
+$mod+6   workspace number $ws6
+$mod+7   workspace number $ws7
+$mod+8   workspace number $ws8
+$mod+9   workspace number $ws9
+$mod+0   => autohotkey F10
+
+# Move focused container to workspace
+$mod+Shift+1  move container to workspace number $ws1
+$mod+Shift+2  move container to workspace number $ws2
+$mod+Shift+3  move container to workspace number $ws3
+$mod+Shift+4  move container to workspace number $ws4
+$mod+Shift+5  move container to workspace number $ws5
+$mod+Shift+6  move container to workspace number $ws6
+$mod+Shift+7  move container to workspace number $ws7
+$mod+Shift+8  move container to workspace number $ws8
+$mod+Shift+9  move container to workspace number $ws9
+$mod+Shift+0  move container to workspace number $ws10
+
+# Scratchpad
+# $mod+Shift+s move scratchpad
+$mod+Shift+slash move scratchpad
+$mod+slash       scratchpad show
+
+
+#--------------------------------------------------------------------------------
+# Application window/workspace settings
+#--------------------------------------------------------------------------------
+$mod+Return => $term -cd $(xcwd)
+
+
+#--------------------------------------------------------------------------------
+# Floating application
+#--------------------------------------------------------------------------------
+$mod+n         => i3-floating-singleton tmux "Notebook"     $notebookTransparency
+$mod+m         => i3-floating-singleton cmus "Music Player"
+$mod+Shift+m   -> autohotkey toggleVideo
+$mod+Control+m -> autohotkey toggleVideoSize
+# $mod+Shift+p   -> autohotkey openBrowserVideoInMpv
+
+
+#--------------------------------------------------------------------------------
+# Gaps (i3-gaps is a fork from i3)
+#     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
+#--------------------------------------------------------------------------------
+$mod+r gaps horizontal current toggle $toggleHGap
+
+$mod+Control+Shift+h gaps horizontal current plus  $hGapStep
+$mod+Control+Shift+l gaps horizontal current minus $hGapStep
+$mod+Control+Shift+j gaps vertical   current plus  $vGapStep
+$mod+Control+Shift+k gaps vertical   current minus $vGapStep
+

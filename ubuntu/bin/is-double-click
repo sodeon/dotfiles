@@ -1,0 +1,29 @@
+#!/bin/bash -ue
+keycode=$1
+interval=0.5
+
+dir=/tmp/is-double-click
+guard=$dir/$keycode
+
+# click -> guard exists? -> yes -> remove guard -> double click
+#                        -> no  -> add guard -> wait interval -> guard exist? -> yes -> remove guard -> single click
+#                                                                             -> no  -> cancel
+mkdir -p $dir
+if [ -f $guard ]; then # Double click
+    rm -f $guard
+    exit 2
+else
+    touch $guard
+    sleep $interval
+    if [ -f $guard ]; then
+        rm -f $guard
+        exit 1
+    else
+        exit 0
+    fi
+    # sleep $interval && rm -f $guard &
+
+    # 192 -> touch /tmp/short-pressing && activate-hotkeys toggle-mouse-mode && sleep 0.33 && rm /tmp/short-pressing # Click
+    # 193 -> sleep 0.18 && [ -f /tmp/short-pressing ] || activate-hotkeys toggle-hyperscroll && xte 'keyup XF86Launch5' # Long press (in mouse/normal)
+fi
+

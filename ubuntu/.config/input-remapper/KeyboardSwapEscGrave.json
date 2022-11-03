@@ -1,0 +1,12 @@
+{
+    "mapping": {
+        "1,41,1": [
+            "hold_keys(KEY_ESC)",
+            "keyboard"
+        ],
+        "1,1,1": [
+            "hold_keys(KEY_GRAVE)",
+            "keyboard"
+        ]
+    }
+}
