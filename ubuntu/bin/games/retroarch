@@ -1,0 +1,5 @@
+#!/bin/bash -u
+
+toggle-game-mode on
+MANGOHUD=1 /mnt/d/emulators/retroarch/RetroArch-Linux-x86_64.AppImage
+toggle-game-mode off

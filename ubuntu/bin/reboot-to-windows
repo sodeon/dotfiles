@@ -1,5 +1,21 @@
 #!/bin/bash -ue
 
-bootEntry=`efibootmgr | awk '/Windows/ {print $1}' | sed -r 's/Boot//' | sed -r 's/\*//'`
+bootEntries=`efibootmgr | awk '/Windows/ {print $1}' | sed -r 's/Boot//' | sed -r 's/\*//'`
+entryNum=`echo "$bootEntries" | wc -l`
+
+case $entryNum in
+    0)
+        echo "Cannot find Windows boot entry. Abort."
+        exit 1
+        ;;
+    1)
+        bootEntry=`echo "$bootEntries" | head -n 1`
+        ;;
+    *)
+        bootEntry=`echo "$bootEntries" | tail -n 1`
+        # bootEntry=`echo "$bootEntries" | head -n 2 | tail -n 1`
+        ;;
+esac
+
 sudo efibootmgr -n $bootEntry > /dev/null
 reboot

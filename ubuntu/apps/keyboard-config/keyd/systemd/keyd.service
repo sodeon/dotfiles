@@ -1,0 +1,23 @@
+[Unit]
+Description=key remapping daemon
+
+[Service]
+Environment="XAUTHORITY=/run/user/1000/gdm/Xauthority"
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+Environment="DISPLAY=:0"
+ExecStart=/usr/bin/keyd
+ExecStartPost=/usr/local/bin/activate-hotkeys activate-mouse-mode normalscroll
+Restart=always
+
+
+; [Unit]
+; Description=key remapping daemon
+; Requires=local-fs.target
+; After=local-fs.target
+
+; [Service]
+; Type=simple
+; ExecStart=/usr/bin/keyd
+
+; [Install]
+; WantedBy=sysinit.target

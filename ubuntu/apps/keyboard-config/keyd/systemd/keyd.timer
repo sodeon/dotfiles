@@ -1,0 +1,8 @@
+[Unit]
+Description=key remapping daemon start timer
+
+[Timer]
+OnBootSec=5
+
+[Install]
+WantedBy=default.target

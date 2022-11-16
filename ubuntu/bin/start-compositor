@@ -4,4 +4,4 @@ hsetroot -solid '#000000' # Black background
 while pgrep picom >/dev/null; do
     pkill picom
 done
-picom -b # Picom cmopositor in daemon mode
+picom --experimental-backends -b # Picom cmopositor in daemon mode

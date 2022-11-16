@@ -47,6 +47,7 @@ XF86AudioPlay          -> autohotkey playPause
 XF86AudioPause         -> autohotkey playPause
 XF86AudioNext          -> autohotkey nextTrack
 XF86AudioPrev          -> autohotkey prevTrack
+Shift+XF86AudioNext    -> autohotkey prevTrack
 Shift+XF86AudioPause   -> cmus-remote -u  # play/pause
 XF86Eject              -> xdotool key --clearmodifiers ctrl+z # xcape lctrl
 

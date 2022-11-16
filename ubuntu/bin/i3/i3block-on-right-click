@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$BLOCK_BUTTON" = 3 ]; then
+    $@ >/dev/null
+else
+    exit 1
+fi
+
+

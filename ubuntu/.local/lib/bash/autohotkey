@@ -54,8 +54,9 @@ declare -A MOUSE_PROFILE_ENTRIES=(
     # [3. Battery Level]="setup-mouse battery-level"
 )
 declare -A QUICK_COMMAND_ENTRIES=(
-    [Show Battery Levels]="setup-mouse battery-level"
-    [Web Browser        ]="F1"
+    [Clear Mods    ]="clear-keydown-mods"
+    [Battery Levels]="setup-mouse battery-level"
+    # [Web Browser   ]="F1"
 )
 
 # Default overrides
@@ -441,7 +442,7 @@ toggleFullscreen() {
         if isWebVideo; then
             xdotool keyup XF86Launch7 key --clearmodifiers f
         else
-            xdotool keyup XF86Launch7 key --clearmodifiers ctrl+shift+minus
+            xdotool keyup XF86Launch7 key --clearmodifiers ctrl+shift+minus # minus key position is the same as F11 on 60/65% keyboard
             # xdotool key --clearmodifiers F11
         fi
     elif isWinActive Code; then # Toggle zen mode for vscode
@@ -454,15 +455,6 @@ toggleFullscreen() {
 i3toggleFullscreen() {
     xte 'keyup f'
     toggleFullscreen
-    exit 0
-
-    if isWinActive $BROWSER_WIN_CLASS; then
-        xte 'keyup f' 'keyup Alt_L' 'key F11' 'keydown Alt_L'
-    elif isWinActive Code; then # Toggle zen mode for vscode
-        xdotool keyup f keyup Alt_L key ctrl+shift+z keydown Alt_L
-    else
-        i3-msg "fullscreen toggle"
-    fi
 }
 
 mediaPlayerFullscreen() {
@@ -814,6 +806,10 @@ on-192-click() {
             activate-hotkeys toggle-hyperscroll
             ;;
     esac
+}
+
+clear-keydown-mods() {
+    xte 'keyup Control_L' 'keyup XF86Finance' 'keyup XF86Launch6' 'keyup XF86Launch3'
 }
 
 

@@ -1,12 +1,11 @@
 #!/bin/bash -ue
 cd $(dirname "$(realpath "$0")")
 
-sudo cp evdev               /usr/share/X11/xkb/keycodes
-sudo cp evdev.lst           /usr/share/X11/xkb/rules
-sudo cp {pc,us,inet,altwin} /usr/share/X11/xkb/symbols
+sudo cp keyd/systemd/* /etc/systemd/system
+sudo cp keyd/helpers/* /usr/local/bin
 
-# sudo cp 90-keyboards.rules /etc/udev/rules.d
-# sudo cp 99-keyboard.conf /etc/X11/xorg.conf.d
+sudo ln -s ~/.config/keyd         /etc/keyd
+sudo ln -s ~/bin/activate-hotkeys /usr/loca/bin
 
 
 #------------------------------------------------------------------------------
@@ -19,3 +18,10 @@ sudo cp {pc,us,inet,altwin} /usr/share/X11/xkb/symbols
 # Current xkb settings
 # - $setxkbmap -print -verbose 10 # symbols = pc + us + inet
 #------------------------------------------------------------------------------
+# sudo cp evdev               /usr/share/X11/xkb/keycodes
+# sudo cp evdev.lst           /usr/share/X11/xkb/rules
+# sudo cp {pc,us,inet,altwin} /usr/share/X11/xkb/symbols
+
+# sudo cp 90-keyboards.rules /etc/udev/rules.d
+# sudo cp 99-keyboard.conf   /etc/X11/xorg.conf.d
+

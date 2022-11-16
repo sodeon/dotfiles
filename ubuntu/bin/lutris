@@ -1,3 +1,1 @@
-#!/usr/bin/bash -ue
-
-LUTRIS_SKIP_INIT=1 /usr/games/lutris
+games/lutris

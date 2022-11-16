@@ -1,8 +1,1 @@
-#!/bin/sh
-if [ "$BLOCK_BUTTON" = 3 ]; then
-    $@ >/dev/null
-else
-    exit 1
-fi
-
-
+i3/i3block-on-right-click

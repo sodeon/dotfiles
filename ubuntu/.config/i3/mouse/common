@@ -24,7 +24,8 @@ $sm+button3 -> xdotool key --clearmodifiers S # to thread's nextt
 # Middle button
 200 -> autohotkey infiniteScroll pause || ([ $? = 2 ] && xte 'mouseclick 2')
 
-$s1+200 -> xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down # Open and focus link in new tab
+$s1+200 -> xte 'keydown Shift_L' && sleep 0.1 && xte 'mouseclick 1' 'keyup Shift_L' # Open and focus link in new tab
+# $s1+200 -> xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down # Open and focus link in new tab
 $s2+200 -> autohotkey volume toggle && pkill -RTMIN+10 i3blocks # Mute/unmute
 
 $sb+200 -> xdotool key --clearmodifiers ctrl+shift+4 # Open Vivaldi side panel
@@ -83,7 +84,7 @@ $mod+192         -> autohotkey quick-cmds-menu
 # Aerox 5
 # Control+button1 -> open link in new tab
 # Control+button3 -> autohotkey workspacePicker
-# Control+200     -> 
+Control+200       -> setup-mouse battery-level
 # Control+201     -> 
 # Control+202     -> 
 # Control+192     -> 

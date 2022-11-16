@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo --user=andy autohotkey $@
+# runuser andy -c autohotkey $@

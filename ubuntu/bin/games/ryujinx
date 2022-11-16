@@ -1,0 +1,5 @@
+#!/bin/bash -u
+
+toggle-game-mode on
+MANGOHUD=1 mangohud /mnt/d/emulators/ryujinx/bin/Ryujinx
+toggle-game-mode off

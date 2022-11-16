@@ -8,6 +8,19 @@ cmd=${1-""}
 # 4. Disable keyboard macros to improve latency and reduce context switches.
 
 start-game-mode() {
+    # export __GL_SHADER_DISK_CACHE_PATH="/mnt/d/wine/gl-cache/$game_name" # exported variables will not be passed to games
+    # export VKD3D_SHADER_CACHE_PATH=/mnt/d/wine/dxvk-cache # has no effect
+    case ${__GL_SHADER_DISK_CACHE_PATH-""} in
+        "")
+            ;;
+        "/mnt/d/wine/gl-cache/")
+            notify-send.sh -u critical "Env Not Customized" "__GL_SHADER_DISK_CACHE_PATH"
+            ;;
+        *)
+            mkdir -p "$__GL_SHADER_DISK_CACHE_PATH"
+            ;;
+    esac
+
     game_refresh_rate=${game_refresh_rate-"$refresh_rate"}
     # toggle-nvidia-oc on & > /dev/null
     kill-compositor
@@ -43,3 +56,4 @@ else
         start-game-mode
     fi
 fi
+

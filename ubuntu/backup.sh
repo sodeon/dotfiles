@@ -49,6 +49,11 @@ if [[ ! -z ${1-} ]]; then
 fi
 
 #
+# keyd config
+#
+cp /etc/systemd/system/keyd.* apps/keyboard-config/keyd
+
+#
 # Self built binaries
 #
 if [ -d ~/code/sxiv ]; then

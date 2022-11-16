@@ -38,7 +38,7 @@ apt-force upgrade
 
 # From Ubuntu apt
 apt-force install git
-apt-force install python3-pip python2
+apt-force install python3-pip python2 python-is-python3
 apt-force install tldr # manual that actually helps
 apt-force install vim-gtk # vim with clipboard
 apt-force install zsh tmux fd-find highlight dos2unix # cmd utilities and environment (fasd: not fitting into workflow)
@@ -209,31 +209,29 @@ sudo usermod -a -G video $USER
 sudo usermod -a -G i2c   $USER
 sudo usermod -a -G disk  $USER
 
-# evcape (xcape equivalent, but works in both X11 and Wayland)
-apt-force install python3-evdev python3-pyudev python3-six
-cd-temp
-git clone https://github.com/wbolster/evcape
-sudo cp -f ./evcape/evcape.py /usr/local/bin
-cd-before-temp
-sudo addgroup --system uinput
-sudo adduser $USER input
-sudo adduser $USER uinput
-sudo mkdir -p /etc/udev/rules.d/
-echo 'KERNEL=="uinput", GROUP="uinput", MODE:="0660"' | sudo tee /etc/udev/rules.d/99-uinput.rules > /dev/null
-# sudo echo uinput > /etc/modules-load.d/uinput.conf
-# systemctl --user enable evcape
+# # evcape (xcape equivalent, but works in both X11 and Wayland)
+# apt-force install python3-evdev python3-pyudev python3-six
+# cd-temp
+# git clone https://github.com/wbolster/evcape
+# sudo cp -f ./evcape/evcape.py /usr/local/bin
+# cd-before-temp
+# sudo addgroup --system uinput
+# sudo adduser $USER input
+# sudo adduser $USER uinput
+# sudo mkdir -p /etc/udev/rules.d/
+# echo 'KERNEL=="uinput", GROUP="uinput", MODE:="0660"' | sudo tee /etc/udev/rules.d/99-uinput.rules > /dev/null
+# # sudo echo uinput > /etc/modules-load.d/uinput.conf
+# # systemctl --user enable evcape
 
 # Keyboard setup
-sudo ./apps/keyboard-config/install.sh
-
-# Replace pulseaudio with pipewire (https://gist.github.com/the-spyke/2de98b22ff4f978ebf0650c90e82027e?permalink_comment_id=4142023)
-# apt-force install libfdk-aac2 libldacbt-{abr,enc}2 libopenaptx0 # Bluetooth codecs for AAC/LDAC/AptX
-# apt-force install libspa-0.2-bluetooth libspa-0.2-jack pipewire-audio-client-libraries # pipewire bluetooth and jack clients
-# apt-force install wireplumber pipewire-media-session- # WirePlumber as default pipewire manager
-# apt-force remove pulseaudio-module-bluetooth
-# sudo cp /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/
-# sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-x86_64-linux-gnu.conf /etc/ld.so.conf.d/
-# systemctl --user --now enable wireplumber.service
+cd-temp
+git clone https://github.com/rvaiya/keyd
+cd keyd
+make && sudo make install
+cd-before-temp
+sudo ./apps/keyboard-config/install.sh # Copied keyd configs only
+sudo systemctl enable keyd.timing
+sudo systemctl start keyd
 
 
 #------------------------------------------------------------------------------

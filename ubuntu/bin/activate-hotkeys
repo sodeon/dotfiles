@@ -20,18 +20,19 @@ setup-keymap() {
     [ -f $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
     [ -f $keyboard_mouse ] && rm  $keyboard_mouse && notify-send.sh --close=12
 
+    :
     # Grave esc swap
-    if xinput --list --short | grep -q \
-        -e "SN TECH" \
-        -e "SINO WEALTH" \
-        -e "EK820" \
-        -e "SONiX USB DEVICE Keyboard" \
-        -e "RK-G68" \
-        -e "Akko keyboard"; then # Dareu EK820, RoyalKludge RK68 and Rapoo V860-61
-        swap-esc-grave
-    else
-        default-esc-grave
-    fi
+    # if xinput --list --short | grep -q \
+    #     -e "SN TECH" \
+    #     -e "SINO WEALTH" \
+    #     -e "EK820" \
+    #     -e "SONiX USB DEVICE Keyboard" \
+    #     -e "RK-G68" \
+    #     -e "Akko keyboard"; then # Dareu EK820, RoyalKludge RK68 and Rapoo V860-61
+    #     swap-esc-grave
+    # else
+    #     default-esc-grave
+    # fi
 }
 
 
@@ -39,8 +40,10 @@ setup-keymap() {
 # Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
 #------------------------------------------------------------------------------
 bind-dualkeys() {
+    set +e
     input-remapper-control --command autoload
     systemctl --user restart evcape
+    set -e
 }
 
 bind-hotkeys() {
@@ -148,8 +151,10 @@ keyboard-mouse() {
 # }
 
 game-mode() {
+    set +e
     input-remapper-control --command stop-all
     systemctl --user stop evcape
+    set -e
 
     i3-msg -q "mode Game"
 }

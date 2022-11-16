@@ -1,0 +1,58 @@
+#!/bin/bash -ue
+if [[ $1 == "-h" ]]; then
+    is_hold="--hold"
+    app=$2
+    cmd="${@:2}"
+else
+    is_hold=""
+    app=$1
+    cmd="$@"
+fi
+
+
+#------------------------------------------------------------------------------
+# Fixed parameters
+#------------------------------------------------------------------------------
+title="$cmd"
+instance=widget
+# y_offset=70
+transparency=a0 # From 00 to ff. 00 is full transparency. ff is no transparency.
+
+
+#------------------------------------------------------------------------------
+# Helpers
+#------------------------------------------------------------------------------
+tree=`i3-msg -t get_tree` # Cache windows structure
+has-a-widget()        {   echo "$tree" | grep -q '"instance":"'$instance'"'; }
+is-different-widget() { ! echo "$tree" | grep -q '"title":"'"$title"'"'    ; }
+is-same-widget()      {   echo "$tree" | grep -q '"title":"'"$title"'"'    ; }
+
+
+#------------------------------------------------------------------------------
+# Main
+#------------------------------------------------------------------------------
+has-a-widget   && i3-msg "[instance=^$instance$]" kill # lIMITATION: Allow only one widget at a time
+has-a-widget   && sleep 0.07                           # WORKAROUND: To prevent `i3-watch-window` to accidentally switching workspace back_and_forth, give a little time for it to process.
+                                                       # TODO      : Try to suspend i3-watch-window?
+is-same-widget && exit                                 # Toggle widget visibility when pressing same block twice
+
+urxvtc -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 \
+       -name $instance -title "$title" \
+       $is_hold \
+       -e $cmd
+
+
+
+
+# if i3-msg -t get_tree | grep -q '"instance":"'$instance'"'; then # If called again, toggle widget
+#     i3-msg "[instance=^$instance$]" kill
+# else
+#     urxvtc -depth 32 -bg rgba:0000/0000/0000/"$transparency"00 \
+#            -name $instance -title "$title" \
+#            $is_hold \
+#            -e $cmd
+#     # Resize and position to upper right corner
+#     # while !(i3-msg "[instance=\"^$instance$\"] floating enable"); do true; done
+#     # snap-window right
+#     # xdotool getactivewindow windowmove x $y_offset
+# fi

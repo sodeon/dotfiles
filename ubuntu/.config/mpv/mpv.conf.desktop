@@ -71,6 +71,7 @@ alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasin
 sub-file-paths=sub:Subs
 sub-font-size=48
 # sub-font-size=40
+sub-color=0.95
 sub-margin-y=30
 sub-border-size=0
 sub-scale-with-window=no
@@ -81,6 +82,7 @@ volume-max=200              # maximum volume in %, everything above 100 results 
 
 osd-font-size=30
 # osd-font-size=32
+osd-color=0.94
 osd-on-seek=msg-bar
 osd-bar-align-y=0.783
 osd-bar-w=55

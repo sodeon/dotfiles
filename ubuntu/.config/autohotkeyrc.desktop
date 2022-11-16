@@ -1,13 +1,15 @@
 #!/bin/bash -ue
 
+# VOLUME_STEP=5
+
 # vivaldi
 BROWSER_WIN_CLASS="Vivaldi-stable"
-    # --force-device-scale-factor=1 `# 24" 1080p` \
-    # --force-device-scale-factor=2 `# 27" 4K`    \
-    # --force-device-scale-factor=2 `# 32" 4K`    \
+    # --force-device-scale-factor=1   `# 24" 1080p` \
+    # --force-device-scale-factor=1.8 `# 27" 4K`    \
+    # --force-device-scale-factor=2   `# 32" 4K`    \
 WS1_CMD() { 
     vivaldi \
-    --force-device-scale-factor=2 `# 32" 4K` \
+    --force-device-scale-factor=1.8 `# 27" 4K` \
     --force-dark-mode \
     --enable-quic \
     --ignore-gpu-blocklist \
@@ -18,6 +20,30 @@ WS1_CMD() {
     --use-gl=desktop
 }
 
+
+#------------------------------------------------------------------------------
+# rofi menu entries
+#------------------------------------------------------------------------------
+declare -A WOL_ENTRIES=(
+    [1. NAS  ]="wake-mount  nas"
+    [2. TV   ]="wake-on-lan tv"
+    [3. J5005]="wake-on-lan j5005"
+)
+
+declare -A F10_ENTRIES=(
+    [1. PC Gaming          ]=lutris
+    [2. Ryujinx            ]=ryujinx
+    [3. Retroarch          ]=retroarch
+    # [4. Moonlight Streaming]=moonlight
+)
+
+BLUETOOTH_ENTRIES[3. Enco Air2 Conn/Disconn]="toggle-bluetooth device Enco Air2"
+# BT_QUICK_CONNECT_DEVICE="Enco Air2"
+
+
+#------------------------------------------------------------------------------
+# Legacy
+#------------------------------------------------------------------------------
 # chromium
 # BROWSER_WIN_CLASS="chromium-browser"
 # WS1_CMD() { 
@@ -45,28 +71,3 @@ WS1_CMD() {
 #     brave-browser --force-dark-mode --force-device-scale-factor=0.84"
 # }
 
-
-# VOLUME_STEP=5
-
-
-#------------------------------------------------------------------------------
-# rofi menu entries
-#------------------------------------------------------------------------------
-declare -A WOL_ENTRIES=(
-    [1. NAS  ]="wake-mount  nas"
-    [2. TV   ]="wake-on-lan tv"
-    [3. J5005]="wake-on-lan j5005"
-)
-
-declare -A F10_ENTRIES=(
-    [1. PC Gaming           ]=lutris
-    [2. Ryujinx             ]="/mnt/d/Programs/ryujinx/Ryujinx"
-    [3. Retroarch           ]="/mnt/d/emulators/RetroArch-Linux-x86_64/RetroArch-Linux-x86_64.AppImage"
-    # [3. PlayStation Portable]="ppsspp-emu.ppsspp-sdl"
-    # [4. PlayStation         ]="/mnt/d/emulators/duckstation-qt-x64.AppImage"
-    # [2. Retro Arcade]=mame
-     # "desmune"
-)
-
-BLUETOOTH_ENTRIES[3. Enco Air2 Conn/Disconn]="toggle-bluetooth device Enco Air2"
-# BT_QUICK_CONNECT_DEVICE="Enco Air2"

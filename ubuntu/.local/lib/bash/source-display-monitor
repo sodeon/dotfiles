@@ -40,7 +40,7 @@ setup-xresources-and-env() {
         dpi_xresources="/tmp/Xresources.dpi"
         echo "
             Xft.dpi: 180
-            Xcursor.size: 32
+            Xcursor.size: 40
             rofi.dpi: 180
         " > $dpi_xresources
         xrdb -merge $dpi_xresources

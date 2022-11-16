@@ -17,6 +17,7 @@ bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
 bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
 bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
 bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+bindsym Shift+XF86AudioNext exec --no-startup-id autohotkey prevTrack
 bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
 bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
 bindsym $mode+space exec --no-startup-id autohotkey playPause
@@ -162,6 +163,7 @@ bindcode $mod+202 exec --no-startup-id xte $scrd-up && autohotkey infiniteScroll
 bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
 bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
 bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+bindcode Control+200 exec --no-startup-id setup-mouse battery-level
 bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
 bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
 bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
@@ -185,6 +187,7 @@ mode Hyperscroll {
     bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
     bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
     bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioNext exec --no-startup-id autohotkey prevTrack
     bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
     bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
     bindsym $mode+space exec --no-startup-id autohotkey playPause
@@ -330,6 +333,7 @@ mode Hyperscroll {
     bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
     bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
     bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+    bindcode Control+200 exec --no-startup-id setup-mouse battery-level
     bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
     bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
     bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
@@ -354,6 +358,7 @@ mode Alt {
     bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
     bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
     bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioNext exec --no-startup-id autohotkey prevTrack
     bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
     bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
     bindsym $mode+space exec --no-startup-id autohotkey playPause
@@ -499,6 +504,7 @@ mode Alt {
     bindcode $mod+$sm+201 exec --no-startup-id i3-floating-singleton cmus "Music Player"
     bindcode $mod+$sm+202 exec --no-startup-id autohotkey toggleVideoSize
     bindcode $mod+192 exec --no-startup-id autohotkey quick-cmds-menu
+    bindcode Control+200 exec --no-startup-id setup-mouse battery-level
     bindcode Control+197 exec --no-startup-id xdotool key --clearmodifiers control+equal
     bindcode Control+198 exec --no-startup-id xdotool key --clearmodifiers control+minus
     bindsym $mod+XF86AudioPause exec --no-startup-id cmus-remote -u 
@@ -523,6 +529,7 @@ mode Game {
     bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
     bindsym XF86AudioNext exec --no-startup-id autohotkey nextTrack
     bindsym XF86AudioPrev exec --no-startup-id autohotkey prevTrack
+    bindsym Shift+XF86AudioNext exec --no-startup-id autohotkey prevTrack
     bindsym Shift+XF86AudioPause exec --no-startup-id cmus-remote -u 
     bindsym XF86Eject exec --no-startup-id xdotool key --clearmodifiers ctrl+z 
     bindsym $mode+space exec --no-startup-id autohotkey playPause

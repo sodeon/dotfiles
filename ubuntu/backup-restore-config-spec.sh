@@ -27,6 +27,7 @@ backup_list=(
     .local/share/applications
     .oh-my-zsh/{themes/andy.zsh-theme,plugins/sd/sd.plugin.zsh}
 
+    .config/keyd
     .config/picom.conf
     .config/htop
     .config/dunst
@@ -34,8 +35,8 @@ backup_list=(
     .config/ranger
     .config/zathura
     # .config/Xmodmap/{keyboard,keyboard-mouse}
-    .config/input-remapper
     # .config/xbindkeys
+    # .config/input-remapper
     .config/i3/{keyboard,mouse,config.hotkeys,gen-config.hotkeys.sh,layouts}
     .config/mpv/{scripts,shaders}
     .config/sxiv
