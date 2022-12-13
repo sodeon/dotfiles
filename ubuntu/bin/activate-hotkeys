@@ -2,60 +2,35 @@
 
 mouse_alt="/tmp/mouse-alt"
 hyperscroll="/tmp/hyperscroll"
-keyboard_alt="/tmp/keyboard-alt"
 keyboard_mouse="/tmp/keyboard-mouse"
 
 
 #------------------------------------------------------------------------------
-# Keymap definitions
+# Helpers
 #------------------------------------------------------------------------------
-swap-esc-grave()              { xmodmap ~/.config/Xmodmap/swap-esc-grave;              }
-default-esc-grave()           { xmodmap ~/.config/Xmodmap/default-esc-grave;           }
-right-ctrl-os-as-right-left() { xmodmap ~/.config/Xmodmap/right-ctrl-os-as-right-left; }
-default-right-ctrl-os()       { xmodmap ~/.config/Xmodmap/default-right-ctrl-os;       }
-
-setup-keymap() {
-    # Keyboard and mouse goes to default layer
-    [ -f $mouse_alt      ] && rm  $mouse_alt      && notify-send.sh --close=10
-    [ -f $keyboard_alt   ] && rm  $keyboard_alt   && notify-send.sh --close=11
-    [ -f $keyboard_mouse ] && rm  $keyboard_mouse && notify-send.sh --close=12
-
-    :
-    # Grave esc swap
-    # if xinput --list --short | grep -q \
-    #     -e "SN TECH" \
-    #     -e "SINO WEALTH" \
-    #     -e "EK820" \
-    #     -e "SONiX USB DEVICE Keyboard" \
-    #     -e "RK-G68" \
-    #     -e "Akko keyboard"; then # Dareu EK820, RoyalKludge RK68 and Rapoo V860-61
-    #     swap-esc-grave
-    # else
-    #     default-esc-grave
-    # fi
+switch-keyd-profile() {
+    conf_dir="$HOME/.config/keyd"
+    profile_dir="$conf_dir/scenarios/$1"
+    if [ -d $profile_dir ]; then
+        rm $conf_dir/*.conf
+        ln -s $profile_dir/* $conf_dir
+        keyd reload
+    fi
 }
 
-
-#------------------------------------------------------------------------------
-# Dual-keys (bind-dualkeys) and proxy keys (bind-hotkeys)
-#------------------------------------------------------------------------------
-bind-dualkeys() {
-    set +e
-    input-remapper-control --command autoload
-    systemctl --user restart evcape
-    set -e
+activate-mouse-mode() {
+    mode=$1
+    cat /etc/keyd/mouse/bind/$1 | xargs keyd bind reset
 }
 
-bind-hotkeys() {
-    [[ ! ${XDG_CURRENT_DESKTOP:-} || $XDG_CURRENT_DESKTOP != "i3" ]] && return
-
+bind-mouse-hotkeys() {
     if [ -f $mouse_alt ]; then
-        i3-msg -q "mode Alt"
+        activate-mouse-mode alt
     else
         if [ -f $hyperscroll ]; then
-            i3-msg -q "mode Hyperscroll"
+            activate-mouse-mode hyperscroll
         else
-            i3-msg -q "mode default"
+            activate-mouse-mode normalscroll
         fi
     fi
 }
@@ -64,17 +39,21 @@ bind-hotkeys() {
 #------------------------------------------------------------------------------
 # Mouse mode and hyperscroll
 #------------------------------------------------------------------------------
+reset-mouse-notification() {
+    # Keyboard and mouse goes to default layer
+    [ -f $mouse_alt      ] && rm  $mouse_alt      && notify-send.sh --close=10
+    [ -f $hyperscroll    ] && rm  $hyperscroll    && notify-send.sh --close=10
+    [ -f $keyboard_mouse ] && rm  $keyboard_mouse && notify-send.sh --close=12
+    :
+}
+
 mouse-notification() {
     if [ -f $mouse_alt ]; then
         notify-send.sh -t 0 -r 10 -u low "Alt"
-        # notify-send.sh --close=13
+    elif [ -f $hyperscroll ]; then
+        notify-send.sh -t 0 -r 10 -u low "Hyperscroll"
     else
-        notify-send.sh --close=10 # notify-send.sh supports expiration time and closing notifications (https://askubuntu.com/questions/110969/notify-send-ignores-timeout)
-        # if [ -f $hyperscroll ]; then
-        #     notify-send.sh -t 0 -r 13 -u normal Hyperscroll
-        # else
-        #     notify-send.sh --close=13
-        # fi
+        notify-send.sh --close=10
     fi
 }
 
@@ -86,12 +65,11 @@ mouse-mode() {
         touch $mouse_alt
     fi
     mouse-notification
-
-    bind-hotkeys
+    bind-mouse-hotkeys
 }
 
 toggle-mouse-mode() { [ -f $mouse_alt ] && mouse-mode normal || mouse-mode alt; }
-is-mouse-alt     () { [ -f $mouse_alt   ]; }
+is-mouse-alt     () { [ -f $mouse_alt ]; }
 
 
 scroll-mode() {
@@ -102,8 +80,7 @@ scroll-mode() {
         touch $hyperscroll
     fi
     mouse-notification
-
-    bind-hotkeys
+    bind-mouse-hotkeys
 }
 
 toggle-hyperscroll() { [ -f $hyperscroll ] && scroll-mode normal || scroll-mode hyper; }
@@ -138,43 +115,22 @@ keyboard-mouse() {
     esac
 }
 
-# toggle-keyboard-alt() {
-#     if [ -f $keyboard_alt ]; then # Default layer
-#         rm $keyboard_alt
-#         xmodmap ~/.Xmodmap
-#         notify-send.sh --close=11
-#     else # Alternate layer (layer1)
-#         touch $keyboard_alt
-#         xmodmap ~/.config/Xmodmap/layer1
-#         notify-send.sh -t 0 -r 11 -u critical "Layer 1" Keyboard
-#     fi
-# }
-
 game-mode() {
-    set +e
-    input-remapper-control --command stop-all
-    systemctl --user stop evcape
-    set -e
-
-    i3-msg -q "mode Game"
+    switch-keyd-profile game
 }
 
 
 #------------------------------------------------------------------------------
 # Main
 #------------------------------------------------------------------------------
-setup-keyboard() {
-    setup-keymap
-    bind-dualkeys
-}
-
 # Remove all alt mode and rebind hotkeys
 init() {
-    setup-keymap
-    bind-dualkeys
+    # default keyboard and mouse profiles
+    switch-keyd-profile default
 
-    # Setup one time
-    bind-hotkeys
+    # load normal scroll bindings
+    reset-mouse-notification
+    bind-mouse-hotkeys
 }
 
 if [ $# == 0 ]; then

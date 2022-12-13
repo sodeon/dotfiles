@@ -1,0 +1,71 @@
+[main]
+capslock = overload(l1,      esc)
+control  = overload(control, C-z)
+leftmeta = overload(meta,    M-r)
+leftalt  = overload(alt,     A-tab)
+
+rightalt     = overload(l2, rightalt)
+rightmeta    = left
+rightcontrol = right
+
+
+[l1]
+1 = f1
+2 = f2
+3 = f3
+4 = f4
+5 = f5
+6 = f6
+7 = f7
+8 = f8
+9 = f9
+0 = f10
+- = f11
+= = f12
+
+w = up
+a = left
+s = down
+d = right
+
+h = left
+j = down
+k = up
+l = right
+; = home
+' = end
+m = pagedown
+, = pageup
+. = delete
+
+[ = print
+] = scrolllock
+\ = pause
+
+o = backspace
+p = A-M-p
+u = A-M-u 
+/ = A-M-/
+r = A-M-r
+t = A-M-t
+g = A-M-g
+b = A-M-b
+n = A-M-n
+q = A-M-q
+
+z = j
+x = l
+
+tab = capslock
+
+space = playpause
+e     = nextsong
+f     = volumeup
+v     = volumedown
+c     = mute
+
+
+[l2]
+rightshift   = up
+rightcontrol = down
+

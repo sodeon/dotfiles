@@ -11,26 +11,35 @@ if [[ $cmd == "game-mode" ]]; then
         button3=button3;
         button4=button4;
         button5=button5;
-        button6=pagedown;
+        button6=pageup;
         button7=end;
-        button8=home;
-        button9=f1)"
-        # button8=dpi;
+        button8=pagedown;
+        button9=home)"
 else
     # dpi='2000, 900, 1300'
     dpi='1600'
     polling_rate=250
     mappings="buttons(layout=QWERTY;
-        scrollup=f23; 
-        scrolldown=f24; 
-        button3=f13; 
-        button4=f17; 
-        button5=f16; 
+        scrollup=f13; 
+        scrolldown=f14; 
+        button3=button3; 
+        button4=button4; 
+        button5=button5; 
         button6=f15; 
-        button7=f; 
-        button8=f18; 
+        button7=f;
+        button8=playpause; 
         button9=alt)"
         # button8=dpi;
+    # mappings="buttons(layout=QWERTY;
+    #     scrollup=f23; 
+    #     scrolldown=f24; 
+    #     button3=f13; 
+    #     button4=f17; 
+    #     button5=f16; 
+    #     button6=f15; 
+    #     button7=f; 
+    #     button8=f18; 
+    #     button9=alt)"
 fi
 mappings=`echo $mappings | sed 's/\n/ /'`
 

@@ -36,6 +36,9 @@ apt-force update
 apt list --upgradable
 apt-force upgrade
 
+# Ubuntu 22.04
+sudo add-apt-repository -y ppa:jonathonf/vim # 22.04: vim/8.2; Latest: vim/9.0
+
 # From Ubuntu apt
 apt-force install git
 apt-force install python3-pip python2 python-is-python3
@@ -136,8 +139,8 @@ apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
           libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
           libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
           autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
-git clone https://github.com/Airblader/i3 i3-gaps
-cd i3-gaps
+git clone https://github.com/Airblader/i3 i3
+cd i3
 git checkout gaps
 rm -rf build/ && mkdir -p build && cd build
 meson ..

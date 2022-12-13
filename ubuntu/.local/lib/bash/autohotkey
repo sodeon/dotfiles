@@ -4,7 +4,8 @@
 #-----------------------------------------------------------------------------------------------
 VOLUME_STEP=4
 
-NOTIFICATION_TIMEOUT=1400
+NOTIFICATION_TIMEOUT=1050
+# NOTIFICATION_TIMEOUT=1400
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme Arc-Dark.workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
 
@@ -54,8 +55,8 @@ declare -A MOUSE_PROFILE_ENTRIES=(
     # [3. Battery Level]="setup-mouse battery-level"
 )
 declare -A QUICK_COMMAND_ENTRIES=(
-    [Clear Mods    ]="clear-keydown-mods"
     [Battery Levels]="setup-mouse battery-level"
+    # [Clear Mods    ]="clear-keydown-mods"
     # [Web Browser   ]="F1"
 )
 
@@ -138,8 +139,9 @@ xdotool-forward() {
     i3-msg 'mode "default"'
 }
 
-xte-iso() {
-    xte 'keyup ISO_Level3_Shift' "$@" 'keydown ISO_Level3_Shift'
+xte-mode() {
+    xte 'keyup Alt_L' 'keyup Super_L' "$@"
+    # xte 'keyup ISO_Level3_Shift' "$@" 'keydown ISO_Level3_Shift'
 }
 
 wake-on-lan() {
@@ -186,52 +188,52 @@ simple-rofi() {
 #-----------------------------------------------------------------------------------------------
 previousWord() {
 	if isWinActive ^ranger: ahk_title; then
-        xte 'keyup r' 'keydown Alt_L'     'key Left'  'keyup Alt_L'
+        xte-mode 'keyup r' 'keydown Alt_L'     'key Left'  'keyup Alt_L'
     else
-        xte 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
+        xte-mode 'keyup r' 'keydown Control_L' 'key Left'  'keyup Control_L'
     fi
 }
 
 nextWord() {
 	if isWinActive ^ranger: ahk_title; then
-        xte 'keyup t' 'keydown Alt_L'     'key Right' 'keyup Alt_L'
+        xte-mode 'keyup t' 'keydown Alt_L'     'key Right' 'keyup Alt_L'
     else
-        xte 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
+        xte-mode 'keyup t' 'keydown Control_L' 'key Right' 'keyup Control_L'
     fi
 }
 
 deleteWord() {
 	if isWinActive URxvt; then
-        xte-iso 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
+        xte-mode 'keyup p' 'keydown Control_L' 'key w' 'keyup Control_L'
 	else
-        xte-iso 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
+        xte-mode 'keyup p' 'keydown Control_L' 'key BackSpace' 'keyup Control_L'
 	fi
 }
 
 deleteWordAfter() {
 	if isWinActive URxvt; then
-        xte-iso 'keyup slash' 'keyup i' 'key Escape' 'key d' # escape->d is the same as alt+d in terminal
+        xte-mode 'keyup slash' 'keyup i' 'key Escape' 'key d' # escape->d is the same as alt+d in terminal
 	else
-        xte 'keyup slash' 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
+        xte-mode 'keyup slash' 'keyup i' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
 }
 
 deleteLine() {
 	if isWinActive URxvt \
        || isWinActive Code; then
-        xte 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
+        xte-mode 'keyup u' 'keydown Control_L' 'key u' 'keyup Control_L'
 	else
         # ctrl+shift+backspace (delete before) and ctrl+shift+del (delete after)
         # xte 'keyup u' 'keydown Control_L' 'keydown Shift_L' 'key BackSpace' 'key Delete' 'keyup Shift_L' 'keyup Control_L'
-        xte 'keyup u' 'key Home' 'keydown Shift_L' 'key End' 'keyup Shift_L' 'key BackSpace'
+        xte-mode 'keyup u' 'key Home' 'keydown Shift_L' 'key End' 'keyup Shift_L' 'key BackSpace'
 	fi
 }
 
 deleteFirstWord() {
 	if isWinActive URxvt; then
-        xte-iso 'keyup i' 'key Home' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
+        xte-mode 'keyup i' 'key Home' 'keyup Mode_switch' 'key Escape' 'key d' 'keydown Mode_switch' # escape->d is the same as alt+d in terminal
 	else
-        xte 'keyup i' 'key Home' 'keydown Control_L' 'key Delete' 'keyup Control_L'
+        xte-mode 'keyup i' 'key Home' 'keydown Control_L' 'key Delete' 'keyup Control_L'
 	fi
 }
 
@@ -406,7 +408,7 @@ toggleMaximizedSingleWindow() {
     # Toggle fullscreen if it is video/image. Toggle gaps if others.
     if (isWinActive $BROWSER_WIN_CLASS); then
         if isWebVideo; then
-            xdotool keyup XF86Launch7 key --clearmodifiers f
+            xdotool key --clearmodifiers f
         else
             i3-msg "gaps horizontal current toggle `xgetres i3wm.toggleHGap`"
         fi
@@ -440,9 +442,9 @@ toggleMaximized() {
 toggleFullscreen() {
     if (isWinActive $BROWSER_WIN_CLASS); then
         if isWebVideo; then
-            xdotool keyup XF86Launch7 key --clearmodifiers f
+            xdotool key --clearmodifiers f
         else
-            xdotool keyup XF86Launch7 key --clearmodifiers ctrl+shift+minus # minus key position is the same as F11 on 60/65% keyboard
+            xdotool key --clearmodifiers ctrl+shift+minus # minus key position is the same as F11 on 60/65% keyboard
             # xdotool key --clearmodifiers F11
         fi
     elif isWinActive Code; then # Toggle zen mode for vscode
@@ -536,7 +538,7 @@ toggleVideoSize() {
 }
 
 openBrowserVideoInMpv() {
-    xdotool keyup p keyup XF86Launch4 type --clearmodifiers yy # Copy URL
+    xdotool keyup p type --clearmodifiers yy # Copy URL
     pause     # Pause current video
     sleep 0.4 # Give vimium time to copy URL to clipboard
     open-clipboard-with-mpv
@@ -785,7 +787,7 @@ quick-cmds-menu() {
 #     activate-hotkeys
 # }
 
-on-192-click() {
+on-dpi-click() {
     infinite-scroll is-scrolling && infiniteScroll stop && exit
     activate-hotkeys is-hyperscroll && activate-hotkeys toggle-hyperscroll && exit
     activate-hotkeys toggle-mouse-mode
@@ -808,9 +810,7 @@ on-192-click() {
     esac
 }
 
-clear-keydown-mods() {
-    xte 'keyup Control_L' 'keyup XF86Finance' 'keyup XF86Launch6' 'keyup XF86Launch3'
-}
+clear-keydown-mods() { xte 'keyup Control_L' 'keyup Alt_L' 'keyup Meta_L' 'keyup Super_L'; }
 
 
 #-----------------------------------------------------------------------------------------------
@@ -819,11 +819,3 @@ clear-keydown-mods() {
 #-----------------------------------------------------------------------------------------------
 [[ $# == 0 ]] || $@
 
-
-# Deprecated: result is unreliable. e.g. getting incorrect pid from sxiv
-# activeWinPid() {
-#     pid=`xdotool getactivewindow getwindowpid`
-#     result=$?
-#     echo $pid
-#     return $result
-# }

@@ -1,14 +1,10 @@
 " Reload vimrc: so ~/.vimrc
 "-----------------------------------------------------------------------------
-" VIM default config
+" Ported from vim_example.vim, debian.vim and defaults.vim in $VIMRUNTIME (source $VIMRUNTIME/vimrc_example.vim)
 "-----------------------------------------------------------------------------
 set nocompatible
-" source $VIMRUNTIME/vimrc_example.vim
+set backspace=indent,eol,start	" more powerful backspacing
 
-
-"-----------------------------------------------------------------------------
-" Ported from vim_example.vim and defaults.vim in $VIMRUNTIME
-"-----------------------------------------------------------------------------
 set hlsearch
 set history=200
 set showcmd	" display incomplete commands
@@ -71,9 +67,9 @@ set encoding=utf-8
 setglobal fileencoding=utf-8
 
 " cursor line
-hi CursorLine cterm=NONE guibg=NONE
-hi CursorLineNr ctermfg=grey guifg=grey
 set cursorline
+hi CursorLine   ctermbg=NONE guibg=NONE
+hi CursorLineNr ctermbg=NONE guibg=NONE ctermfg=lightgrey guifg=lightgrey
 
 set tabstop=4
 set softtabstop=4

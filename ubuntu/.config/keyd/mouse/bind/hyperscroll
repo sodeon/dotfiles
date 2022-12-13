@@ -1,0 +1,6 @@
+'scrollup   = pageup'
+'scrolldown = pagedown'
+
+'s1.scrollup   = f13'
+'s1.scrolldown = f14'
+

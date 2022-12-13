@@ -1,115 +1,18 @@
-#---------------------------------------------------------------------------------------------------
-# Modifiers:
-# $s1     : Shifted version1
-# $s2     : Hardware control (volume, brightness)
-# $sb     : Shifted version2 by pressing both $s1 and $s2. Hence $sb (b as both)
-# $sm     : Middle button pressed version
-# $mod    : Trigger button pressed version; Open window (video/music/widgets/apps)
-# $mod    : Button below scroll wheel; Alt
-# Control : Button left of left click; Scroll modes and workspace picker and quick apps
-#---------------------------------------------------------------------------------------------------
-# Left/right clicks
-$s1+button1 -> xte 'keydown Control_L' 'key Prior' 'keyup Control_L' # Prev tab
-$s1+button3 -> xte 'keydown Control_L' 'key Next'  'keyup Control_L' # Next tab
+#--------------------------------------------------------------------------------
+# Workaround keyd not supporting scrolling yet
+#--------------------------------------------------------------------------------
+# F13/F14
+191 -> xte 'mouseclick 4'
+192 -> xte 'mouseclick 5'
 
-$s2+button1 -> autohotkey brightness down
-$s2+button3 -> autohotkey brightness up
+# F15/F16: Half page up/down
+193 -> autohotkey halfPageUp
+194 -> autohotkey halfPageDown
 
-$sb+button1 -> xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Prior' 'keyup Shift_L' 'keyup Control_L' $sb-down # Move tab left
-$sb+button3 -> xte $sb-up 'keydown Control_L' 'keydown Shift_L' 'key Next'  'keyup Shift_L' 'keyup Control_L' $sb-down # Move tab right
+# F17-21
+195 -> autohotkey on-dpi-click
+196 -> autohotkey closeTabOrWindow
+197 -> autohotkey toggleMaximized
+198 -> autohotkey toggleQBittorrent
+199 -> autohotkey quick-cmds-menu
 
-$sm+button1 -> xdotool key --clearmodifiers A # to thread's last
-$sm+button3 -> xdotool key --clearmodifiers S # to thread's nextt
-
-# Middle button
-200 -> autohotkey infiniteScroll pause || ([ $? = 2 ] && xte 'mouseclick 2')
-
-$s1+200 -> xte 'keydown Shift_L' && sleep 0.1 && xte 'mouseclick 1' 'keyup Shift_L' # Open and focus link in new tab
-# $s1+200 -> xte 'mouseclick 2' && sleep 0.05 && xte $s1-up 'keydown Control_L' 'key Next' 'keyup Control_L' $s1-down # Open and focus link in new tab
-$s2+200 -> autohotkey volume toggle && pkill -RTMIN+10 i3blocks # Mute/unmute
-
-$sb+200 -> xdotool key --clearmodifiers ctrl+shift+4 # Open Vivaldi side panel
-
-# Scroll wheel
-$s2+201 -> autohotkey volume up
-$s2+202 -> autohotkey volume down
-
-$sb+201 -> xte $scru-up 'key Home'
-$sb+202 -> xte $scrd-up 'key End'
-
-$sm+201 -> autohotkey toggleMaximized # Toggle window maximized
-$sm+202 -> autohotkey altTab # Switch to last workspace
-
-$s1+$sm+201 -> xdotool key --clearmodifiers ctrl+1 # Go to leftmost tab
-$s1+$sm+202 -> xdotool key --clearmodifiers ctrl+9 # Go to rightmost tab
-
-$s2+$sm+201 -> autohotkey prevTrack
-$s2+$sm+202 -> autohotkey nextTrack
-
-$sb+$sm+201 -> xte $scru-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 1' 'keyup Shift_L' 'keyup Control_L'  $sb-down $sm-down # Move tab to the beginning
-$sb+$sm+202 -> xte $scrd-up $sb-up $sm-up 'keydown Control_L' 'keydown Shift_L' 'key 9' 'keyup Shift_L' 'keyup Control_L'  $sb-down $sm-down # Move tab to the end
-
-# Buttons beneath scroll wheel
-192 -> autohotkey on-192-click
-
-$s2+193 -> autohotkey brightness toggle # Brightness mode
-$s1+193 -> xdotool keyup XF86Launch5 key --clearmodifiers ctrl+t # New tab
-$sb+193 -> xdotool keyup XF86Launch5 key --clearmodifiers ctrl+r # Reload web page
-
-# Thumb buttons
-197 -> autohotkey closeTabOrWindow
-198 -> xte 'keyup XF86Launch9' 'mouseclick 8' # Back
-
-$mod+197 -> xte 'mouseup 8' && xdotool key --clearmodifiers ctrl+shift+t # Re-open closed tab
-$mod+198 -> xte 'mouseclick 9' # Forward
-
-$s1+197 -> autohotkey playPause
-$s2+198 -> cmus-remote -u  # play/pause
-
-$sm+197 -> xdotool key --clearmodifiers g+U # Go to top of the site
-$sm+198 -> xdotool key --clearmodifiers e   # Detach tab
-
-# Trigger botton
-# mod+button1    -> i3 move floating window
-$mod+button3     => i3-floating-singleton tmux "Notebook" $notebookTransparency
-$mod+200         -> autohotkey toggleQBittorrent
-$mod+201         -> xte $scru-up && autohotkey infiniteScroll up
-$mod+202         -> xte $scrd-up && autohotkey infiniteScroll down
-$mod+$sm+201     -> i3-floating-singleton cmus "Music Player"
-$mod+$sm+202     -> autohotkey toggleVideoSize
-$mod+192         -> autohotkey quick-cmds-menu
-# $mod+button3   => monitor cpu gpu
-
-
-# Aerox 5
-# Control+button1 -> open link in new tab
-# Control+button3 -> autohotkey workspacePicker
-Control+200       -> setup-mouse battery-level
-# Control+201     -> 
-# Control+202     -> 
-# Control+192     -> 
-Control+197       -> xdotool key --clearmodifiers control+equal
-Control+198       -> xdotool key --clearmodifiers control+minus
-
-$mod+XF86AudioPause -> cmus-remote -u  # play/pause
-
-
-#---------------------------------------------------------------------------------------------------
-# Middle button
-#   F13 (c:191): Press scroll click
-#   F22 (c:200): Click scroll click (evcape)
-#
-# Scroll wheel
-#   F23 (c:201): Scroll up
-#   F24 (c:202): Scroll down
-#
-# Buttons beneath scroll wheel
-#   F15 (XF86Launch5, c:193): Press front button
-#   F14 (XF86Launch4, c:192): Click front button (evcape)
-#
-# Thumb buttons
-#   F16 (XF86Launch8, c:197): Front thumb button
-#   F17 (XF86Launch9, c:198): Rear  thumb button
-#
-# Trigger botton
-#   F18 (XF86Launch7, c:196)

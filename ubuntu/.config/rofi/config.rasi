@@ -94,7 +94,7 @@ configuration {
 /*	kb-accept-alt: "Shift+Return";*/
 /*	kb-delete-entry: "Shift+Delete";*/
 /*	kb-mode-next: "Shift+Right,Control+Tab";*/
-	kb-mode-next: "Control+l,Super+F12";
+	kb-mode-next: "Control+l,Super+r";
 /*	kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";*/
 /*	kb-mode-complete: "Control+l";*/
 	kb-mode-complete: "";

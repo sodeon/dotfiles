@@ -1,0 +1,5 @@
+'scrollup   = left'
+'scrolldown = right'
+
+'s1.scrollup   = macro(jjj)'
+'s1.scrolldown = macro(lll)'

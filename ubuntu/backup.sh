@@ -51,7 +51,7 @@ fi
 #
 # keyd config
 #
-cp /etc/systemd/system/keyd.* apps/keyboard-config/keyd
+cp /etc/systemd/system/keyd.* apps/keyboard-config/keyd/systemd
 
 #
 # Self built binaries

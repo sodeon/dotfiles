@@ -90,16 +90,17 @@ add-bindings keyboard/normal
 add-bindings keyboard/$monitor
 
 # Normalscroll
-add-bindings mouse/{normalscroll,common}
+add-bindings mouse/common
+# add-bindings mouse/{normalscroll,common}
 
-mouse-mode Hyperscroll
-    add-indent-bindings mouse/{hyperscroll,common}
-end-mode
+# mouse-mode Hyperscroll
+#     add-indent-bindings mouse/{hyperscroll,common}
+# end-mode
 
-mouse-mode Alt
-    add-indent-bindings mouse/{alt,common}
-end-mode
+# mouse-mode Alt
+#     add-indent-bindings mouse/{alt,common}
+# end-mode
 
-mouse-mode Game
-    add-indent-bindings mouse/game
-end-mode
+# mouse-mode Game
+#     add-indent-bindings mouse/game
+# end-mode

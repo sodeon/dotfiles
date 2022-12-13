@@ -72,8 +72,8 @@ alias suspend.='systemctl suspend'
 # alias shutdown.='shutdown -h now'
 
 alias du.='ncdu --exclude /mnt --exclude /net' # Do not include ntfs and non-local partitions
-# alias du='gdu --ignore-dirs /mnt' # Not as robust as ncdu, but probably faster
 alias df.="df -hT | grep -e 'File' -e '\/sd[a-z][0-9]\?' -e '\/mmcblk[0-9]\?' -e '\/nvme[0-9]\?' --color=never | body sort" # disk usage in human readable format and partition format
+alias f.='free -m'
 
 # when ranger exits, change directory to ranger's exit directory. Use ccat as cat is using python's package which cannot read hidden files
 alias rr='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"' # rd = use ranger to change directory (cd)

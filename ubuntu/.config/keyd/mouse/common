@@ -1,0 +1,146 @@
+[aliases]
+f13         = scrollup
+f14         = scrolldown
+f23         = scrollleft
+f24         = scrollright
+middlemouse = mousemiddle
+mouse2      = mouseforward
+mouse1      = mouseback
+f15         = mousedpi
+playpause   = mousetrigger2
+f22         = mousetrigger2
+# Mapping Logitech G Pro button to playpause has no effect
+
+
+[main]
+mousemiddle   = overload(sm,  middlemouse)
+mouseback     = overload(s1,  mouse1)
+mouseforward  = overload(s2,  f18) # command(keyd-hotkey closeTabOrWindow)
+mousedpi      = overload(alt, f17) # command(keyd-hotkey on-dpi-click)
+mousetrigger2 = overload(st2, playpause)
+
+# scrollup      = scroll(30)
+# scrolldown    = scroll(-30)
+scrollleft    = C-S-tab
+scrollright   = C-tab
+
+
+[s1]
+leftmouse    = C-S-tab
+rightmouse   = C-tab
+scrollup     = f15
+scrolldown   = f16
+scrollleft   = C-1
+scrollright  = C-9
+mousemiddle  = timeout(macro(middlemouse 50ms C-tab), 200, layer(sm+s1))
+mouseforward = timeout(playpause, 200, layer(s1+s2))
+mousedpi     = C-t
+
+
+[s2]
+leftmouse    = brightnessdown
+rightmouse   = brightnessup
+mousemiddle  = timeout(mute, 200, layer(sm+s2))
+scrollup     = volumeup
+scrolldown   = volumedown
+scrollleft   = C-S-pageup
+scrollright  = C-S-pagedown
+mouseback    = timeout(macro(S-playpause), 200, layer(s1+s2))
+mousedpi     = macro(S-mute)
+
+
+[s1+s2]
+leftmouse    = C-S-pageup
+rightmouse   = C-S-pagedown
+mousemiddle  = timeout(f4, 200, layer(sm+s1+s2))
+scrollup     = home
+scrolldown   = end
+scrollleft   = C-S-1
+scrollright  = C-S-9
+mousedpi     = C-r
+
+
+[sm]
+leftmouse    = A
+rightmouse   = S
+scrollup     = f19
+scrolldown   = A-tab
+mouseforward = macro(gU)
+mouseback    = e
+
+
+[sm+s1]
+scrollup   = C-1
+scrolldown = C-9
+
+
+[sm+s2]
+scrollup   = previoussong
+scrolldown = nextsong
+
+
+[sm+s1+s2]
+scrollup   = C-S-1
+scrolldown = C-S-9
+
+
+[alt]
+rightmouse    = A-n
+scrollup      = A-m
+scrolldown    = A-C-m
+mousemiddle   = f20
+mouseforward  = C-S-t
+mouseback     = mouse2
+mousedpi      = f21
+mousetrigger2 = S-playpause
+
+
+[st2]
+scrollup     = A-m
+scrolldown   = A-C-m
+# scrollup     = previoussong
+# scrolldown   = nextsong
+mousemiddle  = f20
+mouseforward = C-equal
+mouseback    = C-minus
+
+
+#------------------------------------------------------------------------------
+# Legacy
+#------------------------------------------------------------------------------
+# normalscroll
+# 'scrollup   = command(xte "mouseclick 4")'
+# 'scrolldown = command(xte "mouseclick 5")'
+
+# 's1.scrollup   = command(keyd-hotkey halfPageUp)'
+# 's1.scrolldown = command(keyd-hotkey halfPageDown)'
+
+
+# f19 -> command(keyd-hotkey toggleMaximized)
+# f20 -> command(keyd-hotkey toggleQBittorrent)
+# f21 -> command(keyd-hotkey quick-cmds-menu)
+
+
+# [alt]
+# scrollup     = command(keyd-hotkey infiniteScroll up)
+# scrolldown   = command(keyd-hotkey infiniteScroll down)
+# mousemiddle  = timeout(command(keyd-hotkey toggleQBittorrent), 200, layer(alt+sm))
+
+# [alt+sm]
+# scrollup   = A-m
+# scrolldown = A-C-m
+
+
+# Horizontal scroll
+# [s1+control]
+# tab = C-9
+# [s1+control+shift]
+# tab = C-1
+# [s2+control]
+# tab = C-S-pagedown
+# [s2+control+shift]
+# tab = C-S-pageup
+# [s1+s2+control]
+# tab = C-S-9
+# [s1+s2+control+shift]
+# tab = C-S-1

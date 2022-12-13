@@ -68,34 +68,7 @@ bar {
 # Modifiers
 #--------------------------------------------------------------------------------
 set $mod  Mod1
-set $mode Mod5
-
-# xte alias for mouse shift
-set $mode-up   'keyup ISO_Level3_Shift'
-set $mode-down 'keydown ISO_Level3_Shift'
-
-
-# Mouse shift ($sb: both of shift 1 and 2; $sm: middle button)
-set $s1 Mod3
-set $s2 Mod5
-set $sb Mod3+Mod5
-set $sm Mod4
-
-# xte alias for mouse shift
-set $s1-up   'keyup XF86Finance'
-set $s2-up   'keyup XF86Launch6'
-set $sm-up   'keyup XF86Launch3'
-set $sb-up   'keyup XF86Finance' 'keyup XF86Launch6'
-set $s1-down 'keydown XF86Finance'
-set $s2-down 'keydown XF86Launch6'
-set $sm-down 'keydown XF86Launch3'
-set $sb-down 'keydown XF86Finance' 'keydown XF86Launch6'
-
-# xte alias for mouse scroll up/down
-set $scru-up   'keyup XF86TouchpadOff'
-set $scrd-up   'keyup XF86WWAN'
-set $scrd-down 'keydown XF86TouchpadOff'
-set $scrd-down 'keydown XF86WWAN'
+set $mode Mod1+Mod4
 
 
 #--------------------------------------------------------------------------------
@@ -141,7 +114,8 @@ set_from_resource $ws9  i3wm.ws9.name  "9: Viewer "
 set_from_resource $ws10 i3wm.ws10.name "10: G "
 
 # Gap sizes
-set_from_resource $toggleHGap i3wm.toggleHGap 0
+set_from_resource $toggleHGap   i3wm.toggleHGap   0
+set_from_resource $leftAlignGap i3wm.leftAlignGap 0
 
 set_from_resource $hGapStep i3wm.horizontalGapStep 32
 set_from_resource $vGapStep i3wm.verticalGapStep   32

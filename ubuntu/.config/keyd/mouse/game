@@ -1,0 +1,13 @@
+[aliases]
+f13       = scrollup
+f14       = scrolldown
+f23       = scrollleft
+f24       = scrollright
+f15       = mousedpi
+playpause = mousetrigger2
+
+
+[main]
+mousedpi      = pageup
+mousetrigger2 = pagedown
+

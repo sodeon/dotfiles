@@ -1,6 +1,7 @@
 ! #define HORIZONTAL_GAP 380
 ! #define HORIZONTAL_GAP 265
 #define HORIZONTAL_GAP 128
+#define LEFT_ALIGN_GAP 256
 
 ! i3wm.i3block.fontSize: 18
 
@@ -18,6 +19,7 @@ i3wm.tmux.size: 42 ppt 40 ppt
 
 ! Gaps
 i3wm.toggleHGap: HORIZONTAL_GAP
+i3wm.leftAlignGap: LEFT_ALIGN_GAP
 i3wm.hGapStep: 32
 i3wm.vGapStep: 32
 
@@ -33,9 +35,9 @@ i3wm.ws6.horizontalGap:  HORIZONTAL_GAP
 i3wm.ws7.horizontalGap:  HORIZONTAL_GAP
 ! i3wm.ws8.horizontalGap:  HORIZONTAL_GAP
 ! i3wm.ws9.horizontalGap:  HORIZONTAL_GAP
-! i3wm.ws10.horizontalGap: 500
+i3wm.ws10.horizontalGap: 250
 
-i3wm.ws10.verticalGap: 0
+i3wm.ws10.verticalGap: 100
 
 ! Hardware control when booting
 i3wm.hardware.bluetoothEnable: true

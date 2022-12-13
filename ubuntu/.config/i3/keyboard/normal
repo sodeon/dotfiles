@@ -15,12 +15,6 @@ $mode+Shift+r -> autohotkey previousWord
 $mode+t       -> autohotkey nextWord
 $mode+Shift+t -> autohotkey nextWord
 
-# Caps lock (original caps lock is used for dual purpose of ctrl and escape) (for xmodmap Mode_switch layer)
-# $mode+Tab -> xte 'keyup Tab' 'key Caps_Lock'
-
-# Toggle keyboard layer (useful for 60% keyboards in for single hand usage)
-# $mod+backslash -> activate-hotkeys toggle-keyboard-alt
-
 
 #--------------------------------------------------------------------------------
 # PrintScreen/Pause, XF86 (volume, monitor brightness and media control), and hardware keys
@@ -30,14 +24,10 @@ XF86PowerOff -> autohotkey suspend
 Mod4+x       -> autohotkey power-menu
 # --release Pause                 -> autohotkey display-standby
 # --release Shift+Pause           -> autohotkey suspend
-# --release $mode+backslash       -> autohotkey display-standby
-# --release $mode+Shift+backslash -> autohotkey suspend
 
 # Screenshot
 Print                   => flameshot screen -p $HOME/Pictures
 Shift+Print             => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
-$mode+bracketleft       => flameshot screen -p $HOME/Pictures
-Shift+$mode+bracketleft => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
 
 # Screen recording
 ctrl+$mod+r => record-screen
@@ -49,37 +39,12 @@ XF86AudioNext          -> autohotkey nextTrack
 XF86AudioPrev          -> autohotkey prevTrack
 Shift+XF86AudioNext    -> autohotkey prevTrack
 Shift+XF86AudioPause   -> cmus-remote -u  # play/pause
-XF86Eject              -> xdotool key --clearmodifiers ctrl+z # xcape lctrl
-
-# # Media control by arrow key (114: Right, 113: Left, 111: Up, 116: Down, 105: Control_R, 134: Super_R)
-# # $mode+Right     -> autohotkey nextTrack
-# # $mode+Left      -> autohotkey nextTrack
-# # Use keycode to avoid conflict with layer1 activated by pressing $mode (for xmodmap Mode_switch layer)
-# $mode+114     -> autohotkey nextTrack
-# $mode+113     -> autohotkey prevTrack
-# $mode+105     -> autohotkey nextTrack
-# $mode+134     -> autohotkey prevTrack
-# # $mode+111     -> autohotkey volume up
-# # $mode+116     -> autohotkey volume down
-
-# Media control with left hand only
-$mode+space       -> autohotkey playPause
-$mode+Shift+space -> cmus-remote -u  # play/pause
-$mode+e           -> autohotkey nextTrack
-$mode+Shift+e     -> autohotkey prevTrack
 
 # Volume
 XF86AudioRaiseVolume -> autohotkey volume up
 XF86AudioLowerVolume -> autohotkey volume down
 XF86AudioMute        -> autohotkey volume toggle
-$mode+f              -> autohotkey volume up
-$mode+v              -> autohotkey volume down
-$mode+c              -> autohotkey volume toggle
 $mode+g              -> switch-sound-output && pkill -RTMIN+10 i3blocks
-
-# Seek forward/backward. Chrome won't correctly recognize if using xkb layer to implement.
-$mode+z -> xte $mode-up 'keyup z' 'key j' $mode-down
-$mode+x -> xte $mode-up 'keyup x' 'key l' $mode-down
 
 # Bluetooth control
 $mode+b       -> autohotkey bluetooth-quick-connect
@@ -91,7 +56,7 @@ $mode+Shift+n -> autohotkey wifi-menu
 
 # Laptop
 XF86Display        -> set-display-monitor
-XF86TouchpadToggle -> toggle-touchpad
+# XF86TouchpadToggle -> toggle-touchpad
 XF86Bluetooth      -> toggle-bluetooth
 # --release XF86ScreenSaver -> xset dpms force off
 
@@ -106,7 +71,7 @@ $mod+z -> autohotkey mouse-profile-menu
 # Not directly typed, but used by xcape binding
 # Use Super as modifier to workaround a xdotool/xte and xcape compatibility problem.
 #     If using mod+F12, mod+h/j/k/l followed by Mod4/super will result in the alt key triggerd by Mod4(xcape) missing
-Mod4+F12 => rofi -show combi -sidebar-mode 
+Mod4+r   => rofi -show combi -sidebar-mode 
 
 Mod4+Tab => autohotkey workspacePicker
 
@@ -163,10 +128,6 @@ Mod4+j     -> "snap-window down  ; i3-msg 'focus mode_toggle'; snap-window down 
 Mod4+k     -> "snap-window up    ; i3-msg 'focus mode_toggle'; snap-window up    ; i3-msg 'focus mode_toggle'"
 Mod4+l     -> "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
 Mod4+slash -> "snap-window center; i3-msg 'focus mode_toggle'; snap-window center; i3-msg 'focus mode_toggle'"
-# Mod4+Left  -> "snap-window left  ; i3-msg 'focus mode_toggle'; snap-window left  ; i3-msg 'focus mode_toggle'"
-# Mod4+Down  -> "snap-window down  ; i3-msg 'focus mode_toggle'; snap-window down  ; i3-msg 'focus mode_toggle'"
-# Mod4+Up    -> "snap-window up    ; i3-msg 'focus mode_toggle'; snap-window up    ; i3-msg 'focus mode_toggle'"
-# Mod4+Right -> "snap-window right ; i3-msg 'focus mode_toggle'; snap-window right ; i3-msg 'focus mode_toggle'"
 # Legacy: Toggle floating window between bottom left and right (use snap floating window function instead)
 # Mod4+slash -> "toggle-window-snap-position; i3-msg 'focus mode_toggle'; toggle-window-snap-position; i3-msg 'focus mode_toggle'"
 
@@ -183,7 +144,6 @@ $mod+Shift+BackSpace -> dunstctl history-pop
 # Mousekeys
 $mode+q       -> warpd --oneshot --click 1 --hint
 $mode+Shift+q -> warpd                     --hint
-# $mode+q -> activate-hotkeys keyboard-mouse toggle
 
 
 #--------------------------------------------------------------------------------
@@ -239,7 +199,7 @@ $mod+Control+m -> autohotkey toggleVideoSize
 
 #--------------------------------------------------------------------------------
 # Gaps (i3-gaps is a fork from i3)
-#     Pixel size: displayWidth / scaleFactor (1.25 on desktop)
+#     Pixel size: displayWidth / scaleFactor
 #--------------------------------------------------------------------------------
 $mod+r gaps horizontal current toggle $toggleHGap
 
@@ -248,3 +208,5 @@ $mod+Control+Shift+l gaps horizontal current minus $hGapStep
 $mod+Control+Shift+j gaps vertical   current plus  $vGapStep
 $mod+Control+Shift+k gaps vertical   current minus $vGapStep
 
+$mod+u  gaps left current set 0; gaps right current set $leftAlignGap
+$mod+i gaps horizontal current set $toggleHGap

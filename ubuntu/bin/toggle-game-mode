@@ -1,5 +1,6 @@
 #!/bin/bash -u
 cmd=${1-""}
+screenBlankTime=600
 
 # Game mode:
 # 1. Disable compositor to improve display latency.
@@ -25,6 +26,7 @@ start-game-mode() {
     # toggle-nvidia-oc on & > /dev/null
     kill-compositor
     xrandr --output $interface --mode $resolution --scale 1x1    --rate $game_refresh_rate # Disable fractional scaling and return to native display resolution
+    disable-screen-blanking # xset s 0 0 && xset dpms 0 0 0
     activate-hotkeys game-mode &
     # setup-mouse      game-mode &
     notify-send.sh -t 5000 -r 19 "Game Mode" "Enabled"
@@ -34,6 +36,7 @@ stop-game-mode() {
     # setup-mouse      &
     activate-hotkeys &
     xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate
+    xset s $screenBlankTime $screenBlankTime && xset dpms $screenBlankTime $screenBlankTime $screenBlankTime
     start-compositor
     # toggle-nvidia-oc off & > /dev/null
     notify-send.sh -t 5000 -r 19 "Game Mode" "Disabled"
