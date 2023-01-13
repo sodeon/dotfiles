@@ -8,18 +8,25 @@ BROWSER_WIN_CLASS="Vivaldi-stable"
     # --force-device-scale-factor=1.8 `# 27" 4K`    \
     # --force-device-scale-factor=2   `# 32" 4K`    \
 WS1_CMD() { 
-    # Chrome hardware video decode: https://bbs.archlinux.org/viewtopic.php?id=244031&p=28
     vivaldi \
     --force-device-scale-factor=1.8 `# 27" 4K` \
     --force-dark-mode \
     --enable-quic \
     --ignore-gpu-blocklist \
     --enable-gpu-rasterization \
-    --enable-zero-copy \
-    --enable-features=VaapiVideoDecoder,RawDraw \
-    --disable-features=UseChromeOSDirectVideoDecoder \
-    --use-gl=desktop
-    # --disable-features=UseOzonePlatform
+    --enable-zero-copy
+    # Chrome hardware video decode: https://bbs.archlinux.org/viewtopic.php?id=244031&p=28
+    # vivaldi \
+    # --force-device-scale-factor=1.8 `# 27" 4K` \
+    # --force-dark-mode \
+    # --enable-quic \
+    # --ignore-gpu-blocklist \
+    # --enable-gpu-rasterization \
+    # --enable-zero-copy \
+    # --enable-features=VaapiVideoDecoder,RawDraw \
+    # --disable-features=UseChromeOSDirectVideoDecoder \
+    # --use-gl=desktop
+    # # --disable-features=UseOzonePlatform
 }
 
 
@@ -34,8 +41,9 @@ declare -A WOL_ENTRIES=(
 
 declare -A F10_ENTRIES=(
     [1. PC Gaming          ]=lutris
-    [2. Ryujinx            ]=ryujinx
-    [3. Retroarch          ]=retroarch
+    [2. Yuzu               ]=yuzu
+    [3. Ryujinx            ]=ryujinx
+    [4. Retroarch          ]=retroarch
     # [4. Moonlight Streaming]=moonlight
 )
 

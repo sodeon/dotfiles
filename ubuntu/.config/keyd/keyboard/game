@@ -15,12 +15,25 @@ a = left
 s = down
 d = right
 
+h = left
+j = down
+k = up
+l = right
+; = home
+' = end
+
+o = backspace
+p = A-M-p
+u = A-M-u 
+/ = A-M-/
+
 tab = capslock
 [ = print
 f = volumeup
 v = volumedown
 c = mute
 g = A-M-g
+b = A-M-b
 
 
 [shift+l1]

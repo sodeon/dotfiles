@@ -1,0 +1,38 @@
+#!/bin/bash
+# https://askubuntu.com/questions/52341/how-to-kill-wine-processes-when-they-crash-or-are-going-to-crash
+# https://stackoverflow.com/questions/4556820/kill-a-process-running-in-wine-from-command-prompt#:~:text=To%20kill%20all%20Wine%20processes,all%20within%20same%20WINEPREFIX%20environment).&text=is%20not%20useful-,Save%20this%20answer.,you've%20launched%20that%20process.
+
+wine_cellar="/mnt/d/wine/.wine.clean"
+# wine_cellar="${HOME}/.wine"
+
+if (($#)); then
+    if [[ -e "${wine_cellar}/$1" ]]; then
+        WINEPREFIX="${wine_cellar}/$1"
+        shift
+    elif [[ "${1:0:1}" != "-" ]]; then
+        echo "ERROR: Didn't understand argument '$1'?" >&2;
+        exit 1
+    fi
+fi
+
+if ((${#WINEPREFIX})); then
+    pids=$(
+        grep -l "WINEPREFIX=${WINEPREFIX}$" $(
+            ls -l /proc/*/exe 2>/dev/null |
+            grep -E 'wine(64)?-preloader|wineserver' |
+            perl -pe 's;^.*/proc/(\d+)/exe.*$;/proc/$1/environ;g;'
+        ) 2> /dev/null |
+        perl -pe 's;^/proc/(\d+)/environ.*$;$1;g;'
+    )
+else
+    pids=$(
+        ls -l /proc/*/exe 2>/dev/null |
+        grep -E 'wine(64)?-preloader|wineserver' |
+        perl -pe 's;^.*/proc/(\d+)/exe.*$;$1;g;'
+    )
+fi
+
+if ((${#pids})); then
+    set -x
+    kill $* $pids
+fi

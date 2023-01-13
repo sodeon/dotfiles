@@ -1,0 +1,5 @@
+#!/bin/bash -ue
+screenBlankTime=600
+
+xset s $screenBlankTime $screenBlankTime
+xset dpms $screenBlankTime $screenBlankTime $screenBlankTime

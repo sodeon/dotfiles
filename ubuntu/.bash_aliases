@@ -11,7 +11,8 @@ alias lr='ls -rtla'
 alias o='xdg-open'
 alias t='touch'
 alias v='vim'
-alias d='vimdiff'
+alias d='diff'
+alias d.='vimdiff'
 alias p='python3'
 alias s='sudo systemctl'
 alias s.='systemctl --user'
@@ -57,12 +58,12 @@ alias llc="lossless-concat"
 #-----------------------------------------------------
 # Docker
 #-----------------------------------------------------
-alias d.='docker'
-alias dr='docker run -i -t --rm'
-alias de='docker exec -i -t'
-alias di='docker image'
-alias dc='docker container'
-alias dco='docker-compose'
+# alias d.='docker'
+# alias dr='docker run -i -t --rm'
+# alias de='docker exec -i -t'
+# alias di='docker image'
+# alias dc='docker container'
+# alias dco='docker-compose'
 
 
 #-----------------------------------------------------

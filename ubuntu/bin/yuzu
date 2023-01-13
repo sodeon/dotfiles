@@ -4,8 +4,9 @@
 autohotkey brightness game
 disable-screen-blanking
 
-MANGOHUD=1 /mnt/d/emulators/retroarch/RetroArch-Linux-x86_64.AppImage
+MANGOHUD=1 mangohud gamemoderun /mnt/d/emulators/yuzu/yuzu
 
 # toggle-game-mode off
 enable-screen-blanking
 autohotkey brightness game
+

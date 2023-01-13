@@ -20,14 +20,14 @@ else
     dpi='1600'
     polling_rate=250
     mappings="buttons(layout=QWERTY;
-        scrollup=f13; 
-        scrolldown=f14; 
-        button3=button3; 
-        button4=button4; 
-        button5=button5; 
-        button6=f15; 
+        scrollup=scrollup;
+        scrolldown=scrolldown;
+        button3=button3;
+        button4=button4;
+        button5=button5;
+        button6=f15;
         button7=f;
-        button8=playpause; 
+        button8=playpause;
         button9=alt)"
         # button8=dpi;
     # mappings="buttons(layout=QWERTY;
