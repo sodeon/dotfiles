@@ -11,7 +11,7 @@ fi
 output=$1; shift
 list=concat-inputs.list
 
-[-f $list ] && rm $list; touch $list
+[ -f $list ] && rm $list; touch $list
 for input in "$@"; do
     echo file \'$input\' >> $list
 done

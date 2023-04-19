@@ -31,8 +31,8 @@ default_pl=285 # Default power limit. Also used to detect if card is at default 
 
 gpu=0
 level=4 # Up to 4 performance levels read from nvidia-settings's PowerMizer
-core_offset=250
-mem_offset=2200
+core_offset=200
+mem_offset=2300
 pl=320
 
 

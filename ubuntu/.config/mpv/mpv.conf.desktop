@@ -153,6 +153,10 @@ tone-mapping-mode=luma
 gamut-mapping-mode=desaturate
 profile-cond=video_params and p["video-params/primaries"] == "bt.2020"
 
+[wmv]
+hwdec=no
+profile-cond=get('filename', ''):match('%.wmv$') ~= nil
+
 # [shader-liveaction]
 # glsl-shaders-clr
 # glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"

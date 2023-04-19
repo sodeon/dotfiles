@@ -81,7 +81,7 @@ apt-force install mpv socat # video player, socat: socket read/write for remote 
 apt-force install mcomix # image viewer for file fomats not supported by sxiv (e.g. HEIC used by Apple)
 apt-force install zathura # pdf reader
 apt-force install libreoffice
-apt-force install unrar p7zip
+apt-force install unrar 7zip # p7zip
 apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
 apt-force install numlockx

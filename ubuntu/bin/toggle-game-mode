@@ -7,6 +7,12 @@ cmd=${1-""}
 # 3. Overclock GPU (currently done at boot time).
 # 4. Disable keyboard macros to improve latency and reduce context switches.
 
+start-lite-mode() {
+    kill-compositor
+    disable-screen-blanking
+    notify-send.sh -t 5000 -r 19 "Game Mode" "Lite"
+}
+
 start-game-mode() {
     # export __GL_SHADER_DISK_CACHE_PATH="/mnt/d/wine/gl-cache/$game_name" # exported variables will not be passed to games
     # export VKD3D_SHADER_CACHE_PATH=/mnt/d/wine/dxvk-cache # has no effect
@@ -24,8 +30,8 @@ start-game-mode() {
     game_refresh_rate=${game_refresh_rate-"$refresh_rate"}
     # toggle-nvidia-oc on & > /dev/null
     kill-compositor
-    xrandr --output $interface --mode $resolution --scale 1x1    --rate $game_refresh_rate # Disable fractional scaling and return to native display resolution
     disable-screen-blanking
+    # xrandr --output $interface --mode $resolution --scale 1x1    --rate $game_refresh_rate # Disable fractional scaling and return to native display resolution
     activate-hotkeys game-mode &
     # setup-mouse      game-mode &
     notify-send.sh -t 5000 -r 19 "Game Mode" "Enabled"
@@ -34,9 +40,9 @@ start-game-mode() {
 stop-game-mode() {
     # setup-mouse      &
     activate-hotkeys &
-    xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate
     enable-screen-blanking
     start-compositor
+    # xrandr --output $interface --mode $resolution --scale $scale --rate $refresh_rate
     # toggle-nvidia-oc off & > /dev/null
     notify-send.sh -t 5000 -r 19 "Game Mode" "Disabled"
 }
@@ -46,6 +52,8 @@ source source-display-monitor
 if $is_game_mode; then
     if [[ $cmd == "on" ]]; then
         start-game-mode
+    elif [[ $cmd == "lite" ]]; then
+        start-lite-mode
     else
         monitor-control bg >/dev/null && (pkill -RTMIN+11 i3blocks &)
         stop-game-mode
@@ -55,7 +63,9 @@ else
         stop-game-mode
     else
         monitor-control bg >/dev/null && (pkill -RTMIN+11 i3blocks &)
-        start-game-mode
+        [[ $cmd == "on" ]] \
+            && start-game-mode \
+            || start-lite-mode
     fi
 fi
 

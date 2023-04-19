@@ -79,7 +79,7 @@ set $vdoViewerCls "^mpv$"
 set $imgViewerCls "Sxiv|Gpicview|MComix"
 set $docViewerCls "Zathura|^libreoffice"
 set $termCls      "URxvt|Gnome-terminal"
-set $gameCls      "^Lutris$|^Desmume$|^mame$|^Ryujinx$"
+set $gameCls      "^Lutris$|^RPCS3$|^yuzu$|^Ryujinx$|^retroarch$|^mame$|^Desmume$"
 
 set_from_resource $term i3wm.term terminal
 
@@ -163,7 +163,7 @@ for_window [class="^zoom$"               ]                 focus, layout tabbed
 for_window [class=$imgViewerCls          ] border none,    focus, fullscreen
 for_window [class=$docViewerCls          ] border none,    focus
 for_window [class=$gameCls               ] border none
-for_window [class="qBittorrent"          ]                        floating enable, move center
+for_window [class="qBittorrent"          ]                        floating enable, move position center
 
 
 #--------------------------------------------------------------------------------

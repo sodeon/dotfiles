@@ -42,8 +42,9 @@ declare -A WOL_ENTRIES=(
 declare -A F10_ENTRIES=(
     [1. PC Gaming          ]=lutris
     [2. Yuzu               ]=yuzu
-    [3. Ryujinx            ]=ryujinx
+    [3. RPCS3              ]=rpcs3
     [4. Retroarch          ]=retroarch
+    [5. Ryujinx            ]=ryujinx
     # [4. Moonlight Streaming]=moonlight
 )
 

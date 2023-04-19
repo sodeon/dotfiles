@@ -1,12 +1,1 @@
-#!/bin/bash -u
-
-# toggle-game-mode on
-autohotkey brightness game
-disable-screen-blanking
-
-MANGOHUD=1 mangohud gamemoderun /mnt/d/emulators/yuzu/yuzu
-
-# toggle-game-mode off
-enable-screen-blanking
-autohotkey brightness game
-
+games/yuzu

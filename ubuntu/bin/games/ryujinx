@@ -1,12 +1,12 @@
 #!/bin/bash -u
 
-# toggle-game-mode on
-autohotkey brightness game
-disable-screen-blanking
+toggle-game-mode lite
+# autohotkey brightness game
+# disable-screen-blanking
 
 MANGOHUD=1 mangohud gamemoderun /mnt/d/emulators/ryujinx/bin/Ryujinx
 
-# toggle-game-mode off
-enable-screen-blanking
-autohotkey brightness game
+toggle-game-mode off
+# enable-screen-blanking
+# autohotkey brightness game
 

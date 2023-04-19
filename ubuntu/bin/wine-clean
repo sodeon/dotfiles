@@ -1,0 +1,6 @@
+#!/bin/bash -ue
+
+wine_prefix="/mnt/d/wine/.wine.clean"
+wine="/mnt/d/wine/wine-ge-custom/wine-clean/bin/wine"
+
+WINEPREFIX=$wine_prefix $wine $@

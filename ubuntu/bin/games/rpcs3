@@ -4,8 +4,9 @@ toggle-game-mode lite
 # autohotkey brightness game
 # disable-screen-blanking
 
-MANGOHUD=1 gamemoderun /mnt/d/emulators/retroarch/RetroArch-Linux-x86_64.AppImage
+MANGOHUD=1 mangohud gamemoderun /mnt/d/emulators/rpcs3/rpcs3
 
 toggle-game-mode off
 # enable-screen-blanking
 # autohotkey brightness game
+
