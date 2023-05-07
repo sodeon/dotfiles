@@ -26,7 +26,8 @@ Mod4+x       -> autohotkey power-menu
 # --release Shift+Pause           -> autohotkey suspend
 
 # Screenshot
-Print                   => flameshot screen -p $HOME/Pictures
+Print                   => flameshot full   -p $HOME/Pictures
+# Print                   => flameshot screen -p $HOME/Pictures
 Shift+Print             => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
 
 # Screen recording

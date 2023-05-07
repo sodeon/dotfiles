@@ -155,13 +155,13 @@ assign [class=$imgViewerCls ] $ws9
 assign [class=$docViewerCls ] $ws9
 assign [class=$gameCls      ] $ws10
 
-for_window [class=$termCls title="ranger"] border pixel 2
+for_window [class=$termCls title="ranger"] border pixel 2       , layout stacked
 for_window [class=$browserCls            ] border none
 for_window [class="Org.gnome.Nautilus"   ] border none
-for_window [class="Code"                 ] border none,    focus
+for_window [class="Code"                 ] border none,    focus, layout stacked
 for_window [class="^zoom$"               ]                 focus, layout tabbed
-for_window [class=$imgViewerCls          ] border none,    focus, fullscreen
-for_window [class=$docViewerCls          ] border none,    focus
+for_window [class=$imgViewerCls          ] border none,    focus, layout stacked, fullscreen
+for_window [class=$docViewerCls          ] border none,    focus, layout stacked
 for_window [class=$gameCls               ] border none
 for_window [class="qBittorrent"          ]                        floating enable, move position center
 

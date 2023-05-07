@@ -9,7 +9,7 @@ sudo systemctl restart nginx.service # HTTP
 
 # Enable iscsi target server
 mount | grep -q windows      && sudo umount /mnt/windows      # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
-mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+# mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
 sudo systemctl restart rtslib-fb-targetctl.service # save/load iscsi target config upon start/boot/reboot
 sudo systemctl restart targetclid.service # iscsi target
 sudo targetctl restore ~/.config/targetcli/saveconfig.json #  targetcli will not restore/store config if service is not enabled

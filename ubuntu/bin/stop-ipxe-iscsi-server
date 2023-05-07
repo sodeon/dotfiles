@@ -12,7 +12,7 @@ sudo systemctl stop nginx.service # HTTP
 
 # Stop iscsi target server
 mount | grep -q windows      && sudo umount /mnt/windows      # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
-mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
+# mount | grep -q windows-data && sudo umount /mnt/windows-data # Unmount block devices shared by iscsi target. iscsi target requires exclusive access to block device
 sudo systemctl stop rtslib-fb-targetctl.service # save/load iscsi target config upon start/boot/reboot
 sudo systemctl stop targetclid.service # iscsi target
 

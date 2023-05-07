@@ -8,13 +8,6 @@ BROWSER_WIN_CLASS="Vivaldi-stable"
     # --force-device-scale-factor=1.8 `# 27" 4K`    \
     # --force-device-scale-factor=2   `# 32" 4K`    \
 WS1_CMD() { 
-    vivaldi \
-    --force-device-scale-factor=1.8 `# 27" 4K` \
-    --force-dark-mode \
-    --enable-quic \
-    --ignore-gpu-blocklist \
-    --enable-gpu-rasterization \
-    --enable-zero-copy
     # Chrome hardware video decode: https://bbs.archlinux.org/viewtopic.php?id=244031&p=28
     # vivaldi \
     # --force-device-scale-factor=1.8 `# 27" 4K` \
@@ -23,10 +16,17 @@ WS1_CMD() {
     # --ignore-gpu-blocklist \
     # --enable-gpu-rasterization \
     # --enable-zero-copy \
-    # --enable-features=VaapiVideoDecoder,RawDraw \
+    # --enable-features=VaapiVideoDecoder,RawDraw,VaapiIgnoreDriverChecks \
     # --disable-features=UseChromeOSDirectVideoDecoder \
     # --use-gl=desktop
     # # --disable-features=UseOzonePlatform
+    vivaldi \
+    --force-device-scale-factor=1.8 `# 27" 4K` \
+    --force-dark-mode \
+    --enable-quic \
+    --ignore-gpu-blocklist \
+    --enable-gpu-rasterization \
+    --enable-zero-copy
 }
 
 

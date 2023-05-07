@@ -49,6 +49,11 @@ alias mount-android="jmtpfs /mnt/temp; cd /mnt/temp"
 alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
 alias mount-usb="sudo mount /dev/sdb1 /mnt/temp -o uid=1000,user; cd /mnt/temp"
 alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
+# alias mount-iso="sudo mount -o loop"
+mount-iso() {
+    sudo mount -o loop $1 /mnt/temp
+    cd /mnt/temp
+}
 
 alias ytdl="youtube-dl"
 alias lc="lossless-cut"

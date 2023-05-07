@@ -2,5 +2,6 @@
 
 wine_prefix="/mnt/d/wine/.wine.clean"
 wine="/mnt/d/wine/wine-ge-custom/wine-clean/bin/wine"
+# wine="/mnt/d/wine/wine-ge-custom/wine-clean/bin/winecfg"
 
 WINEPREFIX=$wine_prefix $wine $@
