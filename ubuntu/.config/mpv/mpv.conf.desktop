@@ -146,26 +146,19 @@ glsl-shader="~~/shaders/KrigBilateral.glsl"
 # profile-cond=(width <= 3840 and container_fps > 30) and (width > 1280)
 
 # https://mpv.io/manual/master/#options-tone-mapping
-# [hdr] # Requires vo=gpu-next. gpu-next has much lower GPU efficiency on NVIDIA 2070
-# vo=gpu-next
-# tone-mapping=bt.2446a
+[hdr] # Requires vo=gpu-next. gpu-next has much lower GPU efficiency on NVIDIA 2070
+vo=gpu-next
+tone-mapping=bt.2446a
 # tone-mapping-mode=luma
-# # tone-mapping=st2094-40
-# # tone-mapping-mode=hybrid
-# tone-mapping-max-boost=2
-# gamut-mapping-mode=desaturate
-# profile-cond=video_params and p["video-params/primaries"] == "bt.2020"
+## tone-mapping=st2094-40
+## tone-mapping-mode=hybrid
+tone-mapping-max-boost=2
+gamut-mapping-mode=desaturate
+profile-cond=video_params and p["video-params/primaries"] == "bt.2020"
 
 [wmv]
 hwdec=no
 profile-cond=get('filename', ''):match('%.wmv$') ~= nil
-
-# [shader-liveaction]
-# glsl-shaders-clr
-# glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"
-# # glsl-shader="~~/shaders/FSRCNNX_x2_8-0-4-1.glsl"
-# glsl-shader="~~/shaders/KrigBilateral.glsl"
-# profile-cond=(width <= 1920 and container_fps <= 30) or (width <= 1280)
 
 # [shader-anime]
 # glsl-shaders-clr
@@ -189,3 +182,6 @@ profile-cond=get('filename', ''):match('%.wmv$') ~= nil
 # SVP Settings
 # hr-seek-framedrop=no
 # no-resume-playback
+
+[default]
+mute=yes

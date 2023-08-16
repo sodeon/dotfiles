@@ -1,0 +1,1 @@
+photography/batch-bmp-to-png.sh

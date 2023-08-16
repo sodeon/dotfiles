@@ -7,7 +7,7 @@ remote=$1
 
 # SSH params
 identity=$HOME/.ssh/id_rsa
-sshOptions="-o idmap=user,uid=1000 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+sshOptions="-o idmap=user,uid=1000 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=2"
 
 
 mount-sshfs() {

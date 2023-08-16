@@ -78,7 +78,7 @@ apt-force install qbittorrent
 apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
-apt-force install mcomix # image viewer for file fomats not supported by sxiv (e.g. HEIC used by Apple)
+# apt-force install mcomix # image viewer for file fomats not supported by sxiv (e.g. HEIC used by Apple)
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar 7zip # p7zip

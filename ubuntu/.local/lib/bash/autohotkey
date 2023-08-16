@@ -14,7 +14,9 @@ BT_QUICK_CONNECT_DEVICE='WH-1000XM4'
 SUSPEND_PRE_CMD() { true; }
 
 declare -A F4_ENTRIES=(
-    [Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+    [1. DaVinci Resolve   ]="/opt/resolve/bin/resolve"
+    # [2. Gyroflow          ]="Gyroflow"
+    [2. Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
 )
 declare -A F5_ENTRIES=(
     [Zoom Meeting]="zoom"

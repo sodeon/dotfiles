@@ -76,7 +76,7 @@ set $mode Mod1+Mod4
 #--------------------------------------------------------------------------------
 set $browserCls   "Google-chrome|Vivaldi-stable|Brave-browser|Firefox"
 set $vdoViewerCls "^mpv$"
-set $imgViewerCls "Sxiv|Gpicview|MComix"
+set $imgViewerCls "Sxiv|Gpicview|MComix|^XnView|^Display"
 set $docViewerCls "Zathura|^libreoffice"
 set $termCls      "URxvt|Gnome-terminal"
 set $gameCls      "^Lutris$|^RPCS3$|^yuzu$|^Ryujinx$|^retroarch$|^mame$|^Desmume$"
@@ -149,6 +149,7 @@ set_from_resource $ws10VGap i3wm.ws10.verticalGap 0
 # Bind application to workspace
 assign [title="ranger"      ] $ws3
 assign [class="Code"        ] $ws4
+assign [class="resolve"     ] $ws4
 assign [class="^zoom$"      ] $ws5
 assign [class=$vdoViewerCls ] $ws9
 assign [class=$imgViewerCls ] $ws9
@@ -159,8 +160,10 @@ for_window [class=$termCls title="ranger"] border pixel 2       , layout stacked
 for_window [class=$browserCls            ] border none
 for_window [class="Org.gnome.Nautilus"   ] border none
 for_window [class="Code"                 ] border none,    focus, layout stacked
+for_window [class="resolve"              ] border none,    focus, layout stacked
 for_window [class="^zoom$"               ]                 focus, layout tabbed
 for_window [class=$imgViewerCls          ] border none,    focus, layout stacked, fullscreen
+for_window [class="^XnView|^Display"     ] border none,    focus, layout stacked, fullscreen
 for_window [class=$docViewerCls          ] border none,    focus, layout stacked
 for_window [class=$gameCls               ] border none
 for_window [class="qBittorrent"          ]                        floating enable, move position center

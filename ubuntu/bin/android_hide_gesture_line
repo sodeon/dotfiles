@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+adb -d shell settings put global hide_gesture_line 1

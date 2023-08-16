@@ -1,0 +1,1 @@
+photography/batch-image-resize.sh
