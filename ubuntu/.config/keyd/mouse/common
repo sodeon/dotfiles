@@ -85,9 +85,11 @@ scrolldown = C-S-9
 
 
 [alt]
-rightmouse    = A-n
+leftmouse     = A-1
+rightmouse    = A-minus
 scrollup      = A-m
-scrolldown    = A-C-m
+scrolldown    = A-n
+# scrolldown    = A-C-m
 mousemiddle   = f20
 mouseforward  = C-S-t
 mouseback     = mouse2

@@ -646,6 +646,11 @@ F10() {
     fi
 }
 
+last-workspace() {
+    last_workspace=`i3-msg -t get_workspaces | jq '.[-1]' | jq '.num'`
+    i3-msg "workspace number $last_workspace"
+}
+
 toggleMouseMode() {
     file='/tmp/mouse-alt'
     if [ -f $file ]; then

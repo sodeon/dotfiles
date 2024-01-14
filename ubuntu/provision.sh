@@ -132,21 +132,26 @@ sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
 apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
-cd-temp
-apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
-          libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
-          libstartup-notification0-dev libxcb-randr0-dev \
-          libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
-          libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-          autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
-git clone https://github.com/Airblader/i3 i3
-cd i3
-git checkout gaps
-rm -rf build/ && mkdir -p build && cd build
-meson ..
-ninja
-sudo meson install
-cd-before-temp
+/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
+sudo apt install ./keyring.deb
+echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
+sudo apt update
+sudo apt install i3
+# cd-temp
+# apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+#           libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
+#           libstartup-notification0-dev libxcb-randr0-dev \
+#           libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
+#           libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+#           autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev meson
+# git clone https://github.com/i3/i3 i3
+# cd i3
+# git checkout stable
+# rm -rf build/ && mkdir -p build && cd build
+# meson ..
+# ninja
+# sudo meson install
+# cd-before-temp
 
 # uncluter: auto hide mouse after inactive using it, use pre-built binary
 #    https://github.com/Airblader/unclutter-xfixes

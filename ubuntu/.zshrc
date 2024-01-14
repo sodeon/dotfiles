@@ -83,16 +83,16 @@ plugins=(
 
   # Typing assist
   zsh-syntax-highlighting
+  colored-man-pages
   #compleat # hasn't tried, seems zsh already has such functions
   #zsh-autosuggestions
   #zsh-completions # there really isn't anything helpful (in ~/.oh-my-zsh/custom/plugins/zsh-completions/src)
-  colored-man-pages
 
   # Command helpers
   # NOTE: When adding new helper, remember to re-run $compinit and check ~/.zcompdump to see if the changes applied
   # sudo
   sd # sd uses sd to replace sudo. sd allows alias to be recognized using sudo
-  docker
+  #docker
   #pip
 )
 source $ZSH/oh-my-zsh.sh

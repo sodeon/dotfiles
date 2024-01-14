@@ -152,17 +152,18 @@ $mode+Shift+q -> warpd                     --hint
 #--------------------------------------------------------------------------------
 # Switch to workspace
 # $mod+Tab workspace back_and_forth
-$mod+Tab -> autohotkey normalScroll || autohotkey altTab
-$mod+1   => autohotkey F1 
-$mod+2   => autohotkey F2
-$mod+3   => autohotkey F3
-$mod+4   => autohotkey F4
-$mod+5   => autohotkey F5
-$mod+6   workspace number $ws6
-$mod+7   workspace number $ws7
-$mod+8   workspace number $ws8
-$mod+9   workspace number $ws9
-$mod+0   => autohotkey F10
+$mod+Tab   -> autohotkey normalScroll || autohotkey altTab
+$mod+1     => autohotkey F1 
+$mod+2     => autohotkey F2
+$mod+3     => autohotkey F3
+$mod+4     => autohotkey F4
+$mod+5     => autohotkey F5
+$mod+6     workspace number $ws6
+$mod+7     workspace number $ws7
+$mod+8     workspace number $ws8
+$mod+9     workspace number $ws9
+$mod+0     => autohotkey F10
+$mod+minus => autohotkey last-workspace
 
 # Move focused container to workspace
 $mod+Shift+1  move container to workspace number $ws1
