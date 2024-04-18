@@ -10,6 +10,7 @@ bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
 bindsym Mod4+x exec --no-startup-id autohotkey power-menu
 bindsym Print exec flameshot full -p $HOME/Pictures
 bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
+bindsym Scroll_Lock exec autohotkey colorPicker
 bindsym ctrl+$mod+r exec record-screen
 bindsym XF86AudioPlay exec --no-startup-id autohotkey playPause
 bindsym XF86AudioPause exec --no-startup-id autohotkey playPause
@@ -102,7 +103,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id autohotkey brightness down
 bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
 bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
 bindsym Shift+XF86AudioMute exec --no-startup-id autohotkey brightness toggle
-bindsym Control+XF86AudioMute exec --no-startup-id autohotkey brightness game
+bindsym Control+XF86AudioMute exec --no-startup-id autohotkey brightness ambient
 bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
 bindcode 191 exec --no-startup-id xte 'mouseclick 4'
 bindcode 192 exec --no-startup-id xte 'mouseclick 5'
@@ -110,6 +111,6 @@ bindcode 193 exec --no-startup-id autohotkey halfPageUp
 bindcode 194 exec --no-startup-id autohotkey halfPageDown
 bindcode 195 exec --no-startup-id autohotkey on-dpi-click
 bindcode 196 exec --no-startup-id autohotkey closeTabOrWindow
-bindcode 197 exec --no-startup-id autohotkey toggleMaximized
+bindcode --release 197 exec --no-startup-id autohotkey toggleMaximized
 bindcode 198 exec --no-startup-id autohotkey toggleQBittorrent
 bindcode 199 exec --no-startup-id autohotkey quick-cmds-menu

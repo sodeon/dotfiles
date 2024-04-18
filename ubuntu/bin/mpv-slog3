@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+mpv --vo=gpu-next --lut=~~/luts/slog3-to-709.cube "$1"

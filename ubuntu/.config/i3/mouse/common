@@ -12,7 +12,7 @@
 # F17-21
 195 -> autohotkey on-dpi-click
 196 -> autohotkey closeTabOrWindow
-197 -> autohotkey toggleMaximized
+--release 197 -> autohotkey toggleMaximized
 198 -> autohotkey toggleQBittorrent
 199 -> autohotkey quick-cmds-menu
 

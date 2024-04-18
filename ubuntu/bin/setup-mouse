@@ -6,6 +6,7 @@ declare -a upower_models=(
     "MX Keys Mini"
     "G Pro Wireless"
     "Aerox 5 WL"
+    "Magic Keyboard"
 )
 
 

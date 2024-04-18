@@ -7,7 +7,8 @@ rc="$HOME/.config/hardware/$model"
 if [ $1 = "bs" ]; then
     if [ $is_game_mode = true ]; then
 		is_game_mode=false
-		# is_reading_mode=true
+    elif [ $is_ambient_mode = true ]; then
+		is_ambient_mode=false
     elif [ $is_reading_mode = true ]; then
 		is_reading_mode=false
     else
@@ -18,9 +19,14 @@ fi
 if [ $1 = "bg" ]; then
     if [ $is_game_mode = true ]; then
 		is_game_mode=false
-		# is_reading_mode=false
     else
 		is_game_mode=true
+    fi
+elif [ $1 = "bn" ]; then
+    if [ $is_ambient_mode = true ]; then
+		is_ambient_mode=false
+    else
+		is_ambient_mode=true
     fi
 fi
 
@@ -30,6 +36,11 @@ if [ $is_game_mode = true ]; then
     brightness=$game_brightness
     temperature=$color_temperature_game
     contrast=$game_contrast
+elif [ $is_ambient_mode = true ]; then
+    mode="ambient"
+    brightness=$ambient_brightness
+    temperature=$color_temperature_ambient
+    contrast=$ambient_contrast
 elif [ $is_reading_mode = true ]; then
     mode="reading"
     brightness=$reading_brightness
@@ -43,9 +54,10 @@ else
 fi
 
 display-mode() {
-    ([[ $mode = "game"   ]] && echo "Game") || \
-    ([[ $mode = "video"  ]] && echo "Video" ) || \
-                               echo "Reading"
+    ([[ $mode = "game"    ]] && echo "Game"    ) || \
+    ([[ $mode = "video"   ]] && echo "Video"   ) || \
+    ([[ $mode = "ambient" ]] && echo "Ambient" ) || \
+                                echo "Reading"
 }
 
 case "$1" in
@@ -122,25 +134,28 @@ case "$1" in
         fi
         echo "B: $brightness   C: $contrast"
         ;;
-    bs | bg)
+    bs | bg | bn)
 		ddcutil setvcp $color_temperature_feature_id $temperature $brightness_feature_id $brightness $contrast_feature_id $contrast --bus $i2c_bus
 
         display-mode
         case $mode in
             "game")
-                sed -i s/is_game_mode=.*/is_game_mode="true"/   $rc
+                sed -i s/is_game_mode=.*/is_game_mode="true"/        $rc
+                ;;
+            "ambient")
+                sed -i s/is_ambient_mode=.*/is_ambient_mode="true"/  $rc
                 ;;
             "reading")
-                sed -i s/is_game_mode=.*/is_game_mode="false"/   $rc
-                sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc
+                sed -i s/is_game_mode=.*/is_game_mode="false"/       $rc
+                sed -i s/is_ambient_mode=.*/is_ambient_mode="false"/ $rc
+                sed -i s/is_reading_mode=.*/is_reading_mode="true"/  $rc
                 ;;
             *) # Video mode
-                sed -i s/is_game_mode=.*/is_game_mode="false"/   $rc
+                sed -i s/is_game_mode=.*/is_game_mode="false"/       $rc
+                sed -i s/is_ambient_mode=.*/is_ambient_mode="false"/ $rc
                 sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc
                 ;;
         esac
-        # ([ $mode = "game"    ] && sed -i s/is_game_mode=.*/is_game_mode="true"/   $rc) || (sed -i s/is_game_mode=.*/is_game_mode="false"/   $rc && \
-        # ([ $mode = "reading" ] && sed -i s/is_reading_mode=.*/is_reading_mode="true"/ $rc  ||  sed -i s/is_reading_mode=.*/is_reading_mode="false"/ $rc))
         if [[ $contrast == "50" ]]; then
             echo "$brightness"
         else

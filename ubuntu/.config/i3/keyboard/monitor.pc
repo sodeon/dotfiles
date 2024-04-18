@@ -4,6 +4,6 @@ XF86MonBrightnessDown      -> autohotkey brightness down
 Shift+XF86AudioRaiseVolume -> autohotkey brightness up
 Shift+XF86AudioLowerVolume -> autohotkey brightness down
 Shift+XF86AudioMute        -> autohotkey brightness toggle
-Control+XF86AudioMute      -> autohotkey brightness game
+Control+XF86AudioMute      -> autohotkey brightness ambient
 $mode+Shift+g              -> autohotkey display-input toggle
 

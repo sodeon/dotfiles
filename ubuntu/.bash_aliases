@@ -46,19 +46,45 @@ dirdiff() { vim -c "DirDiff $(echo $@)"; } # Directly using $@ without echo will
 # alias dirdiff='diff -qr'
 
 alias mount-android="jmtpfs /mnt/temp; cd /mnt/temp"
-alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
-alias mount-usb="sudo mount /dev/sdb1 /mnt/temp -o uid=1000,user; cd /mnt/temp"
-alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
+# alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
+# alias mount-usb="sudo mount /dev/sdb1 /mnt/temp -o uid=1000,user; cd /mnt/temp"
+mount-usb() {
+    (lsblk | grep -q sdb1) || lsblk | grep -q sdc1 && usb="sdc1"
+    usb="sdb1"
+    dev="/dev/$usb"
+    echo "Mounting $dev..."
+    sudo mount $dev /mnt/temp -o uid=1000,user
+    cd /mnt/temp
+}
+# alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
+alias umount-temp="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
 alias umount-nas="umount /net/nas"
-# alias mount-iso="sudo mount -o loop"
 mount-iso() {
     sudo mount -o loop $1 /mnt/temp
     cd /mnt/temp
 }
+umount-iso() {
+    pwd | grep -q '^/mnt/temp' && cd ~
+    sudo umount /mnt/temp
+}
 
 alias ytdl="youtube-dl"
+alias ytdla="youtube-dl -x --audio-format=wav"
+# alias ytdla="youtube-dl -x --audio-format=wav"
+ytdls() {
+    if [[ $# -le 1 ]]; then
+        youtube-dl --list-subs "$1" | sed -e '1,/^Available subtitles/ d' # List all lines after 'Available subtitles'
+    else
+        youtube-dl --skip-download --write-sub --sub-lang "$2" "$1"
+    fi
+    # alias ytdls="youtube-dl --skip-download --write-sub --sub-lang "
+    # alias ytdlss="youtube-dl --list-subs"
+}
 alias lc="lossless-cut"
 alias llc="lossless-concat"
+
+alias rsync.="rsync -a --info=progress2"
+alias rsync-win="rsync -rlu --info=progress2"
 
 
 #-----------------------------------------------------

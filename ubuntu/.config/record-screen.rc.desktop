@@ -10,6 +10,7 @@ FPS=60
 # AUDIO_PULSE_SRC=
 MIC_PULSE_SRC=ipwebcam.monitor.echo-cancel
 
-DST="/net/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
+DST="~/Videos/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
+# DST="/net/andy-desktop/mnt/e/Videos/Streaming/recording-`date '+%Y-%m-%d_%H:%M:%S'`"
 
 # (ping -c1 andy-desktop >/dev/null && mount | grep -q /net/andy-desktop) || wake-mount andy-desktop

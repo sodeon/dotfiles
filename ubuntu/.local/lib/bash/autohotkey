@@ -62,6 +62,10 @@ declare -A QUICK_COMMAND_ENTRIES=(
     # [Web Browser   ]="F1"
 )
 
+declare -A COLOR_PICKER_ENTRIES=(
+    [Color Picker]="color-picker"
+)
+
 # Default overrides
 source $HOME/.config/autohotkeyrc
 
@@ -240,7 +244,11 @@ deleteFirstWord() {
 }
 
 closeTabOrWindow() {
-    if isWinActive $BROWSER_WIN_CLASS; then
+    if isWinActive $BROWSER_WIN_CLASS \
+       || isWinActive "Vivaldi-stable" \
+       || isWinActive "firefox" \
+       || isWinActive "Google-chrome" \
+       ; then
         xte 'keydown Control_L' 'key w' 'keyup Control_L'
     elif isWinActive 'ranger' ahk_command; then
         xte 'key q'
@@ -676,11 +684,14 @@ notify-activate-hotkeys() {
 #-----------------------------------------------------------------------------------------------
 volume() {
     if [ $1 = "up" ]; then
-        amixer -D pulse set Master $VOLUME_STEP%+
+        # amixer -D pulse set Master $VOLUME_STEP%+
+        pactl -- set-sink-volume 0 +"$VOLUME_STEP"%
     elif [ $1 = "down" ]; then
-        amixer -D pulse set Master $VOLUME_STEP%-
+        # amixer -D pulse set Master $VOLUME_STEP%-
+        pactl -- set-sink-volume 0 -"$VOLUME_STEP"%
     elif [ $1 = "toggle" ]; then
-        amixer -D pulse set Master toggle
+        # amixer -D pulse set Master toggle
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
     fi
     if [ `pulsemixer --get-mute` -eq 1 ]; then
         notify-send.sh -t $NOTIFICATION_TIMEOUT -r 21 -u low Mute Volume
@@ -701,6 +712,8 @@ brightness() {
         monitor-control bs | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     elif [ $1 = "game" ]; then
         monitor-control bg | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
+    elif [ $1 = "ambient" ]; then
+        monitor-control bn | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     else
         monitor-control b  | xargs -d '\n' notify-send.sh -t $NOTIFICATION_TIMEOUT -r 22 -u low && pkill -RTMIN+11 i3blocks
     fi
@@ -785,6 +798,10 @@ quick-cmds-menu() {
 
     [ -z $selection ] && return 1
     ${QUICK_COMMAND_ENTRIES["$selection"]}
+}
+
+colorPicker() {
+    simple-rofi "Photo Tools" 15 COLOR_PICKER_ENTRIES
 }
 
 # game-mode() {

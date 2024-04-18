@@ -22,13 +22,14 @@ $mode+Shift+t -> autohotkey nextWord
 # Power
 XF86PowerOff -> autohotkey suspend
 Mod4+x       -> autohotkey power-menu
-# --release Pause                 -> autohotkey display-standby
-# --release Shift+Pause           -> autohotkey suspend
+# --release Pause       -> autohotkey display-standby
+# --release Shift+Pause -> autohotkey suspend
 
 # Screenshot
 Print                   => flameshot full   -p $HOME/Pictures
-# Print                   => flameshot screen -p $HOME/Pictures
 Shift+Print             => flameshot gui    -p $HOME/Pictures -s # -s: save selection immedately
+Scroll_Lock             => autohotkey colorPicker
+# Scroll_Lock           => color-picker # Error: xcolor could not grab pointer from i3
 
 # Screen recording
 ctrl+$mod+r => record-screen

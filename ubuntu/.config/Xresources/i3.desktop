@@ -28,7 +28,7 @@ i3wm.vGapStep: 32
 
 i3wm.ws1.horizontalGap:  HORIZONTAL_GAP
 i3wm.ws2.horizontalGap:  HORIZONTAL_GAP
-i3wm.ws3.horizontalGap:  HORIZONTAL_GAP
+! i3wm.ws3.horizontalGap:  HORIZONTAL_GAP
 ! i3wm.ws4.horizontalGap:  HORIZONTAL_GAP
 ! i3wm.ws5.horizontalGap:  HORIZONTAL_GAP
 i3wm.ws6.horizontalGap:  HORIZONTAL_GAP

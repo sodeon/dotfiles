@@ -8,10 +8,12 @@
 #     exit 1
 # fi
 
+FOLDER="." # path to image folder
 SRC_TYPE=bmp
 DST_TYPE=png
 
-mogrify -format $DST_TYPE *.$SRC_TYPE
+find ${FOLDER} -iname "*.$SRC_TYPE" -exec mogrify \{} -verbose -format $DST_TYPE \{} \;
+# mogrify -format $DST_TYPE *.$SRC_TYPE
 
 # Backup original files
 # mkdir -p ./original

@@ -11,8 +11,8 @@ autofit-smaller=32%x33%
 
 # Specify high quality video rendering preset (for --vo=gpu only). Can cause performance problems with some drivers and GPUs.
 # Andy reference: https://wiki.archlinux.org/index.php/Mpv
-vo=gpu
-# vo=gpu-next
+# vo=gpu
+vo=gpu-next
 profile=gpu-hq
 
 # Scaling

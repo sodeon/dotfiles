@@ -32,10 +32,12 @@ indent() { sed -e 's/^/    /'; }
 translate() {
     # TODO: "--release" is not properly handled.
     sed -e 's/^\([0-9][0-9][0-9]\+\) /bindcode \1 /' \
+        -e 's/^--release\s*\([0-9][0-9][0-9]\+\) /bindcode --release \1 /' \
         -e 's/^\(button[0-9]\) /bindsym --whole-window \1 /' \
         -e 's/^\([^b][^i][^ ]\+button[0-9]\) /bindsym --whole-window \1 /' \
         -e 's/^\([^b][^i][^ ]\+[0-9][0-9][0-9]\+\) /bindcode \1 /' \
         -e 's/^\([^b][^i][^ ]\+\) /bindsym \1 /' \
+        -e 's/^--release\s*\([^b][^i][^ ]\+\) /bindsym --release \1 /' \
         -e 's/ -> / exec --no-startup-id /' \
         -e 's/ => / exec /'
     # sed -e 's/^s /bindsym /'  `# Key` \

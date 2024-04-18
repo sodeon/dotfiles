@@ -3,13 +3,15 @@ f13         = scrollup
 f14         = scrolldown
 f23         = scrollleft
 f24         = scrollright
+f22         = scrollright
 middlemouse = mousemiddle
 mouse2      = mouseforward
 mouse1      = mouseback
 f15         = mousedpi
 playpause   = mousetrigger2
-f22         = mousetrigger2
+# f22         = mousetrigger2
 # Mapping Logitech G Pro button to playpause has no effect
+# Logitech cannot output "F24"
 
 
 [main]
