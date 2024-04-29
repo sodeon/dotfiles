@@ -213,10 +213,14 @@ vnoremap ; :
 " nnoremap : ;
 " vnoremap : ;
 
+" For non-40% keyboard, enter as new line
+nnoremap <CR>   o<Esc>
+nnoremap <S-CR> O<Esc>
+
 " For 40% keyboard, enter doubled as command prompt invoke
-nnoremap <CR> :
-vnoremap <CR> :
-nnoremap : o<Esc>
+" nnoremap <CR> :
+" vnoremap <CR> :
+" nnoremap : o<Esc>
 
 " Copy till line end (like D means delete till line end)
 noremap Y y$

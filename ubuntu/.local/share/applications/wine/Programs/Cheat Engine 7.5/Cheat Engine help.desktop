@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Cheat Engine help
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Cheat\\ Engine\\ 7.5\\\\Cheat\\ Engine\\ help.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Program Files/Cheat Engine 7.5
+Icon=C517_CheatEngine.0
+StartupWMClass=cheatengine.chm

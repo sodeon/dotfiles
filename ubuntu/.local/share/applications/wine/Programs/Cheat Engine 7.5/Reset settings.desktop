@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Reset settings
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Cheat\\ Engine\\ 7.5\\\\Reset\\ settings.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Program Files/Cheat Engine 7.5
+Icon=EFDE_ceregreset.0
+StartupWMClass=ceregreset.exe

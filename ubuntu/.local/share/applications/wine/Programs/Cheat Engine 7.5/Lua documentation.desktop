@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Lua documentation
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Cheat\\ Engine\\ 7.5\\\\Lua\\ documentation.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/windows/system32
+Icon=87F4_notepad.0
+StartupWMClass=notepad

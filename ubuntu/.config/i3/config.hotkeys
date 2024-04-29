@@ -104,6 +104,7 @@ bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id autohotkey brightness up
 bindsym Shift+XF86AudioLowerVolume exec --no-startup-id autohotkey brightness down
 bindsym Shift+XF86AudioMute exec --no-startup-id autohotkey brightness toggle
 bindsym Control+XF86AudioMute exec --no-startup-id autohotkey brightness ambient
+bindsym Control+Shift+XF86AudioMute exec --no-startup-id autohotkey brightness game
 bindsym $mode+Shift+g exec --no-startup-id autohotkey display-input toggle
 bindcode 191 exec --no-startup-id xte 'mouseclick 4'
 bindcode 192 exec --no-startup-id xte 'mouseclick 5'

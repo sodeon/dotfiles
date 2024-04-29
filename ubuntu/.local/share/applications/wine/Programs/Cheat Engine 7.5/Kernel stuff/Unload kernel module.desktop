@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Unload kernel module
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Cheat\\ Engine\\ 7.5\\\\Kernel\\ stuff\\\\Unload\\ kernel\\ module.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Program Files/Cheat Engine 7.5
+Icon=9EC0_Kernelmoduleunloader.0
+StartupWMClass=kernelmoduleunloader.exe

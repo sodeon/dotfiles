@@ -162,6 +162,10 @@ URxvt.keysym.Shift-Down: command:\033]721;1\007
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
 
+! Enter key with modifiers for vim
+URxvt.keysym.S-Return: \033[13;2u
+URxvt.keysym.C-Return: \033[13;5u
+
 
 !-----------------------------------------------------------------
 ! URxvt plugins

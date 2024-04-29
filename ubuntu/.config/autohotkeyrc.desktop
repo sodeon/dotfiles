@@ -33,6 +33,7 @@ WS1_CMD() {
 #------------------------------------------------------------------------------
 # rofi menu entries
 #------------------------------------------------------------------------------
+WS4_CMD() { /opt/resolve/bin/resolve; }
 declare -A WOL_ENTRIES=(
     [1. NAS  ]="wake-mount  nas"
     [2. TV   ]="wake-on-lan tv"
