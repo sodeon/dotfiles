@@ -20,10 +20,10 @@ $mode+Shift+t -> autohotkey nextWord
 # PrintScreen/Pause, XF86 (volume, monitor brightness and media control), and hardware keys
 #--------------------------------------------------------------------------------
 # Power
-XF86PowerOff -> autohotkey suspend
-Mod4+x       -> autohotkey power-menu
-# --release Pause       -> autohotkey display-standby
-# --release Shift+Pause -> autohotkey suspend
+XF86PowerOff          -> autohotkey suspend
+Mod4+x                -> autohotkey power-menu
+--release Pause       -> autohotkey display-standby
+--release Shift+Pause -> autohotkey suspend
 
 # Screenshot
 Print                   => flameshot full   -p $HOME/Pictures

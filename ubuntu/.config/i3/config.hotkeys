@@ -8,6 +8,8 @@ bindsym $mode+t exec --no-startup-id autohotkey nextWord
 bindsym $mode+Shift+t exec --no-startup-id autohotkey nextWord
 bindsym XF86PowerOff exec --no-startup-id autohotkey suspend
 bindsym Mod4+x exec --no-startup-id autohotkey power-menu
+bindsym --release Pause exec --no-startup-id autohotkey display-standby
+bindsym --release Shift+Pause exec --no-startup-id autohotkey suspend
 bindsym Print exec flameshot full -p $HOME/Pictures
 bindsym Shift+Print exec flameshot gui -p $HOME/Pictures -s 
 bindsym Scroll_Lock exec autohotkey colorPicker

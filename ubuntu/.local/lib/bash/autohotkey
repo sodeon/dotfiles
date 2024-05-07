@@ -801,6 +801,7 @@ quick-cmds-menu() {
 }
 
 colorPicker() {
+    # color-picker
     simple-rofi "Photo Tools" 15 COLOR_PICKER_ENTRIES
 }
 
