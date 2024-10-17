@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Uninstall Nine Sols
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Nine\\ Sols\\\\Uninstall\\ Nine\\ Sols.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Games/Nine Sols
+Icon=9962_unins000.0
+StartupWMClass=unins000.exe

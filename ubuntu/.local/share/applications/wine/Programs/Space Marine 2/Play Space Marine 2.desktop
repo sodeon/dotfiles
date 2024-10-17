@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Play Space Marine 2
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Space\\ Marine\\ 2\\\\Play\\ Space\\ Marine\\ 2.lnk
+Type=Application
+StartupNotify=true
+Comment=Space Marine 2
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Games/Space Marine 2/client_pc/root/bin/pc
+Icon=C63F_Warhammer 40000 Space Marine 2 - Retail.0
+StartupWMClass=warhammer 40000 space marine 2 - retail.exe

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Uninstall
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Space\\ Marine\\ 2\\\\Uninstall.lnk
+Type=Application
+StartupNotify=true
+Comment=Uninstall Space Marine 2
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Games/Space Marine 2/Uninstall/
+Icon=8E0B_unins000.0
+StartupWMClass=unins000.exe

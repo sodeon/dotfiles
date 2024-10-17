@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Nine Sols
+Exec=env WINEPREFIX="/mnt/d/wine/.wine.clean" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Nine\\ Sols\\\\Nine\\ Sols.lnk
+Type=Application
+StartupNotify=true
+Path=/mnt/d/wine/.wine.clean/dosdevices/c:/Games/Nine Sols
+Icon=89A0_NineSols.0
+StartupWMClass=ninesols.exe

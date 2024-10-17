@@ -1,0 +1,7 @@
+/*  https://forum.vivaldi.net/topic/98751/show-tab-memory-usage-even-if-tab-popup-thumbnails-are-disabled/2
+    https://forum.vivaldi.net/topic/37802/css-modifications-experimental-feature */
+/******* from user @Pathduck remove thumbnail image****/
+
+#vivaldi-tooltip .tooltip-item .thumbnail-image {
+	display: none !important;
+}

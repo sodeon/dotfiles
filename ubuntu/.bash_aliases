@@ -49,8 +49,11 @@ alias mount-android="jmtpfs /mnt/temp; cd /mnt/temp"
 # alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
 # alias mount-usb="sudo mount /dev/sdb1 /mnt/temp -o uid=1000,user; cd /mnt/temp"
 mount-usb() {
-    (lsblk | grep -q sdb1) || lsblk | grep -q sdc1 && usb="sdc1"
-    usb="sdb1"
+    # (lsblk | grep -q sdb1) || lsblk | grep -q sdc1 && usb="sdc1"
+    # usb="sdb1"
+    (lsblk | grep -q sdc1) && usb="sdc1"
+    (lsblk | grep -q sdb1) && usb="sdb1"
+    [[ -z "$usb" ]] && echo "Block device sdb1/sdc1 not found." && exit 1
     dev="/dev/$usb"
     echo "Mounting $dev..."
     sudo mount $dev /mnt/temp -o uid=1000,user
@@ -58,6 +61,7 @@ mount-usb() {
 }
 # alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
 alias umount-temp="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
+alias umount-usb="umount-temp"
 alias umount-nas="umount /net/nas"
 mount-iso() {
     sudo mount -o loop $1 /mnt/temp
@@ -68,17 +72,18 @@ umount-iso() {
     sudo umount /mnt/temp
 }
 
-alias ytdl="youtube-dl"
-alias ytdla="youtube-dl -x --audio-format=wav"
-# alias ytdla="youtube-dl -x --audio-format=wav"
+alias ytdl="yt-dlp" # alternative: youtube-dl
+alias ytdla="yt-dlp -x --audio-format=wav"
+# alias ytdla="yt-dlp -x --audio-format=wav"
 ytdls() {
     if [[ $# -le 1 ]]; then
-        youtube-dl --list-subs "$1" | sed -e '1,/^Available subtitles/ d' # List all lines after 'Available subtitles'
+        yt-dlp --list-subs "$1" | sed -e '1,/^Language/ d' # List all lines after 'Available subtitles'
+        # yt-dlp --list-subs "$1" | sed -e '1,/^Available subtitles/ d' # List all lines after 'Available subtitles'
     else
-        youtube-dl --skip-download --write-sub --sub-lang "$2" "$1"
+        yt-dlp --skip-download --write-sub --sub-lang "$2" "$1"
     fi
-    # alias ytdls="youtube-dl --skip-download --write-sub --sub-lang "
-    # alias ytdlss="youtube-dl --list-subs"
+    # alias ytdls="yt-dlp --skip-download --write-sub --sub-lang "
+    # alias ytdlss="yt-dlp --list-subs"
 }
 alias lc="lossless-cut"
 alias llc="lossless-concat"

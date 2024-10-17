@@ -6,8 +6,8 @@
 # Usage: $0 $file_extension
 
 FOLDER="." # path to image folder
-WIDTH=2560  # max width
-HEIGHT=1440 # max height
+WIDTH=1920  # max width
+HEIGHT=1080 # max height
 TYPE=${1-"bmp"}
 
 

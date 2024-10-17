@@ -27,6 +27,7 @@ backup_list=(
     .local/share/applications
     .oh-my-zsh/{themes/andy.zsh-theme,plugins/sd/sd.plugin.zsh}
 
+    .config/vivaldi-css-mod
     .config/keyd
     .config/picom.conf
     .config/htop
