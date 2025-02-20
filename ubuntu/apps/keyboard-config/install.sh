@@ -11,7 +11,7 @@ sudo rm -rf /etc/keyd                       && sudo ln -s /home/andy/.config/key
 sudo rm -rf /usr/local/bin/activate-hotkeys && sudo ln -s /home/andy/bin/activate-hotkeys /usr/local/bin
 
 # As of 2024/10/22, keyd 2.5 has trouble matching mouse
-sudo cp keyd.2.4.2 /usr/local/bin
+sudo cp keyd.2.4.2 /usr/local/bin/keyd
 
 # sudo addgroup --system keyd
 sudo adduser $USER keyd

@@ -237,7 +237,6 @@ cd keyd
 make && sudo make install
 cd-before-temp
 sudo ./apps/keyboard-config/install.sh # Copied keyd configs only
-sudo cp ./apps/keyd /usr/local/bin # config needs compatibility review with keyd version later than 2.4.3
 sudo systemctl enable keyd.timer
 #sudo systemctl start keyd
 
