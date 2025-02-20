@@ -2,7 +2,8 @@
 
 # If command success, no hint
 
-local ret_status="%(?::%{$fg_bold[blue]%}😠 )"
+local ret_status="%(?::%{$fg_bold[blue]%} )"
+# local ret_status="%(?::%{$fg_bold[blue]%}😠 )"
 # local ret_status="%(?::%{$fg_bold[red]%}➜ )"
 #local ret_status="%(?:%{$FG[247]%}➜ :%{$fg_bold[red]%}➜ )"
 

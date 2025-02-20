@@ -91,6 +91,11 @@ alias llc="lossless-concat"
 alias rsync.="rsync -a --info=progress2"
 alias rsync-win="rsync -rlu --info=progress2"
 
+memory() {
+    # ps -e -o pid,vsz,comm= | sort -n -k 2
+    ps aux  | awk '{print $6/1024 " MB\t\t" $11}'  | sort -n
+}
+
 
 #-----------------------------------------------------
 # Docker

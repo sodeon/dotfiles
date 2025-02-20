@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
+    export QT_QPA_PLATFORMTHEME=qt6ct        # QT theme set in ~/.config/qt6ct
+    export GTK_THEME=Yaru-prussiangreen-dark # GTK theme
+fi

@@ -37,14 +37,17 @@ fi
 
 [ -f ~/.config/profile_vars ] && source ~/.config/profile_vars
 
-# NOTE: xrdb loads in
-# 1. /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
-# 2. GDM:  /etc/gdm3/Xsession
-# 3. XFCE: /etc/xdg/xfce4/xinitrc
-# Both GDM and XFCE xrdb commands does not support C++ extensions (#define, #include, and etc)
-xrdb -merge $HOME/.Xresources-cpp
+# For other desktop environment, use its built-in mechanism
+if [[ $XDG_CURRENT_DESKTOP == "i3" ]]; then
+    # NOTE: xrdb loads in
+    # 1. /etc/X11/xinit/xinitrc -> /etc/X11/Xsession -> /etc/X11/Xsession.d/30x11-common_xresources -> line 18
+    # 2. GDM:  /etc/gdm3/Xsession
+    # 3. XFCE: /etc/xdg/xfce4/xinitrc
+    # Both GDM and XFCE xrdb commands does not support C++ extensions (#define, #include, and etc)
+    xrdb -merge $HOME/.Xresources-cpp
 
-[[ $XDG_CURRENT_DESKTOP == "i3" ]] && source set-display-monitor # For other desktop environment, use its built-in mechanism
+    source set-display-monitor
+fi
 
 # urxvt daemon
 # urxvtd -q -o -f

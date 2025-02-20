@@ -4,8 +4,18 @@ cd $(dirname "$(realpath "$0")")
 sudo cp keyd/systemd/* /etc/systemd/system
 sudo cp keyd/helpers/* /usr/local/bin
 
-sudo ln -s ~/.config/keyd         /etc/keyd
-sudo ln -s ~/bin/activate-hotkeys /usr/loca/bin
+cp -rf ../../.config/keyd $HOME/.config
+mkdir -p  $HOME/bin && cp ../../bin/activate-hotkeys $HOME/bin
+
+sudo rm -rf /etc/keyd                       && sudo ln -s /home/andy/.config/keyd         /etc/keyd
+sudo rm -rf /usr/local/bin/activate-hotkeys && sudo ln -s /home/andy/bin/activate-hotkeys /usr/local/bin
+
+# As of 2024/10/22, keyd 2.5 has trouble matching mouse
+sudo cp keyd.2.4.2 /usr/local/bin
+
+# sudo addgroup --system keyd
+sudo adduser $USER keyd
+newgrp keyd
 
 
 #------------------------------------------------------------------------------

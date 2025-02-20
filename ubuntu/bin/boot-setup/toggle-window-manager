@@ -3,7 +3,8 @@
 file="/var/lib/AccountsService/users/$USER"
 pattern="Session="
 # pattern="XSession="
-declare -a options=(gnome-xorg i3)
+declare -a options=(' ' i3)
+# declare -a options=('gnome-xorg' i3)
 
 
 if sudo grep -qr "^$pattern${options[0]}" $file; then

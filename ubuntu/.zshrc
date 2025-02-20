@@ -65,7 +65,7 @@ stty -ixon # Disable c-s that freeze the terminal (it's a Linux behavior)
 setopt +o nomatch # Avoid "'no match found' error when running find with * as part of pattern"
 
 # bold, yellow
-export GREP_COLOR='1;33'
+export GREP_COLOR='mt=1;33'
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -152,5 +152,11 @@ fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
+
+# TODO: Remove in the future. Workaround prompt starting at the middle (https://bugs.archlinux.org/task/77062)
+# if [[ `ps ho command $(ps ho ppid $$)` == 'urxvt' ]]; then
+#   clear
+# fi
+clear
 
 return 0

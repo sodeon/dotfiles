@@ -43,8 +43,8 @@ backup_list=(
     .config/sxiv
     .config/mcomix
     .config/systemd/user
-    .config/hardware/macs
-    # .config/hardware
+    # .config/hardware/macs
+    .config/hardware
 
     .config/broot/conf.hjson
     .config/mpv/input.conf
@@ -66,7 +66,7 @@ machine_suffix_backup_list=(
     .config/autohotkeyrc
     .config/record-screen.rc
     .config/mpv/mpv.conf
-    .config/i3/{i3blocks.conf}
+    .config/i3/i3blocks.conf
     .config/dotfiles/dotfilesrc
     .config/Xresources/{profile,i3,i3.24g2w1g4,i3.ew3270u}
     # ".config/Xresources/!(*.example)" # Bad practice. This only allows machine dependent files in Xresources directory.

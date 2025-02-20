@@ -37,13 +37,13 @@ apt list --upgradable
 apt-force upgrade
 
 # Ubuntu 22.04
-sudo add-apt-repository -y ppa:jonathonf/vim # 22.04: vim/8.2; Latest: vim/9.0
+#sudo add-apt-repository -y ppa:jonathonf/vim # 22.04: vim/8.2; Latest: vim/9.0
 
 # From Ubuntu apt
 apt-force install git
-apt-force install python3-pip python2 python-is-python3
+apt-force install python3-pip python-is-python3 # python2
 apt-force install tldr # manual that actually helps
-apt-force install vim-gtk # vim with clipboard
+apt-force install vim-gtk3 # vim with clipboard
 apt-force install zsh tmux fd-find highlight dos2unix # cmd utilities and environment (fasd: not fitting into workflow)
 apt-force install ripgrep
 apt-force install fzf
@@ -75,7 +75,8 @@ apt-force install ddcutil # monitor brightness control
 apt-force install fonts-firacode fonts-font-awesome fonts-emojione # fonts
 apt-force install fcitx fcitx-m17n fcitx-table-boshiamy # input methods
 apt-force install qbittorrent
-apt-force install pavucontrol # pulse audio gui. Can be used to disable audio device
+apt-force install qt6ct # Default Qt6 theme selection
+apt-force install pulseaudio-utils pavucontrol # pulse audio gui. Can be used to disable audio device
 apt-force install cmus # music player
 apt-force install mpv socat # video player, socat: socket read/write for remote control mpv
 # apt-force install mcomix # image viewer for file fomats not supported by sxiv (e.g. HEIC used by Apple)
@@ -104,7 +105,6 @@ apt-force autoremove
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-mkdir -p ~/.oh-my-zsh/plugins
 cp -rf .oh-my-zsh/plugins/sd ~/.oh-my-zsh/plugins
 
 cd-temp
@@ -122,7 +122,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # MISC app setup
 tldr -u # Build TLDR database
-sudo mv /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste.bak # Ubuntu 22.04 adds confirm-paste into "default" URXVT perl extensions
+#sudo mv /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste.bak # Ubuntu 22.04 adds confirm-paste into "default" URXVT perl extensions
 
 #
 # Bash library
@@ -131,12 +131,11 @@ sudo mv /usr/lib/x86_64-linux-gnu/urxvt/perl/confirm-paste /usr/lib/x86_64-linux
 sudo dpkg -i ./apps/bash-argsparse_1.8_all.deb
 
 # i3
-apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
-/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
-sudo apt install ./keyring.deb
-echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
-sudo apt update
-sudo apt install i3
+apt-force install i3blocks i3
+#apt-force install i3blocks # Must put in front of i3-gaps installation. If put after, apt will install vanilla i3 and overwrite i3-gaps
+#/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
+#sudo apt install ./keyring.deb
+#echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
 # cd-temp
 # apt-force install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
 #           libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
@@ -178,7 +177,7 @@ cd -
 #------------------------------------------------------------------------------
 # Ubuntu data collection service
 apt-force purge ubuntu-report popularity-contest
--gaps
+
 # Ubuntu auto-update (this service does not work in i3)
 apt-force purge unattended-upgrades
 
@@ -187,7 +186,7 @@ apt-force purge unattended-upgrades
 # Post-software-installation Config
 #------------------------------------------------------------------------------
 # restore dot files
-hmod +x ./restore.sh && ./restore.sh
+chmod +x ./restore.sh && ./restore.sh
 
 # git
 git config --global credential.helper 'cache --timeout=7200'
@@ -238,8 +237,9 @@ cd keyd
 make && sudo make install
 cd-before-temp
 sudo ./apps/keyboard-config/install.sh # Copied keyd configs only
-sudo systemctl enable keyd.timing
-sudo systemctl start keyd
+sudo cp ./apps/keyd /usr/local/bin # config needs compatibility review with keyd version later than 2.4.3
+sudo systemctl enable keyd.timer
+#sudo systemctl start keyd
 
 
 #------------------------------------------------------------------------------

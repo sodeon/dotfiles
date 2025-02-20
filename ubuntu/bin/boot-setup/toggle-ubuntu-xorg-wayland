@@ -1,0 +1,12 @@
+#!/bin/bash -ue
+
+file="/etc/gdm3/custom.conf"
+pattern="\s*WaylandEnable\s*=\s*false"
+
+if sudo grep -qr "^#$pattern" $file; then
+    sudo sed -i -r "s/^#($pattern.*)/\1/" $file
+    echo "Switched to Xorg"
+else
+    sudo sed -i -r "s/^($pattern.*)/#\1/" $file
+    echo "Switched to Wayland"
+fi
