@@ -14,8 +14,9 @@ sudo rm -rf /usr/local/bin/activate-hotkeys && sudo ln -s /home/andy/bin/activat
 sudo cp keyd.2.4.2 /usr/local/bin/keyd
 
 # sudo addgroup --system keyd
-sudo adduser $USER keyd
 newgrp keyd
+sudo adduser $USER keyd
+# sudo usermod -a -G keyd $USER
 
 
 #------------------------------------------------------------------------------

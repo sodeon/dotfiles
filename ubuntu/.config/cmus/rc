@@ -1,2 +1,3 @@
-cd ~/Music
-view 5
+cd /mnt/d/Music
+# cd ~/Music
+# player-pause

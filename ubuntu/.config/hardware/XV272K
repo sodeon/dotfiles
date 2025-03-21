@@ -14,7 +14,7 @@ contrast_feature_id=12
 color_temperature_feature_id=14
 
 # Brightness/color temperature control
-is_reading_mode=true
+is_reading_mode=false
 is_game_mode=false
 is_ambient_mode=false
 
@@ -35,7 +35,7 @@ color_temperature_game=6 # 7500K
 game_refresh_rate=120
 
 ambient_brightness=0
-ambient_contrast=15
+ambient_contrast=20
 color_temperature_ambient=5 # 6500K
 
 # Color temperature

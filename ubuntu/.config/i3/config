@@ -167,6 +167,7 @@ for_window [class="^XnView|^Display"     ] border none,    focus, layout stacked
 for_window [class=$docViewerCls          ] border none,    focus, layout stacked
 for_window [class=$gameCls               ] border none
 for_window [class="qBittorrent"          ]                        floating enable, move position center
+for_window [class="aMule"                ]                        floating enable, move position center
 
 
 #--------------------------------------------------------------------------------
@@ -257,7 +258,7 @@ exec --no-startup-id [ $bluetoothEnable = "false" ] && toggle-bluetooth disable
 # Automatic suspension
 set_from_resource $suspendEnable i3wm.hardware.autoSuspend.enable    false
 set_from_resource $suspendTIme   i3wm.hardware.autoSuspend.timeInSec 1800
-exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime &
+# exec_always --no-startup-id [ $suspendEnable = "true" ] && auto-suspend $suspendTime &
 # Automatic screen off
 set_from_resource $screenOffEnable i3wm.hardware.autoScreenOff.enable true
 exec --no-startup-id [ $screenOffEnable = "false" ] && disable-screen-blanking

@@ -7,10 +7,10 @@ declare -a options=(' ' i3)
 # declare -a options=('gnome-xorg' i3)
 
 
-if sudo grep -qr "^$pattern${options[0]}" $file; then
-	sudo sed -i -r "s/^$pattern.*/$pattern${options[1]}/" $file
-    echo "Switched to ${options[1]}"
-else
+if sudo grep -qr "^$pattern${options[1]}" $file; then
 	sudo sed -i -r "s/^$pattern.*/$pattern${options[0]}/" $file
     echo "Switched to ${options[0]}"
+else
+	sudo sed -i -r "s/^$pattern.*/$pattern${options[1]}/" $file
+    echo "Switched to ${options[1]}"
 fi

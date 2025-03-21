@@ -56,7 +56,7 @@ mount-usb() {
     [[ -z "$usb" ]] && echo "Block device sdb1/sdc1 not found." && exit 1
     dev="/dev/$usb"
     echo "Mounting $dev..."
-    sudo mount $dev /mnt/temp -o uid=1000,user
+    sudo mount $dev /mnt/temp -o uid=1000,user || sudo mount $dev /mnt/temp
     cd /mnt/temp
 }
 # alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
