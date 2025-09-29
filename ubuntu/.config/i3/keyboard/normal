@@ -54,7 +54,8 @@ $mode+Shift+b -> autohotkey bluetooth-menu
 
 # Wake on lan and WIFI control
 $mode+n       -> autohotkey wol-menu
-$mode+Shift+n -> autohotkey wifi-menu
+$mode+Shift+n -> toggle-notifications.sh
+# $mode+Shift+n -> autohotkey wifi-menu
 
 # Laptop
 XF86Display        -> set-display-monitor

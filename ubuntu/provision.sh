@@ -83,7 +83,7 @@ apt-force install mpv socat # video player, socat: socket read/write for remote 
 apt-force install zathura # pdf reader
 apt-force install libreoffice
 apt-force install unrar 7zip # p7zip
-apt-force install adb jmtpfs mtp-tools # Mount MTP device (e.g. phone). Usage: jmtpfs /mnt/phone
+apt-force install adb jmtpfs mtp-tools gphotofs gphoto2 # Mount MTP, PTP device (e.g. phone). Usage: jmtpfs /mnt/phone
 apt-force install cifs-utils # Mount NAS drive
 apt-force install numlockx
 apt-force install wakeonlan ethtool

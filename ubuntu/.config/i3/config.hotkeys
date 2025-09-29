@@ -27,7 +27,7 @@ bindsym $mode+g exec --no-startup-id switch-sound-output && pkill -RTMIN+10 i3bl
 bindsym $mode+b exec --no-startup-id autohotkey bluetooth-quick-connect
 bindsym $mode+Shift+b exec --no-startup-id autohotkey bluetooth-menu
 bindsym $mode+n exec --no-startup-id autohotkey wol-menu
-bindsym $mode+Shift+n exec --no-startup-id autohotkey wifi-menu
+bindsym $mode+Shift+n exec --no-startup-id toggle-notifications.sh
 bindsym XF86Display exec --no-startup-id set-display-monitor
 bindsym XF86Bluetooth exec --no-startup-id toggle-bluetooth
 bindsym $mod+b exec --no-startup-id setup-mouse battery-level

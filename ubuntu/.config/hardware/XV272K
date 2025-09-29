@@ -29,7 +29,7 @@ video_brightness=0
 video_contrast=50
 color_temperature_video=6 # 7500K
 
-game_brightness=60
+game_brightness=20
 game_contrast=50
 color_temperature_game=6 # 7500K
 game_refresh_rate=120

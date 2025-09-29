@@ -9,14 +9,14 @@ NOTIFICATION_TIMEOUT=1050
 ROFI_STYLES="-dmenu  -no-fixed-num-lines -me-select-entry MouseSecondary -me-accept-entry MousePrimary -theme Arc-Dark.workspace-switcher.rasi"
 BROWSER_WIN_CLASS="Google-chrome"
 
-BT_QUICK_CONNECT_DEVICE='WH-1000XM4'
+BT_QUICK_CONNECT_DEVICE='WH-1000XM6'
 
 SUSPEND_PRE_CMD() { true; }
 
 declare -A F4_ENTRIES=(
-    [1. DaVinci Resolve   ]="/opt/resolve/bin/resolve"
     # [2. Gyroflow          ]="Gyroflow"
-    [2. Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+    [1. Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+    [2. DaVinci Resolve   ]="/opt/resolve/bin/resolve"
 )
 declare -A F5_ENTRIES=(
     [Zoom Meeting]="zoom"
@@ -34,8 +34,9 @@ declare -A POWER_ENTRIES=(
     [4. Shutdown       ]="shutdown -h now"
 )
 declare -A BLUETOOTH_ENTRIES=(
-    [1. Power On/Off                         ]="toggle-bluetooth"
-    [2. $BT_QUICK_CONNECT_DEVICE Conn/Disconn]="bluetooth-quick-connect"
+    [1. Power On/Off           ]="toggle-bluetooth"
+    [2. WH-1000XM6 Conn/Disconn]="toggle-bluetooth device WH-1000XM6"
+    # [2. $BT_QUICK_CONNECT_DEVICE Conn/Disconn]="bluetooth-quick-connect"
 )
 if [ -f /tmp/connect-phonecam-ready ]; then
     declare -A WIFI_ENTRIES=(
@@ -627,7 +628,8 @@ F4() {
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
             WS4_CMD || \
-            simple-rofi Program ${F4_WIDTH-30} F4_ENTRIES || i3-msg "workspace back_and_forth" && return
+            code --disable-gpu || i3-msg "workspace back_and_forth" && return
+            # simple-rofi Program ${F4_WIDTH-30} F4_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi
 }

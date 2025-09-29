@@ -1,4 +1,8 @@
 #!/bin/bash
+#------------------------------------------------------------------------------
+# NOTE: For NVENC
+#       $sudo apt install gstreamer1.0-plugins-bad
+#------------------------------------------------------------------------------
 config=$HOME/.config/record-screen.rc
 [ -f $config ] && source $config
 
@@ -51,7 +55,8 @@ elif vainfo 2>/dev/null | grep -q Intel; then # Intel vaapi
     ENCODER_PARAMS="quality-level=2 cabac=true rate-control=vbr"
     # ENCODER_PARAMS="bitrate=20000 quality-level=2"
     PARSER=h264parse
-elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
+elif gst-inspect-1.0 | grep -q nvcodec; then # NVIDIA nvenc
+# elif gst-inspect-1.0 | grep -q nvenc; then # NVIDIA nvenc
     ENCODER=nvh265enc
     ENCODER_PARAMS=""
     PARSER=h265parse

@@ -31,7 +31,8 @@ separator=false
 color=#000000
 
 [window]
-command=i3block-onclick autohotkey workspacePicker; i3block-on-right-click autohotkey quick-cmds-menu; xdotool getactivewindow getwindowname || echo ""
+command=i3block-onclick autohotkey workspacePicker; i3block-on-right-click setup-mouse battery-level; xdotool getactivewindow getwindowname || echo ""
+# command=i3block-onclick autohotkey workspacePicker; i3block-on-right-click autohotkey quick-cmds-menu; xdotool getactivewindow getwindowname || echo ""
 color=#aadddd
 interval=0
 # interval=once
@@ -77,7 +78,8 @@ separator=false
 [brightness]
 label=☀
 color=#66ff66
-command=i3block-onclick autohotkey brightness game; i3block-on-right-click monitor gpu; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+command=i3block-onclick autohotkey brightness toggle; i3block-on-right-click autohotkey brightness game; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+# command=i3block-onclick autohotkey brightness game; i3block-on-right-click monitor gpu; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 interval=once
 signal=11
 separator=false
@@ -86,7 +88,8 @@ separator=false
 [audio]
 label=♪
 color=#66ff66
-command=i3block-onclick switch-sound-output && pkill -RTMIN+10 i3blocks; i3block-on-right-click pavucontrol; [ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
+command=i3block-onclick autohotkey volume toggle; i3block-on-right-click switch-sound-output && pkill -RTMIN+10 i3blocks; [ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
+# command=i3block-onclick switch-sound-output && pkill -RTMIN+10 i3blocks; i3block-on-right-click pavucontrol; [ `pulsemixer --get-mute` -eq 1 ] && echo Mute || pulsemixer --get-volume | sed -r 's/\s+.*$//'
 interval=once
 signal=10
 separator=false
@@ -109,6 +112,11 @@ command=sleep 0.25 && pgrep caffeinate >/dev/null && echo 😎 || echo "" # Wait
 color=#44AADD
 interval=0
 signal=21
+
+[notification-paused]
+command=[ `dunstctl is-paused` = "true" ] && echo 🔕 || echo "" # Wait a small amount of time for caffeinate command to launch
+interval=0
+signal=22
 
 # [debug]
 # interval=1

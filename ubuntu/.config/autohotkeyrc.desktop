@@ -49,8 +49,10 @@ declare -A F10_ENTRIES=(
     # [4. Moonlight Streaming]=moonlight
 )
 
-BLUETOOTH_ENTRIES[3. Enco Air2 Conn/Disconn]="toggle-bluetooth device Enco Air2"
-# BT_QUICK_CONNECT_DEVICE="Enco Air2"
+BLUETOOTH_ENTRIES[3. WH-1000XM4 Conn/Disconn]="toggle-bluetooth device XM4"
+BLUETOOTH_ENTRIES[4. Technics AZ100 Conn/Disconn]="toggle-bluetooth device AZ100"
+# BLUETOOTH_ENTRIES[4. Enco Air2 Conn/Disconn]="toggle-bluetooth device Enco Air2"
+# BT_QUICK_CONNECT_DEVICE="EAH-AZ100"
 
 
 #------------------------------------------------------------------------------

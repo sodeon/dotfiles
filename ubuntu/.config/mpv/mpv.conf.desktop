@@ -60,13 +60,14 @@ ytdl-format=bestvideo[vcodec=?vp9]+bestaudio/best # force VP9 video for 60fps
 
 force-seekable=yes
 
-slang=zh,en,eng             # automatically select these subtitles (decreasing priority)
-alang=ja,jp,jpn,en,eng      # automatically select these audio tracks (decreasing priority)
+slang=cht,chi,zh,en,eng         # automatically select these subtitles (decreasing priority)
+alang=ja,jp,jpn,cht,chi,en,eng  # automatically select these audio tracks (decreasing priority)
 
 sub-file-paths=sub:Subs
 sub-font-size=48
 # sub-font-size=40
 sub-color=0.95
+# sub-back-color="#a0000000"
 sub-margin-y=30
 sub-border-size=0
 sub-scale-with-window=no

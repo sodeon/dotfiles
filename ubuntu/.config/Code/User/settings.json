@@ -94,8 +94,6 @@
     "vim.camelCaseMotion.enable": true,
 
     "open-in-vim.openMethod": "gvim",
-
-    "zenMode.hideTabs": true,
     "zenMode.hideStatusBar": true,
     "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,
@@ -287,7 +285,8 @@
     "powermode.enableStatusBarComboTimer": false,
     "powermode.enableStatusBarComboCounter": false,
     "update.showReleaseNotes": false,
-    "workbench.activityBar.visible": false,
     "editor.guides.indentation": true,
-    "workbench.colorTheme": "Aramok's Black",
+    "workbench.activityBar.location": "hidden",
+    "workbench.editor.tabActionCloseVisibility": false,
+    "zenMode.showTabs": "single",
 }

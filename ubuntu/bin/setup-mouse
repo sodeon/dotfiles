@@ -3,8 +3,12 @@ cmd=${1-""}
 
 declare -a upower_models=(
     "WH-1000XM4"
+    "WH-1000XM6"
+    "EAH-AZ100"
     "MX Keys Mini"
+    "iQunix MG65"
     "G Pro Wireless"
+    "MCHose L7 Ultra"
     "Aerox 5 WL"
     "Magic Keyboard"
 )
@@ -33,8 +37,8 @@ has_supported_input=""
 #------------------------------------------------------------------------------
 upower-battery() {
     model="$1"
-    if echo "$upower" | grep -q "$model"; then
-        echo "$upower" | grep --after-context=13 -e "$model"  | grep percentage | awk '{print $2}'
+    if echo "$upower" | grep -q -i "$model"; then
+        echo "$upower" | grep --after-context=13 -i -e "$model"  | grep percentage | awk '{print $2}'
     else
         echo ""
         return 1
@@ -49,7 +53,7 @@ upower-notification-helper() {
     notify-send.sh -u $urgency "$upower_model ($battery_level)" "$info"
 }
 
-has-input() { echo "$xinput" | grep -q "$1" && has_supported_input=1 && return 0 || return 1; }
+has-input() { echo "$xinput" | grep -q -i "$1" && has_supported_input=1 && return 0 || return 1; }
 has-supported-input() { [ ! -z $has_supported_input ]; }
 
 xinput=`xinput`

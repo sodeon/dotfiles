@@ -8,6 +8,7 @@ alias sd='sudo '
 alias lr='ls -rtla'
 
 # Most used programs
+alias p='ping'
 alias o='xdg-open'
 alias t='touch'
 alias v='vim'
@@ -49,14 +50,24 @@ alias mount-android="jmtpfs /mnt/temp; cd /mnt/temp"
 # alias umount-android="pwd | grep -q '^/mnt/temp' && cd ~; fusermount -u /mnt/temp"
 # alias mount-usb="sudo mount /dev/sdb1 /mnt/temp -o uid=1000,user; cd /mnt/temp"
 mount-usb() {
-    # (lsblk | grep -q sdb1) || lsblk | grep -q sdc1 && usb="sdc1"
-    # usb="sdb1"
-    (lsblk | grep -q sdc1) && usb="sdc1"
-    (lsblk | grep -q sdb1) && usb="sdb1"
-    [[ -z "$usb" ]] && echo "Block device sdb1/sdc1 not found." && exit 1
-    dev="/dev/$usb"
-    echo "Mounting $dev..."
-    sudo mount $dev /mnt/temp -o uid=1000,user || sudo mount $dev /mnt/temp
+    if gphoto2  --auto-detect | grep -q USB; then
+        # Mount PTP
+        echo "Mounting Picture Transfer Protocol (PTP) device..."
+        gphotofs /mnt/temp
+    else
+        # Mount MTP
+        (lsblk | grep -q sdd1) && usb="sdd1"
+        (lsblk | grep -q sdc1) && usb="sdc1"
+        (lsblk | grep -q sdb1) && usb="sdb1"
+        [[ -z "$usb" ]] && \
+            echo "MTP sdb1/sdc1/sdd1 not found." && \
+            echo "PTP device not found." && \
+            exit 1
+        dev="/dev/$usb"
+        echo "Mounting $dev..."
+        sudo mount $dev /mnt/temp -o uid=1000,user || sudo mount $dev /mnt/temp
+    fi
+
     cd /mnt/temp
 }
 # alias umount-usb="pwd | grep -q '^/mnt/temp' && cd ~; sudo umount /mnt/temp"
