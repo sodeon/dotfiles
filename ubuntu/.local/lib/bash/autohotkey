@@ -15,7 +15,7 @@ SUSPEND_PRE_CMD() { true; }
 
 declare -A F4_ENTRIES=(
     # [2. Gyroflow          ]="Gyroflow"
-    [1. Visual Studio Code]="code --disable-gpu" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
+    [1. Visual Studio Code]="code --disable-gpu --force-device-scale-factor=2" # Disable GPU acceleration for VSCode. It has less memory footprint and better UI responsiveness on my machines.
     [2. DaVinci Resolve   ]="/opt/resolve/bin/resolve"
 )
 declare -A F5_ENTRIES=(
@@ -628,7 +628,7 @@ F4() {
     if i3-msg -t get_workspaces | jq '.[] | select(.num == 4) .focused' | grep 'true'; then
         if ! xdotool getactivewindow; then
             WS4_CMD || \
-            code --disable-gpu || i3-msg "workspace back_and_forth" && return
+            code --disable-gpu --force-device-scale-factor=2 || i3-msg "workspace back_and_forth" && return
             # simple-rofi Program ${F4_WIDTH-30} F4_ENTRIES || i3-msg "workspace back_and_forth" && return
         fi
     fi

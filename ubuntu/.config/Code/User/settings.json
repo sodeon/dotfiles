@@ -98,14 +98,10 @@
     "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,
 
-    "telemetry.enableCrashReporter": false,
-    "telemetry.enableTelemetry": false,
-
     "diffEditor.renderSideBySide": true,
     "diffEditor.renderIndicators": false,
 
     "window.zoomLevel": 1,
-    "window.menuBarVisibility": "toggle",
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.enableMenuBarMnemonics": false, // Disable showing menu bar when pressing alt
     "window.customMenuBarAltFocus": false,
@@ -265,14 +261,13 @@
             "remote": true
         }
     },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
 
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
 
     "extensions.ignoreRecommendations": true,
-    "php.validate.enable": false,
-    "php.suggest.basic": false,
-
     "alignment.surroundSpace": {
         "colon"     : [0, 1],
         "assignment": [1, 1],
@@ -286,7 +281,31 @@
     "powermode.enableStatusBarComboCounter": false,
     "update.showReleaseNotes": false,
     "editor.guides.indentation": true,
-    "workbench.activityBar.location": "hidden",
     "workbench.editor.tabActionCloseVisibility": false,
     "zenMode.showTabs": "single",
+
+    "telemetry.feedback.enabled": false,
+    "telemetry.editStats.enabled": false,
+    "gitlens.telemetry.enabled": false,
+
+    "workbench.colorTheme": "Winter is Coming (Dark Blue)",
+    "window.titleBarStyle": "native",
+    "window.commandCenter": false,
+    "window.customTitleBarVisibility": "never",
+    "window.menuBarVisibility": "hidden",
+    "workbench.activityBar.location": "bottom",
+
+    "files.autoGuessEncoding": true,
+    "files.candidateGuessEncodings": [
+        "cp950"
+    ],
+
+    "php.validate.enable": false,
+    "php.suggest.basic": false,
+
+    "r.lsp.diagnostics": false,
+    "r.rterm.linux": "${userHome}/.local/bin/radian",
+    "r.bracketedPaste": true,
+    "r.plot.useHttpgd": true,
+    "r.alwaysUseActiveTerminal": true,
 }

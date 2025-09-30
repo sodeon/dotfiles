@@ -14,7 +14,7 @@ contrast_feature_id=12
 color_temperature_feature_id=14
 
 # Brightness/color temperature control
-is_reading_mode=false
+is_reading_mode=true
 is_game_mode=false
 is_ambient_mode=false
 

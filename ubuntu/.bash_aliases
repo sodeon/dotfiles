@@ -107,6 +107,9 @@ memory() {
     ps aux  | awk '{print $6/1024 " MB\t\t" $11}'  | sort -n
 }
 
+# NTHU classes
+alias r="radian"
+
 
 #-----------------------------------------------------
 # Docker
