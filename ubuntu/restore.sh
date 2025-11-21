@@ -61,9 +61,3 @@ sudo cp -rf ./apps/rofi-plugins/* /usr/lib/x86_64-linux-gnu/rofi
 sudo mkdir -p /usr/share/rofi-emoji/
 sudo cp ./apps/rofi-plugins/emoji-test.txt /usr/share/rofi-emoji/
 
-
-#
-# Fix permissions
-#
-sudo chown root:root /etc/sudoers.d
-sudo chown root:root /etc/sudoers.d/andy-sudoers

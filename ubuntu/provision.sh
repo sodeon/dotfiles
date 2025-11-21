@@ -42,7 +42,7 @@ apt-force upgrade
 # From Ubuntu apt
 apt-force install git
 apt-force install python3-pip python-is-python3 # python2
-apt-force install tldr # manual that actually helps
+apt-force install tealdeer # manual that actually helps
 apt-force install vim-gtk3 # vim with clipboard
 apt-force install zsh tmux fd-find highlight dos2unix # cmd utilities and environment (fasd: not fitting into workflow)
 apt-force install ripgrep
@@ -55,7 +55,7 @@ apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer #
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh traceroute mtr # network utilities
 apt-force install ncal # calendar
-apt-force install neofetch # command line splash screen for system info
+apt-force install fastfetch # command line splash screen for system info
 apt-force install cmatrix cowsay fortune toilet figlet lolcat # entertainment
 apt-force install linux-tools-generic linux-tools-common # Performance counter (e.g. context switches)
 # apt-force install iperf3 sysbench # Benchmark
@@ -175,9 +175,6 @@ cd -
 #------------------------------------------------------------------------------
 # Remove Ubuntu installed software
 #------------------------------------------------------------------------------
-# Ubuntu data collection service
-apt-force purge ubuntu-report popularity-contest
-
 # Ubuntu auto-update (this service does not work in i3)
 apt-force purge unattended-upgrades
 
