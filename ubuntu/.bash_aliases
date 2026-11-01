@@ -38,6 +38,8 @@ alias jo='jobs'
 # Git
 alias g='git'
 
+alias fetch='fastfetch'
+
 
 #-----------------------------------------------------
 # Utilities
@@ -56,11 +58,12 @@ mount-usb() {
         gphotofs /mnt/temp
     else
         # Mount MTP
+        (lsblk | grep -q sdb ) && usb="sdb"
         (lsblk | grep -q sdd1) && usb="sdd1"
         (lsblk | grep -q sdc1) && usb="sdc1"
         (lsblk | grep -q sdb1) && usb="sdb1"
         [[ -z "$usb" ]] && \
-            echo "MTP sdb1/sdc1/sdd1 not found." && \
+            echo "MTP sdb/sdb1/sdc1/sdd1 not found." && \
             echo "PTP device not found." && \
             exit 1
         dev="/dev/$usb"
@@ -83,7 +86,7 @@ umount-iso() {
     sudo umount /mnt/temp
 }
 
-alias ytdl="yt-dlp" # alternative: youtube-dl
+alias ytdl="yt-dlp --cookies-from-browser firefox --remote-components ejs:github" # alternative: youtube-dl
 alias ytdla="yt-dlp -x --audio-format=wav"
 # alias ytdla="yt-dlp -x --audio-format=wav"
 ytdls() {
@@ -96,6 +99,7 @@ ytdls() {
     # alias ytdls="yt-dlp --skip-download --write-sub --sub-lang "
     # alias ytdlss="yt-dlp --list-subs"
 }
+# Upgrade ytdl: pipx upgrade yt-dlp
 alias lc="lossless-cut"
 alias llc="lossless-concat"
 
@@ -109,6 +113,7 @@ memory() {
 
 # NTHU classes
 alias r="radian"
+alias r.="Rscript"
 
 
 #-----------------------------------------------------

@@ -1,0 +1,2 @@
+#!/bin/bash -ue
+mpv --vo=gpu-next --lut=~~/luts/insta360-lunar-ilog.cube "$1"

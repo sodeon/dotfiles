@@ -51,6 +51,7 @@ apt-force install fzf
 # pip install pygments # cat with color
 apt-force install htop iftop iotop nmon sysstat btop # cpu/memory, network and disk monitor. sysstat: iostat, mpstat
 apt-force install ranger exiftool mediainfo docx2txt odt2txt ffmpegthumbnailer # file manager
+apt-force install imagemagick # cmd line image format conversion and resize
 # apt-force install taskwarrior # task management tool
 apt-force install ncdu moreutils tree # disk utilities. moreutils: vidir for bulk directory rename/delete/...
 apt-force install curl wget ssh traceroute mtr # network utilities

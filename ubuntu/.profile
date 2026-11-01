@@ -54,3 +54,4 @@ fi
 
 # play-with-mpv &
 if [ -e /home/andy/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andy/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+. "/home/andy/.deno/env"

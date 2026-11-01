@@ -92,9 +92,12 @@ osd-align-y=bottom
 # From https://github.com/tsubajashi/mpv-settings
 #------------------------------------------------------------------------------
 # log-file=~/log
-
-# gpu-api=vulkan
-hwdec=auto-copy
+# 4070 Ti
+# hwdec=auto-copy
+# 5070 Ti
+gpu-api=vulkan
+hwdec=auto
+# End
 # dither=error-diffusion # Very high GPU usage requirements. Geforce 2070 can handle up to 1440p, not 4K.
 deband=yes
 deband-iterations=2
@@ -147,8 +150,7 @@ glsl-shader="~~/shaders/KrigBilateral.glsl"
 # profile-cond=(width <= 3840 and container_fps > 30) and (width > 1280)
 
 # https://mpv.io/manual/master/#options-tone-mapping
-[hdr] # Requires vo=gpu-next. gpu-next has much lower GPU efficiency on NVIDIA 2070
-vo=gpu-next
+[hdr]
 tone-mapping=bt.2446a
 # tone-mapping-mode=luma
 ## tone-mapping=st2094-40
@@ -156,10 +158,6 @@ tone-mapping=bt.2446a
 tone-mapping-max-boost=2
 gamut-mapping-mode=desaturate
 profile-cond=video_params and p["video-params/primaries"] == "bt.2020"
-
-[wmv]
-hwdec=no
-profile-cond=get('filename', ''):match('%.wmv$') ~= nil
 
 # [shader-anime]
 # glsl-shaders-clr

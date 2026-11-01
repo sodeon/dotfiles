@@ -3,8 +3,9 @@
     // "editor.fontFamily": "'Consolas NF', 'Courier New', monospace",
     // "editor.fontSize": 17,
     // "editor.lineHeight": 22,
+    // "editor.fontFamily": "'Consolas NF', 'Dank Mono', 'Courier New', monospace",
     "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Consolas NF', 'Dank Mono', 'Courier New', monospace",
-    "editor.fontSize": 15,
+    "editor.fontSize": 14.5,
     "editor.fontWeight": "300",
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
@@ -94,7 +95,7 @@
     "vim.camelCaseMotion.enable": true,
 
     "open-in-vim.openMethod": "gvim",
-    "zenMode.hideStatusBar": true,
+    "zenMode.hideStatusBar": false,
     "zenMode.hideLineNumbers": false,
     "zenMode.restore": true,
 
@@ -282,13 +283,12 @@
     "update.showReleaseNotes": false,
     "editor.guides.indentation": true,
     "workbench.editor.tabActionCloseVisibility": false,
-    "zenMode.showTabs": "single",
 
     "telemetry.feedback.enabled": false,
     "telemetry.editStats.enabled": false,
     "gitlens.telemetry.enabled": false,
 
-    "workbench.colorTheme": "Winter is Coming (Dark Blue)",
+    "workbench.colorTheme": "Winter is Coming (Dark Blue - No Italics)",
     "window.titleBarStyle": "native",
     "window.commandCenter": false,
     "window.customTitleBarVisibility": "never",
@@ -308,4 +308,5 @@
     "r.bracketedPaste": true,
     "r.plot.useHttpgd": true,
     "r.alwaysUseActiveTerminal": true,
+    "workbench.startupEditor": "none",
 }

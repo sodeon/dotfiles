@@ -614,10 +614,6 @@
         "command": "-workbench.view.scm"
     },
     {
-        "key": "ctrl+shift+g",
-        "command": "gitlens.showFileHistoryInView"
-    },
-    {
         "key": "ctrl+shift+b",
         "command": "workbench.action.toggleSidebarVisibility"
     },

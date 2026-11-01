@@ -10,3 +10,4 @@ else
     sudo sed -i -r "s/^($pattern.*)/#\1/" $file
     echo "Switched to Wayland"
 fi
+

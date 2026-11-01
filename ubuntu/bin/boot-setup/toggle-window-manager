@@ -1,16 +1,12 @@
 #!/bin/bash -ue
 
-file="/var/lib/AccountsService/users/$USER"
-pattern="Session="
-# pattern="XSession="
-declare -a options=(' ' i3)
-# declare -a options=('gnome-xorg' i3)
+file="/etc/lightdm/lightdm.conf"
+pattern="\s*autologin-session="
 
-
-if sudo grep -qr "^$pattern${options[1]}" $file; then
-	sudo sed -i -r "s/^$pattern.*/$pattern${options[0]}/" $file
-    echo "Switched to ${options[0]}"
+if sudo grep -qr "^#$pattern" $file; then
+    sudo sed -i -r "s/^#($pattern.*)/\1/" $file
+    echo "Switched to i3"
 else
-	sudo sed -i -r "s/^$pattern.*/$pattern${options[1]}/" $file
-    echo "Switched to ${options[1]}"
+    sudo sed -i -r "s/^($pattern.*)/#\1/" $file
+    echo "Switched to xfce"
 fi

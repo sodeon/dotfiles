@@ -1,5 +1,8 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/andy/.zsh/completions:"* ]]; then export FPATH="/home/andy/.zsh/completions:$FPATH"; fi
 echo $PATH | grep -q "$HOME/.local/lib/bash" || export PATH=$HOME/.local/lib/bash:$PATH
 echo $PATH | grep -q "$HOME/bin"             || export PATH=$HOME/bin:$PATH
+echo $PATH | grep -q "$HOME/.deno"           || export PATH=$HOME/.deno/bin:$PATH
 export ZSH=~/.oh-my-zsh
 
 # Theme
@@ -165,3 +168,4 @@ export NVM_DIR="$HOME/.nvm"
 clear
 
 return 0
+. "/home/andy/.deno/env"

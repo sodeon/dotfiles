@@ -39,7 +39,7 @@ backup_list=(
     # .config/xbindkeys
     # .config/input-remapper
     .config/i3/{keyboard,mouse,config.hotkeys,gen-config.hotkeys.sh,layouts}
-    .config/mpv/{scripts,shaders}
+    .config/mpv/{scripts,shaders,luts}
     .config/sxiv
     .config/mcomix
     .config/systemd/user

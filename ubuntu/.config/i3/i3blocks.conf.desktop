@@ -78,7 +78,7 @@ separator=false
 [brightness]
 label=☀
 color=#66ff66
-command=i3block-onclick autohotkey brightness toggle; i3block-on-right-click autohotkey brightness game; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
+command=i3block-onclick autohotkey brightness ambient; i3block-on-right-click autohotkey brightness toggle; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 # command=i3block-onclick autohotkey brightness game; i3block-on-right-click monitor gpu; (tail -2 /tmp/brightness || monitor-control b) | head -n 1 # Grab 2nd to last line
 interval=once
 signal=11
