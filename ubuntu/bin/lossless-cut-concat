@@ -1,0 +1,95 @@
+#!/bin/bash -ue
+
+delete_cache=false
+custom_output=""
+
+# Parse optional flags before positional arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -d|--delete-cache)
+            delete_cache=true
+            shift
+            ;;
+        -o|--output)
+            if [[ -z "${2-}" ]]; then
+                echo "Error: -o|--output requires a file path argument." >&2
+                exit 1
+            fi
+            custom_output="$2"
+            shift 2
+            ;;
+        -*)
+            echo "Unknown option: $1" >&2
+            exit 1
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+if [[ $# -lt 2 ]]; then
+    echo "Usage: ${0##*/} [-d|--delete-cache] [-o|--output <output file>] <input file> <start1> [<end1> <start2> <end2> ...]"
+    echo
+    echo "Lossless cut multiple segments (reusing existing cut files) and concatenate them."
+    echo "Default output is 1<input file> if -o is not specified."
+    exit 1
+fi
+
+input_file="$1"
+dir=$(dirname "$input_file")
+base=$(basename "$input_file")
+
+if [[ -n "$custom_output" ]]; then
+    final_output="$custom_output"
+elif [[ "$dir" == "." ]]; then
+    final_output="1${base}"
+else
+    final_output="${dir}/1${base}"
+fi
+
+name="${input_file%.*}"
+ext="${input_file##*.}"
+
+shift
+segments=()
+missing_args=()
+
+# 1. Check each requested segment on disk before calling lossless-cut
+while [[ $# -gt 0 ]]; do
+    start="$1"
+    end="${2-}"
+    
+    if [[ -z "$end" ]]; then
+        seg_file="${name}-${start//:/_}.${ext}"
+        segments+=("$seg_file")
+        if [[ -s "$seg_file" ]]; then
+            echo "Cache hit: '$seg_file' already exists, skipping cut."
+        else
+            missing_args+=("$start")
+        fi
+        shift 1
+    else
+        seg_file="${name}-${start//:/_}-${end//:/_}.${ext}"
+        segments+=("$seg_file")
+        if [[ -s "$seg_file" ]]; then
+            echo "Cache hit: '$seg_file' already exists, skipping cut."
+        else
+            missing_args+=("$start" "$end")
+        fi
+        shift 2
+    fi
+done
+
+# 2. Only call lossless-cut for segments that do not exist yet
+if [[ ${#missing_args[@]} -gt 0 ]]; then
+    lossless-cut "$input_file" "${missing_args[@]}"
+fi
+
+# 3. Concatenate all segments in order
+lossless-concat "$final_output" "${segments[@]}"
+
+# 4. Optional cache cleanup
+if [[ "$delete_cache" == true ]]; then
+    rm -f "${segments[@]}"
+fi

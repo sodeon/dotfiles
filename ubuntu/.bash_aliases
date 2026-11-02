@@ -102,6 +102,8 @@ ytdls() {
 # Upgrade ytdl: pipx upgrade yt-dlp
 alias lc="lossless-cut"
 alias llc="lossless-concat"
+alias lcc="lossless-cut-concat"
+alias jr="jav_rename.sh"
 
 alias rsync.="rsync -a --info=progress2"
 alias rsync-win="rsync -rlu --info=progress2"

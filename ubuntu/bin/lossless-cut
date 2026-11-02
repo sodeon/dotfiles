@@ -1,26 +1,61 @@
 #!/bin/bash -ue
 
-if [[ $# -eq 0 ]] || [[ $# -eq 1 ]]; then
-    echo "Usage: ${0##*/} <file name> <start time> [<end time>]"
+if [[ $# -lt 2 ]]; then
+    echo "Usage: ${0##*/} <file name> <start1> [<end1> <start2> <end2> ...]"
     echo
-    echo "Lossless cut video using ffmpeg"
+    echo "Lossless cut video into multiple segments using ffmpeg"
+    echo "If the last start time has no end time, it cuts to the end of the file."
+    echo "Time format: H[H]:M[M]:S[S]"
     echo
-    echo 'If no end time is given, ffmpeg will cut from start time to end of file'
-    echo 'Time format: H[H]:M[M]:S[S]'
-    echo
-    echo 'Example:'
-    echo "  ${0##*/} somevideo.mp4 0:1:30 0:6:4"
-    echo "  ${0##*/} somevideo.mp4 0:1:30"
+    echo "Example:"
+    echo "  ${0##*/} somevideo.mp4 0:1:30 0:6:4 0:10:00 0:12:30"
+    echo "  ${0##*/} somevideo.mp4 0:1:30 0:6:4 0:15:00"
     exit 1
 fi
 
-name=${1%.*}
-ext=${1##*.}
-[[ -z ${3-} ]] && suffix="" || suffix="-${3//:/_}"
-output_file="$name-${2//:/_}$suffix.$ext"
+input_file="$1"
+name="${input_file%.*}"
+ext="${input_file##*.}"
+shift
 
-if [[ $# -eq 2 ]]; then
-    ffmpeg -i "$1" -ss "$2"          -vcodec copy -acodec copy "$output_file"
-else
-    ffmpeg -i "$1" -ss "$2" -to "$3" -vcodec copy -acodec copy "$output_file"
-fi
+while [[ $# -gt 0 ]]; do
+    start="$1"
+    end="${2-}"
+
+    if [[ -z "$end" ]]; then
+        output_file="${name}-${start//:/_}.${ext}"
+        ffmpeg -i "$input_file" -ss "$start" -vcodec copy -acodec copy "$output_file"
+        shift 1
+    else
+        output_file="${name}-${start//:/_}-${end//:/_}.${ext}"
+        ffmpeg -i "$input_file" -ss "$start" -to "$end" -vcodec copy -acodec copy "$output_file"
+        shift 2
+    fi
+done
+
+
+# if [[ $# -eq 0 ]] || [[ $# -eq 1 ]]; then
+#     echo "Usage: ${0##*/} <file name> <start time> [<end time>]"
+#     echo
+#     echo "Lossless cut video using ffmpeg"
+#     echo
+#     echo 'If no end time is given, ffmpeg will cut from start time to end of file'
+#     echo 'Time format: H[H]:M[M]:S[S]'
+#     echo
+#     echo 'Example:'
+#     echo "  ${0##*/} somevideo.mp4 0:1:30 0:6:4"
+#     echo "  ${0##*/} somevideo.mp4 0:1:30"
+#     exit 1
+# fi
+
+# name=${1%.*}
+# ext=${1##*.}
+# [[ -z ${3-} ]] && suffix="" || suffix="-${3//:/_}"
+# output_file="$name-${2//:/_}$suffix.$ext"
+
+# if [[ $# -eq 2 ]]; then
+#     ffmpeg -i "$1" -ss "$2"          -vcodec copy -acodec copy "$output_file"
+# else
+#     ffmpeg -i "$1" -ss "$2" -to "$3" -vcodec copy -acodec copy "$output_file"
+# fi
+
