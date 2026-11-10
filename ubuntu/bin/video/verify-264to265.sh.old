@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $0 <original_file.mp4> [file2.mp4 | *.mp4 ...]"
+    exit 1
+fi
+
+run_ssim_psnr() {
+    local enc="$1"
+    local orig="$2"
+    local pre_ts="$3"
+    local ts="$4"
+    local end_ts="$5"
+    local r_fps="$6"
+    local shift_enc="${7:-0}"
+    local shift_orig="${8:-0}"
+
+    ffmpeg -nostdin -hide_banner -copyts \
+        -threads 2 -hwaccel cuda -ss "$pre_ts" -i "$enc" \
+        -threads 2 -hwaccel cuda -ss "$pre_ts" -i "$orig" \
+        -lavfi "[0:v]fps=${r_fps},trim=start=${ts}:end=${end_ts},setpts=PTS-STARTPTS,trim=start_frame=${shift_enc},setpts=PTS-STARTPTS,format=yuv420p10le,split=2[dist1][dist2]; \
+                [1:v]fps=${r_fps},trim=start=${ts}:end=${end_ts},setpts=PTS-STARTPTS,trim=start_frame=${shift_orig},setpts=PTS-STARTPTS,format=yuv420p10le,split=2[ref1][ref2]; \
+                [dist1][ref1]ssim; \
+                [dist2][ref2]psnr" \
+        -f null - 2>&1 || true
+}
+
+verify_file() {
+    local orig="$1"
+
+    if [ ! -f "$orig" ] || [[ "$orig" == *.hevc.mp4 ]]; then
+        return
+    fi
+
+    local dir base enc
+    dir=$(dirname "$orig")
+    base=$(basename "$orig")
+    enc="${dir}/hevc_out/${base%.*}.hevc.mp4"
+
+    if [ ! -f "$enc" ]; then
+        echo "Skipping '$orig': Converted file not found at '$enc'"
+        return
+    fi
+
+    local probe_info width r_fps duration_float duration
+    probe_info=$(ffprobe -v error -select_streams v:0 \
+        -show_entries stream=width,r_frame_rate -show_entries format=duration \
+        -of csv=p=0 "$orig" | tr '\n' ',' | tr -d '\r')
+    IFS=',' read -r width r_fps duration_float _ <<< "$probe_info"
+    duration=${duration_float%.*}
+
+    if [[ ! "$duration" =~ ^[0-9]+$ ]] || [ "$duration" -lt 60 ]; then
+        duration=300
+    fi
+    [ -z "$r_fps" ] && r_fps="60000/1001"
+
+    local orig_bytes enc_bytes orig_mb enc_mb savings
+    orig_bytes=$(stat -c%s "$orig")
+    enc_bytes=$(stat -c%s "$enc")
+    orig_mb=$(awk "BEGIN {printf \"%.1f\", $orig_bytes / 1048576}")
+    enc_mb=$(awk "BEGIN {printf \"%.1f\", $enc_bytes / 1048576}")
+    savings=$(awk "BEGIN {printf \"%.1f\", (1 - $enc_bytes / $orig_bytes) * 100}")
+
+    echo "============================================================"
+    echo "Original  : $orig (${orig_mb} MiB)"
+    echo "Converted : $enc (${enc_mb} MiB | -${savings}%)"
+    echo "Resolution: ${width}p @ ${r_fps} fps | Duration: ${duration}s"
+    echo "------------------------------------------------------------"
+
+    local t1=$(( duration * 20 / 100 ))
+    local t2=$(( duration * 50 / 100 ))
+    local t3=$(( duration * 80 / 100 ))
+
+    for ts in "$t1" "$t2" "$t3"; do
+        local pre_ts=$(( ts > 15 ? ts - 15 : 0 ))
+        local end_ts=$(( ts + 10 ))
+
+        local h=$(( ts / 3600 ))
+        local m=$(( (ts % 3600) / 60 ))
+        local s=$(( ts % 60 ))
+        local time_str
+        time_str=$(printf "%02d:%02d:%02d" "$h" "$m" "$s")
+
+        local metric_out ssim_line ssim_val ssim_db psnr_avg psnr_int note=""
+        metric_out=$(run_ssim_psnr "$enc" "$orig" "$pre_ts" "$ts" "$end_ts" "$r_fps" 0 0)
+
+        ssim_line=$(grep "SSIM" <<< "$metric_out" | tail -n 1)
+        ssim_val=$(grep -oP "All:\K[0-9.]+" <<< "$ssim_line" || true)
+        ssim_db=$(grep -oP "All:[0-9.]+ \(\K[0-9.]+" <<< "$ssim_line" || true)
+        psnr_avg=$(grep -oP "PSNR .* average:\K[0-9.]+" <<< "$metric_out" | tail -n 1 || true)
+        psnr_int=${psnr_avg%.*}
+
+        # If PSNR < 40 dB, automatically test +1 / -1 / +2 / -2 frame alignment to cure VFR seek drift
+        if [[ "${psnr_int:-0}" =~ ^[0-9]+$ ]] && [ "$psnr_int" -lt 40 ]; then
+            for offset_pair in "1:0" "0:1" "2:0" "0:2"; do
+                local se=${offset_pair%:*}
+                local so=${offset_pair#*:}
+                local retry_out retry_psnr retry_int
+                retry_out=$(run_ssim_psnr "$enc" "$orig" "$pre_ts" "$ts" "$end_ts" "$r_fps" "$se" "$so")
+                retry_psnr=$(grep -oP "PSNR .* average:\K[0-9.]+" <<< "$retry_out" | tail -n 1 || true)
+                retry_int=${retry_psnr%.*}
+
+                if [[ "${retry_int:-0}" =~ ^[0-9]+$ ]] && [ "$retry_int" -gt "$psnr_int" ]; then
+                    psnr_int="$retry_int"
+                    psnr_avg="$retry_psnr"
+                    ssim_line=$(grep "SSIM" <<< "$retry_out" | tail -n 1)
+                    ssim_val=$(grep -oP "All:\K[0-9.]+" <<< "$ssim_line" || true)
+                    ssim_db=$(grep -oP "All:[0-9.]+ \(\K[0-9.]+" <<< "$ssim_line" || true)
+                    note=" [Aligned +${se}/-${so} frame]"
+                    [ "$psnr_int" -ge 40 ] && break
+                fi
+            done
+        fi
+
+        echo "Sample @ ${time_str} (10s) -> SSIM: ${ssim_val:-N/A} (${ssim_db:-N/A} dB) | PSNR: ${psnr_avg:-N/A} dB${note}"
+    done
+    echo "============================================================"
+}
+
+for arg in "$@"; do
+    verify_file "$arg"
+done
