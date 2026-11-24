@@ -23,7 +23,7 @@ brightness_step=5
 contrast_step=5
 
 reading_brightness=0
-reading_contrast=35
+reading_contrast=30
 color_temperature_reading=5 # 6500K
 
 video_brightness=0

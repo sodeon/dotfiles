@@ -141,6 +141,7 @@ blend-subtitles=no
 glsl-shaders-clr
 glsl-shader="~~/shaders/FSRCNNX_x2_16-0-4-1.glsl"
 glsl-shader="~~/shaders/KrigBilateral.glsl"
+# glsl-shader="~~/shaders/adaptive-sharpen.glsl"
 # profile-cond=(width <= 3840 and container_fps <= 30) or (width <= 1280)
 
 # [shader-60fps]
